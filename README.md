@@ -12,7 +12,7 @@ This demo represents a settings menu you can find on your smartphone. The main p
 - progress bar, 
 - horizontal/vertical lists.
 
-This demo includes MicroEJ launchers configuration for the following Java platform:
+This demo includes MicroEJ launchers configuration for the following Java platforms:
 - simulator
 - ST STM32F429I-EVAL
 - ST STM32429I-DISCO

@@ -13,13 +13,13 @@ This demo represents a settings menu you can find on your smartphone. The main p
 - horizontal/vertical lists.
 
 This demo includes MicroEJ launchers configuration for the following Java platforms:
-- simulator
+- MicroEJ simulator
 - ST STM32F429I-EVAL
 - ST STM32429I-DISCO
 
 Each launcher can be configured in Run -> Run configuration... -> MicroEJ Application -> Widgets XXXX -> JRE: set VM arguments to the specific options values.
-- `-Dmicroej.java.property.com.is2t.demo.NoLayer=SET` to deactivate the layers in the transitions between pages.
-- `-Dmicroej.java.property.com.is2t.demo.NoAnimation=SET` to deactivate the transitions between pages.
+- `-Dmicroej.java.property.com.is2t.demo.NoLayer=SET` to deactivate the MicroUI layers in the transitions between pages.
+- `-Dmicroej.java.property.com.is2t.demo.NoAnimation=SET` to deactivate the transition animations between pages.
 By default, layers and transitions are enabled.
 
 # Project Setup

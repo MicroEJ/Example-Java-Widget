@@ -6,40 +6,24 @@
 	<classpathentry kind="var" path="BON-1.2"/>
 	<classpathentry kind="var" path="MICROUI-1.5.0"/>
 	<classpathentry kind="var" path="MWT-1.0"/>
-	<classpathentry kind="var" path="MICROUI-LAYERS-2.0.0"/>
 	<classpathentry kind="lib" path="lib/com.is2t.demo.utilities.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/com.is2t.demo.widgets/lib/com.is2t.demo.utilities-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/com.is2t.layers.jar">
-		<attributes>
-			<attribute name="javadoc_location"
-				value="jar:platform:/resource/com.is2t.demo.widgets/lib/com.is2t.layers-javadoc.jar!/" />
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/com.is2t.transition.jar">
-		<attributes>
-			<attribute name="javadoc_location"
-				value="jar:platform:/resource/com.is2t.demo.widgets/lib/com.is2t.transition-javadoc.jar!/" />
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="lib/launcher.jar">
 		<attributes>
-			<attribute name="javadoc_location"
-				value="jar:platform:/resource/com.is2t.demo.widgets/lib/launcher-javadoc.jar!/" />
+			<attribute name="javadoc_location" value="jar:platform:/resource/com.is2t.demo.widgets/lib/launcher-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/showroomcommon.jar">
 		<attributes>
-			<attribute name="javadoc_location"
-				value="jar:platform:/resource/com.is2t.demo.widgets/lib/showroomcommon-javadoc.jar!/" />
+			<attribute name="javadoc_location" value="jar:platform:/resource/com.is2t.demo.widgets/lib/showroomcommon-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/widgets.jar">
 		<attributes>
-			<attribute name="javadoc_location"
-				value="jar:platform:/resource/com.is2t.demo.widgets/lib/widgets-javadoc.jar!/" />
+			<attribute name="javadoc_location" value="jar:platform:/resource/com.is2t.demo.widgets/lib/widgets-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/ej.components-2.0-api-2.1.1-RC201503300415.jar"/>

@@ -6,9 +6,6 @@
  */
 package com.is2t.demo.widgets.page;
 
-import com.is2t.transition.HorizontalTransitionManager;
-import com.is2t.transition.MWTFlowManagerImpl;
-
 import ej.flow.mwt.MWTFlowManager;
 import ej.flow.mwt.TransitionManager;
 import ej.motion.MotionManager;
@@ -21,14 +18,13 @@ public class TransitionsHelper {
 	private static final int DURATION = 800;
 	private static final int PERIOD = 50;
 	private static final boolean ANIMATIONS_DISABLED = System.getProperty("com.is2t.demo.NoAnimation") != null;
-	private static final boolean LAYERS_DISABLED = System.getProperty("com.is2t.demo.NoLayer") != null;
 
 	private static TransitionManager HORIZONTAL_MANAGER;
 	private static MWTFlowManager<AppPage, WidgetsPage> MWTFLOWMANAGER;
 
 	private TransitionsHelper() {
 	}
-	
+
 	public static void initialize() {
 		MotionManager motionManager = null;
 
@@ -37,26 +33,21 @@ public class TransitionsHelper {
 		} else {
 			motionManager = new NoMotionManager();
 		}
-		
-		if (LAYERS_DISABLED) {
-			HORIZONTAL_MANAGER = new ej.flow.mwt.translation.HorizontalTransitionManager();
-			MWTFLOWMANAGER = new ej.flow.mwt.impl.MWTFlowManagerImpl<>();
-		} else {
-			HORIZONTAL_MANAGER = new HorizontalTransitionManager();
-			MWTFLOWMANAGER = new MWTFlowManagerImpl<>();
-		}
-		
+
+		HORIZONTAL_MANAGER = new ej.flow.mwt.translation.HorizontalTransitionManager();
+		MWTFLOWMANAGER = new ej.flow.mwt.impl.MWTFlowManagerImpl<>();
+
 		HORIZONTAL_MANAGER.setMotionManager(motionManager);
 		HORIZONTAL_MANAGER.setDuration(DURATION);
 		HORIZONTAL_MANAGER.setPeriod(PERIOD);
 		MWTFLOWMANAGER.setTransitionManager(HORIZONTAL_MANAGER);
 	}
-	
+
 	public static MWTFlowManager<AppPage, WidgetsPage> getMWTFlowManager() {
 		return MWTFLOWMANAGER;
 	}
-	
-	public static void clear(){
+
+	public static void clear() {
 		MWTFLOWMANAGER = null;
 		HORIZONTAL_MANAGER = null;
 	}
@@ -70,7 +61,7 @@ public class TransitionsHelper {
 	public static void back() {
 		MWTFLOWMANAGER.back();
 	}
-	
+
 	public static void backUntil(AppPage page) {
 		MWTFLOWMANAGER.backUntil(page);
 	}

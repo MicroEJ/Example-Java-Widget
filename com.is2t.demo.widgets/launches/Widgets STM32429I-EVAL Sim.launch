@@ -6,7 +6,7 @@
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationExecutionKind" value="s3"/>
 <listAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationImmutables"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.ext.widget.BrowseOption_CENDsp.database.definition" value=""/>
-<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.microui.fontConverter.file" value="${project_loc:com.is2t.demo.widgets}/src/resources/com/is2t/demo/widgets/widgets.fonts.list"/>
+<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.microui.fontConverter.file" value="${project_loc:Widgets}/src/resources/com/is2t/demo/widgets/widgets.fonts.list"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.microui.imageConverter.file" value=""/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.nls.list" value=""/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.storyboard.list" value=""/>
@@ -107,7 +107,7 @@
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.TextFieldOption_CENDsp.server.port" value="10082"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationMainClass" value="com.is2t.demo.widgets.Widgets"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationMicroJVM" value="MICROJVM"/>
-<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationOutputDir" value="${workspace_loc}/com.is2t.demo.widgets"/>
+<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationOutputDir" value="${project_loc:Widgets}"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationPlatformArchitecture" value="CM4"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationPlatformBaseline" value="14"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationPlatformEdition" value="STD"/>
@@ -117,13 +117,13 @@
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationPlatformName" value="KickStart"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationPlatformProvider" value="IS2T"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationPlatformToolchain" value="CM4_ARMCC"/>
-<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationPlatformVersion" value="1.2.2"/>
-<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationProject" value="com.is2t.demo.widgets"/>
+<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationPlatformVersion" value="1.2.5"/>
+<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationProject" value="Widgets"/>
 <listAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationRequiredTypes"/>
 <listAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationResources"/>
 <booleanAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationVerbose" value="false"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/com.is2t.demo.widgets/src/java/com/is2t/demo/widgets/Widgets.java"/>
+<listEntry value="/Widgets/src/java/com/is2t/demo/widgets/Widgets.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
@@ -131,5 +131,5 @@
 <booleanAttribute key="org.eclipse.jdt.launching.ALLOW_TERMINATE" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.is2t.demo.widgets.Widgets"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.is2t.demo.widgets"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Widgets"/>
 </launchConfiguration>

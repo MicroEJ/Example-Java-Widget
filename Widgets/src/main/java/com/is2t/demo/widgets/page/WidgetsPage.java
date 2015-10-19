@@ -6,28 +6,29 @@
  */
 package com.is2t.demo.widgets.page;
 
-import com.is2t.demo.widgets.widget.BorderCompositeWithBackground;
-import com.is2t.demo.widgets.widget.theme.Pictos;
+import com.is2t.demo.widgets.style.ClassSelector;
+import com.is2t.demo.widgets.style.Pictos;
 
-import ej.components.dependencyinjection.ServiceLoaderFactory;
-import ej.flow.Page;
-import ej.flow.PageType;
-import ej.flow.mwt.MWTFlowManager;
-import ej.flow.mwt.MWTPage;
+import ej.composite.BorderComposite;
+import ej.microui.display.Colors;
+import ej.microui.display.GraphicsContext;
 import ej.mwt.MWT;
 import ej.mwt.Widget;
-import ej.widgets.composites.BorderComposite;
-import ej.widgets.util.ListenerAdapter;
-import ej.widgets.widgets.LookExtension;
-import ej.widgets.widgets.Picto;
-import ej.widgets.widgets.Picto.PictoSize;
-import ej.widgets.widgets.button.PictoButton;
-import ej.widgets.widgets.label.LeftIconLabel;
+import ej.widget.Button;
+import ej.widget.Label;
+import ej.widget.Picto;
+import ej.widget.listener.OnClickListener;
 
 /**
  * Page skeleton of the application.
  */
-public abstract class WidgetsPage implements Page<WidgetsPage>, MWTPage, PageType<WidgetsPage> {
+public abstract class WidgetsPage extends BorderComposite {
+
+	public WidgetsPage() {
+		setHorizontal(false);
+		add(createTopBar(), MWT.NORTH);
+		add(createMainContent(), MWT.CENTER);
+	}
 
 	/**
 	 * Creates the widget representing the top bar of the page.
@@ -35,28 +36,35 @@ public abstract class WidgetsPage implements Page<WidgetsPage>, MWTPage, PageTyp
 	 * @return the top bar widget.
 	 */
 	protected Widget createTopBar() {
-		BorderComposite topBarLayout = new BorderComposite();
+		// Add the title of the page.
+		BorderComposite title = new BorderComposite();
+		Picto titleIcon = new Picto(getPictoTitle());
+		titleIcon.addClassSelector(ClassSelector.MEDIUM_ICON);
+		title.add(titleIcon, MWT.WEST);
+		Label titleLabel = new Label(getTitle());
+		title.add(titleLabel, MWT.CENTER);
 
 		// Add a back button if necessary.
 		if (canGoBack()) {
-			PictoButton backButton = new PictoButton(new Picto(Pictos.BACK, PictoSize.Medium));
-			backButton.setUnderlined(true);
-			backButton.setListener(new ListenerAdapter() {
+			BorderComposite topBar = new BorderComposite();
+			topBar.add(title, MWT.CENTER);
+
+			Picto backIcon = new Picto(Pictos.BACK);
+			backIcon.addClassSelector(ClassSelector.MEDIUM_ICON);
+			Button backButton = new Button();
+			backButton.setWidget(backIcon);
+			backButton.addOnClickListener(new OnClickListener() {
+
 				@Override
-				public void performAction(int value, Object object) {
-					getFlowManager().back();
+				public void onClick() {
+					goTo(new MainPage());
 				}
 			});
-			topBarLayout.addAt(backButton, MWT.WEST);
+			topBar.add(backButton, MWT.WEST);
+			return topBar;
+		} else {
+			return title;
 		}
-
-		// Add the title of the page.
-		LeftIconLabel titleLabel = new LeftIconLabel(getTitle(), new Picto(getPictoTitle(), PictoSize.Medium));
-		titleLabel.setUnderlined(true);
-		titleLabel.setFontSize(LookExtension.GET_BIG_FONT_INDEX);
-		topBarLayout.addAt(titleLabel, MWT.CENTER);
-
-		return topBarLayout;
 	}
 
 	/**
@@ -87,42 +95,21 @@ public abstract class WidgetsPage implements Page<WidgetsPage>, MWTPage, PageTyp
 	 */
 	protected abstract Widget createMainContent();
 
-	@Override
-	public Widget getWidget() {
-		BorderComposite layout = new BorderCompositeWithBackground();
-		layout.addAt(createTopBar(), MWT.NORTH);
-		layout.addAt(createMainContent(), MWT.CENTER);
-		return layout;
-	}
-
-	@Override
 	public void showNotify() {
 		// Nothing to do.
 	}
 
-	@Override
 	public void hideNotify() {
 		// Nothing to do.
 	}
 
 	@Override
-	public WidgetsPage createPage() {
-		return this;
+	public void render(GraphicsContext g) {
+		g.setColor(Colors.WHITE);
+		g.fillRect(0, 0, getWidth(), getHeight());
 	}
 
-	@Override
-	public WidgetsPage getType() {
-		return this;
-	}
-
-	/**
-	 * Gets the application flow manager used to navigate between pages.
-	 * 
-	 * @return the application flow manager used to navigate between pages.
-	 */
-	protected MWTFlowManager<WidgetsPage, WidgetsPage> getFlowManager() {
-		MWTFlowManager<WidgetsPage, WidgetsPage> mwtFlowManager = ServiceLoaderFactory.getServiceLoader().getService(
-				MWTFlowManager.class);
-		return mwtFlowManager;
+	protected void goTo(WidgetsPage page) {
+		getPanel().setWidget(page);
 	}
 }

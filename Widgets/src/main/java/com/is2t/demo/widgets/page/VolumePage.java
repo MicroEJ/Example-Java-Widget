@@ -9,12 +9,15 @@ package com.is2t.demo.widgets.page;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.is2t.demo.widgets.widget.LinedScale;
-import com.is2t.demo.widgets.widget.SplitComposite;
-import com.is2t.demo.widgets.widget.theme.Pictos;
+import com.is2t.demo.widgets.style.Pictos;
 
+import ej.composite.BorderComposite;
+import ej.composite.SplitComposite;
+import ej.mwt.MWT;
 import ej.mwt.Widget;
-import ej.widgets.widgets.label.LeftIconLabel;
+import ej.widget.Label;
+import ej.widget.Picto;
+import ej.widget.Slider;
 
 /**
  * Page illustrating the scale widget.
@@ -44,15 +47,29 @@ public class VolumePage extends ListSettingsPage {
 
 	@Override
 	protected List<Widget> getListElements() {
-		List<Widget> widgets = new ArrayList<Widget>();
-
-		widgets.add(createItemWithScale("Game", Pictos.GAME, true, INTIAL_GAME_VOLUME));
-		widgets.add(createItemWithScale("Alarm", Pictos.ALARM, true, INITIAL_ALARM_VOLUME));
-		widgets.add(createItemWithScale("Ring", Pictos.SECURITY, true, INITIAL_RING_VOLUME));
-
-		return widgets;
+		List<Widget> elements = new ArrayList<>();
+		elements.add(createVolumeItem("Game", Pictos.GAME, INTIAL_GAME_VOLUME));
+		elements.add(createVolumeItem("Alarm", Pictos.ALARM, INITIAL_ALARM_VOLUME));
+		elements.add(createVolumeItem("Ring", Pictos.SECURITY, INITIAL_RING_VOLUME));
+		return elements;
 	}
 
+	private static Widget createVolumeItem(String name, char picto, int initialVolume) {
+		SplitComposite splitComposite = new SplitComposite();
+		splitComposite.setHorizontal(true);
+		splitComposite.setRatio(ITEM_WITH_SCALE_RATIO);
+
+		Picto icon = new Picto(picto);
+		Label volumeLabel = new Label(name);
+		BorderComposite label = new BorderComposite();
+		label.add(icon, MWT.WEST);
+		label.add(volumeLabel, MWT.CENTER);
+		splitComposite.add(label);
+
+		Slider volume = new Slider(0, MAX_VOLUME, initialVolume);
+		splitComposite.add(volume);
+		return splitComposite;
+	}
 	/**
 	 * Allows to create a scale widget with a text.
 	 * 
@@ -66,19 +83,19 @@ public class VolumePage extends ListSettingsPage {
 	 *            the initial value of the scale.
 	 * @return the created item.
 	 */
-	private static Widget createItemWithScale(String text, char picto, boolean overlined, int initial) {
-		SplitComposite layout = new SplitComposite();
-		layout.setHorizontal(true);
-		layout.setRatio(ITEM_WITH_SCALE_RATIO);
-
-		LeftIconLabel item = createItem(text, picto, overlined);
-		layout.add(item);
-
-		LinedScale scale = new LinedScale(0, MAX_VOLUME);
-		scale.setValue(initial);
-		scale.setOverlined(overlined);
-		layout.add(scale);
-
-		return layout;
-	}
+	// private static Widget createItemWithScale(String text, char picto, boolean overlined, int initial) {
+	// SplitComposite layout = new SplitComposite();
+	// layout.setHorizontal(true);
+	// layout.setRatio(ITEM_WITH_SCALE_RATIO);
+	//
+	// LeftIconLabel item = createItem(text, picto, overlined);
+	// layout.add(item);
+	//
+	// LinedScale scale = new LinedScale(0, MAX_VOLUME);
+	// scale.setValue(initial);
+	// scale.setOverlined(overlined);
+	// layout.add(scale);
+	//
+	// return layout;
+	// }
 }

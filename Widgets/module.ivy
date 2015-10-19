@@ -15,9 +15,8 @@
 	</configurations>
 	
 	<dependencies>
-		<dependency org="ej.library.runtime" name="components" rev="[3.0.0-RC0,4.0.0-RC0["/>
-		<dependency org="com.is2t.libraries" name="ej.flow.mwt-api" rev="[3.0.0-RC0,4.0.0-RC0["/>
+		<!--<dependency org="ej.library.runtime" name="components" rev="[3.0.0-RC0,4.0.0-RC0["/>
 		<dependency org="ej.library.ui" name="widgets" rev="[1.0.0-RC0,2.0.0-RC0["/>
-		<dependency org="ej.library.ui" name="automaton" rev="[1.0.0-RC0,2.0.0-RC0["/>
+		<dependency org="ej.library.ui" name="automaton" rev="[1.0.0-RC0,2.0.0-RC0["/> -->
 	</dependencies>
 </ivy-module>

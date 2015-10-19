@@ -7,36 +7,23 @@
 package com.is2t.demo.widgets;
 
 import com.is2t.demo.widgets.page.MainPage;
-import com.is2t.demo.widgets.page.WidgetsPage;
-import com.is2t.demo.widgets.widget.theme.WidgetsTheme;
+import com.is2t.demo.widgets.style.ClassSelector;
+import com.is2t.demo.widgets.style.FontFamily;
 
-import ej.bon.Timer;
 import ej.components.dependencyinjection.ServiceLoaderFactory;
-import ej.flow.mwt.MWTFlowManager;
-import ej.flow.mwt.TransitionDesktop;
-import ej.flow.mwt.TransitionManager;
-import ej.flow.mwt.translation.HorizontalTransitionManager;
-import ej.flow.stacked.StackedFlowManager;
-import ej.flow.stacked.cached.CachedStackManager;
 import ej.microui.MicroUI;
-import ej.motion.ease.EaseMotionManager;
-import ej.mwt.MWT;
+import ej.mwt.Desktop;
+import ej.mwt.Panel;
+import ej.style.Stylesheet;
+import ej.style.font.FontProfile;
+import ej.style.font.FontProfile.FontSize;
+import ej.style.util.SimpleStyle;
 
 /**
- * This demo represents a settings menu you can find on your smartphone. The main page show all available settings, each
- * one leading to a page illustrating a different widget.
+ * This demo represents a settings menu you can find on your smartphone. The main page shows all available settings,
+ * each one leading to a page illustrating a different widget.
  */
 public class Widgets {
-
-	/**
-	 * Transition duration.
-	 */
-	private static final int DURATION = 800;
-
-	/**
-	 * Time between two steps in a transition.
-	 */
-	private static final int PERIOD = 50;
 
 	// Prevents initialization.
 	private Widgets() {
@@ -49,32 +36,33 @@ public class Widgets {
 	 *            useless.
 	 */
 	public static void main(String[] args) {
-		MicroUI.errorLog(true);
-		MWT.RenderingContext.add(new WidgetsTheme());
-		MWTFlowManager<WidgetsPage, WidgetsPage> mwtFlowManager = ServiceLoaderFactory.getServiceLoader().getService(
-				MWTFlowManager.class);
-		initializeMWTFlowManager(mwtFlowManager);
-		mwtFlowManager.goTo(new MainPage());
-	}
+		MicroUI.start();
+		createStylesheet();
+		Desktop desktop = new Desktop();
+		Panel panel = new Panel();
 
-	private static void initializeMWTFlowManager(MWTFlowManager mwtFlowManager) {
-		StackedFlowManager<WidgetsPage, WidgetsPage> stackedFlowManager = new StackedFlowManager<>();
-		stackedFlowManager.setStackManager(new CachedStackManager<WidgetsPage, WidgetsPage>());
-		mwtFlowManager.setFlowManager(stackedFlowManager);
-		TransitionDesktop desktop = new TransitionDesktop();
-		mwtFlowManager.setDesktop(desktop);
-		mwtFlowManager.setTransitionListener(desktop);
-		Timer timer = ServiceLoaderFactory.getServiceLoader().getService(Timer.class);
-		mwtFlowManager.setTimer(timer);
-		mwtFlowManager.setTransitionManager(newTransitionManager());
+		panel.setWidget(new MainPage());
+		// panel.setWidget(new VolumePage());
+		// panel.setWidget(new ProfilePage());
+		panel.show(desktop, true);
 		desktop.show();
 	}
 
-	private static TransitionManager newTransitionManager() {
-		TransitionManager transitionManager = new HorizontalTransitionManager();
-		transitionManager.setMotionManager(new EaseMotionManager());
-		transitionManager.setDuration(DURATION);
-		transitionManager.setPeriod(PERIOD);
-		return transitionManager;
+	private static void createStylesheet() {
+		Stylesheet stylesheet = ServiceLoaderFactory.getServiceLoader().getService(Stylesheet.class);
+
+		SimpleStyle mediumPictoStyle = new SimpleStyle();
+		FontProfile mediumPictoFontProfile = new FontProfile();
+		mediumPictoFontProfile.setFamily(FontFamily.PICTO);
+		mediumPictoFontProfile.setSize(FontSize.MEDIUM);
+		mediumPictoStyle.setFontProfile(mediumPictoFontProfile);
+		stylesheet.setStyle(ClassSelector.MEDIUM_ICON, mediumPictoStyle);
+
+		SimpleStyle smallPictoStyle = new SimpleStyle();
+		FontProfile smallPictoFontProfile = new FontProfile();
+		smallPictoFontProfile.setFamily(FontFamily.PICTO);
+		smallPictoFontProfile.setSize(FontSize.SMALL);
+		smallPictoStyle.setFontProfile(smallPictoFontProfile);
+		stylesheet.setStyle(ClassSelector.SMALL_ICON, smallPictoStyle);
 	}
 }

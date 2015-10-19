@@ -10,14 +10,14 @@ package com.is2t.demo.widgets.automaton;
 import com.is2t.demo.widgets.page.AboutPage;
 import com.is2t.demo.widgets.page.BatteryProfilePage;
 import com.is2t.demo.widgets.page.DateTimePage;
+import com.is2t.demo.widgets.page.MainPage;
 import com.is2t.demo.widgets.page.ProfilePage;
 import com.is2t.demo.widgets.page.SecurityPage;
 import com.is2t.demo.widgets.page.VolumePage;
-import com.is2t.demo.widgets.page.WidgetsPage;
+import com.is2t.demo.widgets.transition.TransitionManager;
 
 import ej.automaton.Automaton;
 import ej.components.dependencyinjection.ServiceLoaderFactory;
-import ej.flow.mwt.MWTFlowManager;
 
 /**
  * Automaton for the application.
@@ -30,40 +30,40 @@ public class WidgetsAutomaton implements Automaton {
 	public void run() {
 		switch (this.step) {
 		case 0:
-			getFlowManager().goTo(new AboutPage());
+			getTransitionManager().goTo(new AboutPage());
 			break;
 		case 1:
-			getFlowManager().back();
+			getTransitionManager().goTo(new MainPage());
 			break;
 		case 2:
-			getFlowManager().goTo(new DateTimePage());
+			getTransitionManager().goTo(new DateTimePage());
 			break;
 		case 3:
-			getFlowManager().back();
+			getTransitionManager().goTo(new MainPage());
 			break;
 		case 4:
-			getFlowManager().goTo(new VolumePage());
+			getTransitionManager().goTo(new VolumePage());
 			break;
 		case 5:
-			getFlowManager().back();
+			getTransitionManager().goTo(new MainPage());
 			break;
 		case 6:
-			getFlowManager().goTo(new ProfilePage());
+			getTransitionManager().goTo(new ProfilePage());
 			break;
 		case 7:
-			getFlowManager().back();
+			getTransitionManager().goTo(new MainPage());
 			break;
 		case 8:
-			getFlowManager().goTo(new SecurityPage());
+			getTransitionManager().goTo(new SecurityPage());
 			break;
 		case 9:
-			getFlowManager().back();
+			getTransitionManager().goTo(new MainPage());
 			break;
 		case 10:
-			getFlowManager().goTo(new BatteryProfilePage());
+			getTransitionManager().goTo(new BatteryProfilePage());
 			break;
 		case 11:
-			getFlowManager().back();
+			getTransitionManager().goTo(new MainPage());
 			break;
 
 		default:
@@ -74,10 +74,8 @@ public class WidgetsAutomaton implements Automaton {
 		this.step++;
 	}
 
-	private MWTFlowManager<WidgetsPage, WidgetsPage> getFlowManager() {
-		MWTFlowManager<WidgetsPage, WidgetsPage> mwtFlowManager = ServiceLoaderFactory.getServiceLoader().getService(
-				MWTFlowManager.class);
-		return mwtFlowManager;
+	protected TransitionManager getTransitionManager() {
+		return ServiceLoaderFactory.getServiceLoader().getService(TransitionManager.class);
 	}
 
 	@Override

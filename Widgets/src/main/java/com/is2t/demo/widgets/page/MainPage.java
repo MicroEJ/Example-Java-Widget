@@ -9,20 +9,17 @@ package com.is2t.demo.widgets.page;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.is2t.demo.widgets.widget.LeftIconLabelButton;
-import com.is2t.demo.widgets.widget.LinedToggleButton;
-import com.is2t.demo.widgets.widget.theme.Pictos;
+import com.is2t.demo.widgets.style.ClassSelector;
+import com.is2t.demo.widgets.style.Pictos;
 
+import ej.composite.BorderComposite;
+import ej.composite.SplitComposite;
 import ej.mwt.MWT;
 import ej.mwt.Widget;
-import ej.widgets.composites.BorderComposite;
-import ej.widgets.util.ListenerAdapter;
-import ej.widgets.widgets.LookExtension;
-import ej.widgets.widgets.Picto;
-import ej.widgets.widgets.Picto.PictoSize;
-import ej.widgets.widgets.label.HeadlineLabel;
-import ej.widgets.widgets.label.LeftIconLabel;
-import ej.widgets.widgets.tiny.CheckBox;
+import ej.widget.Button;
+import ej.widget.Label;
+import ej.widget.Picto;
+import ej.widget.listener.OnClickListener;
 
 /**
  * Main page of the application. It allows to access all the pages of the application. It also illustrates the #CheckBox
@@ -49,127 +46,70 @@ public class MainPage extends ListSettingsPage {
 	protected List<Widget> getListElements() {
 		List<Widget> widgets = new ArrayList<Widget>();
 
-		widgets.add(createSelectableItem("About IS2T", Pictos.ABOUT, false, new AboutPage()));
+		widgets.add(createSelectableItem("About IS2T", Pictos.ABOUT, null));
 
-		widgets.add(createHeadlineLabel("SYSTEM"));
-		widgets.add(createSelectableItem("Date & time", Pictos.DATE_AND_TIME, false, new DateTimePage()));
-		widgets.add(createSelectableItem("Volume", Pictos.VOLUME, true, new VolumePage()));
-		widgets.add(createSelectableItem("Profile", Pictos.LANGUAGE_AND_INPUT, true, new ProfilePage()));
+		widgets.add(new Label("SYSTEM"));
+		widgets.add(createSelectableItem("Date & time", Pictos.DATE_AND_TIME, null));
+		widgets.add(createSelectableItem("Volume", Pictos.VOLUME, null));
+		widgets.add(createSelectableItem("Profile", Pictos.LANGUAGE_AND_INPUT, null));
 
-		widgets.add(createHeadlineLabel("WIRELESS & NETWORKS"));
-		widgets.add(createItemWithToggleButton("Wi-Fi", Pictos.WIFI, false, true));
-		widgets.add(createItemWithToggleButton("Bluetooth", Pictos.BLUETOOTH, true, false));
+		widgets.add(new Label("WIRELESS & NETWORKS"));
+		widgets.add(createItemWithSwitch("Wi-Fi", Pictos.WIFI, true));
+		widgets.add(createItemWithSwitch("Bluetooth", Pictos.BLUETOOTH, true));
 
-		widgets.add(createHeadlineLabel("PERSONAL"));
-		widgets.add(createItemWithCheckbox("Location data", Pictos.LOCATION, false, true));
-		widgets.add(createSelectableItem("Security", Pictos.SECURITY, true, new SecurityPage()));
-		widgets.add(createSelectableItem("Battery profile", Pictos.BATTERY_PROFILE, true, new BatteryProfilePage()));
+		widgets.add(new Label("PERSONAL"));
+		widgets.add(createItemWithCheckBox("Location data", Pictos.LOCATION, true));
+		widgets.add(createSelectableItem("Security", Pictos.SECURITY, null));
+		widgets.add(createSelectableItem("Battery profile", Pictos.BATTERY_PROFILE, null));
 
 		return widgets;
 	}
 
-	/**
-	 * Allows to create a headline widget with a text.
-	 * 
-	 * @param text
-	 *            the text of the item.
-	 * 
-	 * @return the created item.
-	 */
-	protected static HeadlineLabel createHeadlineLabel(String text) {
-		HeadlineLabel headlineLabel = new HeadlineLabel(text, "", 2);
-		headlineLabel.setHeadlineFontSize(LookExtension.GET_MEDIUM_FONT_INDEX);
-		headlineLabel.setUnderlined(true);
-		return headlineLabel;
-	}
-
-	/**
-	 * Allows to create a selectable widget with a text.
-	 * 
-	 * @param text
-	 *            the text of the item.
-	 * @param picto
-	 *            the picto of the item.
-	 * @param overlined
-	 *            indicates whether or not the item has to be overlined.
-	 * 
-	 * @param destination
-	 *            the destination page after clicking on the item.
-	 * @return the created item.
-	 */
-	protected LeftIconLabelButton createSelectableItem(String text, char picto, boolean overlined,
-			final WidgetsPage destination) {
-		LeftIconLabelButton item = new LeftIconLabelButton(text, new Picto(picto, PictoSize.Small));
-		item.setFontSize(LookExtension.GET_MEDIUM_FONT_INDEX);
-		item.setOverlined(overlined);
-		item.setListener(new ListenerAdapter() {
-
-			@Override
-			public void performAction(int value, Object object) {
-				getFlowManager().goTo(destination);
-			}
-		});
+	private static Widget createItemWithCheckBox(String name, char picto, boolean checked) {
+		SplitComposite item = new SplitComposite();
+		item.setHorizontal(true);
+		item.setRatio(0.5f);
+		Picto icon = new Picto(picto);
+		icon.addClassSelector(ClassSelector.SMALL_ICON);
+		Label label = new Label(name);
+		item.add(label);
+		// CheckBox checkBox = new CheckBox();
+		// checkBox.setChecked(checked);
+		// item.add(checkBox);
 		return item;
 	}
 
-	/**
-	 * Allows to create a widget with a text and a toggle button.
-	 * 
-	 * @param text
-	 *            the text of the item.
-	 * @param picto
-	 *            the picto of the item.
-	 * @param overlined
-	 *            indicates whether or not the item has to be overlined.
-	 * @param initial
-	 *            the initial value of the checkbox. True for selected and false for not not selected.
-	 * @return the created item.
-	 */
-	protected static Widget createItemWithToggleButton(String text, char picto, boolean overlined, boolean initial) {
-		BorderComposite layout = new BorderComposite();
-
-		LeftIconLabel item = createItem(text, picto, overlined);
-		layout.add(item);
-
-		LinedToggleButton toggleButton = new LinedToggleButton();
-		toggleButton.setOverlined(overlined);
-
-		if (initial) {
-			toggleButton.toggleSelection();
-		}
-
-		layout.addAt(toggleButton, MWT.EAST);
-
-		return layout;
+	private static Widget createItemWithSwitch(String name, char picto, boolean on) {
+		SplitComposite item = new SplitComposite();
+		item.setHorizontal(true);
+		item.setRatio(0.5f);
+		Picto icon = new Picto(picto);
+		icon.addClassSelector(ClassSelector.SMALL_ICON);
+		Label label = new Label(name);
+		item.add(label);
+		// Switch sswitch = new Switch();
+		// sswitch.setChecked(on);
+		// item.add(sswitch);
+		return item;
 	}
 
-	/**
-	 * Allows to create a widget with a text and a checkbox.
-	 * 
-	 * @param text
-	 *            the text of the item.
-	 * @param picto
-	 *            the picto of the item.
-	 * @param overlined
-	 *            indicates whether or not the item has to be overlined.
-	 * @param initial
-	 *            the initial value of the checkbox. True for selected and false for not not selected.
-	 * @return the created item.
-	 */
-	protected static Widget createItemWithCheckbox(String text, char picto, boolean overlined, boolean initial) {
-		BorderComposite layout = new BorderComposite();
+	private Widget createSelectableItem(String name, char picto, final WidgetsPage destination) {
+		// Pic icon = createItemIcon(picto);
 
-		LeftIconLabel item = createItem(text, picto, overlined);
-		layout.add(item);
+		Button button = new Button();
+		BorderComposite buttonContent = new BorderComposite();
+		Picto icon = new Picto(picto);
+		icon.addClassSelector(ClassSelector.SMALL_ICON);
+		buttonContent.add(icon, MWT.WEST);
+		buttonContent.add(new Label(name), MWT.CENTER);
+		button.setWidget(buttonContent);
+		button.addOnClickListener(new OnClickListener() {
 
-		CheckBox checkbox = new CheckBox();
-
-		if (initial) {
-			checkbox.toggleSelection();
-		}
-
-		layout.addAt(checkbox, MWT.EAST);
-
-		return layout;
+			@Override
+			public void onClick() {
+				// goTo(destination);
+			}
+		});
+		return button;
 	}
 }

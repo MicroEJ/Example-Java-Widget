@@ -6,6 +6,7 @@
  */
 package com.is2t.demo.widgets.page;
 
+import com.is2t.demo.widgets.Widgets;
 import com.is2t.demo.widgets.style.ClassSelector;
 import com.is2t.demo.widgets.style.Pictos;
 
@@ -13,21 +14,28 @@ import ej.composite.BorderComposite;
 import ej.microui.display.Colors;
 import ej.microui.display.GraphicsContext;
 import ej.mwt.MWT;
+import ej.mwt.Panel;
 import ej.mwt.Widget;
-import ej.widget.Button;
-import ej.widget.Label;
-import ej.widget.Picto;
+import ej.widget.basic.Label;
+import ej.widget.composed.Button;
 import ej.widget.listener.OnClickListener;
 
 /**
  * Page skeleton of the application.
  */
-public abstract class WidgetsPage extends BorderComposite {
+public abstract class WidgetsPage extends Panel {
 
 	public WidgetsPage() {
-		setHorizontal(false);
-		add(createTopBar(), MWT.NORTH);
-		add(createMainContent(), MWT.CENTER);
+		super();
+		setWidget(createContent());
+	}
+
+	private Widget createContent() {
+		BorderComposite content = new BorderComposite();
+		content.setHorizontal(false);
+		content.add(createTopBar(), MWT.NORTH);
+		content.add(createMainContent(), MWT.CENTER);
+		return content;
 	}
 
 	/**
@@ -38,10 +46,11 @@ public abstract class WidgetsPage extends BorderComposite {
 	protected Widget createTopBar() {
 		// Add the title of the page.
 		BorderComposite title = new BorderComposite();
-		Picto titleIcon = new Picto(getPictoTitle());
-		titleIcon.addClassSelector(ClassSelector.MEDIUM_ICON);
+		Label titleIcon = new Label(getPictoTitle() + "");
+		titleIcon.addClassSelector(ClassSelector.LARGE_ICON);
 		title.add(titleIcon, MWT.WEST);
 		Label titleLabel = new Label(getTitle());
+		titleLabel.addClassSelector(ClassSelector.LARGE_LABEL);
 		title.add(titleLabel, MWT.CENTER);
 
 		// Add a back button if necessary.
@@ -49,15 +58,15 @@ public abstract class WidgetsPage extends BorderComposite {
 			BorderComposite topBar = new BorderComposite();
 			topBar.add(title, MWT.CENTER);
 
-			Picto backIcon = new Picto(Pictos.BACK);
-			backIcon.addClassSelector(ClassSelector.MEDIUM_ICON);
+			Label backIcon = new Label(Pictos.BACK + "");
+			backIcon.addClassSelector(ClassSelector.LARGE_ICON);
 			Button backButton = new Button();
 			backButton.setWidget(backIcon);
 			backButton.addOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick() {
-					goTo(new MainPage());
+					Widgets.back();
 				}
 			});
 			topBar.add(backButton, MWT.WEST);
@@ -95,21 +104,9 @@ public abstract class WidgetsPage extends BorderComposite {
 	 */
 	protected abstract Widget createMainContent();
 
-	public void showNotify() {
-		// Nothing to do.
-	}
-
-	public void hideNotify() {
-		// Nothing to do.
-	}
-
 	@Override
 	public void render(GraphicsContext g) {
 		g.setColor(Colors.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
-	}
-
-	protected void goTo(WidgetsPage page) {
-		getPanel().setWidget(page);
 	}
 }

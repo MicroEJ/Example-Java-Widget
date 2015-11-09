@@ -12,4 +12,5 @@ package com.is2t.demo.widgets.style;
 public interface FontFamily {
 
 	String PICTO = "picto";
+	String OPEN_SANS = "open_sans";
 }

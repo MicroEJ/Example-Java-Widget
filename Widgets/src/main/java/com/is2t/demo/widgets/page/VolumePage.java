@@ -9,20 +9,20 @@ package com.is2t.demo.widgets.page;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.is2t.demo.widgets.style.ClassSelector;
 import com.is2t.demo.widgets.style.Pictos;
 
 import ej.composite.BorderComposite;
 import ej.composite.SplitComposite;
 import ej.mwt.MWT;
 import ej.mwt.Widget;
-import ej.widget.Label;
-import ej.widget.Picto;
-import ej.widget.Slider;
+import ej.widget.basic.Label;
+import ej.widget.basic.Slider;
 
 /**
  * Page illustrating the scale widget.
  */
-public class VolumePage extends ListSettingsPage {
+public class VolumePage extends ListPage {
 
 	private static final float ITEM_WITH_SCALE_RATIO = 0.45f;
 	private static final int MAX_VOLUME = 100;
@@ -48,54 +48,40 @@ public class VolumePage extends ListSettingsPage {
 	@Override
 	protected List<Widget> getListElements() {
 		List<Widget> elements = new ArrayList<>();
-		elements.add(createVolumeItem("Game", Pictos.GAME, INTIAL_GAME_VOLUME));
-		elements.add(createVolumeItem("Alarm", Pictos.ALARM, INITIAL_ALARM_VOLUME));
-		elements.add(createVolumeItem("Ring", Pictos.SECURITY, INITIAL_RING_VOLUME));
+		elements.add(newItemWithSlider("Game", Pictos.GAME, INTIAL_GAME_VOLUME));
+		elements.add(newItemWithSlider("Alarm", Pictos.ALARM, INITIAL_ALARM_VOLUME));
+		elements.add(newItemWithSlider("Ring", Pictos.SECURITY, INITIAL_RING_VOLUME));
 		return elements;
 	}
 
-	private static Widget createVolumeItem(String name, char picto, int initialVolume) {
-		SplitComposite splitComposite = new SplitComposite();
-		splitComposite.setHorizontal(true);
-		splitComposite.setRatio(ITEM_WITH_SCALE_RATIO);
-
-		Picto icon = new Picto(picto);
-		Label volumeLabel = new Label(name);
-		BorderComposite label = new BorderComposite();
-		label.add(icon, MWT.WEST);
-		label.add(volumeLabel, MWT.CENTER);
-		splitComposite.add(label);
-
-		Slider volume = new Slider(0, MAX_VOLUME, initialVolume);
-		splitComposite.add(volume);
-		return splitComposite;
-	}
 	/**
-	 * Allows to create a scale widget with a text.
+	 * Allows to create a slider widget with a text and a picto.
 	 * 
 	 * @param text
 	 *            the text of the item.
 	 * @param picto
 	 *            the picto of the item.
-	 * @param overlined
-	 *            indicates whether or not the item has to be overlined.
 	 * @param initial
-	 *            the initial value of the scale.
-	 * @return the created item.
+	 *            the initial value of the slider.
+	 * @return the item.
 	 */
-	// private static Widget createItemWithScale(String text, char picto, boolean overlined, int initial) {
-	// SplitComposite layout = new SplitComposite();
-	// layout.setHorizontal(true);
-	// layout.setRatio(ITEM_WITH_SCALE_RATIO);
-	//
-	// LeftIconLabel item = createItem(text, picto, overlined);
-	// layout.add(item);
-	//
-	// LinedScale scale = new LinedScale(0, MAX_VOLUME);
-	// scale.setValue(initial);
-	// scale.setOverlined(overlined);
-	// layout.add(scale);
-	//
-	// return layout;
-	// }
+	private static Widget newItemWithSlider(String name, char picto, int initialValue) {
+		SplitComposite splitComposite = new SplitComposite();
+		splitComposite.setHorizontal(true);
+		splitComposite.setRatio(ITEM_WITH_SCALE_RATIO);
+
+		BorderComposite leftPartItem = new BorderComposite();
+		Label icon = new Label(picto + "");
+		icon.addClassSelector(ClassSelector.MEDIUM_ICON);
+		leftPartItem.add(icon, MWT.LEFT);
+
+		Label label = new Label(name);
+		label.addClassSelector(ClassSelector.MEDIUM_LABEL);
+		leftPartItem.add(label, MWT.CENTER);
+		splitComposite.add(leftPartItem);
+
+		Slider slider = new Slider(0, MAX_VOLUME, initialValue);
+		splitComposite.add(slider);
+		return splitComposite;
+	}
 }

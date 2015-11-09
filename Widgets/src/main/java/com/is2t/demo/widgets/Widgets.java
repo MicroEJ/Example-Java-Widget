@@ -7,23 +7,19 @@
 package com.is2t.demo.widgets;
 
 import com.is2t.demo.widgets.page.MainPage;
-import com.is2t.demo.widgets.style.ClassSelector;
-import com.is2t.demo.widgets.style.FontFamily;
 
-import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.microui.MicroUI;
-import ej.mwt.Desktop;
 import ej.mwt.Panel;
-import ej.style.Stylesheet;
-import ej.style.font.FontProfile;
-import ej.style.font.FontProfile.FontSize;
-import ej.style.util.SimpleStyle;
+import ej.transition.HorizontalTransitionDesktop;
+import ej.transition.TransitionDesktop;
 
 /**
  * This demo represents a settings menu you can find on your smartphone. The main page shows all available settings,
  * each one leading to a page illustrating a different widget.
  */
 public class Widgets {
+
+	private static TransitionDesktop desktop;
 
 	// Prevents initialization.
 	private Widgets() {
@@ -37,32 +33,46 @@ public class Widgets {
 	 */
 	public static void main(String[] args) {
 		MicroUI.start();
-		createStylesheet();
-		Desktop desktop = new Desktop();
-		Panel panel = new Panel();
-
-		panel.setWidget(new MainPage());
-		// panel.setWidget(new VolumePage());
-		// panel.setWidget(new ProfilePage());
-		panel.show(desktop, true);
+		System.out.println("Widgets.main()");
+		desktop = new HorizontalTransitionDesktop();
+		// Panel panel = new Panel();
+		//
+		// panel.setWidget(new MainPage());
+		// panel.setWidget(new CheckboxPage());
+		// panel.setWidget(new SwitchPage());
+		desktop.show(new MainPage());
 		desktop.show();
 	}
 
-	private static void createStylesheet() {
-		Stylesheet stylesheet = ServiceLoaderFactory.getServiceLoader().getService(Stylesheet.class);
+	// @Deprecated
+	// public static void show(Widget pageContent) {
+	// Panel panel = new Panel() {
+	// @Override
+	// public void hide() {
+	// System.out.println("Widgets.show(...).new Panel() {...}.hide()");
+	// super.hide();
+	// setWidget(null);
+	// }
+	//
+	// @Override
+	// public void hideNotify() {
+	// System.out.println("Widgets.show(...).new Panel() {...}.hideNotify()");
+	// super.hideNotify();
+	// setWidget(null);
+	// }
+	// };
+	// panel.setWidget(pageContent);
+	// show(panel);
+	// }
 
-		SimpleStyle mediumPictoStyle = new SimpleStyle();
-		FontProfile mediumPictoFontProfile = new FontProfile();
-		mediumPictoFontProfile.setFamily(FontFamily.PICTO);
-		mediumPictoFontProfile.setSize(FontSize.MEDIUM);
-		mediumPictoStyle.setFontProfile(mediumPictoFontProfile);
-		stylesheet.setStyle(ClassSelector.MEDIUM_ICON, mediumPictoStyle);
-
-		SimpleStyle smallPictoStyle = new SimpleStyle();
-		FontProfile smallPictoFontProfile = new FontProfile();
-		smallPictoFontProfile.setFamily(FontFamily.PICTO);
-		smallPictoFontProfile.setSize(FontSize.SMALL);
-		smallPictoStyle.setFontProfile(smallPictoFontProfile);
-		stylesheet.setStyle(ClassSelector.SMALL_ICON, smallPictoStyle);
+	public static void show(Panel panel) {
+		System.out.println("Widgets.show()");
+		// panel.show(desktop, true);
+		desktop.show(panel);
 	}
+
+	public static void back() {
+		desktop.back();
+	}
+
 }

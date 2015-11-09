@@ -5,11 +5,11 @@
 	<classpathentry kind="var" path="EDC-1.2"/>
 	<classpathentry kind="var" path="BON-1.2"/>
 	<classpathentry kind="var" path="MICROUI-2.0"/>
-	<classpathentry kind="var" path="MWT-2.0"/>
-	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=Widgets&amp;ivyXmlPath=module.ivy&amp;confs=*"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ej.widget"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ej.composite"/>
+	<classpathentry kind="var" path="MWT-2.1"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ej.style"/>
-	<classpathentry kind="var" path="EJ.COMPONENTS-2.0"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ej.widget"/> 
+	<classpathentry combineaccessrules="false" kind="src" path="/ej.composite"/> 
+	<classpathentry combineaccessrules="false" kind="src" path="/ej.transition"/> 
+	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=Widgets&amp;ivyXmlPath=module.ivy&amp;confs=default"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

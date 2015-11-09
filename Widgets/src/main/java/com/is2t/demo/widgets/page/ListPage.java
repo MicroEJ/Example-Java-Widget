@@ -8,28 +8,27 @@ package com.is2t.demo.widgets.page;
 
 import java.util.List;
 
-import ej.composite.GridComposite;
+import ej.composite.ListComposite;
+import ej.composite.ScrollComposite;
 import ej.mwt.Widget;
 
 /**
  * Page allowing to display a list of widgets.
  */
-public abstract class ListSettingsPage extends WidgetsPage {
+public abstract class ListPage extends WidgetsPage {
 
 	@Override
 	protected Widget createMainContent() {
 		// Formed with the elements of the list.
-		boolean horizontal = false;
-		GridComposite listComposite = new GridComposite();
-		listComposite.setHorizontal(horizontal);
+		ListComposite listComposite = new ListComposite();
+		listComposite.setHorizontal(false);
 		List<Widget> listContent = getListElements();
-		listComposite.setCount(listContent.size());
 
 		for (Widget widget : listContent) {
 			listComposite.add(widget);
 		}
 
-		return listComposite;
+		return new ScrollComposite(listComposite, true);
 	}
 
 	/**

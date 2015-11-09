@@ -11,7 +11,8 @@ package com.is2t.demo.widgets.style;
  */
 public interface ClassSelector {
 
-	String LARGE_ICON = "large icon";
 	String MEDIUM_ICON = "medium icon";
-	String SMALL_ICON = "small icon";
+	String LARGE_ICON = "large icon";
+	String MEDIUM_LABEL = "medium label";
+	String LARGE_LABEL = "largelabel";
 }

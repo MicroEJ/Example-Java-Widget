@@ -181,13 +181,13 @@
 <listAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationResources"/>
 <booleanAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationVerbose" value="false"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/Widgets/src/java/com/is2t/demo/widgets/Widgets.java"/>
+<listEntry value="/Widgets/src/main/java/com/microej/demo/widgets/Widgets.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ALLOW_TERMINATE" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.is2t.demo.widgets.Widgets"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.microej.demo.widgets.Widgets"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Widgets"/>
 </launchConfiguration>

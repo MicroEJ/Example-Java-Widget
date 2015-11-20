@@ -16,7 +16,7 @@ import ej.style.font.FontProfile;
 public class WidgetsFontLoader implements FontLoader {
 
 	private static final int PICTO_ID = 81;
-	private static final int OPEN_SANS_ID = 82;
+	private static final int ROBOTO_ID = 82;
 
 	@Override
 	public Font getFont(FontProfile fontProfile) {
@@ -31,12 +31,12 @@ public class WidgetsFontLoader implements FontLoader {
 			default:
 				break;
 			}
-		} else if (fontFamily.startsWith(FontFamily.OPEN_SANS)) {
+		} else if (fontFamily.startsWith(FontFamily.ROBOTO)) {
 			switch (fontProfile.getSize()) {
 			case MEDIUM:
-				return Font.getFont(OPEN_SANS_ID, 30, Font.STYLE_PLAIN);
+				return Font.getFont(ROBOTO_ID, 30, Font.STYLE_PLAIN);
 			case LARGE:
-				return Font.getFont(OPEN_SANS_ID, 50, Font.STYLE_PLAIN);
+				return Font.getFont(ROBOTO_ID, 50, Font.STYLE_PLAIN);
 			default:
 				break;
 			}

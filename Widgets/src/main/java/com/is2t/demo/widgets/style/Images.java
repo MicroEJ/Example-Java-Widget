@@ -9,8 +9,7 @@ package com.is2t.demo.widgets.style;
 /**
  *
  */
-public interface FontFamily {
+public interface Images {
 
-	String PICTO = "picto";
-	String ROBOTO = "roboto";
+	String MICROEJ = "/images/microej.png";
 }

@@ -39,21 +39,21 @@ public class MainPage extends WidgetsPage {
 
 		ListComposite listComposite = new ListComposite();
 		listComposite.setHorizontal(false);
-		listComposite.add(newSelectableItem("Basic widgets - Picto", new PictosPage())); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Basic widgets - Drawing", new DrawingsPage())); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Progress bar", new ProgressBarPage())); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Scrollable list", new ScrollableListPage())); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Basic widgets - Picto", PictosPage.class.getName())); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Basic widgets - Drawing", DrawingsPage.class.getName())); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Progress bar", ProgressBarPage.class.getName())); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Scrollable list", ScrollableListPage.class.getName())); //$NON-NLS-1$
 		return listComposite;
 	}
 
-	// A button that leads to the given destination.
-	private Button newSelectableItem(String name, final WidgetsPage destination) {
+	// A button that leads to the given page.
+	private Button newSelectableItem(String name, final String url) {
 		SimpleButton button = new SimpleButton(name);
 		button.addOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick() {
-				Widgets.show(destination);
+				Widgets.show(url);
 			}
 		});
 		return button;

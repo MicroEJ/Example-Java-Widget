@@ -13,8 +13,8 @@ import com.microej.demo.widgets.style.Pictos;
 
 import ej.composite.BorderComposite;
 import ej.mwt.MWT;
-import ej.mwt.Panel;
 import ej.mwt.Widget;
+import ej.transition.page.Page;
 import ej.widget.basic.Image;
 import ej.widget.basic.Label;
 import ej.widget.basic.image.ImageHelper;
@@ -24,7 +24,7 @@ import ej.widget.listener.OnClickListener;
 /**
  * Page skeleton of the application.
  */
-public abstract class WidgetsPage extends Panel {
+public abstract class WidgetsPage extends Page {
 
 	private Widget createContent() {
 		BorderComposite content = new BorderComposite();
@@ -115,5 +115,10 @@ public abstract class WidgetsPage extends Panel {
 		super.hideNotify();
 		// The content of the page is destroyed only when the page is not displayed anymore.
 		setWidget(null);
+	}
+
+	@Override
+	public String getCurrentURL() {
+		return getClass().getName();
 	}
 }

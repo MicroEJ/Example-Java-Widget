@@ -17,7 +17,6 @@ import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.microui.MicroUI;
 import ej.microui.display.Colors;
 import ej.microui.display.GraphicsContext;
-import ej.mwt.Panel;
 import ej.style.State;
 import ej.style.Stylesheet;
 import ej.style.background.PlainBackground;
@@ -27,8 +26,11 @@ import ej.style.outline.ComplexOutline;
 import ej.style.outline.EmptyOutline;
 import ej.style.outline.SimpleOutline;
 import ej.style.util.SimpleStyle;
-import ej.transition.HorizontalTransitionDesktop;
-import ej.transition.TransitionDesktop;
+import ej.transition.desktop.HorizontalTransitionDesktop;
+import ej.transition.page.PagesStack;
+import ej.transition.page.PagesStackURL;
+import ej.transition.page.URLResolver;
+import ej.transition.page.WidgetsURLResolver;
 import ej.widget.basic.Check;
 import ej.widget.basic.CircularProgressBar;
 import ej.widget.basic.Label;
@@ -47,7 +49,7 @@ import ej.widget.basic.picto.PictoSwitch;
  */
 public class Widgets {
 
-	private static TransitionDesktop desktop;
+	private static ej.transition.desktop.TransitionDesktop desktop;
 
 	// Prevents initialization.
 	private Widgets() {
@@ -62,19 +64,21 @@ public class Widgets {
 	public static void main(String[] args) {
 		MicroUI.start();
 		initializeStylesheet();
-		desktop = new HorizontalTransitionDesktop();
-		desktop.show(new MainPage());
+		URLResolver urlResolver = new WidgetsURLResolver();
+		PagesStack pagesStack = new PagesStackURL(urlResolver);
+		desktop = new HorizontalTransitionDesktop(urlResolver, pagesStack);
+		desktop.show(MainPage.class.getName());
 		desktop.show();
 	}
 
 	/**
-	 * Shows the given panel.
+	 * Shows the page corresponding to the given url.
 	 *
-	 * @param panel
-	 *            the panel to display.
+	 * @param url
+	 *            the url of the page to show.
 	 */
-	public static void show(Panel panel) {
-		desktop.show(panel);
+	public static void show(String url) {
+		desktop.show(url);
 	}
 
 	/**

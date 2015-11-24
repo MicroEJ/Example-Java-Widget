@@ -1,8 +1,8 @@
 # Copyright 2014-2015 IS2T. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
 
-fonts/roboto_30px.ejf::8
-fonts/roboto_50px.ejf::4
+fonts/roboto_30px.ejf:0x21-0x7a:4
+fonts/roboto_50px.ejf:0x21-0x7a:4
 
 fonts/picto_30px.ejf::4
 fonts/picto_50px.ejf::4

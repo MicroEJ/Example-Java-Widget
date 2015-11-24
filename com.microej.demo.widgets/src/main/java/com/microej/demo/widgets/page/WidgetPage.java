@@ -18,6 +18,7 @@ import ej.widget.basic.Label;
 import ej.widget.basic.Toggle;
 import ej.widget.basic.ToggleGroup;
 import ej.widget.composed.Button;
+import ej.widget.composed.SimpleButton;
 
 /**
  * A page used to illustrate some widgets.
@@ -58,11 +59,8 @@ public abstract class WidgetPage extends WidgetsPage {
 		AbstractSlider slider = newSlider(MIN_VALUE, MAX_VALUE, INITIAL_VALUE);
 		grid.add(slider);
 
-		Label buttonLabel = new Label("Button");
-		Button button = new Button();
-		button.setWidget(buttonLabel);
-		// Button button = new SimpleButton("Button");
-		button.addClassSelector(ClassSelector.MICROEJ_BUTTON);
+		Button button = new SimpleButton("Button");
+		button.addClassSelector(ClassSelector.BUTTON);
 		grid.add(button);
 
 		return grid;

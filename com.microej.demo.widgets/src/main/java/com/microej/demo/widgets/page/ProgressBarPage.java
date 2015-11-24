@@ -6,8 +6,6 @@
  */
 package com.microej.demo.widgets.page;
 
-import com.microej.demo.widgets.style.ClassSelector;
-
 import ej.composite.GridComposite;
 import ej.composite.SplitComposite;
 import ej.mwt.Widget;
@@ -42,7 +40,6 @@ public class ProgressBarPage extends WidgetsPage {
 
 		ProgressBar progressBar = new ProgressBar(MIN, MAX, INITIAL);
 		progressBar.setIndeterminate(true);
-		progressBar.addClassSelector(ClassSelector.MEDIUM_LABEL);
 		grid.add(progressBar);
 
 		SplitComposite splitComposite = new SplitComposite();
@@ -52,12 +49,10 @@ public class ProgressBarPage extends WidgetsPage {
 
 		CircularProgressBar circularProgressBar = new CircularProgressBar(MIN, MAX, INITIAL);
 		circularProgressBar.setIndeterminate(true);
-		circularProgressBar.addClassSelector(ClassSelector.MEDIUM_LABEL);
 		splitComposite.add(circularProgressBar);
 
 		PictoProgressBar pictoProgressBar = new PictoProgressBar(MIN, MAX, INITIAL);
 		pictoProgressBar.setIndeterminate(true);
-		pictoProgressBar.addClassSelector(ClassSelector.LARGE_ICON);
 		splitComposite.add(pictoProgressBar);
 
 		return grid;

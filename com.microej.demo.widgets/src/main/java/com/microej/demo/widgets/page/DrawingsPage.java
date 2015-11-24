@@ -6,8 +6,6 @@
  */
 package com.microej.demo.widgets.page;
 
-import com.microej.demo.widgets.style.ClassSelector;
-
 import ej.widget.basic.Check;
 import ej.widget.basic.Radio;
 import ej.widget.basic.Slider;
@@ -27,28 +25,24 @@ public class DrawingsPage extends WidgetPage {
 	@Override
 	protected Toggle newCheckBox(boolean checked) {
 		Check checkbox = new Check(checked);
-		checkbox.addClassSelector(ClassSelector.MEDIUM_LABEL);
 		return checkbox;
 	}
 
 	@Override
 	protected Toggle newSwitch(boolean checked) {
 		Switch switch_ = new Switch(checked);
-		switch_.addClassSelector(ClassSelector.MEDIUM_LABEL);
 		return switch_;
 	}
 
 	@Override
 	protected Toggle newRadioButton(boolean checked) {
 		Radio radioButton = new Radio(checked);
-		radioButton.addClassSelector(ClassSelector.MEDIUM_LABEL);
 		return radioButton;
 	}
 
 	@Override
 	protected Slider newSlider(int min, int max, int initial) {
 		Slider slider = new Slider(min, max, initial);
-		slider.addClassSelector(ClassSelector.MEDIUM_LABEL);
 		return slider;
 	}
 }

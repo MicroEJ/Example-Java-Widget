@@ -11,9 +11,8 @@ package com.microej.demo.widgets.style;
  */
 public interface ClassSelector {
 
-	String MEDIUM_ICON = "medium icon";
 	String LARGE_ICON = "large icon";
 	String MEDIUM_LABEL = "medium label";
-	String LARGE_LABEL = "largelabel";
-	String MICROEJ_BUTTON = "microej_button";
+	String LARGE_LABEL = "large label";
+	String BUTTON = "microej button";
 }

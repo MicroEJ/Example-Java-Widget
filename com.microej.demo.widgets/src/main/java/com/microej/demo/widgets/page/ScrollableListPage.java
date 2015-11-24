@@ -36,7 +36,7 @@ public class ScrollableListPage extends WidgetsPage {
 		listComposite.setHorizontal(false);
 
 		for (int i = 1; i <= ITEM_COUNT; i++) {
-			Label item = new Label("item " + i);
+			Label item = new Label("Item " + i);
 			item.addClassSelector(ClassSelector.MEDIUM_LABEL);
 			listComposite.add(item);
 		}

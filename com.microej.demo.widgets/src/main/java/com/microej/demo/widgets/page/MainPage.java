@@ -35,9 +35,9 @@ public class MainPage extends WidgetsPage {
 	protected Widget createMainContent() {
 		ListComposite listComposite = new ListComposite();
 		listComposite.setHorizontal(false);
-		listComposite.add(newSelectableItem("Basic widgets - Pictos", new PictosPage()));
-		listComposite.add(newSelectableItem("Basic widgets - Drawings", new DrawingsPage()));
-		listComposite.add(newSelectableItem("Progress bars", new ProgressBarPage()));
+		listComposite.add(newSelectableItem("Basic widgets - Picto", new PictosPage()));
+		listComposite.add(newSelectableItem("Basic widgets - Drawing", new DrawingsPage()));
+		listComposite.add(newSelectableItem("Progress bar", new ProgressBarPage()));
 		listComposite.add(newSelectableItem("Scrollable list", new ScrollableListPage()));
 		return listComposite;
 	}

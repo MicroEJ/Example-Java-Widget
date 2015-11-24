@@ -14,7 +14,7 @@ import ej.mwt.Widget;
 import ej.widget.basic.Label;
 
 /**
- *
+ * This page illustrates the scrollable list.
  */
 public class ScrollableListPage extends WidgetsPage {
 
@@ -22,7 +22,7 @@ public class ScrollableListPage extends WidgetsPage {
 
 	@Override
 	protected String getTitle() {
-		return "Scrollable list";
+		return "Scrollable list"; //$NON-NLS-1$
 	}
 
 	@Override
@@ -32,11 +32,18 @@ public class ScrollableListPage extends WidgetsPage {
 
 	@Override
 	protected Widget createMainContent() {
+		// layout:
+		// Item 1
+		// Item 2
+		// ...
+		// Item n-1
+		// Item n
+
 		ListComposite listComposite = new ListComposite();
 		listComposite.setHorizontal(false);
 
 		for (int i = 1; i <= ITEM_COUNT; i++) {
-			Label item = new Label("Item " + i);
+			Label item = new Label("Item " + i); //$NON-NLS-1$
 			item.addClassSelector(ClassSelector.MEDIUM_LABEL);
 			listComposite.add(item);
 		}

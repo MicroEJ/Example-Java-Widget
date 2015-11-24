@@ -14,7 +14,7 @@ import ej.widget.basic.ProgressBar;
 import ej.widget.basic.picto.PictoProgressBar;
 
 /**
- *
+ * This page illustrates the different implementations of a progress bar.
  */
 public class ProgressBarPage extends WidgetsPage {
 
@@ -24,7 +24,7 @@ public class ProgressBarPage extends WidgetsPage {
 
 	@Override
 	protected String getTitle() {
-		return "Progress bar";
+		return "Progress bar"; //$NON-NLS-1$
 	}
 
 	@Override
@@ -34,6 +34,10 @@ public class ProgressBarPage extends WidgetsPage {
 
 	@Override
 	protected Widget createMainContent() {
+		// layout:
+		// | progress bar |
+		// | circular progress bar - picto progress bar |
+
 		GridComposite grid = new GridComposite();
 		grid.setHorizontal(true);
 		grid.setCount(1);

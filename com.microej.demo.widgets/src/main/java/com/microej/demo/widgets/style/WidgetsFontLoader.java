@@ -11,7 +11,7 @@ import ej.style.font.FontLoader;
 import ej.style.font.FontProfile;
 
 /**
- * 
+ * The font loader used in the application. It maps the given font profile to a font.
  */
 public class WidgetsFontLoader implements FontLoader {
 

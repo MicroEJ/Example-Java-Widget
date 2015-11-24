@@ -7,10 +7,17 @@
 package com.microej.demo.widgets.style;
 
 /**
- *
+ * The font family used in the stylesheet.
  */
 public interface FontFamily {
 
-	String PICTO = "picto";
-	String ROBOTO = "roboto";
+	/**
+	 * The picto font family.
+	 */
+	String PICTO = "picto"; //$NON-NLS-1$
+
+	/**
+	 * The roboto font family.
+	 */
+	String ROBOTO = "roboto"; //$NON-NLS-1$
 }

@@ -7,12 +7,27 @@
 package com.microej.demo.widgets.style;
 
 /**
- *
+ * Class selectors used in the stylesheet.
  */
 public interface ClassSelector {
 
-	String LARGE_ICON = "large icon";
-	String MEDIUM_LABEL = "medium label";
-	String LARGE_LABEL = "large label";
-	String BUTTON = "microej button";
+	/**
+	 * The large icon class selector.
+	 */
+	String LARGE_ICON = "large icon"; //$NON-NLS-1$
+
+	/**
+	 * The medium label class selector.
+	 */
+	String MEDIUM_LABEL = "medium label"; //$NON-NLS-1$
+
+	/**
+	 * The large label class selector.
+	 */
+	String LARGE_LABEL = "large label"; //$NON-NLS-1$
+
+	/**
+	 * The button class selector.
+	 */
+	String BUTTON = "microej button"; //$NON-NLS-1$
 }

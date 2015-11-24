@@ -12,7 +12,7 @@ package com.microej.demo.widgets.style;
 public interface Pictos {
 
 	/**
-	 * Back picto.
+	 * The back picto.
 	 */
 	char BACK = 0x32;
 }

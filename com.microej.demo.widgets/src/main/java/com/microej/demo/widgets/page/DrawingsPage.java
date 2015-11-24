@@ -24,25 +24,21 @@ public class DrawingsPage extends WidgetPage {
 
 	@Override
 	protected Toggle newCheckBox(boolean checked) {
-		Check checkbox = new Check(checked);
-		return checkbox;
+		return new Check(checked);
 	}
 
 	@Override
 	protected Toggle newSwitch(boolean checked) {
-		Switch switch_ = new Switch(checked);
-		return switch_;
+		return new Switch(checked);
 	}
 
 	@Override
 	protected Toggle newRadioButton(boolean checked) {
-		Radio radioButton = new Radio(checked);
-		return radioButton;
+		return new Radio(checked);
 	}
 
 	@Override
 	protected Slider newSlider(int min, int max, int initial) {
-		Slider slider = new Slider(min, max, initial);
-		return slider;
+		return new Slider(min, max, initial);
 	}
 }

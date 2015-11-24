@@ -18,7 +18,7 @@ import ej.mwt.Widget;
 import ej.widget.basic.Image;
 import ej.widget.basic.Label;
 import ej.widget.basic.image.ImageHelper;
-import ej.widget.composed.Button;
+import ej.widget.composed.SimpleButton;
 import ej.widget.listener.OnClickListener;
 
 /**
@@ -40,11 +40,11 @@ public abstract class WidgetsPage extends Panel {
 	 * @return the top bar widget.
 	 */
 	protected Widget createTopBar() {
-		// Add the title of the page.
+		// The title of the page.
 		BorderComposite title = new BorderComposite();
 
 		if (withMicroEJLogoInTopBar()) {
-			Image titleIcon = new Image(ImageHelper.loadImage(Images.MICROEJ));
+			Image titleIcon = new Image(ImageHelper.loadImage(Images.MICROEJ_LOGO));
 			title.add(titleIcon, MWT.WEST);
 		}
 
@@ -57,10 +57,8 @@ public abstract class WidgetsPage extends Panel {
 			BorderComposite topBar = new BorderComposite();
 			topBar.add(title, MWT.CENTER);
 
-			Label backIcon = new Label(Pictos.BACK + "");
-			backIcon.addClassSelector(ClassSelector.LARGE_ICON);
-			Button backButton = new Button();
-			backButton.setWidget(backIcon);
+			SimpleButton backButton = new SimpleButton(Pictos.BACK + ""); //$NON-NLS-1$
+			backButton.getLabel().addClassSelector(ClassSelector.LARGE_ICON);
 			backButton.addOnClickListener(new OnClickListener() {
 
 				@Override
@@ -108,12 +106,14 @@ public abstract class WidgetsPage extends Panel {
 	@Override
 	public void showNotify() {
 		super.showNotify();
+		// The content of the page is created only when the page is displayed.
 		setWidget(createContent());
 	}
 
 	@Override
 	public void hideNotify() {
 		super.hideNotify();
+		// The content of the page is destroyed only when the page is not displayed anymore.
 		setWidget(null);
 	}
 }

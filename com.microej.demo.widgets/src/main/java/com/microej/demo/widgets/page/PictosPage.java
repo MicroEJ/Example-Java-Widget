@@ -14,7 +14,7 @@ import ej.widget.basic.picto.PictoSlider;
 import ej.widget.basic.picto.PictoSwitch;
 
 /**
- * This page illustrates the widgets using some pictos.
+ * This page illustrates the widgets rendered with some pictos.
  */
 public class PictosPage extends WidgetPage {
 
@@ -25,25 +25,21 @@ public class PictosPage extends WidgetPage {
 
 	@Override
 	protected Toggle newCheckBox(boolean checked) {
-		PictoCheck checkbox = new PictoCheck(checked);
-		return checkbox;
+		return new PictoCheck(checked);
 	}
 
 	@Override
 	protected Toggle newSwitch(boolean checked) {
-		PictoSwitch switch_ = new PictoSwitch(checked);
-		return switch_;
+		return new PictoSwitch(checked);
 	}
 
 	@Override
 	protected Toggle newRadioButton(boolean checked) {
-		PictoRadio radioButton = new PictoRadio(checked);
-		return radioButton;
+		return new PictoRadio(checked);
 	}
 
 	@Override
 	protected AbstractSlider newSlider(int min, int max, int initial) {
-		PictoSlider slider = new PictoSlider(min, max, initial);
-		return slider;
+		return new PictoSlider(min, max, initial);
 	}
 }

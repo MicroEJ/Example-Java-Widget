@@ -11,19 +11,18 @@ import com.microej.demo.widgets.style.ClassSelector;
 
 import ej.composite.ListComposite;
 import ej.mwt.Widget;
-import ej.widget.basic.Label;
 import ej.widget.composed.Button;
+import ej.widget.composed.SimpleButton;
 import ej.widget.listener.OnClickListener;
 
 /**
- * Main page of the application. It allows to access all the pages of the application. It also illustrates the #CheckBox
- * widget.
+ * Main page of the application. It allows to access all the pages of the application.
  */
 public class MainPage extends WidgetsPage {
 
 	@Override
 	protected String getTitle() {
-		return "MicroEJ Widgets";
+		return "MicroEJ Widgets"; //$NON-NLS-1$
 	}
 
 	@Override
@@ -33,20 +32,25 @@ public class MainPage extends WidgetsPage {
 
 	@Override
 	protected Widget createMainContent() {
+		// layout:
+		// Basic widgets - Picto
+		// Basic widgets - Drawing
+		// Progress bar
+		// Scrollable list
+
 		ListComposite listComposite = new ListComposite();
 		listComposite.setHorizontal(false);
-		listComposite.add(newSelectableItem("Basic widgets - Picto", new PictosPage()));
-		listComposite.add(newSelectableItem("Basic widgets - Drawing", new DrawingsPage()));
-		listComposite.add(newSelectableItem("Progress bar", new ProgressBarPage()));
-		listComposite.add(newSelectableItem("Scrollable list", new ScrollableListPage()));
+		listComposite.add(newSelectableItem("Basic widgets - Picto", new PictosPage())); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Basic widgets - Drawing", new DrawingsPage())); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Progress bar", new ProgressBarPage())); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Scrollable list", new ScrollableListPage())); //$NON-NLS-1$
 		return listComposite;
 	}
 
-	private Widget newSelectableItem(String name, final WidgetsPage destination) {
-		Button button = new Button();
-		Label label = new Label(name);
-		label.addClassSelector(ClassSelector.MEDIUM_LABEL);
-		button.setWidget(label);
+	// A button that leads to the given destination.
+	private Button newSelectableItem(String name, final WidgetsPage destination) {
+		SimpleButton button = new SimpleButton(name);
+		button.getLabel().addClassSelector(ClassSelector.MEDIUM_LABEL);
 		button.addOnClickListener(new OnClickListener() {
 
 			@Override

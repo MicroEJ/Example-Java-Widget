@@ -7,9 +7,12 @@
 package com.microej.demo.widgets.style;
 
 /**
- *
+ * The images used in the application.
  */
 public interface Images {
 
-	String MICROEJ = "/images/microej.png";
+	/**
+	 * The MicroEJ logo.
+	 */
+	String MICROEJ_LOGO = "/images/microej_logo.png"; //$NON-NLS-1$
 }

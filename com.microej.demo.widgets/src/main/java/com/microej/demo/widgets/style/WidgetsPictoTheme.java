@@ -9,7 +9,7 @@ package com.microej.demo.widgets.style;
 import ej.widget.basic.picto.PictoTheme;
 
 /**
- *
+ * The picto theme used in the application.
  */
 public class WidgetsPictoTheme implements PictoTheme {
 

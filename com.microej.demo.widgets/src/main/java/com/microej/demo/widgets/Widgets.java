@@ -87,6 +87,7 @@ public class Widgets {
 	private static void initializeStylesheet() {
 		Stylesheet stylesheet = ServiceLoaderFactory.getServiceLoader().getService(Stylesheet.class);
 
+		// Sets the default style.
 		SimpleStyle defaultStyle = new SimpleStyle();
 		defaultStyle.setForegroundColor(Colors.WHITE);
 		FontProfile defaultFontProfile = new FontProfile();
@@ -96,17 +97,22 @@ public class Widgets {
 		PlainBackground defaultBackground = new PlainBackground();
 		defaultBackground.setColor(0x404041);
 		defaultStyle.setBorder(defaultBackground);
-		defaultStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+		defaultStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
 		stylesheet.setStyle(defaultStyle);
 
+		// Default margin not added in the default style because it also applies for the composites.
 		SimpleOutline defaultMargin = new SimpleOutline();
 		defaultMargin.setThickness(6);
 
+		// Sets the label style.
 		SimpleStyle labelStyle = new SimpleStyle();
+		labelStyle.setMargin(defaultMargin);
+		// Especially useful for the buttons with a background.
 		EmptyOutline transparentBackground = new EmptyOutline();
 		labelStyle.setBorder(transparentBackground);
 		stylesheet.setStyle(Label.class, labelStyle);
 
+		// Sets the large picto style.
 		SimpleStyle largePictoStyle = new SimpleStyle();
 		FontProfile largePictoFontProfile = new FontProfile();
 		largePictoFontProfile.setFamily(FontFamily.PICTO);
@@ -114,20 +120,15 @@ public class Widgets {
 		largePictoStyle.setFontProfile(largePictoFontProfile);
 		stylesheet.setStyle(ClassSelector.LARGE_ICON, largePictoStyle);
 
-		SimpleStyle mediumLabelStyle = new SimpleStyle();
-		mediumLabelStyle.setMargin(defaultMargin);
-		mediumLabelStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
-		stylesheet.setStyle(ClassSelector.MEDIUM_LABEL, mediumLabelStyle);
-
+		// Sets the large label style.
 		SimpleStyle largeLabelStyle = new SimpleStyle();
 		FontProfile largeLabelFontProfile = new FontProfile();
 		largeLabelFontProfile.setFamily(FontFamily.ROBOTO);
 		largeLabelFontProfile.setSize(FontSize.LARGE);
 		largeLabelStyle.setFontProfile(largeLabelFontProfile);
-		largeLabelStyle.setMargin(defaultMargin);
-		largeLabelStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
 		stylesheet.setStyle(ClassSelector.LARGE_LABEL, largeLabelStyle);
 
+		// Sets the unchecked toggle style.
 		SimpleStyle toggleStyle = new SimpleStyle();
 		toggleStyle.setForegroundColor(0xbcbec0);
 		toggleStyle.setMargin(defaultMargin);
@@ -135,10 +136,12 @@ public class Widgets {
 		stylesheet.setStyle(Radio.class, toggleStyle);
 		stylesheet.setStyle(Switch.class, toggleStyle);
 
+		// The font to use for the most of the picto widgets.
 		FontProfile widgetPictoFontProfile = new FontProfile();
 		widgetPictoFontProfile.setFamily(FontFamily.PICTO);
 		widgetPictoFontProfile.setSize(FontSize.MEDIUM);
 
+		// Sets the unchecked picto toggle style.
 		SimpleStyle pictoToggleStyle = new SimpleStyle();
 		pictoToggleStyle.setFontProfile(widgetPictoFontProfile);
 		pictoToggleStyle.setForegroundColor(0xbcbec0);
@@ -147,6 +150,7 @@ public class Widgets {
 		stylesheet.setStyle(PictoRadio.class, pictoToggleStyle);
 		stylesheet.setStyle(PictoSwitch.class, pictoToggleStyle);
 
+		// Sets the widget and checked toggle style.
 		SimpleStyle widgetStyle = new SimpleStyle();
 		widgetStyle.setMargin(defaultMargin);
 		widgetStyle.setForegroundColor(0x10bdf1);
@@ -157,6 +161,7 @@ public class Widgets {
 		stylesheet.setStyle(Radio.class, State.Active, widgetStyle);
 		stylesheet.setStyle(Switch.class, State.Active, widgetStyle);
 
+		// Sets the picto widget and checked picto toggle style.
 		SimpleStyle widgetPictoStyle = new SimpleStyle();
 		widgetPictoStyle.setMargin(defaultMargin);
 		widgetPictoStyle.setForegroundColor(0x10bdf1);
@@ -166,12 +171,14 @@ public class Widgets {
 		stylesheet.setStyle(PictoRadio.class, State.Active, widgetPictoStyle);
 		stylesheet.setStyle(PictoSwitch.class, State.Active, widgetPictoStyle);
 
+		// Sets the pictos to use for the picto progress bar.
 		SimpleStyle progressBarPictoStyle = new SimpleStyle();
 		progressBarPictoStyle.setMargin(defaultMargin);
 		progressBarPictoStyle.setForegroundColor(0x10bdf1);
 		progressBarPictoStyle.setFontProfile(largePictoFontProfile);
 		stylesheet.setStyle(PictoProgressBar.class, progressBarPictoStyle);
 
+		// Sets the illustrated button style.
 		SimpleStyle buttonStyle = new SimpleStyle();
 		buttonStyle.setMargin(defaultMargin);
 		PlainBackground buttonBackground = new PlainBackground();
@@ -183,14 +190,17 @@ public class Widgets {
 		buttonMargin.setTop(12);
 		buttonMargin.setBottom(12);
 		buttonStyle.setMargin(buttonMargin);
-		stylesheet.setStyle(ClassSelector.BUTTON, buttonStyle);
+		// The content of the button is centered horizontally and vertically.
+		buttonStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+		stylesheet.setStyle(ClassSelector.ILLUSTRATED_BUTTON, buttonStyle);
 
+		// Sets the illustrated active button style.
 		SimpleStyle activeButtonStyle = new SimpleStyle();
 		PlainBackground activeButtonBackground = new PlainBackground();
 		activeButtonBackground.setColor(0x1185a8);
 		activeButtonStyle.setBorder(activeButtonBackground);
 		List<String> buttonSelector = new ArrayList<>();
-		buttonSelector.add(ClassSelector.BUTTON);
+		buttonSelector.add(ClassSelector.ILLUSTRATED_BUTTON);
 		List<State> buttonStates = new ArrayList<>();
 		buttonStates.add(State.Active);
 		stylesheet.setStyle(buttonSelector, buttonStates, activeButtonStyle);

@@ -7,7 +7,6 @@
 package com.microej.demo.widgets.page;
 
 import com.microej.demo.widgets.Widgets;
-import com.microej.demo.widgets.style.ClassSelector;
 
 import ej.composite.ListComposite;
 import ej.mwt.Widget;
@@ -50,7 +49,6 @@ public class MainPage extends WidgetsPage {
 	// A button that leads to the given destination.
 	private Button newSelectableItem(String name, final WidgetsPage destination) {
 		SimpleButton button = new SimpleButton(name);
-		button.getLabel().addClassSelector(ClassSelector.MEDIUM_LABEL);
 		button.addOnClickListener(new OnClickListener() {
 
 			@Override

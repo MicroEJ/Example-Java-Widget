@@ -17,17 +17,12 @@ public interface ClassSelector {
 	String LARGE_ICON = "large icon"; //$NON-NLS-1$
 
 	/**
-	 * The medium label class selector.
-	 */
-	String MEDIUM_LABEL = "medium label"; //$NON-NLS-1$
-
-	/**
 	 * The large label class selector.
 	 */
 	String LARGE_LABEL = "large label"; //$NON-NLS-1$
 
 	/**
-	 * The button class selector.
+	 * The illustrated button class selector.
 	 */
-	String BUTTON = "microej button"; //$NON-NLS-1$
+	String ILLUSTRATED_BUTTON = "illustrated button"; //$NON-NLS-1$
 }

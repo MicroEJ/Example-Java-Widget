@@ -6,8 +6,6 @@
  */
 package com.microej.demo.widgets.page;
 
-import com.microej.demo.widgets.style.ClassSelector;
-
 import ej.composite.ListComposite;
 import ej.composite.ScrollComposite;
 import ej.mwt.Widget;
@@ -44,7 +42,6 @@ public class ScrollableListPage extends WidgetsPage {
 
 		for (int i = 1; i <= ITEM_COUNT; i++) {
 			Label item = new Label("Item " + i); //$NON-NLS-1$
-			item.addClassSelector(ClassSelector.MEDIUM_LABEL);
 			listComposite.add(item);
 		}
 

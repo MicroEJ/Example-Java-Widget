@@ -16,7 +16,6 @@ import ej.widget.basic.AbstractSlider;
 import ej.widget.basic.Label;
 import ej.widget.basic.Toggle;
 import ej.widget.basic.ToggleGroup;
-import ej.widget.composed.Button;
 import ej.widget.composed.SimpleButton;
 
 /**
@@ -63,8 +62,8 @@ public abstract class WidgetPage extends WidgetsPage {
 		AbstractSlider slider = newSlider(MIN_VALUE, MAX_VALUE, INITIAL_VALUE);
 		grid.add(slider);
 
-		Button button = new SimpleButton("Button"); //$NON-NLS-1$
-		button.addClassSelector(ClassSelector.BUTTON);
+		SimpleButton button = new SimpleButton("Button"); //$NON-NLS-1$
+		button.addClassSelector(ClassSelector.ILLUSTRATED_BUTTON);
 		grid.add(button);
 
 		return grid;
@@ -116,7 +115,6 @@ public abstract class WidgetPage extends WidgetsPage {
 		item.setHorizontal(true);
 		item.add(widget, MWT.LEFT);
 		Label label = new Label(text);
-		label.addClassSelector(ClassSelector.MEDIUM_LABEL);
 		item.add(label, MWT.CENTER);
 		grid.add(item);
 	}

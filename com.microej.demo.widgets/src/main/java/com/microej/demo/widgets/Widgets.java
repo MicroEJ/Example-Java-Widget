@@ -9,6 +9,7 @@ package com.microej.demo.widgets;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.microej.demo.widgets.page.ClassNameURLResolver;
 import com.microej.demo.widgets.page.MainPage;
 import com.microej.demo.widgets.style.ClassSelector;
 import com.microej.demo.widgets.style.FontFamily;
@@ -30,7 +31,6 @@ import ej.transition.desktop.HorizontalTransitionDesktop;
 import ej.transition.page.PagesStack;
 import ej.transition.page.PagesStackURL;
 import ej.transition.page.URLResolver;
-import ej.transition.page.WidgetsURLResolver;
 import ej.widget.basic.Check;
 import ej.widget.basic.CircularProgressBar;
 import ej.widget.basic.Label;
@@ -64,7 +64,7 @@ public class Widgets {
 	public static void main(String[] args) {
 		MicroUI.start();
 		initializeStylesheet();
-		URLResolver urlResolver = new WidgetsURLResolver();
+		URLResolver urlResolver = new ClassNameURLResolver();
 		PagesStack pagesStack = new PagesStackURL(urlResolver);
 		desktop = new HorizontalTransitionDesktop(urlResolver, pagesStack);
 		desktop.show(MainPage.class.getName());

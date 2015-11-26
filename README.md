@@ -22,8 +22,8 @@ First of all, you have to download the entire repository by using the `Download`
 ## Requirements
 
 - JRE 7 (or later) x86.
-- MicroEJ 3.1 or later.
-- Java platform with (at least): MICROUI-2.0, MWT-2.1.0, EDC-1.2.
+- MicroEJ 4.0 or later.
+- Java platform with (at least): MICROUI-2.0, MWT-2.x, EDC-1.2.
 - Hardware: this demo has been tested on ST STM32F746G-DISCO (480x272 display) board.
 
 ## Project structure

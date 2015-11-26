@@ -174,7 +174,6 @@
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationProject" value="com.microej.demo.widgets"/>
 <listAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationRequiredTypes">
 <listEntry value="com.microej.demo.widgets.style.WidgetsFontLoader"/>
-<listEntry value="com.microej.demo.widgets.style.WidgetsPictoTheme"/>
 <listEntry value="ej.style.cascading.CascadingStylesheet"/>
 </listAttribute>
 <listAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationResources"/>

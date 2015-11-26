@@ -27,7 +27,9 @@ import ej.style.outline.ComplexOutline;
 import ej.style.outline.EmptyOutline;
 import ej.style.outline.SimpleOutline;
 import ej.style.util.SimpleStyle;
+import ej.transition.desktop.HorizontalScreenshotTransitionDesktop;
 import ej.transition.desktop.HorizontalTransitionDesktop;
+import ej.transition.desktop.TransitionDesktop;
 import ej.transition.page.PagesStack;
 import ej.transition.page.PagesStackURL;
 import ej.transition.page.URLResolver;
@@ -49,7 +51,9 @@ import ej.widget.basic.picto.PictoSwitch;
  */
 public class Widgets {
 
-	private static ej.transition.desktop.TransitionDesktop desktop;
+	private static final boolean WITH_SCREENSHOT_TRANSITION = System
+			.getProperty("com.microej.demo.widgets.transition.screenshot") != null; //$NON-NLS-1$
+	private static TransitionDesktop desktop;
 
 	// Prevents initialization.
 	private Widgets() {
@@ -64,11 +68,19 @@ public class Widgets {
 	public static void main(String[] args) {
 		MicroUI.start();
 		initializeStylesheet();
-		URLResolver urlResolver = new ClassNameURLResolver();
-		PagesStack pagesStack = new PagesStackURL(urlResolver);
-		desktop = new HorizontalTransitionDesktop(urlResolver, pagesStack);
+		desktop = newTransitionDesktop();
 		desktop.show(MainPage.class.getName());
 		desktop.show();
+	}
+
+	private static TransitionDesktop newTransitionDesktop() {
+		URLResolver urlResolver = new ClassNameURLResolver();
+		PagesStack pagesStack = new PagesStackURL(urlResolver);
+		if (WITH_SCREENSHOT_TRANSITION) {
+			return new HorizontalScreenshotTransitionDesktop(urlResolver, pagesStack);
+		} else {
+			return new HorizontalTransitionDesktop(urlResolver, pagesStack);
+		}
 	}
 
 	/**

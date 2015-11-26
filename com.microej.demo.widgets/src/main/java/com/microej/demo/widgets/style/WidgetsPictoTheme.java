@@ -13,53 +13,63 @@ import ej.widget.basic.picto.PictoTheme;
  */
 public class WidgetsPictoTheme implements PictoTheme {
 
+	private static final int PROGRESS_BAR = 0x25;
+	private static final int SLIDER_CURSOR = 0x27;
+	private static final int SLIDER_BAR = 0x28;
+	private static final int RADIO_UNCHECKED = 0x21;
+	private static final int RADIO_CHECKED = 0x22;
+	private static final int SWITCH_UNCHECKED = 0x25;
+	private static final int SWITCH_CHECKED = 0x26;
+	private static final int CHECKBOX_UNCHECKED = 0x23;
+	private static final int CHECKBOX_CHECK = 0x24;
+
 	@Override
 	public char getCheckboxCheckedCharacter() {
-		return 0x24;
+		return CHECKBOX_CHECK;
 	}
 
 	@Override
 	public char getCheckboxUncheckedCharacter() {
-		return 0x23;
+		return CHECKBOX_UNCHECKED;
 	}
 
 	@Override
 	public char getSwitchCheckedCharacter() {
-		return 0x26;
+		return SWITCH_CHECKED;
 	}
 
 	@Override
 	public char getSwitchUncheckedCharacter() {
-		return 0x25;
+		return SWITCH_UNCHECKED;
 	}
 
 	@Override
 	public char getRadioButtonCheckedCharacter() {
-		return 0x22;
+		return RADIO_CHECKED;
 	}
 
 	@Override
 	public char getRadioButtonUncheckedCharacter() {
-		return 0x21;
+		return RADIO_UNCHECKED;
 	}
 
 	@Override
 	public char getSliderBarCharacter() {
-		return 0x28;
+		return SLIDER_BAR;
 	}
 
 	@Override
 	public char getSliderCursorCharacter() {
-		return 0x27;
+		return SLIDER_CURSOR;
 	}
 
 	@Override
 	public char getProgressBarCharacter(float percentComplete) {
-		return 0x25;
+		return PROGRESS_BAR;
 	}
 
 	@Override
 	public char[] getIndeterminateProgressBarPictos() {
-		return new char[] { 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29 };
+		return new char[] { PROGRESS_BAR };
 	}
 }

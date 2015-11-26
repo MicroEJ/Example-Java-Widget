@@ -14,9 +14,9 @@ import ej.widget.basic.Label;
 /**
  * This page illustrates the scrollable list.
  */
-public class ScrollableListPage extends WidgetsPage {
+public class ScrollableListPage extends AbstractDemoPage {
 
-	private static final int ITEM_COUNT = 50;
+	private static final int ITEM_COUNT = 100;
 
 	@Override
 	protected String getTitle() {

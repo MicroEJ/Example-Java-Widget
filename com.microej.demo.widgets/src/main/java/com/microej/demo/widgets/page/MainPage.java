@@ -6,7 +6,7 @@
  */
 package com.microej.demo.widgets.page;
 
-import com.microej.demo.widgets.Widgets;
+import com.microej.demo.widgets.WidgetsDemo;
 
 import ej.composite.ListComposite;
 import ej.mwt.Widget;
@@ -17,7 +17,7 @@ import ej.widget.listener.OnClickListener;
 /**
  * Main page of the application. It allows to access all the pages of the application.
  */
-public class MainPage extends WidgetsPage {
+public class MainPage extends AbstractDemoPage {
 
 	@Override
 	protected String getTitle() {
@@ -53,7 +53,7 @@ public class MainPage extends WidgetsPage {
 
 			@Override
 			public void onClick() {
-				Widgets.show(url);
+				WidgetsDemo.show(url);
 			}
 		});
 		return button;

@@ -16,7 +16,7 @@ import ej.widget.basic.picto.PictoProgressBar;
 /**
  * This page illustrates the different implementations of a progress bar.
  */
-public class ProgressBarPage extends WidgetsPage {
+public class ProgressBarPage extends AbstractDemoPage {
 
 	private static final int MIN = 0;
 	private static final int MAX = 100;

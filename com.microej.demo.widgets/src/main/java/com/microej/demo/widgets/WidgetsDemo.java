@@ -9,10 +9,9 @@ package com.microej.demo.widgets;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.microej.demo.widgets.page.ClassNameURLResolver;
 import com.microej.demo.widgets.page.MainPage;
+import com.microej.demo.widgets.resources.FontFamilies;
 import com.microej.demo.widgets.style.ClassSelector;
-import com.microej.demo.widgets.style.FontFamily;
 
 import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.microui.MicroUI;
@@ -30,6 +29,7 @@ import ej.style.util.SimpleStyle;
 import ej.transition.desktop.HorizontalScreenshotTransitionDesktop;
 import ej.transition.desktop.HorizontalTransitionDesktop;
 import ej.transition.desktop.TransitionDesktop;
+import ej.transition.page.ClassNameURLResolver;
 import ej.transition.page.PagesStack;
 import ej.transition.page.PagesStackURL;
 import ej.transition.page.URLResolver;
@@ -47,23 +47,23 @@ import ej.widget.basic.picto.PictoSlider;
 import ej.widget.basic.picto.PictoSwitch;
 
 /**
- * This demo illustrates the widgets library based on MicroUI-2.0 and MWT2.0.
+ * This demo illustrates the widgets library.
  */
-public class Widgets {
+public class WidgetsDemo {
 
 	private static final boolean WITH_SCREENSHOT_TRANSITION = System
 			.getProperty("com.microej.demo.widgets.transition.screenshot") != null; //$NON-NLS-1$
 	private static TransitionDesktop desktop;
 
 	// Prevents initialization.
-	private Widgets() {
+	private WidgetsDemo() {
 	}
 
 	/**
 	 * Application entry point.
 	 *
 	 * @param args
-	 *            useless.
+	 *            not used.
 	 */
 	public static void main(String[] args) {
 		MicroUI.start();
@@ -84,10 +84,10 @@ public class Widgets {
 	}
 
 	/**
-	 * Shows the page corresponding to the given url.
+	 * Shows the page corresponding to the given URL.
 	 *
 	 * @param url
-	 *            the url of the page to show.
+	 *            the URL of the page to show.
 	 */
 	public static void show(String url) {
 		desktop.show(url);
@@ -107,7 +107,7 @@ public class Widgets {
 		SimpleStyle defaultStyle = new SimpleStyle();
 		defaultStyle.setForegroundColor(Colors.WHITE);
 		FontProfile defaultFontProfile = new FontProfile();
-		defaultFontProfile.setFamily(FontFamily.ROBOTO);
+		defaultFontProfile.setFamily(FontFamilies.ROBOTO);
 		defaultFontProfile.setSize(FontSize.MEDIUM);
 		defaultStyle.setFontProfile(defaultFontProfile);
 		PlainBackground defaultBackground = new PlainBackground();
@@ -131,7 +131,7 @@ public class Widgets {
 		// Sets the large picto style.
 		SimpleStyle largePictoStyle = new SimpleStyle();
 		FontProfile largePictoFontProfile = new FontProfile();
-		largePictoFontProfile.setFamily(FontFamily.PICTO);
+		largePictoFontProfile.setFamily(FontFamilies.PICTO);
 		largePictoFontProfile.setSize(FontSize.LARGE);
 		largePictoStyle.setFontProfile(largePictoFontProfile);
 		stylesheet.setStyle(ClassSelector.LARGE_ICON, largePictoStyle);
@@ -139,7 +139,7 @@ public class Widgets {
 		// Sets the large label style.
 		SimpleStyle largeLabelStyle = new SimpleStyle();
 		FontProfile largeLabelFontProfile = new FontProfile();
-		largeLabelFontProfile.setFamily(FontFamily.ROBOTO);
+		largeLabelFontProfile.setFamily(FontFamilies.ROBOTO);
 		largeLabelFontProfile.setSize(FontSize.LARGE);
 		largeLabelStyle.setFontProfile(largeLabelFontProfile);
 		stylesheet.setStyle(ClassSelector.LARGE_LABEL, largeLabelStyle);
@@ -154,7 +154,7 @@ public class Widgets {
 
 		// The font to use for the most of the picto widgets.
 		FontProfile widgetPictoFontProfile = new FontProfile();
-		widgetPictoFontProfile.setFamily(FontFamily.PICTO);
+		widgetPictoFontProfile.setFamily(FontFamilies.PICTO);
 		widgetPictoFontProfile.setSize(FontSize.MEDIUM);
 
 		// Sets the unchecked picto toggle style.

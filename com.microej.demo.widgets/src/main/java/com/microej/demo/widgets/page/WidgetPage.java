@@ -19,9 +19,9 @@ import ej.widget.basic.ToggleGroup;
 import ej.widget.composed.SimpleButton;
 
 /**
- * This page is a skeleton that illustrates a set of widget.
+ * Haptic widgets demonstration page.
  */
-public abstract class WidgetPage extends WidgetsPage {
+public abstract class WidgetPage extends AbstractDemoPage {
 
 	private static final int MIN_VALUE = 0;
 	private static final int MAX_VALUE = 100;

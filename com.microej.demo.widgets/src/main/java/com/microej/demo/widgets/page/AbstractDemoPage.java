@@ -6,10 +6,10 @@
  */
 package com.microej.demo.widgets.page;
 
-import com.microej.demo.widgets.Widgets;
+import com.microej.demo.widgets.WidgetsDemo;
+import com.microej.demo.widgets.resources.Images;
+import com.microej.demo.widgets.resources.Pictos;
 import com.microej.demo.widgets.style.ClassSelector;
-import com.microej.demo.widgets.style.Images;
-import com.microej.demo.widgets.style.Pictos;
 
 import ej.composite.BorderComposite;
 import ej.mwt.MWT;
@@ -22,11 +22,14 @@ import ej.widget.composed.SimpleButton;
 import ej.widget.listener.OnClickListener;
 
 /**
- * Page skeleton of the application.
+ * Common abstract page implementation for all pages of the application.
  */
-public abstract class WidgetsPage extends Page {
+public abstract class AbstractDemoPage extends Page {
 
-	public WidgetsPage() {
+	/**
+	 * Creates a new demo page.
+	 */
+	public AbstractDemoPage() {
 		setWidget(createContent());
 	}
 
@@ -67,7 +70,7 @@ public abstract class WidgetsPage extends Page {
 
 				@Override
 				public void onClick() {
-					Widgets.back();
+					WidgetsDemo.back();
 				}
 			});
 			topBar.add(backButton, MWT.WEST);

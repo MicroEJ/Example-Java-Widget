@@ -26,6 +26,10 @@ import ej.widget.listener.OnClickListener;
  */
 public abstract class WidgetsPage extends Page {
 
+	public WidgetsPage() {
+		setWidget(createContent());
+	}
+
 	private Widget createContent() {
 		BorderComposite content = new BorderComposite();
 		content.setHorizontal(false);
@@ -102,20 +106,6 @@ public abstract class WidgetsPage extends Page {
 	 * @return the composite representing the content of the page.
 	 */
 	protected abstract Widget createMainContent();
-
-	@Override
-	public void showNotify() {
-		super.showNotify();
-		// The content of the page is created only when the page is displayed.
-		setWidget(createContent());
-	}
-
-	@Override
-	public void hideNotify() {
-		super.hideNotify();
-		// The content of the page is destroyed only when the page is not displayed anymore.
-		setWidget(null);
-	}
 
 	@Override
 	public String getCurrentURL() {

@@ -14,5 +14,5 @@ public interface Pictos {
 	/**
 	 * The back picto.
 	 */
-	char BACK = 0x34;
+	char BACK = 0x3d;
 }

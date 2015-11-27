@@ -17,6 +17,7 @@ import ej.widget.basic.Label;
 import ej.widget.basic.Toggle;
 import ej.widget.basic.ToggleGroup;
 import ej.widget.composed.SimpleButton;
+import ej.widget.composed.ToggleButton;
 
 /**
  * Haptic widgets demonstration page.
@@ -44,20 +45,20 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		grid.setCount(2);
 
 		Toggle switch_ = newSwitch(false);
-		newItem(switch_, "Switch", grid); //$NON-NLS-1$
+		newToggleItem(switch_, "Switch", grid); //$NON-NLS-1$
 
 		ToggleGroup toggleGroup = new ToggleGroup();
 
 		Toggle radio1 = newRadioButton(false);
 		toggleGroup.addToggle(radio1);
-		newItem(radio1, "Radio 1", grid); //$NON-NLS-1$
+		newToggleItem(radio1, "Radio 1", grid); //$NON-NLS-1$
 
 		Toggle checkbox = newCheckBox(true);
-		newItem(checkbox, "Checkbox", grid); //$NON-NLS-1$
+		newToggleItem(checkbox, "Checkbox", grid); //$NON-NLS-1$
 
 		Toggle radio2 = newRadioButton(true);
 		toggleGroup.addToggle(radio2);
-		newItem(radio2, "Radio 2", grid); //$NON-NLS-1$
+		newToggleItem(radio2, "Radio 2", grid); //$NON-NLS-1$
 
 		AbstractSlider slider = newSlider(MIN_VALUE, MAX_VALUE, INITIAL_VALUE);
 		grid.add(slider);
@@ -110,12 +111,14 @@ public abstract class WidgetPage extends AbstractDemoPage {
 	 */
 	protected abstract AbstractSlider newSlider(int min, int max, int initial);
 
-	private static void newItem(Widget widget, String text, GridComposite grid) {
-		BorderComposite item = new BorderComposite();
-		item.setHorizontal(true);
-		item.add(widget, MWT.LEFT);
+	// Creates a toggle that changes its state also when the text is clicked.
+	private static void newToggleItem(Toggle toggle, String text, GridComposite grid) {
 		Label label = new Label(text);
-		item.add(label, MWT.CENTER);
-		grid.add(item);
+		ToggleButton toggleButton = new ToggleButton(toggle);
+		BorderComposite toggleButtonContent = new BorderComposite();
+		toggleButtonContent.add(toggle, MWT.LEFT);
+		toggleButtonContent.add(label, MWT.CENTER);
+		toggleButton.setWidget(toggleButtonContent);
+		grid.add(toggleButton);
 	}
 }

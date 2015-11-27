@@ -35,6 +35,7 @@ import ej.transition.page.PagesStackURL;
 import ej.transition.page.URLResolver;
 import ej.widget.basic.Check;
 import ej.widget.basic.CircularProgressBar;
+import ej.widget.basic.Image;
 import ej.widget.basic.Label;
 import ej.widget.basic.ProgressBar;
 import ej.widget.basic.Radio;
@@ -100,6 +101,10 @@ public class WidgetsDemo {
 		desktop.back();
 	}
 
+	public static boolean canGoBack() {
+		return desktop.canGoBack();
+	}
+
 	private static void initializeStylesheet() {
 		Stylesheet stylesheet = ServiceLoaderFactory.getServiceLoader().getService(Stylesheet.class);
 
@@ -136,13 +141,20 @@ public class WidgetsDemo {
 		largePictoStyle.setFontProfile(largePictoFontProfile);
 		stylesheet.setStyle(ClassSelector.LARGE_ICON, largePictoStyle);
 
-		// Sets the large label style.
-		SimpleStyle largeLabelStyle = new SimpleStyle();
-		FontProfile largeLabelFontProfile = new FontProfile();
-		largeLabelFontProfile.setFamily(FontFamilies.ROBOTO);
-		largeLabelFontProfile.setSize(FontSize.LARGE);
-		largeLabelStyle.setFontProfile(largeLabelFontProfile);
-		stylesheet.setStyle(ClassSelector.LARGE_LABEL, largeLabelStyle);
+		// Sets the title style.
+		SimpleStyle titleStyle = new SimpleStyle();
+		FontProfile titleFontProfile = new FontProfile();
+		titleFontProfile.setFamily(FontFamilies.ROBOTO);
+		titleFontProfile.setSize(FontSize.LARGE);
+		titleStyle.setFontProfile(titleFontProfile);
+		stylesheet.setStyle(ClassSelector.TITLE, titleStyle);
+
+		// Sets the image style.
+		SimpleStyle imageStyle = new SimpleStyle();
+		ComplexOutline imagePadding = new ComplexOutline();
+		imagePadding.setLeft(5); // Align with back button size.
+		imageStyle.setPadding(imagePadding);
+		stylesheet.setStyle(Image.class, imageStyle);
 
 		// Sets the unchecked toggle style.
 		SimpleStyle toggleStyle = new SimpleStyle();

@@ -17,9 +17,9 @@ public interface ClassSelector {
 	String LARGE_ICON = "large icon"; //$NON-NLS-1$
 
 	/**
-	 * The large label class selector.
+	 * The title class selector.
 	 */
-	String LARGE_LABEL = "large label"; //$NON-NLS-1$
+	String TITLE = "title"; //$NON-NLS-1$
 
 	/**
 	 * The illustrated button class selector.

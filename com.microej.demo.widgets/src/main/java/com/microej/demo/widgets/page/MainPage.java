@@ -59,8 +59,4 @@ public class MainPage extends AbstractDemoPage {
 		return button;
 	}
 
-	@Override
-	protected boolean withMicroEJLogoInTopBar() {
-		return true;
-	}
 }

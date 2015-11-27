@@ -12,6 +12,7 @@ import com.microej.demo.widgets.resources.Pictos;
 import com.microej.demo.widgets.style.ClassSelector;
 
 import ej.composite.BorderComposite;
+import ej.microui.display.Display;
 import ej.mwt.MWT;
 import ej.mwt.Widget;
 import ej.transition.page.Page;
@@ -26,6 +27,8 @@ import ej.widget.listener.OnClickListener;
  */
 public abstract class AbstractDemoPage extends Page {
 
+	private BorderComposite content;
+
 	/**
 	 * Creates a new demo page.
 	 */
@@ -33,12 +36,24 @@ public abstract class AbstractDemoPage extends Page {
 		setWidget(createContent());
 	}
 
+	@Override
+	public void onTransitionStop() {
+		super.onTransitionStop();
+		Display.getDefaultDisplay().callSerially(new Runnable() {
+			@Override
+			public void run() {
+				AbstractDemoPage.this.content.add(createTopBar(), MWT.NORTH);
+				AbstractDemoPage.this.content.revalidate();
+			}
+		});
+	}
+
 	private Widget createContent() {
-		BorderComposite content = new BorderComposite();
-		content.setHorizontal(false);
-		content.add(createTopBar(), MWT.NORTH);
-		content.add(createMainContent(), MWT.CENTER);
-		return content;
+		this.content = new BorderComposite();
+		this.content.setHorizontal(false);
+		this.content.add(createTopBar(), MWT.NORTH);
+		this.content.add(createMainContent(), MWT.CENTER);
+		return this.content;
 	}
 
 	/**
@@ -48,22 +63,14 @@ public abstract class AbstractDemoPage extends Page {
 	 */
 	protected Widget createTopBar() {
 		// The title of the page.
-		BorderComposite title = new BorderComposite();
-
-		if (withMicroEJLogoInTopBar()) {
-			Image titleIcon = new Image(ImageHelper.loadImage(Images.MICROEJ_LOGO));
-			title.add(titleIcon, MWT.WEST);
-		}
-
 		Label titleLabel = new Label(getTitle());
-		titleLabel.addClassSelector(ClassSelector.LARGE_LABEL);
-		title.add(titleLabel, MWT.CENTER);
+		titleLabel.addClassSelector(ClassSelector.TITLE);
 
-		// Add a back button if necessary.
-		if (canGoBack()) {
-			BorderComposite topBar = new BorderComposite();
-			topBar.add(title, MWT.CENTER);
+		BorderComposite topBar = new BorderComposite();
+		topBar.add(titleLabel, MWT.CENTER);
 
+		if (WidgetsDemo.canGoBack()) {
+			// Add a back button.
 			SimpleButton backButton = new SimpleButton(Pictos.BACK + ""); //$NON-NLS-1$
 			backButton.getLabel().addClassSelector(ClassSelector.LARGE_ICON);
 			backButton.addOnClickListener(new OnClickListener() {
@@ -74,19 +81,12 @@ public abstract class AbstractDemoPage extends Page {
 				}
 			});
 			topBar.add(backButton, MWT.WEST);
-			return topBar;
 		} else {
-			return title;
+			// Add a MicroEJ logo.
+			Image titleIcon = new Image(ImageHelper.loadImage(Images.MICROEJ_LOGO));
+			topBar.add(titleIcon, MWT.WEST);
 		}
-	}
-
-	/**
-	 * Gets whether or not the top bar must contain the MicroEJ logo.
-	 *
-	 * @return true if the top must contain the MicroEJ logo otherwise false.
-	 */
-	protected boolean withMicroEJLogoInTopBar() {
-		return false;
+		return topBar;
 	}
 
 	/**

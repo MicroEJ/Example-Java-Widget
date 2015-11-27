@@ -11,16 +11,19 @@ import ej.composite.SplitComposite;
 import ej.mwt.Widget;
 import ej.widget.basic.CircularProgressBar;
 import ej.widget.basic.ProgressBar;
-import ej.widget.basic.picto.PictoProgressBar;
+import ej.widget.basic.picto.PictoProgress;
 
 /**
- * This page illustrates the different implementations of a progress bar.
+ * This page illustrates different implementations of a progress bar.
  */
 public class ProgressBarPage extends AbstractDemoPage {
 
 	private static final int MIN = 0;
 	private static final int MAX = 100;
 	private static final int INITIAL = 0;
+	private ProgressBar progressBar;
+	private CircularProgressBar circularProgressBar;
+	private PictoProgress pictoProgressBar;
 
 	@Override
 	protected String getTitle() {
@@ -42,24 +45,40 @@ public class ProgressBarPage extends AbstractDemoPage {
 		grid.setHorizontal(true);
 		grid.setCount(1);
 
-		ProgressBar progressBar = new ProgressBar(MIN, MAX, INITIAL);
-		progressBar.setIndeterminate(true);
-		grid.add(progressBar);
+		this.progressBar = new ProgressBar(MIN, MAX, INITIAL);
+		this.progressBar.setIndeterminate(true);
+		grid.add(this.progressBar);
 
 		SplitComposite splitComposite = new SplitComposite();
 		splitComposite.setHorizontal(true);
 		splitComposite.setRatio(0.5f);
 		grid.add(splitComposite);
 
-		CircularProgressBar circularProgressBar = new CircularProgressBar(MIN, MAX, INITIAL);
-		circularProgressBar.setIndeterminate(true);
-		splitComposite.add(circularProgressBar);
+		this.circularProgressBar = new CircularProgressBar(MIN, MAX, INITIAL);
+		this.circularProgressBar.setIndeterminate(true);
+		splitComposite.add(this.circularProgressBar);
 
-		PictoProgressBar pictoProgressBar = new PictoProgressBar(MIN, MAX, INITIAL);
-		pictoProgressBar.setIndeterminate(true);
-		splitComposite.add(pictoProgressBar);
+		this.pictoProgressBar = new PictoProgress(MIN, MAX, INITIAL);
+		this.pictoProgressBar.setIndeterminate(true);
+		splitComposite.add(this.pictoProgressBar);
 
 		return grid;
+	}
+
+	@Override
+	public void onTransitionStart() {
+		super.onTransitionStart();
+		this.progressBar.hideNotify();
+		this.circularProgressBar.hideNotify();
+		this.pictoProgressBar.hideNotify();
+	}
+
+	@Override
+	public void onTransitionStop() {
+		super.onTransitionStop();
+		this.progressBar.showNotify();
+		this.circularProgressBar.showNotify();
+		this.pictoProgressBar.showNotify();
 	}
 
 }

@@ -6,7 +6,7 @@
  */
 package com.microej.demo.widgets.page;
 
-import com.microej.demo.widgets.style.ClassSelector;
+import com.microej.demo.widgets.style.ClassSelectors;
 
 import ej.composite.BorderComposite;
 import ej.composite.GridComposite;
@@ -63,7 +63,7 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		grid.add(slider);
 
 		SimpleButton button = new SimpleButton("Button"); //$NON-NLS-1$
-		button.addClassSelector(ClassSelector.ILLUSTRATED_BUTTON);
+		button.addClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
 		grid.add(button);
 
 		return grid;

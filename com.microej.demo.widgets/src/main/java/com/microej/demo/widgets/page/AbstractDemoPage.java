@@ -9,10 +9,11 @@ package com.microej.demo.widgets.page;
 import com.microej.demo.widgets.WidgetsDemo;
 import com.microej.demo.widgets.resources.Images;
 import com.microej.demo.widgets.resources.Pictos;
-import com.microej.demo.widgets.style.ClassSelector;
+import com.microej.demo.widgets.style.ClassSelectors;
 
 import ej.composite.BorderComposite;
 import ej.microui.display.Display;
+import ej.microui.display.GraphicsContext;
 import ej.mwt.MWT;
 import ej.mwt.Widget;
 import ej.transition.page.Page;
@@ -23,7 +24,7 @@ import ej.widget.composed.SimpleButton;
 import ej.widget.listener.OnClickListener;
 
 /**
- * Common abstract page implementation for all pages of the application.
+ * Common abstract page implementation for all the application pages.
  */
 public abstract class AbstractDemoPage extends Page {
 
@@ -39,6 +40,7 @@ public abstract class AbstractDemoPage extends Page {
 	@Override
 	public void onTransitionStop() {
 		super.onTransitionStop();
+		// Update the top bar.
 		Display.getDefaultDisplay().callSerially(new Runnable() {
 			@Override
 			public void run() {
@@ -64,7 +66,7 @@ public abstract class AbstractDemoPage extends Page {
 	protected Widget createTopBar() {
 		// The title of the page.
 		Label titleLabel = new Label(getTitle());
-		titleLabel.addClassSelector(ClassSelector.TITLE);
+		titleLabel.addClassSelector(ClassSelectors.TITLE);
 
 		BorderComposite topBar = new BorderComposite();
 		topBar.add(titleLabel, MWT.CENTER);
@@ -72,7 +74,7 @@ public abstract class AbstractDemoPage extends Page {
 		if (WidgetsDemo.canGoBack()) {
 			// Add a back button.
 			SimpleButton backButton = new SimpleButton(Pictos.BACK + ""); //$NON-NLS-1$
-			backButton.getLabel().addClassSelector(ClassSelector.LARGE_ICON);
+			backButton.getLabel().addClassSelector(ClassSelectors.LARGE_ICON);
 			backButton.addOnClickListener(new OnClickListener() {
 
 				@Override
@@ -113,5 +115,16 @@ public abstract class AbstractDemoPage extends Page {
 	@Override
 	public String getCurrentURL() {
 		return getClass().getName();
+	}
+
+	@Override
+	public boolean isTransparent() {
+		return false;
+	}
+
+	@Override
+	public void render(GraphicsContext g) {
+		g.setColor(0x404041);
+		g.fillRect(0, 0, getWidth(), getHeight());
 	}
 }

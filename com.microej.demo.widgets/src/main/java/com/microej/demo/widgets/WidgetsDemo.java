@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.microej.demo.widgets.page.MainPage;
 import com.microej.demo.widgets.resources.FontFamilies;
-import com.microej.demo.widgets.style.ClassSelector;
+import com.microej.demo.widgets.style.ClassSelectors;
 
 import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.microui.MicroUI;
@@ -25,6 +25,7 @@ import ej.style.font.FontProfile.FontSize;
 import ej.style.outline.ComplexOutline;
 import ej.style.outline.EmptyOutline;
 import ej.style.outline.SimpleOutline;
+import ej.style.text.ComplexTextManager;
 import ej.style.util.SimpleStyle;
 import ej.transition.desktop.HorizontalScreenshotTransitionDesktop;
 import ej.transition.desktop.HorizontalTransitionDesktop;
@@ -42,7 +43,7 @@ import ej.widget.basic.Radio;
 import ej.widget.basic.Slider;
 import ej.widget.basic.Switch;
 import ej.widget.basic.picto.PictoCheck;
-import ej.widget.basic.picto.PictoProgressBar;
+import ej.widget.basic.picto.PictoProgress;
 import ej.widget.basic.picto.PictoRadio;
 import ej.widget.basic.picto.PictoSlider;
 import ej.widget.basic.picto.PictoSwitch;
@@ -101,6 +102,11 @@ public class WidgetsDemo {
 		desktop.back();
 	}
 
+	/**
+	 * Checks whether or not it is possible to go back in the navigation history.
+	 *
+	 * @return <code>true</code> it is possible to go back, <code>false</code> otherwise.
+	 */
 	public static boolean canGoBack() {
 		return desktop.canGoBack();
 	}
@@ -115,9 +121,8 @@ public class WidgetsDemo {
 		defaultFontProfile.setFamily(FontFamilies.ROBOTO);
 		defaultFontProfile.setSize(FontSize.MEDIUM);
 		defaultStyle.setFontProfile(defaultFontProfile);
-		PlainBackground defaultBackground = new PlainBackground();
-		defaultBackground.setColor(0x404041);
-		defaultStyle.setBorder(defaultBackground);
+		EmptyOutline transparentBackground = new EmptyOutline();
+		defaultStyle.setBorder(transparentBackground);
 		defaultStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
 		stylesheet.setStyle(defaultStyle);
 
@@ -128,9 +133,6 @@ public class WidgetsDemo {
 		// Sets the label style.
 		SimpleStyle labelStyle = new SimpleStyle();
 		labelStyle.setMargin(defaultMargin);
-		// Especially useful for the buttons with a background.
-		EmptyOutline transparentBackground = new EmptyOutline();
-		labelStyle.setBorder(transparentBackground);
 		stylesheet.setStyle(Label.class, labelStyle);
 
 		// Sets the large picto style.
@@ -139,7 +141,7 @@ public class WidgetsDemo {
 		largePictoFontProfile.setFamily(FontFamilies.PICTO);
 		largePictoFontProfile.setSize(FontSize.LARGE);
 		largePictoStyle.setFontProfile(largePictoFontProfile);
-		stylesheet.setStyle(ClassSelector.LARGE_ICON, largePictoStyle);
+		stylesheet.setStyle(ClassSelectors.LARGE_ICON, largePictoStyle);
 
 		// Sets the title style.
 		SimpleStyle titleStyle = new SimpleStyle();
@@ -147,7 +149,7 @@ public class WidgetsDemo {
 		titleFontProfile.setFamily(FontFamilies.ROBOTO);
 		titleFontProfile.setSize(FontSize.LARGE);
 		titleStyle.setFontProfile(titleFontProfile);
-		stylesheet.setStyle(ClassSelector.TITLE, titleStyle);
+		stylesheet.setStyle(ClassSelectors.TITLE, titleStyle);
 
 		// Sets the image style.
 		SimpleStyle imageStyle = new SimpleStyle();
@@ -204,11 +206,10 @@ public class WidgetsDemo {
 		progressBarPictoStyle.setMargin(defaultMargin);
 		progressBarPictoStyle.setForegroundColor(0x10bdf1);
 		progressBarPictoStyle.setFontProfile(largePictoFontProfile);
-		stylesheet.setStyle(PictoProgressBar.class, progressBarPictoStyle);
+		stylesheet.setStyle(PictoProgress.class, progressBarPictoStyle);
 
 		// Sets the illustrated button style.
 		SimpleStyle buttonStyle = new SimpleStyle();
-		buttonStyle.setMargin(defaultMargin);
 		PlainBackground buttonBackground = new PlainBackground();
 		buttonBackground.setColor(0x10bdf1);
 		buttonStyle.setBorder(buttonBackground);
@@ -220,7 +221,7 @@ public class WidgetsDemo {
 		buttonStyle.setMargin(buttonMargin);
 		// The content of the button is centered horizontally and vertically.
 		buttonStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
-		stylesheet.setStyle(ClassSelector.ILLUSTRATED_BUTTON, buttonStyle);
+		stylesheet.setStyle(ClassSelectors.ILLUSTRATED_BUTTON, buttonStyle);
 
 		// Sets the illustrated active button style.
 		SimpleStyle activeButtonStyle = new SimpleStyle();
@@ -228,9 +229,16 @@ public class WidgetsDemo {
 		activeButtonBackground.setColor(0x1185a8);
 		activeButtonStyle.setBorder(activeButtonBackground);
 		List<String> buttonSelector = new ArrayList<>();
-		buttonSelector.add(ClassSelector.ILLUSTRATED_BUTTON);
+		buttonSelector.add(ClassSelectors.ILLUSTRATED_BUTTON);
 		List<State> buttonStates = new ArrayList<>();
 		buttonStates.add(State.Active);
 		stylesheet.setStyle(buttonSelector, buttonStates, activeButtonStyle);
+
+		// Sets the multiline style.
+		SimpleStyle multilineStyle = new SimpleStyle();
+		ComplexTextManager complexTextManager = new ComplexTextManager();
+		complexTextManager.setLineHeight(40);
+		multilineStyle.setTextManager(complexTextManager);
+		stylesheet.setStyle(ClassSelectors.MULTILINE, multilineStyle);
 	}
 }

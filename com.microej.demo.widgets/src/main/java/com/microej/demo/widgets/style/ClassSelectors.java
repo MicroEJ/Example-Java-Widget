@@ -9,7 +9,7 @@ package com.microej.demo.widgets.style;
 /**
  * Class selectors used in the stylesheet.
  */
-public interface ClassSelector {
+public interface ClassSelectors {
 
 	/**
 	 * The large icon class selector.
@@ -25,4 +25,9 @@ public interface ClassSelector {
 	 * The illustrated button class selector.
 	 */
 	String ILLUSTRATED_BUTTON = "illustrated button"; //$NON-NLS-1$
+
+	/**
+	 * The multiline class selector.
+	 */
+	String MULTILINE = "multiline"; //$NON-NLS-1$
 }

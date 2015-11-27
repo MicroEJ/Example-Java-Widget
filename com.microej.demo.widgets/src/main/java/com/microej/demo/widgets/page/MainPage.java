@@ -9,13 +9,14 @@ package com.microej.demo.widgets.page;
 import com.microej.demo.widgets.WidgetsDemo;
 
 import ej.composite.ListComposite;
+import ej.composite.ScrollComposite;
 import ej.mwt.Widget;
 import ej.widget.composed.Button;
 import ej.widget.composed.SimpleButton;
 import ej.widget.listener.OnClickListener;
 
 /**
- * Main page of the application. It allows to access all the pages of the application.
+ * Main page of the application. It allows to access to all the pages of the application.
  */
 public class MainPage extends AbstractDemoPage {
 
@@ -43,7 +44,8 @@ public class MainPage extends AbstractDemoPage {
 		listComposite.add(newSelectableItem("Basic widgets - Drawing", DrawingsPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Progress bar", ProgressBarPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Scrollable list", ScrollableListPage.class.getName())); //$NON-NLS-1$
-		return listComposite;
+		listComposite.add(newSelectableItem("Scrollable text", ScrollableTextPage.class.getName())); //$NON-NLS-1$
+		return new ScrollComposite(listComposite, true);
 	}
 
 	// A button that leads to the given page.

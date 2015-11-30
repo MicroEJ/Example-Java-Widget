@@ -10,7 +10,7 @@
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.ext.widget.BrowseOption_CENDsp.database.definition" value=""/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.ext.widget.ComboOption_CENDdeploy.way" value="noDeployment.xml"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.microui.fontConverter.file" value="${project_loc:com.microej.demo.widgets}/src/main/resources/com/microej/demo/widgets/com.microej.demo.widgets.fonts.list"/>
-<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.microui.imageConverter.file" value="C:\Users\skobak\git\ExampleJava-Widget\com.microej.demo.widgets\src\main\resources\com\microej\demo\widgets\com.microej.demo.widgets.images.list"/>
+<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.microui.imageConverter.file" value="${project_loc:com.microej.demo.widgets}\src\main\resources\com\microej\demo\widgets\com.microej.demo.widgets.images.list"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.nls.list" value=""/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.storyboard.list" value=""/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDs3.mock.uart.com0.file.input" value=""/>
@@ -175,6 +175,7 @@
 <listAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationRequiredTypes">
 <listEntry value="com.microej.demo.widgets.style.WidgetsFontLoader"/>
 <listEntry value="ej.style.cascading.CascadingStylesheet"/>
+<listEntry value="com.microej.demo.widgets.resources.WidgetsImageTheme"/>
 </listAttribute>
 <listAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationResources"/>
 <booleanAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationVerbose" value="false"/>

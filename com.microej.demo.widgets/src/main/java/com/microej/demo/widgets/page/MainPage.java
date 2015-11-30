@@ -41,6 +41,7 @@ public class MainPage extends AbstractDemoPage {
 		ListComposite listComposite = new ListComposite();
 		listComposite.setHorizontal(false);
 		listComposite.add(newSelectableItem("Basic widgets - Picto", PictosPage.class.getName())); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Basic widgets - Image", ImagesPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Basic widgets - Drawing", DrawingsPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Progress bar", ProgressBarPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Scrollable list", ScrollableListPage.class.getName())); //$NON-NLS-1$

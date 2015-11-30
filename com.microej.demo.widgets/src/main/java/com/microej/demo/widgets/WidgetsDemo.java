@@ -42,6 +42,10 @@ import ej.widget.basic.ProgressBar;
 import ej.widget.basic.Radio;
 import ej.widget.basic.Slider;
 import ej.widget.basic.Switch;
+import ej.widget.basic.image.ImageCheck;
+import ej.widget.basic.image.ImageRadio;
+import ej.widget.basic.image.ImageSlider;
+import ej.widget.basic.image.ImageSwitch;
 import ej.widget.basic.picto.PictoCheck;
 import ej.widget.basic.picto.PictoProgress;
 import ej.widget.basic.picto.PictoRadio;
@@ -190,6 +194,14 @@ public class WidgetsDemo {
 		stylesheet.setStyle(Check.class, State.Active, widgetStyle);
 		stylesheet.setStyle(Radio.class, State.Active, widgetStyle);
 		stylesheet.setStyle(Switch.class, State.Active, widgetStyle);
+
+		// Sets the image widget style.
+		SimpleStyle widgetImageStyle = new SimpleStyle();
+		widgetImageStyle.setMargin(defaultMargin);
+		stylesheet.setStyle(ImageSlider.class, widgetImageStyle);
+		stylesheet.setStyle(ImageRadio.class, widgetImageStyle);
+		stylesheet.setStyle(ImageCheck.class, widgetImageStyle);
+		stylesheet.setStyle(ImageSwitch.class, widgetImageStyle);
 
 		// Sets the picto widget and checked picto toggle style.
 		SimpleStyle widgetPictoStyle = new SimpleStyle();

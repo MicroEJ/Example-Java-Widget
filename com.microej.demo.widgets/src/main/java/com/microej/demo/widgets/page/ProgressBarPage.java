@@ -65,20 +65,4 @@ public class ProgressBarPage extends AbstractDemoPage {
 		return grid;
 	}
 
-	@Override
-	public void onTransitionStart() {
-		super.onTransitionStart();
-		this.progressBar.hideNotify();
-		this.circularProgressBar.hideNotify();
-		this.pictoProgressBar.hideNotify();
-	}
-
-	@Override
-	public void onTransitionStop() {
-		super.onTransitionStop();
-		this.progressBar.showNotify();
-		this.circularProgressBar.showNotify();
-		this.pictoProgressBar.showNotify();
-	}
-
 }

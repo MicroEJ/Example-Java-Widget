@@ -38,8 +38,17 @@ public abstract class AbstractDemoPage extends Page {
 	}
 
 	@Override
+	public void onTransitionStart() {
+		super.onTransitionStart();
+		hideNotify();
+	}
+
+	@Override
 	public void onTransitionStop() {
 		super.onTransitionStop();
+		if (isShown()) {
+			showNotify();
+		}
 		// Update the top bar.
 		Display.getDefaultDisplay().callSerially(new Runnable() {
 			@Override

@@ -12,7 +12,6 @@ import ej.style.font.FontFamilyFilter;
 import ej.style.font.FontHelper;
 import ej.style.font.FontLoader;
 import ej.style.font.FontProfile;
-import ej.style.font.FontProfile.FontSize;
 import ej.style.font.FontSizeValueFilter;
 
 /**
@@ -30,7 +29,7 @@ public class WidgetsFontLoader implements FontLoader {
 		FontFamilyFilter fontFamilyFilter = new FontFamilyFilter(fontProfile.getFamily());
 		compositeFilter.addFilter(fontFamilyFilter);
 
-		int sizeValue = getSizeValue(fontProfile, fontProfile.getSize());
+		int sizeValue = getSizeValue(fontProfile);
 		FontSizeValueFilter fontSizeFilter = new FontSizeValueFilter(sizeValue);
 		compositeFilter.addFilter(fontSizeFilter);
 
@@ -42,8 +41,8 @@ public class WidgetsFontLoader implements FontLoader {
 		return Font.getDefaultFont();
 	}
 
-	private int getSizeValue(FontProfile fontProfile, FontSize size) {
-		switch (size) {
+	private int getSizeValue(FontProfile fontProfile) {
+		switch (fontProfile.getSize()) {
 		case LENGTH:
 			return fontProfile.getSizeValue();
 		case LARGE:

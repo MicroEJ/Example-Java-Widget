@@ -6,6 +6,8 @@
  */
 package com.microej.demo.widgets.style;
 
+import java.util.WeakHashMap;
+
 import ej.microui.display.Font;
 import ej.style.font.CompositeFilter;
 import ej.style.font.FontFamilyFilter;
@@ -19,25 +21,58 @@ import ej.style.font.FontSizeValueFilter;
  */
 public class WidgetsFontLoader implements FontLoader {
 
+	private static final String EMPTY_FONT_FAMILY = ""; //$NON-NLS-1$
+
 	private static final int LARGE_HEIGHT = 50;
 	private static final int MEDIUM_HEIGHT = 30;
 
+	private final CompositeFilter<Font> compositeFilter;
+	private final FontFamilyFilter fontFamilyFilter;
+	private final FontSizeValueFilter fontSizeFilter;
+
+	private final Font[] allFonts;
+
+	private final WeakHashMap<FontProfile, Font> fontsCache;
+
+	/**
+	 * Creates the application font loader.
+	 */
+	public WidgetsFontLoader() {
+		this.compositeFilter = new CompositeFilter<Font>();
+
+		this.fontFamilyFilter = new FontFamilyFilter(EMPTY_FONT_FAMILY);
+		this.compositeFilter.addFilter(this.fontFamilyFilter);
+
+		this.fontSizeFilter = new FontSizeValueFilter(0);
+		this.compositeFilter.addFilter(this.fontSizeFilter);
+
+		this.allFonts = Font.getAllFonts();
+
+		this.fontsCache = new WeakHashMap<>();
+	}
+
 	@Override
 	public Font getFont(FontProfile fontProfile) {
-		CompositeFilter<Font> compositeFilter = new CompositeFilter<Font>();
+		Font font = this.fontsCache.get(fontProfile);
+		if (font == null) {
+			font = getFontInternal(fontProfile);
+			this.fontsCache.put(fontProfile, font);
+		}
+		return font;
+	}
 
-		FontFamilyFilter fontFamilyFilter = new FontFamilyFilter(fontProfile.getFamily());
-		compositeFilter.addFilter(fontFamilyFilter);
+	private Font getFontInternal(FontProfile fontProfile) {
+		this.fontFamilyFilter.setFontFamily(fontProfile.getFamily());
 
 		int sizeValue = getSizeValue(fontProfile);
-		FontSizeValueFilter fontSizeFilter = new FontSizeValueFilter(sizeValue);
-		compositeFilter.addFilter(fontSizeFilter);
+		this.fontSizeFilter.setSize(sizeValue);
 
-		Font[] fonts = FontHelper.filter(compositeFilter, Font.getAllFonts());
+		Font[] fonts = FontHelper.filter(this.compositeFilter, this.allFonts);
 		if (fonts.length >= 1) {
 			return fonts[0];
 		}
 
+		// No font matches with the font profile.
 		return Font.getDefaultFont();
 	}
 

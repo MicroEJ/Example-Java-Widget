@@ -177,7 +177,9 @@
 <listEntry value="ej.style.cascading.CascadingStylesheet"/>
 <listEntry value="com.microej.demo.widgets.style.WidgetsImageTheme"/>
 </listAttribute>
-<listAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationResources"/>
+<listAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationResources">
+<listEntry value="com/microej/demo/widgets/page/description.txt"/>
+</listAttribute>
 <booleanAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationVerbose" value="false"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/com.microej.demo.widgets/src/main/java/com/microej/demo/widgets/WidgetsDemo.java"/>

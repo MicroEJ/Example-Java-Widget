@@ -1,15 +1,23 @@
 # Overview
-This demo illustrates the widgets library based on MicroUI-2.0 and MWT2.0. The main page allow to lead to all the pages of the application illustrating the following widgets:
-- button (with text or pictogram),
+This demo illustrates the widgets library based on MicroUI and MWT.
+The main page allow to lead to all the pages of the application illustrating the following widgets:
+- button,
 - label,
 - scrolling list,
-- scroll bar 
+- scroll bar,
 - slider,
-- radio button, 
-- check-box, 
-- switch, 
-- progress bar, 
+- radio button,
+- check box,
+- switch,
+- progress bar,
 - vertical lists.
+It includes various implementations of basic widgets:
+- vectored drawings: anti-aliased drawing based widgets,
+- raster graphics (images) based widgets,
+- pictos (monochrome images) based widgets.
+It includes two implementations of screens transition:
+- snapshot (screens are dynamically created as images (buffer in RAM) for the transition),
+- dynamic drawing while moving (each widget is drawn in the moving screen during the transition).
 
 This demo includes MicroEJ launchers configuration for the following Java platforms:
 - simulator
@@ -28,11 +36,10 @@ First of all, you have to download the entire repository by using the `Download`
 
 ## Project structure
 
-  - `src/main/java`
-  	- Java sources
+  - `src/main/java`: Java sources
   		com.microej.demo.widgets.page: pages of the demo.
   		com.microej.demo.widgets.style: look and feel management of the demo.
-  		Widgets: entry point of the demo.
+  		WidgetsDemo: entry point of the demo.
   - `src/main/resources`: images, fonts...
   - `launches/`: MicroEJ launches in the project `com.microej.demo.widgets`
 

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.microej.demo.widgets.page.MainPage;
-import com.microej.demo.widgets.resources.FontFamilies;
 import com.microej.demo.widgets.style.ClassSelectors;
+import com.microej.demo.widgets.style.FontFamilies;
 
 import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.microui.MicroUI;

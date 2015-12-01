@@ -10,7 +10,7 @@
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.ext.widget.BrowseOption_CENDsp.database.definition" value=""/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.ext.widget.ComboOption_CENDdeploy.way" value="noDeployment.xml"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.microui.fontConverter.file" value="${project_loc:com.microej.demo.widgets}/src/main/resources/com/microej/demo/widgets/com.microej.demo.widgets.fonts.list"/>
-<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.microui.imageConverter.file" value="${project_loc:com.microej.demo.widgets}\src\main\resources\com\microej\demo\widgets\com.microej.demo.widgets.images.list"/>
+<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.microui.imageConverter.file" value="${project_loc:com.microej.demo.widgets}/src/main/resources/com/microej/demo/widgets/com.microej.demo.widgets.images.list"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.nls.list" value=""/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDej.storyboard.list" value=""/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.BrowseOption_CENDs3.mock.uart.com0.file.input" value=""/>
@@ -58,7 +58,7 @@
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.ComboOption_CENDs3.mock.uart.com2.mode" value="0"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.HiddenOption_CENDbrita.18root.core.memory.immortal.memory" value="RAM"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.HiddenOption_CENDbrita.18root.core.memory.javaheap.memory" value="RAM"/>
-<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.HiddenOption_CENDbrita.18root.core.memory.javaheapsum.size" value="32768"/>
+<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.HiddenOption_CENDbrita.18root.core.memory.javaheapsum.size" value="50768"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.HiddenOption_CENDbrita.18root.core.memory.threads.memory" value="RAM"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.HiddenOption_CENDbrita.18root.core.memory.threads.pool.memory" value="RAM"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.HiddenOption_CENDbrita.18root.mui.edges.memory" value="RAM"/>
@@ -95,7 +95,7 @@
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.HiddenOption_CENDs3.mock.uart.com1.available" value="false"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.HiddenOption_CENDs3.mock.uart.com2.available" value="false"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.TextFieldOption_CENDbrita.18root.core.memory.immortal.size" value="4096"/>
-<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.TextFieldOption_CENDbrita.18root.core.memory.javaheap.size" value="32768"/>
+<stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.TextFieldOption_CENDbrita.18root.core.memory.javaheap.size" value="50768"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.TextFieldOption_CENDbrita.18root.core.memory.thread.block.size" value="512"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.TextFieldOption_CENDbrita.18root.core.memory.thread.max.size" value="5"/>
 <stringAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationJPFConfigurationTabCSTART_com.is2t.microej.workbench.std.launch.ext.TextFieldOption_CENDbrita.18root.core.memory.threads.pool.size" value="10"/>
@@ -175,7 +175,7 @@
 <listAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationRequiredTypes">
 <listEntry value="com.microej.demo.widgets.style.WidgetsFontLoader"/>
 <listEntry value="ej.style.cascading.CascadingStylesheet"/>
-<listEntry value="com.microej.demo.widgets.resources.WidgetsImageTheme"/>
+<listEntry value="com.microej.demo.widgets.style.WidgetsImageTheme"/>
 </listAttribute>
 <listAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationResources"/>
 <booleanAttribute key="com.is2t.microej.workbench.stdMicroEJLaunchConfigurationVerbose" value="false"/>

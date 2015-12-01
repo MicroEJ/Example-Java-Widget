@@ -7,9 +7,9 @@
 package com.microej.demo.widgets.page;
 
 import com.microej.demo.widgets.WidgetsDemo;
-import com.microej.demo.widgets.resources.Images;
-import com.microej.demo.widgets.resources.Pictos;
 import com.microej.demo.widgets.style.ClassSelectors;
+import com.microej.demo.widgets.style.Images;
+import com.microej.demo.widgets.style.Pictos;
 
 import ej.composite.BorderComposite;
 import ej.microui.display.Display;

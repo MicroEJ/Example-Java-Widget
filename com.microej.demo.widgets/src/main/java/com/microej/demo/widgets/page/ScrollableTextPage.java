@@ -6,6 +6,9 @@
  */
 package com.microej.demo.widgets.page;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import com.microej.demo.widgets.style.ClassSelectors;
 
 import ej.composite.ScrollComposite;
@@ -29,11 +32,27 @@ public class ScrollableTextPage extends AbstractDemoPage {
 
 	@Override
 	protected Widget createMainContent() {
+		String description = readDescription();
+
 		Label text = new Label();
 		text.addClassSelector(ClassSelectors.MULTILINE);
-		text.setText(
-				"This is supposed to be a long text.\nSo, we will try to make it as long as possible by adding word after word of crap and other useless phrases.\n\nThis third part is the more difficult but here we go again with another crap of text!\n\nAfter a quick test, the text is not long enough, we need to add a few more words in this text to have something that can scroll on several pages.");
+		text.setText(description);
 		return new ScrollComposite(text, true);
+	}
+
+	private String readDescription() {
+		try {
+			InputStream inputStream = ScrollableTextPage.class.getResourceAsStream("description.txt"); //$NON-NLS-1$
+			StringBuilder textBuffer = new StringBuilder();
+			byte[] buffer = new byte[128];
+			while (inputStream.available() != 0) {
+				int read = inputStream.read(buffer);
+				textBuffer.append(new String(buffer, 0, read));
+			}
+			return textBuffer.toString();
+		} catch (IOException e) {
+			return ""; //$NON-NLS-1$
+		}
 	}
 
 }

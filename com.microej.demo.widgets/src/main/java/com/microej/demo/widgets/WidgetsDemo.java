@@ -212,13 +212,7 @@ public class WidgetsDemo {
 		stylesheet.setStyle(PictoCheck.class, State.Active, widgetPictoStyle);
 		stylesheet.setStyle(PictoRadio.class, State.Active, widgetPictoStyle);
 		stylesheet.setStyle(PictoSwitch.class, State.Active, widgetPictoStyle);
-
-		// Sets the pictos to use for the picto progress bar.
-		SimpleStyle progressBarPictoStyle = new SimpleStyle();
-		progressBarPictoStyle.setMargin(defaultMargin);
-		progressBarPictoStyle.setForegroundColor(0x10bdf1);
-		progressBarPictoStyle.setFontProfile(largePictoFontProfile);
-		stylesheet.setStyle(PictoProgress.class, progressBarPictoStyle);
+		stylesheet.setStyle(PictoProgress.class, widgetPictoStyle);
 
 		// Sets the illustrated button style.
 		SimpleStyle buttonStyle = new SimpleStyle();

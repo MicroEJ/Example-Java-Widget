@@ -29,11 +29,6 @@ public abstract class WidgetPage extends AbstractDemoPage {
 	private static final int INITIAL_VALUE = 50;
 
 	@Override
-	protected boolean canGoBack() {
-		return true;
-	}
-
-	@Override
 	protected Widget createMainContent() {
 		// layout:
 		// | switch | radio 1 |

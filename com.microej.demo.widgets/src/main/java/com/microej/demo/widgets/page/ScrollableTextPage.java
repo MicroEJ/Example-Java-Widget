@@ -26,11 +26,6 @@ public class ScrollableTextPage extends AbstractDemoPage {
 	}
 
 	@Override
-	protected boolean canGoBack() {
-		return true;
-	}
-
-	@Override
 	protected Widget createMainContent() {
 		String description = readDescription();
 

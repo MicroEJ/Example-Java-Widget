@@ -24,8 +24,6 @@ public class ScrollableListPage extends AbstractDemoPage {
 	}
 
 	@Override
-	protected boolean canGoBack() {
-		return true;
 	}
 
 	@Override

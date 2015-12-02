@@ -12,7 +12,6 @@ import com.microej.demo.widgets.style.Images;
 import com.microej.demo.widgets.style.Pictos;
 
 import ej.composite.BorderComposite;
-import ej.microui.display.Display;
 import ej.microui.display.GraphicsContext;
 import ej.mwt.MWT;
 import ej.mwt.Widget;
@@ -49,14 +48,6 @@ public abstract class AbstractDemoPage extends Page {
 		if (isShown()) {
 			showNotify();
 		}
-		// Update the top bar.
-		Display.getDefaultDisplay().callSerially(new Runnable() {
-			@Override
-			public void run() {
-				AbstractDemoPage.this.content.add(createTopBar(), MWT.NORTH);
-				AbstractDemoPage.this.content.revalidate();
-			}
-		});
 	}
 
 	private Widget createContent() {
@@ -106,13 +97,6 @@ public abstract class AbstractDemoPage extends Page {
 	 * @return the title of the page.
 	 */
 	protected abstract String getTitle();
-
-	/**
-	 * Gets whether or not we can go back from this page.
-	 *
-	 * @return true if we can go back otherwise false.
-	 */
-	protected abstract boolean canGoBack();
 
 	/**
 	 * Creates the widget representing the main content of the page.

@@ -61,6 +61,9 @@ public class WidgetsDemo {
 			.getProperty("com.microej.demo.widgets.transition.screenshot") != null; //$NON-NLS-1$
 	private static TransitionDesktop desktop;
 
+	private static boolean goingForward;
+	private static boolean goingBackward;
+
 	// Prevents initialization.
 	private WidgetsDemo() {
 	}
@@ -96,23 +99,30 @@ public class WidgetsDemo {
 	 *            the URL of the page to show.
 	 */
 	public static void show(String url) {
+		goingForward = true;
 		desktop.show(url);
+		goingForward = false;
 	}
 
 	/**
 	 * Shows the previous panel.
 	 */
 	public static void back() {
+		goingBackward = true;
 		desktop.back();
+		goingBackward = false;
 	}
 
 	/**
 	 * Checks whether or not it is possible to go back in the navigation history.
+	 * <p>
+	 * Beware, the result of this method consider that it is called while creating the new page.
 	 *
 	 * @return <code>true</code> it is possible to go back, <code>false</code> otherwise.
 	 */
 	public static boolean canGoBack() {
-		return desktop.canGoBack();
+		int historySize = desktop.getHistorySize();
+		return (historySize > 1 || goingForward) && !(historySize == 1 && goingBackward);
 	}
 
 	private static void initializeStylesheet() {

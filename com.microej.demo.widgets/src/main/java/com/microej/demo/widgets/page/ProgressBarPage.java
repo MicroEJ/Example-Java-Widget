@@ -31,11 +31,6 @@ public class ProgressBarPage extends AbstractDemoPage {
 	}
 
 	@Override
-	protected boolean canGoBack() {
-		return true;
-	}
-
-	@Override
 	protected Widget createMainContent() {
 		// layout:
 		// | progress bar |

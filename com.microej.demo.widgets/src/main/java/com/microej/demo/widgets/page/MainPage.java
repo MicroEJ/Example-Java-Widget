@@ -26,11 +26,6 @@ public class MainPage extends AbstractDemoPage {
 	}
 
 	@Override
-	protected boolean canGoBack() {
-		return false;
-	}
-
-	@Override
 	protected Widget createMainContent() {
 		// layout:
 		// Basic widgets - Picto

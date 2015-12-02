@@ -7,6 +7,7 @@
 package com.microej.demo.widgets.page;
 
 import com.microej.demo.widgets.WidgetsDemo;
+import com.microej.demo.widgets.style.ClassSelectors;
 
 import ej.composite.ListComposite;
 import ej.composite.ScrollComposite;
@@ -47,6 +48,7 @@ public class MainPage extends AbstractDemoPage {
 	// A button that leads to the given page.
 	private Button newSelectableItem(String name, final String url) {
 		SimpleButton button = new SimpleButton(name);
+		button.addClassSelector(ClassSelectors.LIST_ITEM);
 		button.addOnClickListener(new OnClickListener() {
 
 			@Override

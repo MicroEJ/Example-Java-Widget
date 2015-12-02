@@ -20,6 +20,7 @@ import ej.microui.display.GraphicsContext;
 import ej.style.State;
 import ej.style.Stylesheet;
 import ej.style.background.PlainBackground;
+import ej.style.border.ComplexRectangularBorder;
 import ej.style.font.FontProfile;
 import ej.style.font.FontProfile.FontSize;
 import ej.style.outline.ComplexOutline;
@@ -163,7 +164,23 @@ public class WidgetsDemo {
 		titleFontProfile.setFamily(FontFamilies.ROBOTO);
 		titleFontProfile.setSize(FontSize.LARGE);
 		titleStyle.setFontProfile(titleFontProfile);
+		ComplexRectangularBorder titleBorder = new ComplexRectangularBorder();
+		titleBorder.setBottom(2);
+		titleBorder.setColorBottom(Colors.SILVER);
+		titleStyle.setBorder(titleBorder);
 		stylesheet.setStyle(ClassSelectors.TITLE, titleStyle);
+
+		// Sets the list item style.
+		SimpleStyle listItemStyle = new SimpleStyle();
+		ComplexRectangularBorder listItemBorder = new ComplexRectangularBorder();
+		listItemBorder.setBottom(1);
+		listItemBorder.setColorBottom(Colors.GRAY);
+		listItemStyle.setBorder(listItemBorder);
+		ComplexOutline listItemMargin = new ComplexOutline();
+		listItemMargin.setLeft(4);
+		listItemMargin.setRight(4);
+		listItemStyle.setMargin(listItemMargin);
+		stylesheet.setStyle(ClassSelectors.LIST_ITEM, listItemStyle);
 
 		// Sets the image style.
 		SimpleStyle imageStyle = new SimpleStyle();

@@ -22,6 +22,11 @@ public interface ClassSelectors {
 	String TITLE = "title"; //$NON-NLS-1$
 
 	/**
+	 * The list item class selector.
+	 */
+	String LIST_ITEM = "list item"; //$NON-NLS-1$
+
+	/**
 	 * The illustrated button class selector.
 	 */
 	String ILLUSTRATED_BUTTON = "illustrated button"; //$NON-NLS-1$

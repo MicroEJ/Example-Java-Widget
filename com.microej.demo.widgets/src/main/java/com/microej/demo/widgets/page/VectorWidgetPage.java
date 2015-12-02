@@ -15,7 +15,7 @@ import ej.widget.basic.Toggle;
 /**
  * This page illustrates the drawn widgets.
  */
-public class DrawingsPage extends WidgetPage {
+public class VectorWidgetPage extends WidgetPage {
 
 	@Override
 	protected String getTitle() {

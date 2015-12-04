@@ -30,6 +30,7 @@ import ej.style.outline.SimpleOutline;
 import ej.style.text.ComplexTextManager;
 import ej.style.util.SimpleStyle;
 import ej.transition.desktop.HorizontalScreenshotTransitionDesktop;
+import ej.transition.desktop.HorizontalTransitionDesktop;
 import ej.transition.desktop.TransitionDesktop;
 import ej.transition.page.ClassNameURLResolver;
 import ej.transition.page.PagesStack;

@@ -17,6 +17,7 @@ import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.microui.MicroUI;
 import ej.microui.display.Colors;
 import ej.microui.display.GraphicsContext;
+import ej.mwt.Desktop;
 import ej.style.State;
 import ej.style.Stylesheet;
 import ej.style.background.PlainBackground;
@@ -29,7 +30,6 @@ import ej.style.outline.SimpleOutline;
 import ej.style.text.ComplexTextManager;
 import ej.style.util.SimpleStyle;
 import ej.transition.desktop.HorizontalScreenshotTransitionDesktop;
-import ej.transition.desktop.HorizontalTransitionDesktop;
 import ej.transition.desktop.TransitionDesktop;
 import ej.transition.page.ClassNameURLResolver;
 import ej.transition.page.PagesStack;
@@ -77,8 +77,8 @@ public class WidgetsDemo {
 	 */
 	public static void main(String[] args) {
 		MicroUI.start();
-		initializeStylesheet();
 		Desktop = newTransitionDesktop();
+		initializeStylesheet(Desktop);
 		Desktop.show(MainPage.class.getName());
 		Desktop.show();
 	}
@@ -126,7 +126,7 @@ public class WidgetsDemo {
 		return (historySize > 1 || GoingForward) && !(historySize == 1 && GoingBackward);
 	}
 
-	private static void initializeStylesheet() {
+	private static void initializeStylesheet(Desktop desktop) {
 		Stylesheet stylesheet = ServiceLoaderFactory.getServiceLoader().getService(Stylesheet.class);
 
 		// Sets the default style.
@@ -140,6 +140,12 @@ public class WidgetsDemo {
 		defaultStyle.setBorder(transparentBackground);
 		defaultStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
 		stylesheet.setStyle(defaultStyle);
+
+		SimpleStyle desktopStyle = new SimpleStyle();
+		PlainBackground desktopBackground = new PlainBackground();
+		desktopBackground.setColor(0x404041);
+		desktopStyle.setBorder(desktopBackground);
+		stylesheet.setStyle(desktop, desktopStyle);
 
 		// Default margin not added in the default style because it also applies for the composites.
 		SimpleOutline defaultMargin = new SimpleOutline();

@@ -12,7 +12,6 @@ import com.microej.demo.widgets.style.Images;
 import com.microej.demo.widgets.style.Pictos;
 
 import ej.composite.BorderComposite;
-import ej.microui.display.GraphicsContext;
 import ej.mwt.MWT;
 import ej.mwt.Widget;
 import ej.transition.page.Page;
@@ -108,15 +107,4 @@ public abstract class AbstractDemoPage extends Page {
 		return getClass().getName();
 	}
 
-	@Override
-	public boolean isTransparent() {
-		return false;
-	}
-
-	@Override
-	public void render(GraphicsContext g) {
-		// FIXME Use style.
-		g.setColor(0x404041);
-		g.fillRect(0, 0, getWidth(), getHeight());
-	}
 }

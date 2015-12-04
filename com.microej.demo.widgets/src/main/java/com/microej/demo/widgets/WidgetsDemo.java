@@ -60,10 +60,10 @@ public class WidgetsDemo {
 
 	private static final boolean WITH_SCREENSHOT_TRANSITION = System
 			.getProperty("com.microej.demo.widgets.transition.screenshot") != null; //$NON-NLS-1$
-	private static TransitionDesktop desktop;
+	private static TransitionDesktop Desktop;
 
-	private static boolean goingForward;
-	private static boolean goingBackward;
+	private static boolean GoingForward;
+	private static boolean GoingBackward;
 
 	// Prevents initialization.
 	private WidgetsDemo() {
@@ -78,9 +78,9 @@ public class WidgetsDemo {
 	public static void main(String[] args) {
 		MicroUI.start();
 		initializeStylesheet();
-		desktop = newTransitionDesktop();
-		desktop.show(MainPage.class.getName());
-		desktop.show();
+		Desktop = newTransitionDesktop();
+		Desktop.show(MainPage.class.getName());
+		Desktop.show();
 	}
 
 	private static TransitionDesktop newTransitionDesktop() {
@@ -100,18 +100,18 @@ public class WidgetsDemo {
 	 *            the URL of the page to show.
 	 */
 	public static void show(String url) {
-		goingForward = true;
-		desktop.show(url);
-		goingForward = false;
+		GoingForward = true;
+		Desktop.show(url);
+		GoingForward = false;
 	}
 
 	/**
 	 * Shows the previous panel.
 	 */
 	public static void back() {
-		goingBackward = true;
-		desktop.back();
-		goingBackward = false;
+		GoingBackward = true;
+		Desktop.back();
+		GoingBackward = false;
 	}
 
 	/**
@@ -122,8 +122,8 @@ public class WidgetsDemo {
 	 * @return <code>true</code> it is possible to go back, <code>false</code> otherwise.
 	 */
 	public static boolean canGoBack() {
-		int historySize = desktop.getHistorySize();
-		return (historySize > 1 || goingForward) && !(historySize == 1 && goingBackward);
+		int historySize = Desktop.getHistorySize();
+		return (historySize > 1 || GoingForward) && !(historySize == 1 && GoingBackward);
 	}
 
 	private static void initializeStylesheet() {

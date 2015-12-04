@@ -20,9 +20,6 @@ public class ProgressBarPage extends AbstractDemoPage {
 	private static final int MIN = 0;
 	private static final int MAX = 100;
 	private static final int INITIAL = 0;
-	private ProgressBar progressBar;
-	private CircularProgressBar circularProgressBar;
-	private PictoProgress pictoProgressBar;
 
 	@Override
 	protected String getTitle() {
@@ -39,21 +36,21 @@ public class ProgressBarPage extends AbstractDemoPage {
 		grid.setHorizontal(true);
 		grid.setCount(1);
 
-		this.progressBar = new ProgressBar(MIN, MAX, INITIAL);
-		this.progressBar.setIndeterminate(true);
-		grid.add(this.progressBar);
+		ProgressBar progressBar = new ProgressBar(MIN, MAX, INITIAL);
+		progressBar.setIndeterminate(true);
+		grid.add(progressBar);
 
 		GridComposite splitComposite = new GridComposite();
 		splitComposite.setHorizontal(false);
 		grid.add(splitComposite);
 
-		this.pictoProgressBar = new PictoProgress(MIN, MAX, INITIAL);
-		this.pictoProgressBar.setIndeterminate(true);
-		splitComposite.add(this.pictoProgressBar);
+		PictoProgress pictoProgressBar = new PictoProgress(MIN, MAX, INITIAL);
+		pictoProgressBar.setIndeterminate(true);
+		splitComposite.add(pictoProgressBar);
 
-		this.circularProgressBar = new CircularProgressBar(MIN, MAX, INITIAL);
-		this.circularProgressBar.setIndeterminate(true);
-		splitComposite.add(this.circularProgressBar);
+		CircularProgressBar circularProgressBar = new CircularProgressBar(MIN, MAX, INITIAL);
+		circularProgressBar.setIndeterminate(true);
+		splitComposite.add(circularProgressBar);
 
 		return grid;
 	}

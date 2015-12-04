@@ -27,8 +27,6 @@ import ej.widget.listener.OnClickListener;
  */
 public abstract class AbstractDemoPage extends Page {
 
-	private BorderComposite content;
-
 	/**
 	 * Creates a new demo page.
 	 */
@@ -51,11 +49,11 @@ public abstract class AbstractDemoPage extends Page {
 	}
 
 	private Widget createContent() {
-		this.content = new BorderComposite();
-		this.content.setHorizontal(false);
-		this.content.add(createTopBar(), MWT.NORTH);
-		this.content.add(createMainContent(), MWT.CENTER);
-		return this.content;
+		BorderComposite content = new BorderComposite();
+		content.setHorizontal(false);
+		content.add(createTopBar(), MWT.NORTH);
+		content.add(createMainContent(), MWT.CENTER);
+		return content;
 	}
 
 	/**
@@ -73,7 +71,7 @@ public abstract class AbstractDemoPage extends Page {
 
 		if (WidgetsDemo.canGoBack()) {
 			// Add a back button.
-			SimpleButton backButton = new SimpleButton(Pictos.BACK + ""); //$NON-NLS-1$
+			SimpleButton backButton = new SimpleButton(Character.toString(Pictos.BACK));
 			backButton.getLabel().addClassSelector(ClassSelectors.LARGE_ICON);
 			backButton.addOnClickListener(new OnClickListener() {
 
@@ -117,6 +115,7 @@ public abstract class AbstractDemoPage extends Page {
 
 	@Override
 	public void render(GraphicsContext g) {
+		// FIXME Use style.
 		g.setColor(0x404041);
 		g.fillRect(0, 0, getWidth(), getHeight());
 	}

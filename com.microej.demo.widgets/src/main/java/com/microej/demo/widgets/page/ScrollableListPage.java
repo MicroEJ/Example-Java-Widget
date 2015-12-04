@@ -22,18 +22,17 @@ import ej.widget.basic.Label;
  */
 public class ScrollableListPage extends AbstractDemoPage {
 
+	private static final String ITEM_PREFIX = "Item "; //$NON-NLS-1$
 	private static final int APPEARANCE_DELAY = 1000;
 	private static final int ITEM_COUNT = 100;
 	private static final int FIRST_SHOT_COUNT = 20;
+
 	private ListComposite listComposite;
 	private boolean complete;
 
 	@Override
 	protected String getTitle() {
 		return "Scrollable list"; //$NON-NLS-1$
-	}
-
-	@Override
 	}
 
 	@Override
@@ -49,7 +48,7 @@ public class ScrollableListPage extends AbstractDemoPage {
 		this.listComposite.setHorizontal(false);
 
 		for (int i = 1; i <= FIRST_SHOT_COUNT; i++) {
-			Label item = new Label("Item " + i); //$NON-NLS-1$
+			Label item = new Label(ITEM_PREFIX + i);
 			item.addClassSelector(ClassSelectors.LIST_ITEM);
 			this.listComposite.add(item);
 		}
@@ -71,7 +70,7 @@ public class ScrollableListPage extends AbstractDemoPage {
 						if (!ScrollableListPage.this.complete) {
 							ScrollableListPage.this.complete = true;
 							for (int i = FIRST_SHOT_COUNT + 1; i <= ITEM_COUNT; i++) {
-								Label item = new Label("Item " + i); //$NON-NLS-1$
+								Label item = new Label(ITEM_PREFIX + i);
 								item.addClassSelector(ClassSelectors.LIST_ITEM);
 								ScrollableListPage.this.listComposite.add(item);
 							}

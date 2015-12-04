@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="var" path="BON-1.2"/>
 	<classpathentry kind="var" path="EDC-1.2"/>
 	<classpathentry kind="var" path="MICROUI-2.0"/>
 	<classpathentry kind="var" path="MWT-2.1"/>

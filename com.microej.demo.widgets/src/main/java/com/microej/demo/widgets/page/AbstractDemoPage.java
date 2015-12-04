@@ -6,11 +6,13 @@
  */
 package com.microej.demo.widgets.page;
 
+import com.microej.demo.exit.ExitHandler;
 import com.microej.demo.widgets.WidgetsDemo;
 import com.microej.demo.widgets.style.ClassSelectors;
 import com.microej.demo.widgets.style.Images;
 import com.microej.demo.widgets.style.Pictos;
 
+import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.composite.BorderComposite;
 import ej.mwt.MWT;
 import ej.mwt.Widget;
@@ -18,6 +20,7 @@ import ej.transition.page.Page;
 import ej.widget.basic.Image;
 import ej.widget.basic.Label;
 import ej.widget.basic.image.ImageHelper;
+import ej.widget.composed.Button;
 import ej.widget.composed.SimpleButton;
 import ej.widget.listener.OnClickListener;
 
@@ -81,9 +84,21 @@ public abstract class AbstractDemoPage extends Page {
 			});
 			topBar.add(backButton, MWT.WEST);
 		} else {
-			// Add a MicroEJ logo.
-			Image titleIcon = new Image(ImageHelper.loadImage(Images.MICROEJ_LOGO));
-			topBar.add(titleIcon, MWT.WEST);
+			// Add an exit button.
+			Button exitButton = new Button();
+			exitButton.addOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick() {
+					ExitHandler exitHandler = ServiceLoaderFactory.getServiceLoader().getService(ExitHandler.class);
+					if (exitHandler != null) {
+						exitHandler.exit();
+					}
+				}
+			});
+			Image exitIcon = new Image(ImageHelper.loadImage(Images.MICROEJ_LOGO));
+			exitButton.setWidget(exitIcon);
+			topBar.add(exitButton, MWT.WEST);
 		}
 		return topBar;
 	}

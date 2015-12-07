@@ -1,0 +1,13 @@
+# Copyright 2014-2015 IS2T. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
+
+images/microej_logo.png
+
+images/checkbox_checked.png
+images/checkbox_unchecked.png
+images/radio_checked.png
+images/radio_unchecked.png
+images/slider_bar.png
+images/slider_cursor.png
+images/switch_checked.png
+images/switch_unchecked.png

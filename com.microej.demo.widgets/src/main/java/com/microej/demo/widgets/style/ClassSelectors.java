@@ -32,6 +32,11 @@ public interface ClassSelectors {
 	String ILLUSTRATED_BUTTON = "illustrated button"; //$NON-NLS-1$
 
 	/**
+	 * The text title class selector.
+	 */
+	String TEXT_TITLE = "text title"; //$NON-NLS-1$
+
+	/**
 	 * The multiline class selector.
 	 */
 	String MULTILINE = "multiline"; //$NON-NLS-1$

@@ -274,6 +274,14 @@ public class WidgetsDemo {
 		buttonStates.add(State.Active);
 		stylesheet.setStyle(buttonSelector, buttonStates, activeButtonStyle);
 
+		// Sets the text title style.
+		SimpleStyle textTitleStyle = new SimpleStyle();
+		ComplexRectangularBorder textTitleBorder = new ComplexRectangularBorder();
+		textTitleBorder.setBottom(1);
+		textTitleBorder.setColorBottom(Colors.SILVER);
+		textTitleStyle.setBorder(textTitleBorder);
+		stylesheet.setStyle(ClassSelectors.TEXT_TITLE, textTitleStyle);
+
 		// Sets the multiline style.
 		SimpleStyle multilineStyle = new SimpleStyle();
 		ComplexTextManager complexTextManager = new ComplexTextManager();

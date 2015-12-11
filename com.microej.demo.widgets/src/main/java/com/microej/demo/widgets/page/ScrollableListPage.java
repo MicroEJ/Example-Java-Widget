@@ -13,7 +13,6 @@ import ej.bon.TimerTask;
 import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.composite.ListComposite;
 import ej.composite.ScrollComposite;
-import ej.microui.display.Display;
 import ej.mwt.Widget;
 import ej.widget.basic.Label;
 
@@ -59,27 +58,29 @@ public class ScrollableListPage extends AbstractDemoPage {
 	@Override
 	public void showNotify() {
 		super.showNotify();
-		// Add missing items.
-		Timer timer = ServiceLoaderFactory.getServiceLoader().getService(Timer.class);
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				Display.getDefaultDisplay().callSerially(new Runnable() {
-					@Override
-					public void run() {
-						if (!ScrollableListPage.this.complete) {
-							ScrollableListPage.this.complete = true;
-							for (int i = FIRST_SHOT_COUNT + 1; i <= ITEM_COUNT; i++) {
-								Label item = new Label(ITEM_PREFIX + i);
-								item.addClassSelector(ClassSelectors.LIST_ITEM);
-								ScrollableListPage.this.listComposite.add(item);
+		if (!ScrollableListPage.this.complete) {
+			// Add missing items.
+			Timer timer = ServiceLoaderFactory.getServiceLoader().getService(Timer.class);
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					getDesktop().getDisplay().callSerially(new Runnable() {
+						@Override
+						public void run() {
+							if (!ScrollableListPage.this.complete) {
+								ScrollableListPage.this.complete = true;
+								for (int i = FIRST_SHOT_COUNT + 1; i <= ITEM_COUNT; i++) {
+									Label item = new Label(ITEM_PREFIX + i);
+									item.addClassSelector(ClassSelectors.LIST_ITEM);
+									ScrollableListPage.this.listComposite.add(item);
+								}
 							}
 						}
-					}
-				});
-				revalidate();
-			}
-		}, APPEARANCE_DELAY);
+					});
+					revalidate();
+				}
+			}, APPEARANCE_DELAY);
+		}
 	}
 
 }

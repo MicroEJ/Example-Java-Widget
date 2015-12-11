@@ -9,6 +9,7 @@ package com.microej.demo.widgets;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.microej.demo.widgets.page.DirectURLResolver;
 import com.microej.demo.widgets.page.MainPage;
 import com.microej.demo.widgets.style.ClassSelectors;
 import com.microej.demo.widgets.style.FontFamilies;
@@ -32,7 +33,6 @@ import ej.style.util.SimpleStyle;
 import ej.transition.desktop.HorizontalScreenshotTransitionDesktop;
 import ej.transition.desktop.HorizontalTransitionDesktop;
 import ej.transition.desktop.TransitionDesktop;
-import ej.transition.page.ClassNameURLResolver;
 import ej.transition.page.PagesStack;
 import ej.transition.page.PagesStackURL;
 import ej.transition.page.URLResolver;
@@ -85,7 +85,7 @@ public class WidgetsDemo {
 	}
 
 	private static TransitionDesktop newTransitionDesktop() {
-		URLResolver urlResolver = new ClassNameURLResolver();
+		URLResolver urlResolver = new DirectURLResolver();
 		PagesStack pagesStack = new PagesStackURL(urlResolver);
 		if (WITH_SCREENSHOT_TRANSITION) {
 			return new HorizontalScreenshotTransitionDesktop(urlResolver, pagesStack);

@@ -14,6 +14,7 @@ import com.microej.demo.widgets.style.Pictos;
 
 import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.composite.BorderComposite;
+import ej.mwt.Desktop;
 import ej.mwt.MWT;
 import ej.mwt.Widget;
 import ej.transition.page.Page;
@@ -28,6 +29,8 @@ import ej.widget.listener.OnClickListener;
  * Common abstract page implementation for all the application pages.
  */
 public abstract class AbstractDemoPage extends Page {
+
+	private BorderComposite content;
 
 	/**
 	 * Creates a new demo page.
@@ -50,12 +53,26 @@ public abstract class AbstractDemoPage extends Page {
 		}
 	}
 
+	// @Override
+	// public void showNotify() {
+	// super.showNotify();
+	// System.gc();
+	// Runtime runtime = Runtime.getRuntime();
+	// System.out.println(runtime.totalMemory() - runtime.freeMemory() + "b");
+	// }
+
+	@Override
+	public void show(Desktop desktop) throws NullPointerException {
+		this.content.add(createTopBar(), MWT.NORTH);
+		super.show(desktop);
+	}
+
 	private Widget createContent() {
-		BorderComposite content = new BorderComposite();
-		content.setHorizontal(false);
-		content.add(createTopBar(), MWT.NORTH);
-		content.add(createMainContent(), MWT.CENTER);
-		return content;
+		this.content = new BorderComposite();
+		this.content.setHorizontal(false);
+		this.content.add(createTopBar(), MWT.NORTH);
+		this.content.add(createMainContent(), MWT.CENTER);
+		return this.content;
 	}
 
 	/**

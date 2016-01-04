@@ -225,9 +225,9 @@ public class WidgetsDemo {
 		stylesheet.setStyle(ProgressBar.class, widgetStyle);
 		stylesheet.setStyle(CircularProgressBar.class, widgetStyle);
 		stylesheet.setStyle(Slider.class, widgetStyle);
-		stylesheet.setStyle(Check.class, State.Active, widgetStyle);
-		stylesheet.setStyle(Radio.class, State.Active, widgetStyle);
-		stylesheet.setStyle(Switch.class, State.Active, widgetStyle);
+		stylesheet.setStyle(Check.class, State.Checked, widgetStyle);
+		stylesheet.setStyle(Radio.class, State.Checked, widgetStyle);
+		stylesheet.setStyle(Switch.class, State.Checked, widgetStyle);
 
 		// Sets the image widget style.
 		SimpleStyle widgetImageStyle = new SimpleStyle();
@@ -243,9 +243,9 @@ public class WidgetsDemo {
 		widgetPictoStyle.setForegroundColor(0x10bdf1);
 		widgetPictoStyle.setFontProfile(widgetPictoFontProfile);
 		stylesheet.setStyle(PictoSlider.class, widgetPictoStyle);
-		stylesheet.setStyle(PictoCheck.class, State.Active, widgetPictoStyle);
-		stylesheet.setStyle(PictoRadio.class, State.Active, widgetPictoStyle);
-		stylesheet.setStyle(PictoSwitch.class, State.Active, widgetPictoStyle);
+		stylesheet.setStyle(PictoCheck.class, State.Checked, widgetPictoStyle);
+		stylesheet.setStyle(PictoRadio.class, State.Checked, widgetPictoStyle);
+		stylesheet.setStyle(PictoSwitch.class, State.Checked, widgetPictoStyle);
 		stylesheet.setStyle(PictoProgress.class, widgetPictoStyle);
 
 		// Sets the illustrated button style.

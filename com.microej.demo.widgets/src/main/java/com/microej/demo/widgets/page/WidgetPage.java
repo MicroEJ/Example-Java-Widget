@@ -16,8 +16,8 @@ import ej.widget.basic.AbstractSlider;
 import ej.widget.basic.Label;
 import ej.widget.basic.Toggle;
 import ej.widget.basic.ToggleGroup;
-import ej.widget.composed.SimpleButton;
-import ej.widget.composed.ToggleButton;
+import ej.widget.composed.Button;
+import ej.widget.composed.ToggleComposite;
 
 /**
  * Haptic widgets demonstration page.
@@ -58,7 +58,7 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		AbstractSlider slider = newSlider(MIN_VALUE, MAX_VALUE, INITIAL_VALUE);
 		grid.add(slider);
 
-		SimpleButton button = new SimpleButton("Button"); //$NON-NLS-1$
+		Button button = new Button("Button"); //$NON-NLS-1$
 		button.addClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
 		grid.add(button);
 
@@ -109,7 +109,7 @@ public abstract class WidgetPage extends AbstractDemoPage {
 	// Creates a toggle that changes its state also when the text is clicked.
 	private static void newToggleItem(Toggle toggle, String text, GridComposite grid) {
 		Label label = new Label(text);
-		ToggleButton toggleButton = new ToggleButton(toggle);
+		ToggleComposite toggleButton = new ToggleComposite(toggle);
 		BorderComposite toggleButtonContent = new BorderComposite();
 		toggleButtonContent.add(toggle, MWT.LEFT);
 		toggleButtonContent.add(label, MWT.CENTER);

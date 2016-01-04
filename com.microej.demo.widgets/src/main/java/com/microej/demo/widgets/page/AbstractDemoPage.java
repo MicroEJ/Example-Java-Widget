@@ -21,8 +21,8 @@ import ej.transition.page.Page;
 import ej.widget.basic.Image;
 import ej.widget.basic.Label;
 import ej.widget.basic.image.ImageHelper;
+import ej.widget.composed.ButtonComposite;
 import ej.widget.composed.Button;
-import ej.widget.composed.SimpleButton;
 import ej.widget.listener.OnClickListener;
 
 /**
@@ -90,7 +90,7 @@ public abstract class AbstractDemoPage extends Page {
 
 		if (WidgetsDemo.canGoBack()) {
 			// Add a back button.
-			SimpleButton backButton = new SimpleButton(Character.toString(Pictos.BACK));
+			Button backButton = new Button(Character.toString(Pictos.BACK));
 			backButton.getLabel().addClassSelector(ClassSelectors.LARGE_ICON);
 			backButton.addOnClickListener(new OnClickListener() {
 
@@ -102,7 +102,7 @@ public abstract class AbstractDemoPage extends Page {
 			topBar.add(backButton, MWT.WEST);
 		} else {
 			// Add an exit button.
-			Button exitButton = new Button();
+			ButtonComposite exitButton = new ButtonComposite();
 			exitButton.addOnClickListener(new OnClickListener() {
 
 				@Override

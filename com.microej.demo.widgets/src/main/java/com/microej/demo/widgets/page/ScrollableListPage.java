@@ -52,7 +52,7 @@ public class ScrollableListPage extends AbstractDemoPage {
 			this.listComposite.add(item);
 		}
 
-		return new ScrollComposite(this.listComposite, true);
+		return new ScrollComposite(false, this.listComposite, true);
 	}
 
 	@Override

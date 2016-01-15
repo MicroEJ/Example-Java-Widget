@@ -11,8 +11,8 @@ import com.microej.demo.widgets.style.ClassSelectors;
 import ej.bon.Timer;
 import ej.bon.TimerTask;
 import ej.components.dependencyinjection.ServiceLoaderFactory;
-import ej.composite.ListComposite;
-import ej.composite.ScrollComposite;
+import ej.container.List;
+import ej.container.Scroll;
 import ej.mwt.Widget;
 import ej.widget.basic.Label;
 
@@ -26,7 +26,7 @@ public class ScrollableListPage extends AbstractDemoPage {
 	private static final int ITEM_COUNT = 100;
 	private static final int FIRST_SHOT_COUNT = 20;
 
-	private ListComposite listComposite;
+	private List listComposite;
 	private boolean complete;
 
 	@Override
@@ -43,7 +43,7 @@ public class ScrollableListPage extends AbstractDemoPage {
 		// Item n-1
 		// Item n
 
-		this.listComposite = new ListComposite();
+		this.listComposite = new List();
 		this.listComposite.setHorizontal(false);
 
 		for (int i = 1; i <= FIRST_SHOT_COUNT; i++) {
@@ -52,7 +52,7 @@ public class ScrollableListPage extends AbstractDemoPage {
 			this.listComposite.add(item);
 		}
 
-		return new ScrollComposite(false, this.listComposite, true);
+		return new Scroll(false, this.listComposite, true);
 	}
 
 	@Override

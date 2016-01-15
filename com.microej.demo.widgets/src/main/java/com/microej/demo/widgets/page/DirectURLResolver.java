@@ -9,9 +9,9 @@ package com.microej.demo.widgets.page;
 import java.util.HashMap;
 import java.util.Map;
 
-import ej.transition.page.ClassNameURLResolver;
-import ej.transition.page.Page;
-import ej.transition.page.PageNotFoundException;
+import ej.navigation.page.ClassNameURLResolver;
+import ej.navigation.page.Page;
+import ej.navigation.page.PageNotFoundException;
 
 /**
  *

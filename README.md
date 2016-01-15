@@ -1,5 +1,5 @@
 # Overview
-This demo illustrates the Widget library (ej.widget, ej.composite, ej.style, ej.transition, ej.color) based on MicroUI 2 and MWT 2.
+This demo illustrates the Widget library (ej.widget, ej.container, ej.style, ej.navigation, ej.color) based on MicroUI 2 and MWT 2.
 The main page allows to lead to all the pages of the application illustrating the following widgets:
 - button,
 - label,

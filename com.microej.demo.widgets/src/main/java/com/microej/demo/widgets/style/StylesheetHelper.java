@@ -14,6 +14,7 @@ import ej.microui.display.Colors;
 import ej.microui.display.GraphicsContext;
 import ej.mwt.Desktop;
 import ej.style.State;
+import ej.style.Style;
 import ej.style.Stylesheet;
 import ej.style.background.PlainBackground;
 import ej.style.border.ComplexRectangularBorder;
@@ -23,7 +24,6 @@ import ej.style.outline.ComplexOutline;
 import ej.style.outline.EmptyOutline;
 import ej.style.outline.SimpleOutline;
 import ej.style.text.ComplexTextManager;
-import ej.style.util.SimpleStyle;
 import ej.widget.basic.Check;
 import ej.widget.basic.CircularProgressBar;
 import ej.widget.basic.Image;
@@ -61,7 +61,7 @@ public class StylesheetHelper {
 		Stylesheet stylesheet = ServiceLoaderFactory.getServiceLoader().getService(Stylesheet.class);
 
 		// Sets the default style.
-		SimpleStyle defaultStyle = new SimpleStyle();
+		Style defaultStyle = new Style();
 		defaultStyle.setForegroundColor(Colors.WHITE);
 		FontProfile defaultFontProfile = new FontProfile();
 		defaultFontProfile.setFamily(FontFamilies.ROBOTO);
@@ -72,7 +72,7 @@ public class StylesheetHelper {
 		defaultStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
 		stylesheet.setStyle(defaultStyle);
 
-		SimpleStyle desktopStyle = new SimpleStyle();
+		Style desktopStyle = new Style();
 		PlainBackground desktopBackground = new PlainBackground();
 		desktopBackground.setColor(0x404041);
 		desktopStyle.setBorder(desktopBackground);
@@ -83,12 +83,12 @@ public class StylesheetHelper {
 		defaultMargin.setThickness(6);
 
 		// Sets the label style.
-		SimpleStyle labelStyle = new SimpleStyle();
+		Style labelStyle = new Style();
 		labelStyle.setMargin(defaultMargin);
 		stylesheet.setStyle(Label.class, labelStyle);
 
 		// Sets the large picto style.
-		SimpleStyle largePictoStyle = new SimpleStyle();
+		Style largePictoStyle = new Style();
 		FontProfile largePictoFontProfile = new FontProfile();
 		largePictoFontProfile.setFamily(FontFamilies.PICTO);
 		largePictoFontProfile.setSize(FontSize.LARGE);
@@ -96,7 +96,7 @@ public class StylesheetHelper {
 		stylesheet.setStyle(ClassSelectors.LARGE_ICON, largePictoStyle);
 
 		// Sets the title style.
-		SimpleStyle titleStyle = new SimpleStyle();
+		Style titleStyle = new Style();
 		FontProfile titleFontProfile = new FontProfile();
 		titleFontProfile.setFamily(FontFamilies.ROBOTO);
 		titleFontProfile.setSize(FontSize.LARGE);
@@ -108,7 +108,7 @@ public class StylesheetHelper {
 		stylesheet.setStyle(ClassSelectors.TITLE, titleStyle);
 
 		// Sets the list item style.
-		SimpleStyle listItemStyle = new SimpleStyle();
+		Style listItemStyle = new Style();
 		ComplexRectangularBorder listItemBorder = new ComplexRectangularBorder();
 		listItemBorder.setBottom(1);
 		listItemBorder.setColorBottom(Colors.GRAY);
@@ -120,14 +120,14 @@ public class StylesheetHelper {
 		stylesheet.setStyle(ClassSelectors.LIST_ITEM, listItemStyle);
 
 		// Sets the image style.
-		SimpleStyle imageStyle = new SimpleStyle();
+		Style imageStyle = new Style();
 		ComplexOutline imagePadding = new ComplexOutline();
 		imagePadding.setLeft(5); // Align with back button size.
 		imageStyle.setPadding(imagePadding);
 		stylesheet.setStyle(Image.class, imageStyle);
 
 		// Sets the unchecked toggle style.
-		SimpleStyle toggleStyle = new SimpleStyle();
+		Style toggleStyle = new Style();
 		toggleStyle.setForegroundColor(0xbcbec0);
 		toggleStyle.setMargin(defaultMargin);
 		stylesheet.setStyle(Check.class, toggleStyle);
@@ -140,7 +140,7 @@ public class StylesheetHelper {
 		widgetPictoFontProfile.setSize(FontSize.MEDIUM);
 
 		// Sets the unchecked picto toggle style.
-		SimpleStyle pictoToggleStyle = new SimpleStyle();
+		Style pictoToggleStyle = new Style();
 		pictoToggleStyle.setFontProfile(widgetPictoFontProfile);
 		pictoToggleStyle.setForegroundColor(0xbcbec0);
 		pictoToggleStyle.setMargin(defaultMargin);
@@ -149,7 +149,7 @@ public class StylesheetHelper {
 		stylesheet.setStyle(PictoSwitch.class, pictoToggleStyle);
 
 		// Sets the widget and checked toggle style.
-		SimpleStyle widgetStyle = new SimpleStyle();
+		Style widgetStyle = new Style();
 		widgetStyle.setMargin(defaultMargin);
 		widgetStyle.setForegroundColor(0x10bdf1);
 		stylesheet.setStyle(ProgressBar.class, widgetStyle);
@@ -160,7 +160,7 @@ public class StylesheetHelper {
 		stylesheet.setStyle(Switch.class, State.Checked, widgetStyle);
 
 		// Sets the image widget style.
-		SimpleStyle widgetImageStyle = new SimpleStyle();
+		Style widgetImageStyle = new Style();
 		widgetImageStyle.setMargin(defaultMargin);
 		stylesheet.setStyle(ImageSlider.class, widgetImageStyle);
 		stylesheet.setStyle(ImageRadio.class, widgetImageStyle);
@@ -168,7 +168,7 @@ public class StylesheetHelper {
 		stylesheet.setStyle(ImageSwitch.class, widgetImageStyle);
 
 		// Sets the picto widget and checked picto toggle style.
-		SimpleStyle widgetPictoStyle = new SimpleStyle();
+		Style widgetPictoStyle = new Style();
 		widgetPictoStyle.setMargin(defaultMargin);
 		widgetPictoStyle.setForegroundColor(0x10bdf1);
 		widgetPictoStyle.setFontProfile(widgetPictoFontProfile);
@@ -179,7 +179,7 @@ public class StylesheetHelper {
 		stylesheet.setStyle(PictoProgress.class, widgetPictoStyle);
 
 		// Sets the illustrated button style.
-		SimpleStyle buttonStyle = new SimpleStyle();
+		Style buttonStyle = new Style();
 		PlainBackground buttonBackground = new PlainBackground();
 		buttonBackground.setColor(0x10bdf1);
 		buttonStyle.setBorder(buttonBackground);
@@ -194,7 +194,7 @@ public class StylesheetHelper {
 		stylesheet.setStyle(ClassSelectors.ILLUSTRATED_BUTTON, buttonStyle);
 
 		// Sets the illustrated active button style.
-		SimpleStyle activeButtonStyle = new SimpleStyle();
+		Style activeButtonStyle = new Style();
 		PlainBackground activeButtonBackground = new PlainBackground();
 		activeButtonBackground.setColor(0x1185a8);
 		activeButtonStyle.setBorder(activeButtonBackground);
@@ -205,7 +205,7 @@ public class StylesheetHelper {
 		stylesheet.setStyle(buttonSelector, buttonStates, activeButtonStyle);
 
 		// Sets the text title style.
-		SimpleStyle textTitleStyle = new SimpleStyle();
+		Style textTitleStyle = new Style();
 		ComplexRectangularBorder textTitleBorder = new ComplexRectangularBorder();
 		textTitleBorder.setBottom(1);
 		textTitleBorder.setColorBottom(Colors.SILVER);
@@ -213,7 +213,7 @@ public class StylesheetHelper {
 		stylesheet.setStyle(ClassSelectors.TEXT_TITLE, textTitleStyle);
 
 		// Sets the multiline style.
-		SimpleStyle multilineStyle = new SimpleStyle();
+		Style multilineStyle = new Style();
 		ComplexTextManager complexTextManager = new ComplexTextManager();
 		complexTextManager.setLineHeight(40);
 		multilineStyle.setTextManager(complexTextManager);

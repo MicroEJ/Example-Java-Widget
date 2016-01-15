@@ -11,8 +11,8 @@ import java.io.InputStream;
 
 import com.microej.demo.widgets.style.ClassSelectors;
 
-import ej.composite.ListComposite;
-import ej.composite.ScrollComposite;
+import ej.container.List;
+import ej.container.Scroll;
 import ej.mwt.Widget;
 import ej.widget.basic.Label;
 
@@ -28,7 +28,7 @@ public class ScrollableTextPage extends AbstractDemoPage {
 
 	@Override
 	protected Widget createMainContent() {
-		ListComposite listComposite = new ListComposite();
+		List listComposite = new List();
 		listComposite.setHorizontal(false);
 
 		add("MicroEJ SDK", "sdk.txt", listComposite);
@@ -36,10 +36,10 @@ public class ScrollableTextPage extends AbstractDemoPage {
 		add("MicroEJ Application Store", "store.txt", listComposite);
 		add("MicroEJ OS", "os.txt", listComposite);
 
-		return new ScrollComposite(false, listComposite, true);
+		return new Scroll(false, listComposite, true);
 	}
 
-	private void add(String title, String filename, ListComposite listComposite) {
+	private void add(String title, String filename, List listComposite) {
 		Label titleLabel = new Label();
 		titleLabel.addClassSelector(ClassSelectors.TEXT_TITLE);
 		titleLabel.setText(title);

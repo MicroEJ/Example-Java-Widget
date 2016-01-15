@@ -6,7 +6,7 @@
  */
 package com.microej.demo.widgets.page;
 
-import ej.composite.GridComposite;
+import ej.container.Grid;
 import ej.mwt.Widget;
 import ej.widget.basic.CircularProgressBar;
 import ej.widget.basic.ProgressBar;
@@ -32,7 +32,7 @@ public class ProgressBarPage extends AbstractDemoPage {
 		// | progress bar |
 		// | circular progress bar - picto progress bar |
 
-		GridComposite grid = new GridComposite();
+		Grid grid = new Grid();
 		grid.setHorizontal(true);
 		grid.setCount(1);
 
@@ -40,7 +40,7 @@ public class ProgressBarPage extends AbstractDemoPage {
 		progressBar.setIndeterminate(true);
 		grid.add(progressBar);
 
-		GridComposite splitComposite = new GridComposite();
+		Grid splitComposite = new Grid();
 		splitComposite.setHorizontal(false);
 		grid.add(splitComposite);
 

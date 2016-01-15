@@ -8,8 +8,8 @@ package com.microej.demo.widgets.page;
 
 import com.microej.demo.widgets.style.ClassSelectors;
 
-import ej.composite.BorderComposite;
-import ej.composite.GridComposite;
+import ej.container.BorderBars;
+import ej.container.Grid;
 import ej.mwt.MWT;
 import ej.mwt.Widget;
 import ej.widget.basic.AbstractSlider;
@@ -35,7 +35,7 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		// | check box | radio 2 |
 		// | slider | button |
 
-		GridComposite grid = new GridComposite();
+		Grid grid = new Grid();
 		grid.setHorizontal(true);
 		grid.setCount(2);
 
@@ -107,10 +107,10 @@ public abstract class WidgetPage extends AbstractDemoPage {
 	protected abstract AbstractSlider newSlider(int min, int max, int initial);
 
 	// Creates a toggle that changes its state also when the text is clicked.
-	private static void newToggleItem(Toggle toggle, String text, GridComposite grid) {
+	private static void newToggleItem(Toggle toggle, String text, Grid grid) {
 		Label label = new Label(text);
 		ToggleComposite toggleButton = new ToggleComposite(toggle);
-		BorderComposite toggleButtonContent = new BorderComposite();
+		BorderBars toggleButtonContent = new BorderBars();
 		toggleButtonContent.add(toggle, MWT.LEFT);
 		toggleButtonContent.add(label, MWT.CENTER);
 		toggleButton.setWidget(toggleButtonContent);

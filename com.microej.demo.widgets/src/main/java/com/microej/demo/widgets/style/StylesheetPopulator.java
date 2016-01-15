@@ -9,7 +9,6 @@ package com.microej.demo.widgets.style;
 import java.util.ArrayList;
 import java.util.List;
 
-import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.microui.display.Colors;
 import ej.microui.display.GraphicsContext;
 import ej.mwt.Desktop;
@@ -24,6 +23,7 @@ import ej.style.outline.ComplexOutline;
 import ej.style.outline.EmptyOutline;
 import ej.style.outline.SimpleOutline;
 import ej.style.text.ComplexTextManager;
+import ej.style.util.StyleHelper;
 import ej.widget.basic.Check;
 import ej.widget.basic.CircularProgressBar;
 import ej.widget.basic.Image;
@@ -43,12 +43,12 @@ import ej.widget.basic.picto.PictoSlider;
 import ej.widget.basic.picto.PictoSwitch;
 
 /**
- * Stylesheet utilities.
+ * Class responsible for initializing the demo styles.
  */
-public class StylesheetHelper {
+public class StylesheetPopulator {
 
 	// Prevents initialization.
-	private StylesheetHelper() {
+	private StylesheetPopulator() {
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class StylesheetHelper {
 	 *            the desktop used by the application.
 	 */
 	public static void initialize(Desktop desktop) {
-		Stylesheet stylesheet = ServiceLoaderFactory.getServiceLoader().getService(Stylesheet.class);
+		Stylesheet stylesheet = StyleHelper.getStylesheet();
 
 		// Sets the default style.
 		Style defaultStyle = new Style();

@@ -8,7 +8,7 @@ package com.microej.demo.widgets;
 
 import com.microej.demo.widgets.page.DirectURLResolver;
 import com.microej.demo.widgets.page.MainPage;
-import com.microej.demo.widgets.style.StylesheetHelper;
+import com.microej.demo.widgets.style.StylesheetPopulator;
 
 import ej.microui.MicroUI;
 import ej.navigation.desktop.HorizontalNavigationDesktop;
@@ -43,7 +43,7 @@ public class WidgetsDemo {
 	public static void main(String[] args) {
 		MicroUI.start();
 		Desktop = newTransitionDesktop();
-		StylesheetHelper.initialize(Desktop);
+		StylesheetPopulator.initialize(Desktop);
 		Desktop.show(MainPage.class.getName());
 		Desktop.show();
 	}

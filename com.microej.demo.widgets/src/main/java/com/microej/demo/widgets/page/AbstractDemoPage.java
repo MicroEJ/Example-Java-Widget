@@ -13,7 +13,7 @@ import com.microej.demo.widgets.style.Images;
 import com.microej.demo.widgets.style.Pictos;
 
 import ej.components.dependencyinjection.ServiceLoaderFactory;
-import ej.container.BorderBars;
+import ej.container.OppositeBars;
 import ej.mwt.Desktop;
 import ej.mwt.MWT;
 import ej.mwt.Widget;
@@ -30,7 +30,7 @@ import ej.widget.listener.OnClickListener;
  */
 public abstract class AbstractDemoPage extends Page {
 
-	private BorderBars content;
+	private OppositeBars content;
 
 	/**
 	 * Creates a new demo page.
@@ -68,7 +68,7 @@ public abstract class AbstractDemoPage extends Page {
 	}
 
 	private Widget createContent() {
-		this.content = new BorderBars();
+		this.content = new OppositeBars();
 		this.content.setHorizontal(false);
 		this.content.add(createTopBar(), MWT.NORTH);
 		this.content.add(createMainContent(), MWT.CENTER);
@@ -85,7 +85,7 @@ public abstract class AbstractDemoPage extends Page {
 		Label titleLabel = new Label(getTitle());
 		titleLabel.addClassSelector(ClassSelectors.TITLE);
 
-		BorderBars topBar = new BorderBars();
+		OppositeBars topBar = new OppositeBars();
 		topBar.add(titleLabel, MWT.CENTER);
 
 		if (WidgetsDemo.canGoBack()) {

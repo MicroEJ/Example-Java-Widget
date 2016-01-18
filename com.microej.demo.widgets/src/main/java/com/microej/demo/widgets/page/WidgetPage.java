@@ -8,7 +8,7 @@ package com.microej.demo.widgets.page;
 
 import com.microej.demo.widgets.style.ClassSelectors;
 
-import ej.container.BorderBars;
+import ej.container.OppositeBars;
 import ej.container.Grid;
 import ej.mwt.MWT;
 import ej.mwt.Widget;
@@ -110,7 +110,7 @@ public abstract class WidgetPage extends AbstractDemoPage {
 	private static void newToggleItem(Toggle toggle, String text, Grid grid) {
 		Label label = new Label(text);
 		ToggleComposite toggleButton = new ToggleComposite(toggle);
-		BorderBars toggleButtonContent = new BorderBars();
+		OppositeBars toggleButtonContent = new OppositeBars();
 		toggleButtonContent.add(toggle, MWT.LEFT);
 		toggleButtonContent.add(label, MWT.CENTER);
 		toggleButton.setWidget(toggleButtonContent);

@@ -13,7 +13,6 @@ import ej.microui.display.Colors;
 import ej.microui.display.GraphicsContext;
 import ej.mwt.Desktop;
 import ej.style.State;
-import ej.style.Style;
 import ej.style.Stylesheet;
 import ej.style.background.PlainBackground;
 import ej.style.border.ComplexRectangularBorder;
@@ -22,7 +21,10 @@ import ej.style.font.FontProfile.FontSize;
 import ej.style.outline.ComplexOutline;
 import ej.style.outline.EmptyOutline;
 import ej.style.outline.SimpleOutline;
+import ej.style.selector.ChainSelector;
+import ej.style.selector.ClassStateSelector;
 import ej.style.text.ComplexTextManager;
+import ej.style.util.EditableStyle;
 import ej.style.util.StyleHelper;
 import ej.widget.basic.Check;
 import ej.widget.basic.CircularProgressBar;
@@ -41,6 +43,7 @@ import ej.widget.basic.picto.PictoProgress;
 import ej.widget.basic.picto.PictoRadio;
 import ej.widget.basic.picto.PictoSlider;
 import ej.widget.basic.picto.PictoSwitch;
+import ej.widget.composed.Button;
 
 /**
  * Class responsible for initializing the demo styles.
@@ -61,7 +64,7 @@ public class StylesheetPopulator {
 		Stylesheet stylesheet = StyleHelper.getStylesheet();
 
 		// Sets the default style.
-		Style defaultStyle = new Style();
+		EditableStyle defaultStyle = new EditableStyle();
 		defaultStyle.setForegroundColor(Colors.WHITE);
 		FontProfile defaultFontProfile = new FontProfile();
 		defaultFontProfile.setFamily(FontFamilies.ROBOTO);
@@ -72,7 +75,13 @@ public class StylesheetPopulator {
 		defaultStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
 		stylesheet.setStyle(defaultStyle);
 
-		Style desktopStyle = new Style();
+		EditableStyle editableStyle = new EditableStyle();
+		editableStyle.setBorder(new PlainBackground(Colors.RED));
+		ChainSelector chainSelector = new ChainSelector();
+		chainSelector.addParent(Button.class);
+		stylesheet.setStyle(Label.class, chainSelector, editableStyle);
+
+		EditableStyle desktopStyle = new EditableStyle();
 		PlainBackground desktopBackground = new PlainBackground();
 		desktopBackground.setColor(0x404041);
 		desktopStyle.setBorder(desktopBackground);
@@ -83,12 +92,12 @@ public class StylesheetPopulator {
 		defaultMargin.setThickness(6);
 
 		// Sets the label style.
-		Style labelStyle = new Style();
+		EditableStyle labelStyle = new EditableStyle();
 		labelStyle.setMargin(defaultMargin);
 		stylesheet.setStyle(Label.class, labelStyle);
 
 		// Sets the large picto style.
-		Style largePictoStyle = new Style();
+		EditableStyle largePictoStyle = new EditableStyle();
 		FontProfile largePictoFontProfile = new FontProfile();
 		largePictoFontProfile.setFamily(FontFamilies.PICTO);
 		largePictoFontProfile.setSize(FontSize.LARGE);
@@ -96,7 +105,7 @@ public class StylesheetPopulator {
 		stylesheet.setStyle(ClassSelectors.LARGE_ICON, largePictoStyle);
 
 		// Sets the title style.
-		Style titleStyle = new Style();
+		EditableStyle titleStyle = new EditableStyle();
 		FontProfile titleFontProfile = new FontProfile();
 		titleFontProfile.setFamily(FontFamilies.ROBOTO);
 		titleFontProfile.setSize(FontSize.LARGE);
@@ -108,7 +117,7 @@ public class StylesheetPopulator {
 		stylesheet.setStyle(ClassSelectors.TITLE, titleStyle);
 
 		// Sets the list item style.
-		Style listItemStyle = new Style();
+		EditableStyle listItemStyle = new EditableStyle();
 		ComplexRectangularBorder listItemBorder = new ComplexRectangularBorder();
 		listItemBorder.setBottom(1);
 		listItemBorder.setColorBottom(Colors.GRAY);
@@ -120,14 +129,14 @@ public class StylesheetPopulator {
 		stylesheet.setStyle(ClassSelectors.LIST_ITEM, listItemStyle);
 
 		// Sets the image style.
-		Style imageStyle = new Style();
+		EditableStyle imageStyle = new EditableStyle();
 		ComplexOutline imagePadding = new ComplexOutline();
 		imagePadding.setLeft(5); // Align with back button size.
 		imageStyle.setPadding(imagePadding);
 		stylesheet.setStyle(Image.class, imageStyle);
 
 		// Sets the unchecked toggle style.
-		Style toggleStyle = new Style();
+		EditableStyle toggleStyle = new EditableStyle();
 		toggleStyle.setForegroundColor(0xbcbec0);
 		toggleStyle.setMargin(defaultMargin);
 		stylesheet.setStyle(Check.class, toggleStyle);
@@ -140,7 +149,7 @@ public class StylesheetPopulator {
 		widgetPictoFontProfile.setSize(FontSize.MEDIUM);
 
 		// Sets the unchecked picto toggle style.
-		Style pictoToggleStyle = new Style();
+		EditableStyle pictoToggleStyle = new EditableStyle();
 		pictoToggleStyle.setFontProfile(widgetPictoFontProfile);
 		pictoToggleStyle.setForegroundColor(0xbcbec0);
 		pictoToggleStyle.setMargin(defaultMargin);
@@ -149,7 +158,7 @@ public class StylesheetPopulator {
 		stylesheet.setStyle(PictoSwitch.class, pictoToggleStyle);
 
 		// Sets the widget and checked toggle style.
-		Style widgetStyle = new Style();
+		EditableStyle widgetStyle = new EditableStyle();
 		widgetStyle.setMargin(defaultMargin);
 		widgetStyle.setForegroundColor(0x10bdf1);
 		stylesheet.setStyle(ProgressBar.class, widgetStyle);
@@ -160,7 +169,7 @@ public class StylesheetPopulator {
 		stylesheet.setStyle(Switch.class, State.Checked, widgetStyle);
 
 		// Sets the image widget style.
-		Style widgetImageStyle = new Style();
+		EditableStyle widgetImageStyle = new EditableStyle();
 		widgetImageStyle.setMargin(defaultMargin);
 		stylesheet.setStyle(ImageSlider.class, widgetImageStyle);
 		stylesheet.setStyle(ImageRadio.class, widgetImageStyle);
@@ -168,7 +177,7 @@ public class StylesheetPopulator {
 		stylesheet.setStyle(ImageSwitch.class, widgetImageStyle);
 
 		// Sets the picto widget and checked picto toggle style.
-		Style widgetPictoStyle = new Style();
+		EditableStyle widgetPictoStyle = new EditableStyle();
 		widgetPictoStyle.setMargin(defaultMargin);
 		widgetPictoStyle.setForegroundColor(0x10bdf1);
 		widgetPictoStyle.setFontProfile(widgetPictoFontProfile);
@@ -179,7 +188,7 @@ public class StylesheetPopulator {
 		stylesheet.setStyle(PictoProgress.class, widgetPictoStyle);
 
 		// Sets the illustrated button style.
-		Style buttonStyle = new Style();
+		EditableStyle buttonStyle = new EditableStyle();
 		PlainBackground buttonBackground = new PlainBackground();
 		buttonBackground.setColor(0x10bdf1);
 		buttonStyle.setBorder(buttonBackground);
@@ -194,18 +203,19 @@ public class StylesheetPopulator {
 		stylesheet.setStyle(ClassSelectors.ILLUSTRATED_BUTTON, buttonStyle);
 
 		// Sets the illustrated active button style.
-		Style activeButtonStyle = new Style();
+		EditableStyle activeButtonStyle = new EditableStyle();
 		PlainBackground activeButtonBackground = new PlainBackground();
 		activeButtonBackground.setColor(0x1185a8);
 		activeButtonStyle.setBorder(activeButtonBackground);
-		List<String> buttonSelector = new ArrayList<>();
+		List<String> buttonSelector = new ArrayList<>(1);
 		buttonSelector.add(ClassSelectors.ILLUSTRATED_BUTTON);
-		List<State> buttonStates = new ArrayList<>();
+		List<State> buttonStates = new ArrayList<>(1);
 		buttonStates.add(State.Active);
-		stylesheet.setStyle(buttonSelector, buttonStates, activeButtonStyle);
+		ClassStateSelector activeButtonSelector = new ClassStateSelector(buttonSelector, buttonStates);
+		stylesheet.setStyle(activeButtonSelector, activeButtonStyle);
 
 		// Sets the text title style.
-		Style textTitleStyle = new Style();
+		EditableStyle textTitleStyle = new EditableStyle();
 		ComplexRectangularBorder textTitleBorder = new ComplexRectangularBorder();
 		textTitleBorder.setBottom(1);
 		textTitleBorder.setColorBottom(Colors.SILVER);
@@ -213,7 +223,7 @@ public class StylesheetPopulator {
 		stylesheet.setStyle(ClassSelectors.TEXT_TITLE, textTitleStyle);
 
 		// Sets the multiline style.
-		Style multilineStyle = new Style();
+		EditableStyle multilineStyle = new EditableStyle();
 		ComplexTextManager complexTextManager = new ComplexTextManager();
 		complexTextManager.setLineHeight(40);
 		multilineStyle.setTextManager(complexTextManager);

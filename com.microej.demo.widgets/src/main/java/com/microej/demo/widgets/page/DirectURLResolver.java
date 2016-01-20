@@ -14,12 +14,15 @@ import ej.navigation.page.Page;
 import ej.navigation.page.PageNotFoundException;
 
 /**
- *
+ * The direct URL resolver is a class name resolver that put the loaded pages in a cache.
  */
 public class DirectURLResolver extends ClassNameURLResolver {
 
 	private final Map<String, Page> pages;
 
+	/**
+	 * Creates a direct URL resolver.
+	 */
 	public DirectURLResolver() {
 		this.pages = new HashMap<>();
 		// resolve(VectorWidgetPage.class.getName());

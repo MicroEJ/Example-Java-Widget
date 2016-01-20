@@ -31,10 +31,10 @@ public class ScrollableTextPage extends AbstractDemoPage {
 		List listComposite = new List();
 		listComposite.setHorizontal(false);
 
-		add("MicroEJ SDK", "sdk.txt", listComposite);
-		add("MicroEJ Studio", "studio.txt", listComposite);
-		add("MicroEJ Application Store", "store.txt", listComposite);
-		add("MicroEJ OS", "os.txt", listComposite);
+		add("MicroEJ SDK", "sdk.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
+		add("MicroEJ Studio", "studio.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
+		add("MicroEJ Application Store", "store.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
+		add("MicroEJ OS", "os.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
 
 		return new Scroll(false, listComposite, true);
 	}

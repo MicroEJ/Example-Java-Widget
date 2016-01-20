@@ -21,7 +21,6 @@ import ej.style.font.FontProfile.FontSize;
 import ej.style.outline.ComplexOutline;
 import ej.style.outline.EmptyOutline;
 import ej.style.outline.SimpleOutline;
-import ej.style.selector.ChainSelector;
 import ej.style.selector.ClassStateSelector;
 import ej.style.text.ComplexTextManager;
 import ej.style.util.EditableStyle;
@@ -43,7 +42,6 @@ import ej.widget.basic.picto.PictoProgress;
 import ej.widget.basic.picto.PictoRadio;
 import ej.widget.basic.picto.PictoSlider;
 import ej.widget.basic.picto.PictoSwitch;
-import ej.widget.composed.Button;
 
 /**
  * Class responsible for initializing the demo styles.
@@ -74,12 +72,6 @@ public class StylesheetPopulator {
 		defaultStyle.setBorder(transparentBackground);
 		defaultStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
 		stylesheet.setStyle(defaultStyle);
-
-		EditableStyle editableStyle = new EditableStyle();
-		editableStyle.setBorder(new PlainBackground(Colors.RED));
-		ChainSelector chainSelector = new ChainSelector();
-		chainSelector.addParent(Button.class);
-		stylesheet.setStyle(Label.class, chainSelector, editableStyle);
 
 		EditableStyle desktopStyle = new EditableStyle();
 		PlainBackground desktopBackground = new PlainBackground();

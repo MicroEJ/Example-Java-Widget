@@ -6,8 +6,8 @@
  */
 package com.microej.demo.widgets.style;
 
-import ej.style.font.AbstractFontLoader;
 import ej.style.font.FontProfile;
+import ej.style.font.loader.AbstractFontLoader;
 
 /**
  * The font loader used in the application.

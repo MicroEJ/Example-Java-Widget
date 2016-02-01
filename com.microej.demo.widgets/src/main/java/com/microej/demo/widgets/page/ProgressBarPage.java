@@ -32,16 +32,13 @@ public class ProgressBarPage extends AbstractDemoPage {
 		// | progress bar |
 		// | circular progress bar - picto progress bar |
 
-		Grid grid = new Grid();
-		grid.setHorizontal(true);
-		grid.setCount(1);
+		Grid grid = new Grid(true, 1);
 
 		ProgressBar progressBar = new ProgressBar(MIN, MAX, INITIAL);
 		progressBar.setIndeterminate(true);
 		grid.add(progressBar);
 
-		Grid splitComposite = new Grid();
-		splitComposite.setHorizontal(false);
+		Grid splitComposite = new Grid(false, 1);
 		grid.add(splitComposite);
 
 		PictoProgress pictoProgressBar = new PictoProgress(MIN, MAX, INITIAL);

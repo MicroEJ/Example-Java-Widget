@@ -43,16 +43,19 @@ public class ScrollableListPage extends AbstractDemoPage {
 		// Item n-1
 		// Item n
 
-		this.listComposite = new List();
-		this.listComposite.setHorizontal(false);
+		this.listComposite = new List(false);
 
-		for (int i = 1; i <= FIRST_SHOT_COUNT; i++) {
+		addItems(1, FIRST_SHOT_COUNT);
+
+		return new Scroll(false, this.listComposite, true);
+	}
+
+	private void addItems(int start, int end) {
+		for (int i = start; i <= end; i++) {
 			Label item = new Label(ITEM_PREFIX + i);
 			item.addClassSelector(ClassSelectors.LIST_ITEM);
 			this.listComposite.add(item);
 		}
-
-		return new Scroll(false, this.listComposite, true);
 	}
 
 	@Override
@@ -69,11 +72,7 @@ public class ScrollableListPage extends AbstractDemoPage {
 						public void run() {
 							if (!ScrollableListPage.this.complete) {
 								ScrollableListPage.this.complete = true;
-								for (int i = FIRST_SHOT_COUNT + 1; i <= ITEM_COUNT; i++) {
-									Label item = new Label(ITEM_PREFIX + i);
-									item.addClassSelector(ClassSelectors.LIST_ITEM);
-									ScrollableListPage.this.listComposite.add(item);
-								}
+								addItems(FIRST_SHOT_COUNT + 1, ITEM_COUNT);
 							}
 						}
 					});

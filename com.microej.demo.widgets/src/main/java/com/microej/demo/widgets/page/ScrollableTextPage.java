@@ -28,8 +28,7 @@ public class ScrollableTextPage extends AbstractDemoPage {
 
 	@Override
 	protected Widget createMainContent() {
-		List listComposite = new List();
-		listComposite.setHorizontal(false);
+		List listComposite = new List(false);
 
 		add("MicroEJ SDK", "sdk.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
 		add("MicroEJ Studio", "studio.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$

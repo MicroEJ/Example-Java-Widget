@@ -8,8 +8,8 @@ package com.microej.demo.widgets.page;
 
 import com.microej.demo.widgets.style.ClassSelectors;
 
-import ej.container.OppositeBars;
 import ej.container.Grid;
+import ej.container.OppositeBars;
 import ej.mwt.MWT;
 import ej.mwt.Widget;
 import ej.widget.basic.AbstractSlider;
@@ -35,9 +35,7 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		// | check box | radio 2 |
 		// | slider | button |
 
-		Grid grid = new Grid();
-		grid.setHorizontal(true);
-		grid.setCount(2);
+		Grid grid = new Grid(true, 2);
 
 		Toggle switch_ = newSwitch(false);
 		newToggleItem(switch_, "Switch", grid); //$NON-NLS-1$

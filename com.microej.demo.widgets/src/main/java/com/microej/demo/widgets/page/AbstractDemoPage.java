@@ -13,21 +13,24 @@ import com.microej.demo.widgets.style.Images;
 import com.microej.demo.widgets.style.Pictos;
 
 import ej.components.dependencyinjection.ServiceLoaderFactory;
-import ej.composite.BorderComposite;
+import ej.container.OppositeBars;
+import ej.mwt.Desktop;
 import ej.mwt.MWT;
 import ej.mwt.Widget;
-import ej.transition.page.Page;
+import ej.navigation.page.Page;
 import ej.widget.basic.Image;
 import ej.widget.basic.Label;
 import ej.widget.basic.image.ImageHelper;
 import ej.widget.composed.Button;
-import ej.widget.composed.SimpleButton;
+import ej.widget.composed.ButtonComposite;
 import ej.widget.listener.OnClickListener;
 
 /**
  * Common abstract page implementation for all the application pages.
  */
 public abstract class AbstractDemoPage extends Page {
+
+	private OppositeBars content;
 
 	/**
 	 * Creates a new demo page.
@@ -50,12 +53,26 @@ public abstract class AbstractDemoPage extends Page {
 		}
 	}
 
+	// @Override
+	// public void showNotify() {
+	// super.showNotify();
+	// System.gc();
+	// Runtime runtime = Runtime.getRuntime();
+	// System.out.println(runtime.totalMemory() - runtime.freeMemory() + "b");
+	// }
+
+	@Override
+	public void show(Desktop desktop) throws NullPointerException {
+		this.content.add(createTopBar(), MWT.NORTH);
+		super.show(desktop);
+	}
+
 	private Widget createContent() {
-		BorderComposite content = new BorderComposite();
-		content.setHorizontal(false);
-		content.add(createTopBar(), MWT.NORTH);
-		content.add(createMainContent(), MWT.CENTER);
-		return content;
+		this.content = new OppositeBars();
+		this.content.setHorizontal(false);
+		this.content.add(createTopBar(), MWT.NORTH);
+		this.content.add(createMainContent(), MWT.CENTER);
+		return this.content;
 	}
 
 	/**
@@ -68,12 +85,12 @@ public abstract class AbstractDemoPage extends Page {
 		Label titleLabel = new Label(getTitle());
 		titleLabel.addClassSelector(ClassSelectors.TITLE);
 
-		BorderComposite topBar = new BorderComposite();
+		OppositeBars topBar = new OppositeBars();
 		topBar.add(titleLabel, MWT.CENTER);
 
 		if (WidgetsDemo.canGoBack()) {
 			// Add a back button.
-			SimpleButton backButton = new SimpleButton(Character.toString(Pictos.BACK));
+			Button backButton = new Button(Character.toString(Pictos.BACK));
 			backButton.getLabel().addClassSelector(ClassSelectors.LARGE_ICON);
 			backButton.addOnClickListener(new OnClickListener() {
 
@@ -85,7 +102,7 @@ public abstract class AbstractDemoPage extends Page {
 			topBar.add(backButton, MWT.WEST);
 		} else {
 			// Add an exit button.
-			Button exitButton = new Button();
+			ButtonComposite exitButton = new ButtonComposite();
 			exitButton.addOnClickListener(new OnClickListener() {
 
 				@Override

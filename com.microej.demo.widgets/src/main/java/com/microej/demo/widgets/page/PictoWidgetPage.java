@@ -7,11 +7,13 @@
 package com.microej.demo.widgets.page;
 
 import ej.widget.basic.AbstractSlider;
-import ej.widget.basic.Toggle;
 import ej.widget.basic.picto.PictoCheck;
 import ej.widget.basic.picto.PictoRadio;
 import ej.widget.basic.picto.PictoSlider;
 import ej.widget.basic.picto.PictoSwitch;
+import ej.widget.composed.Toggle;
+import ej.widget.composed.ToggleComposite;
+import ej.widget.toggle.RadioModel;
 
 /**
  * This page illustrates the widgets rendered with some pictos.
@@ -24,18 +26,18 @@ public class PictoWidgetPage extends WidgetPage {
 	}
 
 	@Override
-	protected Toggle newCheckBox(boolean checked) {
-		return new PictoCheck(checked);
+	protected ToggleComposite newCheckBox(String string) {
+		return new Toggle(new PictoCheck(), string);
 	}
 
 	@Override
-	protected Toggle newSwitch(boolean checked) {
-		return new PictoSwitch(checked);
+	protected ToggleComposite newRadioButton(String string) {
+		return new Toggle(new RadioModel(), new PictoRadio(), string);
 	}
 
 	@Override
-	protected Toggle newRadioButton(boolean checked) {
-		return new PictoRadio(checked);
+	protected ToggleComposite newSwitch(String string) {
+		return new Toggle(new PictoSwitch(), string);
 	}
 
 	@Override

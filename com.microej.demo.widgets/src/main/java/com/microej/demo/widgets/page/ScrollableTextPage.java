@@ -11,7 +11,8 @@ import java.io.InputStream;
 
 import com.microej.demo.widgets.style.ClassSelectors;
 
-import ej.composite.ScrollComposite;
+import ej.container.List;
+import ej.container.Scroll;
 import ej.mwt.Widget;
 import ej.widget.basic.Label;
 
@@ -27,17 +28,36 @@ public class ScrollableTextPage extends AbstractDemoPage {
 
 	@Override
 	protected Widget createMainContent() {
-		String description = readDescription();
+		List listComposite = new List(false);
 
-		Label text = new Label();
-		text.addClassSelector(ClassSelectors.MULTILINE);
-		text.setText(description);
-		return new ScrollComposite(text, true);
+		add("MicroEJ SDK", "sdk.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
+		add("MicroEJ Studio", "studio.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
+		add("MicroEJ Application Store", "store.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
+		add("MicroEJ OS", "os.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
+
+		return new Scroll(false, listComposite, true);
 	}
 
-	private String readDescription() {
+	private void add(String title, String filename, List listComposite) {
+		Label titleLabel = new Label();
+		titleLabel.addClassSelector(ClassSelectors.TEXT_TITLE);
+		titleLabel.setText(title);
+
+		String description = read(filename);
+		Label descriptionLabel = new Label();
+		descriptionLabel.addClassSelector(ClassSelectors.MULTILINE);
+		descriptionLabel.setText(description);
+
+		Label emptyLabel = new Label();
+
+		listComposite.add(titleLabel);
+		listComposite.add(descriptionLabel);
+		listComposite.add(emptyLabel);
+	}
+
+	private String read(String filename) {
 		try {
-			InputStream inputStream = ScrollableTextPage.class.getResourceAsStream("description.txt"); //$NON-NLS-1$
+			InputStream inputStream = ScrollableTextPage.class.getResourceAsStream(filename);
 			StringBuilder textBuffer = new StringBuilder();
 			byte[] buffer = new byte[128];
 			while (inputStream.available() != 0) {

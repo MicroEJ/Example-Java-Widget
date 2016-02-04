@@ -9,11 +9,11 @@ package com.microej.demo.widgets.page;
 import com.microej.demo.widgets.WidgetsDemo;
 import com.microej.demo.widgets.style.ClassSelectors;
 
-import ej.composite.ListComposite;
-import ej.composite.ScrollComposite;
+import ej.container.List;
+import ej.container.Scroll;
 import ej.mwt.Widget;
 import ej.widget.composed.Button;
-import ej.widget.composed.SimpleButton;
+import ej.widget.composed.ButtonComposite;
 import ej.widget.listener.OnClickListener;
 
 /**
@@ -34,20 +34,19 @@ public class MainPage extends AbstractDemoPage {
 		// Progress bar
 		// Scrollable list
 
-		ListComposite listComposite = new ListComposite();
-		listComposite.setHorizontal(false);
+		List listComposite = new List(false);
 		listComposite.add(newSelectableItem("Basic widgets - Picto", PictoWidgetPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Basic widgets - Image", ImageWidgetPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Basic widgets - Drawing", VectorWidgetPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Progress bar", ProgressBarPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Scrollable list", ScrollableListPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Scrollable text", ScrollableTextPage.class.getName())); //$NON-NLS-1$
-		return new ScrollComposite(listComposite, true);
+		return new Scroll(false, listComposite, true);
 	}
 
 	// A button that leads to the given page.
-	private Button newSelectableItem(String name, final String url) {
-		SimpleButton button = new SimpleButton(name);
+	private ButtonComposite newSelectableItem(String name, final String url) {
+		Button button = new Button(name);
 		button.addClassSelector(ClassSelectors.LIST_ITEM);
 		button.addOnClickListener(new OnClickListener() {
 

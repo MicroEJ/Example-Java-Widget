@@ -11,9 +11,8 @@ import com.microej.demo.widgets.style.ClassSelectors;
 import ej.bon.Timer;
 import ej.bon.TimerTask;
 import ej.components.dependencyinjection.ServiceLoaderFactory;
-import ej.composite.ListComposite;
-import ej.composite.ScrollComposite;
-import ej.microui.display.Display;
+import ej.container.List;
+import ej.container.Scroll;
 import ej.mwt.Widget;
 import ej.widget.basic.Label;
 
@@ -27,7 +26,7 @@ public class ScrollableListPage extends AbstractDemoPage {
 	private static final int ITEM_COUNT = 100;
 	private static final int FIRST_SHOT_COUNT = 20;
 
-	private ListComposite listComposite;
+	private List listComposite;
 	private boolean complete;
 
 	@Override
@@ -44,42 +43,43 @@ public class ScrollableListPage extends AbstractDemoPage {
 		// Item n-1
 		// Item n
 
-		this.listComposite = new ListComposite();
-		this.listComposite.setHorizontal(false);
+		this.listComposite = new List(false);
 
-		for (int i = 1; i <= FIRST_SHOT_COUNT; i++) {
+		addItems(1, FIRST_SHOT_COUNT);
+
+		return new Scroll(false, this.listComposite, true);
+	}
+
+	private void addItems(int start, int end) {
+		for (int i = start; i <= end; i++) {
 			Label item = new Label(ITEM_PREFIX + i);
 			item.addClassSelector(ClassSelectors.LIST_ITEM);
 			this.listComposite.add(item);
 		}
-
-		return new ScrollComposite(this.listComposite, true);
 	}
 
 	@Override
 	public void showNotify() {
 		super.showNotify();
-		// Add missing items.
-		Timer timer = ServiceLoaderFactory.getServiceLoader().getService(Timer.class);
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				Display.getDefaultDisplay().callSerially(new Runnable() {
-					@Override
-					public void run() {
-						if (!ScrollableListPage.this.complete) {
-							ScrollableListPage.this.complete = true;
-							for (int i = FIRST_SHOT_COUNT + 1; i <= ITEM_COUNT; i++) {
-								Label item = new Label(ITEM_PREFIX + i);
-								item.addClassSelector(ClassSelectors.LIST_ITEM);
-								ScrollableListPage.this.listComposite.add(item);
+		if (!ScrollableListPage.this.complete) {
+			// Add missing items.
+			Timer timer = ServiceLoaderFactory.getServiceLoader().getService(Timer.class);
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					getDesktop().getDisplay().callSerially(new Runnable() {
+						@Override
+						public void run() {
+							if (!ScrollableListPage.this.complete) {
+								ScrollableListPage.this.complete = true;
+								addItems(FIRST_SHOT_COUNT + 1, ITEM_COUNT);
 							}
 						}
-					}
-				});
-				revalidate();
-			}
-		}, APPEARANCE_DELAY);
+					});
+					revalidate();
+				}
+			}, APPEARANCE_DELAY);
+		}
 	}
 
 }

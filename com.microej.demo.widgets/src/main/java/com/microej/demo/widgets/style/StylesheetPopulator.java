@@ -6,6 +6,8 @@
  */
 package com.microej.demo.widgets.style;
 
+import java.io.IOException;
+
 import ej.microui.display.Colors;
 import ej.microui.display.GraphicsContext;
 import ej.style.State;
@@ -17,25 +19,25 @@ import ej.style.font.FontProfile.FontSize;
 import ej.style.outline.ComplexOutline;
 import ej.style.outline.EmptyOutline;
 import ej.style.outline.SimpleOutline;
-import ej.style.selector.AndSelector;
 import ej.style.selector.ClassSelector;
 import ej.style.selector.EvenChildSelector;
 import ej.style.selector.InstanceSelector;
 import ej.style.selector.SelectorHelper;
 import ej.style.selector.StateSelector;
 import ej.style.selector.TypeSelector;
+import ej.style.selector.combinator.AndCombinator;
 import ej.style.text.ComplexTextManager;
 import ej.style.util.EditableStyle;
 import ej.style.util.StyleHelper;
 import ej.widget.StyledDesktop;
-import ej.widget.basic.Check;
-import ej.widget.basic.CircularProgressBar;
 import ej.widget.basic.Image;
 import ej.widget.basic.Label;
-import ej.widget.basic.ProgressBar;
-import ej.widget.basic.Radio;
-import ej.widget.basic.Slider;
-import ej.widget.basic.Switch;
+import ej.widget.basic.drawing.CheckBox;
+import ej.widget.basic.drawing.CircularProgressBar;
+import ej.widget.basic.drawing.ProgressBar;
+import ej.widget.basic.drawing.RadioBox;
+import ej.widget.basic.drawing.Slider;
+import ej.widget.basic.drawing.SwitchBox;
 import ej.widget.basic.image.ImageCheck;
 import ej.widget.basic.image.ImageRadio;
 import ej.widget.basic.image.ImageSlider;
@@ -60,8 +62,9 @@ public class StylesheetPopulator {
 	 *
 	 * @param desktop
 	 *            the desktop used by the application.
+	 * @throws IOException
 	 */
-	public static void initialize(StyledDesktop desktop) {
+	public static void initialize(StyledDesktop desktop) throws IOException {
 		Stylesheet stylesheet = StyleHelper.getStylesheet();
 
 		// Sets the default style.
@@ -125,7 +128,7 @@ public class StylesheetPopulator {
 
 		EditableStyle evenListItemStyle = new EditableStyle();
 		evenListItemStyle.setBorder(new PlainBackground(0x505051));
-		stylesheet.addRule(new AndSelector(new ClassSelector(ClassSelectors.LIST_ITEM), new EvenChildSelector()),
+		stylesheet.addRule(new AndCombinator(new ClassSelector(ClassSelectors.LIST_ITEM), new EvenChildSelector()),
 				evenListItemStyle);
 
 		// Sets the image style.
@@ -139,9 +142,9 @@ public class StylesheetPopulator {
 		EditableStyle toggleStyle = new EditableStyle();
 		toggleStyle.setForegroundColor(0xbcbec0);
 		toggleStyle.setMargin(defaultMargin);
-		stylesheet.addRule(new TypeSelector(Check.class), toggleStyle);
-		stylesheet.addRule(new TypeSelector(Radio.class), toggleStyle);
-		stylesheet.addRule(new TypeSelector(Switch.class), toggleStyle);
+		stylesheet.addRule(new TypeSelector(CheckBox.class), toggleStyle);
+		stylesheet.addRule(new TypeSelector(RadioBox.class), toggleStyle);
+		stylesheet.addRule(new TypeSelector(SwitchBox.class), toggleStyle);
 
 		// The font to use for the most of the picto widgets.
 		FontProfile widgetPictoFontProfile = new FontProfile();
@@ -164,9 +167,9 @@ public class StylesheetPopulator {
 		stylesheet.addRule(new TypeSelector(ProgressBar.class), widgetStyle);
 		stylesheet.addRule(new TypeSelector(CircularProgressBar.class), widgetStyle);
 		stylesheet.addRule(new TypeSelector(Slider.class), widgetStyle);
-		stylesheet.addRule(SelectorHelper.createSelector(Check.class, State.Checked), widgetStyle);
-		stylesheet.addRule(SelectorHelper.createSelector(Radio.class, State.Checked), widgetStyle);
-		stylesheet.addRule(SelectorHelper.createSelector(Switch.class, State.Checked), widgetStyle);
+		stylesheet.addRule(SelectorHelper.createSelector(CheckBox.class, State.Checked), widgetStyle);
+		stylesheet.addRule(SelectorHelper.createSelector(RadioBox.class, State.Checked), widgetStyle);
+		stylesheet.addRule(SelectorHelper.createSelector(SwitchBox.class, State.Checked), widgetStyle);
 
 		// Sets the image widget style.
 		EditableStyle widgetImageStyle = new EditableStyle();
@@ -207,7 +210,7 @@ public class StylesheetPopulator {
 		PlainBackground activeButtonBackground = new PlainBackground();
 		activeButtonBackground.setColor(0x1185a8);
 		activeButtonStyle.setBorder(activeButtonBackground);
-		AndSelector activeButtonSelector = new AndSelector(new ClassSelector(ClassSelectors.ILLUSTRATED_BUTTON),
+		AndCombinator activeButtonSelector = new AndCombinator(new ClassSelector(ClassSelectors.ILLUSTRATED_BUTTON),
 				new StateSelector(State.Active));
 		stylesheet.addRule(activeButtonSelector, activeButtonStyle);
 

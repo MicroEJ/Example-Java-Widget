@@ -8,8 +8,8 @@ package com.microej.demo.widgets.page;
 
 import ej.container.Grid;
 import ej.mwt.Widget;
-import ej.widget.basic.CircularProgressBar;
-import ej.widget.basic.ProgressBar;
+import ej.widget.basic.drawing.CircularProgressBar;
+import ej.widget.basic.drawing.ProgressBar;
 import ej.widget.basic.picto.PictoProgress;
 
 /**

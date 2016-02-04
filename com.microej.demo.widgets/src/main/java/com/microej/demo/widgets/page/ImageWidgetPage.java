@@ -7,11 +7,13 @@
 package com.microej.demo.widgets.page;
 
 import ej.widget.basic.AbstractSlider;
-import ej.widget.basic.Toggle;
 import ej.widget.basic.image.ImageCheck;
 import ej.widget.basic.image.ImageRadio;
 import ej.widget.basic.image.ImageSlider;
 import ej.widget.basic.image.ImageSwitch;
+import ej.widget.composed.Toggle;
+import ej.widget.composed.ToggleComposite;
+import ej.widget.toggle.RadioModel;
 
 /**
  * This page illustrates the widgets rendered with some images.
@@ -24,18 +26,18 @@ public class ImageWidgetPage extends WidgetPage {
 	}
 
 	@Override
-	protected Toggle newCheckBox(boolean checked) {
-		return new ImageCheck(checked);
+	protected ToggleComposite newCheckBox(String string) {
+		return new Toggle(new ImageCheck(), string);
 	}
 
 	@Override
-	protected Toggle newSwitch(boolean checked) {
-		return new ImageSwitch(checked);
+	protected ToggleComposite newRadioButton(String string) {
+		return new Toggle(new RadioModel(), new ImageRadio(), string);
 	}
 
 	@Override
-	protected Toggle newRadioButton(boolean checked) {
-		return new ImageRadio(checked);
+	protected ToggleComposite newSwitch(String string) {
+		return new Toggle(new ImageSwitch(), string);
 	}
 
 	@Override

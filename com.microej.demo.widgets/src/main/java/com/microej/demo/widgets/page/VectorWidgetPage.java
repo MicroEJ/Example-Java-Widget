@@ -6,11 +6,11 @@
  */
 package com.microej.demo.widgets.page;
 
-import ej.widget.basic.Check;
-import ej.widget.basic.Radio;
-import ej.widget.basic.Slider;
-import ej.widget.basic.Switch;
-import ej.widget.basic.Toggle;
+import ej.widget.basic.drawing.Slider;
+import ej.widget.composed.Check;
+import ej.widget.composed.Radio;
+import ej.widget.composed.Switch;
+import ej.widget.composed.ToggleComposite;
 
 /**
  * This page illustrates the drawn widgets.
@@ -23,18 +23,18 @@ public class VectorWidgetPage extends WidgetPage {
 	}
 
 	@Override
-	protected Toggle newCheckBox(boolean checked) {
-		return new Check(checked);
+	protected ToggleComposite newCheckBox(String string) {
+		return new Check(string);
 	}
 
 	@Override
-	protected Toggle newSwitch(boolean checked) {
-		return new Switch(checked);
+	protected ToggleComposite newRadioButton(String string) {
+		return new Radio(string);
 	}
 
 	@Override
-	protected Toggle newRadioButton(boolean checked) {
-		return new Radio(checked);
+	protected ToggleComposite newSwitch(String string) {
+		return new Switch(string);
 	}
 
 	@Override

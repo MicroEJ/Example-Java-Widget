@@ -9,15 +9,11 @@ package com.microej.demo.widgets.page;
 import com.microej.demo.widgets.style.ClassSelectors;
 
 import ej.container.Grid;
-import ej.container.OppositeBars;
-import ej.mwt.MWT;
 import ej.mwt.Widget;
 import ej.widget.basic.AbstractSlider;
-import ej.widget.basic.Label;
-import ej.widget.basic.Toggle;
-import ej.widget.basic.ToggleGroup;
 import ej.widget.composed.Button;
 import ej.widget.composed.ToggleComposite;
+import ej.widget.toggle.ToggleGroup;
 
 /**
  * Haptic widgets demonstration page.
@@ -37,21 +33,21 @@ public abstract class WidgetPage extends AbstractDemoPage {
 
 		Grid grid = new Grid(true, 2);
 
-		Toggle switch_ = newSwitch(false);
-		newToggleItem(switch_, "Switch", grid); //$NON-NLS-1$
+		ToggleComposite switch_ = newSwitch("Switch"); //$NON-NLS-1$
+		grid.add(switch_);
 
 		ToggleGroup toggleGroup = new ToggleGroup();
 
-		Toggle radio1 = newRadioButton(false);
-		toggleGroup.addToggle(radio1);
-		newToggleItem(radio1, "Radio 1", grid); //$NON-NLS-1$
+		ToggleComposite radio1 = newRadioButton("Radio1"); //$NON-NLS-1$
+		grid.add(radio1);
+		toggleGroup.addToggle(radio1.getToggle());
 
-		Toggle checkbox = newCheckBox(true);
-		newToggleItem(checkbox, "Checkbox", grid); //$NON-NLS-1$
+		ToggleComposite checkbox = newCheckBox("Checkbox"); //$NON-NLS-1$
+		grid.add(checkbox);
 
-		Toggle radio2 = newRadioButton(true);
-		toggleGroup.addToggle(radio2);
-		newToggleItem(radio2, "Radio 2", grid); //$NON-NLS-1$
+		ToggleComposite radio2 = newRadioButton("Radio2"); //$NON-NLS-1$
+		toggleGroup.addToggle(radio2.getToggle());
+		grid.add(radio2);
 
 		AbstractSlider slider = newSlider(MIN_VALUE, MAX_VALUE, INITIAL_VALUE);
 		grid.add(slider);
@@ -66,29 +62,29 @@ public abstract class WidgetPage extends AbstractDemoPage {
 	/**
 	 * Gets a new check box widget with the given state.
 	 *
-	 * @param checked
-	 *            the state of the check box to create.
+	 * @param string
+	 *            the label of the check box.
 	 * @return a new check box widget with the given state.
 	 */
-	protected abstract Toggle newCheckBox(boolean checked);
+	protected abstract ToggleComposite newCheckBox(String string);
 
 	/**
 	 * Gets a new switch widget with the given state.
 	 *
-	 * @param checked
-	 *            the state of the switch to create.
+	 * @param string
+	 *            the label of the switch.
 	 * @return a new switch widget with the given state.
 	 */
-	protected abstract Toggle newSwitch(boolean checked);
+	protected abstract ToggleComposite newSwitch(String string);
 
 	/**
 	 * Gets a new radio button widget with the given state.
 	 *
-	 * @param checked
-	 *            the state of the radio button to create.
+	 * @param string
+	 *            the label of the radio button.
 	 * @return a new radio button widget with the given state.
 	 */
-	protected abstract Toggle newRadioButton(boolean checked);
+	protected abstract ToggleComposite newRadioButton(String string);
 
 	/**
 	 * Gets a new slider widget with the given parameters.
@@ -104,14 +100,4 @@ public abstract class WidgetPage extends AbstractDemoPage {
 	 */
 	protected abstract AbstractSlider newSlider(int min, int max, int initial);
 
-	// Creates a toggle that changes its state also when the text is clicked.
-	private static void newToggleItem(Toggle toggle, String text, Grid grid) {
-		Label label = new Label(text);
-		ToggleComposite toggleButton = new ToggleComposite(toggle);
-		OppositeBars toggleButtonContent = new OppositeBars();
-		toggleButtonContent.add(toggle, MWT.LEFT);
-		toggleButtonContent.add(label, MWT.CENTER);
-		toggleButton.setWidget(toggleButtonContent);
-		grid.add(toggleButton);
-	}
 }

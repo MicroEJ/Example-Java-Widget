@@ -64,7 +64,7 @@ public class StylesheetPopulator {
 	 *            the desktop used by the application.
 	 * @throws IOException
 	 */
-	public static void initialize(StyledDesktop desktop) throws IOException {
+	public static void initialize(StyledDesktop desktop) {
 		Stylesheet stylesheet = StyleHelper.getStylesheet();
 
 		// Sets the default style.

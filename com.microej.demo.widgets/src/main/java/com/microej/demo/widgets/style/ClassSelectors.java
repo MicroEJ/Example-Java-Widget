@@ -14,7 +14,7 @@ public interface ClassSelectors {
 	/**
 	 * The large icon class selector.
 	 */
-	String LARGE_ICON = "large icon"; //$NON-NLS-1$
+	String LARGE_ICON = "large_icon"; //$NON-NLS-1$
 
 	/**
 	 * The title class selector.
@@ -24,17 +24,17 @@ public interface ClassSelectors {
 	/**
 	 * The list item class selector.
 	 */
-	String LIST_ITEM = "list item"; //$NON-NLS-1$
+	String LIST_ITEM = "list_item"; //$NON-NLS-1$
 
 	/**
 	 * The illustrated button class selector.
 	 */
-	String ILLUSTRATED_BUTTON = "illustrated button"; //$NON-NLS-1$
+	String ILLUSTRATED_BUTTON = "illustrated_button"; //$NON-NLS-1$
 
 	/**
 	 * The text title class selector.
 	 */
-	String TEXT_TITLE = "text title"; //$NON-NLS-1$
+	String TEXT_TITLE = "text_title"; //$NON-NLS-1$
 
 	/**
 	 * The multiline class selector.

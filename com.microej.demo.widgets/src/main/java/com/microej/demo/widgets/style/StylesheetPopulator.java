@@ -6,30 +6,25 @@
  */
 package com.microej.demo.widgets.style;
 
-import java.io.IOException;
-
 import ej.microui.display.Colors;
+import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.style.State;
 import ej.style.Stylesheet;
-import ej.style.background.PlainBackground;
+import ej.style.background.NoBackground;
 import ej.style.border.ComplexRectangularBorder;
 import ej.style.font.FontProfile;
 import ej.style.font.FontProfile.FontSize;
 import ej.style.outline.ComplexOutline;
-import ej.style.outline.EmptyOutline;
 import ej.style.outline.SimpleOutline;
 import ej.style.selector.ClassSelector;
 import ej.style.selector.EvenChildSelector;
-import ej.style.selector.InstanceSelector;
-import ej.style.selector.SelectorHelper;
 import ej.style.selector.StateSelector;
 import ej.style.selector.TypeSelector;
 import ej.style.selector.combinator.AndCombinator;
 import ej.style.text.ComplexTextManager;
 import ej.style.util.EditableStyle;
 import ej.style.util.StyleHelper;
-import ej.widget.StyledDesktop;
 import ej.widget.basic.Image;
 import ej.widget.basic.Label;
 import ej.widget.basic.drawing.CheckBox;
@@ -59,55 +54,50 @@ public class StylesheetPopulator {
 
 	/**
 	 * Populates the stylesheet.
-	 *
-	 * @param desktop
-	 *            the desktop used by the application.
-	 * @throws IOException
 	 */
-	public static void initialize(StyledDesktop desktop) {
+	public static void initialize() {
 		Stylesheet stylesheet = StyleHelper.getStylesheet();
 
 		// Sets the default style.
 		EditableStyle defaultStyle = new EditableStyle();
 		defaultStyle.setForegroundColor(Colors.WHITE);
+		defaultStyle.setBackgroundColor(0x404041);
 		FontProfile defaultFontProfile = new FontProfile();
 		defaultFontProfile.setFamily(FontFamilies.ROBOTO);
 		defaultFontProfile.setSize(FontSize.MEDIUM);
 		defaultStyle.setFontProfile(defaultFontProfile);
-		EmptyOutline transparentBackground = new EmptyOutline();
-		defaultStyle.setBorder(transparentBackground);
+		// defaultStyle.setBackground(NoBackground.NO_BACKGROUND);
 		defaultStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
 		stylesheet.setDefaultStyle(defaultStyle);
 
-		EditableStyle desktopStyle = new EditableStyle();
-		PlainBackground desktopBackground = new PlainBackground(0x404041);
-		desktopStyle.setBorder(desktopBackground);
-		stylesheet.addRule(new InstanceSelector(desktop), desktopStyle);
-
 		// Default margin not added in the default style because it also applies for the composites.
-		SimpleOutline defaultMargin = new SimpleOutline();
-		defaultMargin.setThickness(6);
+		SimpleOutline defaultMargin = new SimpleOutline(6);
+
+		TypeSelector labelTypeSelector = new TypeSelector(Label.class);
+		TypeSelector checkboxTypeSelector = new TypeSelector(CheckBox.class);
+		TypeSelector radioboxTypeSelector = new TypeSelector(RadioBox.class);
+		TypeSelector switchboxTypeSelector = new TypeSelector(SwitchBox.class);
+		TypeSelector pictocheckTypeSelector = new TypeSelector(PictoCheck.class);
+		TypeSelector pictoradioTypeSelector = new TypeSelector(PictoRadio.class);
+		TypeSelector pictoswitchTypeSelector = new TypeSelector(PictoSwitch.class);
+		StateSelector stateCheckedSelector = new StateSelector(State.Checked);
+		ClassSelector listItemSelector = new ClassSelector(ClassSelectors.LIST_ITEM);
 
 		// Sets the label style.
 		EditableStyle labelStyle = new EditableStyle();
 		labelStyle.setPadding(defaultMargin);
-		stylesheet.addRule(new TypeSelector(Label.class), labelStyle);
-		stylesheet.addRule(SelectorHelper.createSelector(Label.class, ClassSelectors.LIST_ITEM), labelStyle);
+		stylesheet.addRule(new AndCombinator(labelTypeSelector, listItemSelector), labelStyle);
+		labelStyle.setBackground(NoBackground.NO_BACKGROUND);
+		stylesheet.addRule(labelTypeSelector, labelStyle);
 
 		// Sets the large picto style.
 		EditableStyle largePictoStyle = new EditableStyle();
-		FontProfile largePictoFontProfile = new FontProfile();
-		largePictoFontProfile.setFamily(FontFamilies.PICTO);
-		largePictoFontProfile.setSize(FontSize.LARGE);
-		largePictoStyle.setFontProfile(largePictoFontProfile);
+		largePictoStyle.setFontProfile(new FontProfile(FontFamilies.PICTO, FontSize.LARGE, Font.STYLE_PLAIN));
 		stylesheet.addRule(new ClassSelector(ClassSelectors.LARGE_ICON), largePictoStyle);
 
 		// Sets the title style.
 		EditableStyle titleStyle = new EditableStyle();
-		FontProfile titleFontProfile = new FontProfile();
-		titleFontProfile.setFamily(FontFamilies.ROBOTO);
-		titleFontProfile.setSize(FontSize.LARGE);
-		titleStyle.setFontProfile(titleFontProfile);
+		titleStyle.setFontProfile(new FontProfile(FontFamilies.ROBOTO, FontSize.LARGE, Font.STYLE_PLAIN));
 		ComplexRectangularBorder titleBorder = new ComplexRectangularBorder();
 		titleBorder.setBottom(2);
 		titleBorder.setColorBottom(Colors.SILVER);
@@ -120,45 +110,38 @@ public class StylesheetPopulator {
 		// listItemBorder.setBottom(1);
 		// listItemBorder.setColorBottom(Colors.GRAY);
 		// listItemStyle.setBorder(listItemBorder);
-		ComplexOutline listItemMargin = new ComplexOutline();
-		listItemMargin.setLeft(4);
-		listItemMargin.setRight(4);
-		listItemStyle.setMargin(listItemMargin);
-		stylesheet.addRule(new ClassSelector(ClassSelectors.LIST_ITEM), listItemStyle);
+		listItemStyle.setMargin(new ComplexOutline(0, 4, 0, 4));
+		stylesheet.addRule(listItemSelector, listItemStyle);
 
 		EditableStyle evenListItemStyle = new EditableStyle();
-		evenListItemStyle.setBorder(new PlainBackground(0x505051));
-		stylesheet.addRule(new AndCombinator(new ClassSelector(ClassSelectors.LIST_ITEM), new EvenChildSelector()),
-				evenListItemStyle);
+		evenListItemStyle.setBackgroundColor(0x505051);
+		stylesheet.addRule(new AndCombinator(listItemSelector, new EvenChildSelector()), evenListItemStyle);
 
 		// Sets the image style.
 		EditableStyle imageStyle = new EditableStyle();
-		ComplexOutline imagePadding = new ComplexOutline();
-		imagePadding.setLeft(5); // Align with back button size.
-		imageStyle.setPadding(imagePadding);
+		// Align with back button size.
+		imageStyle.setPadding(new ComplexOutline(0, 0, 0, 5));
 		stylesheet.addRule(new TypeSelector(Image.class), imageStyle);
 
 		// Sets the unchecked toggle style.
 		EditableStyle toggleStyle = new EditableStyle();
 		toggleStyle.setForegroundColor(0xbcbec0);
 		toggleStyle.setMargin(defaultMargin);
-		stylesheet.addRule(new TypeSelector(CheckBox.class), toggleStyle);
-		stylesheet.addRule(new TypeSelector(RadioBox.class), toggleStyle);
-		stylesheet.addRule(new TypeSelector(SwitchBox.class), toggleStyle);
+		stylesheet.addRule(checkboxTypeSelector, toggleStyle);
+		stylesheet.addRule(radioboxTypeSelector, toggleStyle);
+		stylesheet.addRule(switchboxTypeSelector, toggleStyle);
 
 		// The font to use for the most of the picto widgets.
-		FontProfile widgetPictoFontProfile = new FontProfile();
-		widgetPictoFontProfile.setFamily(FontFamilies.PICTO);
-		widgetPictoFontProfile.setSize(FontSize.MEDIUM);
+		FontProfile widgetPictoFontProfile = new FontProfile(FontFamilies.PICTO, FontSize.MEDIUM, Font.STYLE_PLAIN);
 
 		// Sets the unchecked picto toggle style.
 		EditableStyle pictoToggleStyle = new EditableStyle();
 		pictoToggleStyle.setFontProfile(widgetPictoFontProfile);
 		pictoToggleStyle.setForegroundColor(0xbcbec0);
 		pictoToggleStyle.setMargin(defaultMargin);
-		stylesheet.addRule(new TypeSelector(PictoCheck.class), pictoToggleStyle);
-		stylesheet.addRule(new TypeSelector(PictoRadio.class), pictoToggleStyle);
-		stylesheet.addRule(new TypeSelector(PictoSwitch.class), pictoToggleStyle);
+		stylesheet.addRule(pictocheckTypeSelector, pictoToggleStyle);
+		stylesheet.addRule(pictoradioTypeSelector, pictoToggleStyle);
+		stylesheet.addRule(pictoswitchTypeSelector, pictoToggleStyle);
 
 		// Sets the widget and checked toggle style.
 		EditableStyle widgetStyle = new EditableStyle();
@@ -167,9 +150,9 @@ public class StylesheetPopulator {
 		stylesheet.addRule(new TypeSelector(ProgressBar.class), widgetStyle);
 		stylesheet.addRule(new TypeSelector(CircularProgressBar.class), widgetStyle);
 		stylesheet.addRule(new TypeSelector(Slider.class), widgetStyle);
-		stylesheet.addRule(SelectorHelper.createSelector(CheckBox.class, State.Checked), widgetStyle);
-		stylesheet.addRule(SelectorHelper.createSelector(RadioBox.class, State.Checked), widgetStyle);
-		stylesheet.addRule(SelectorHelper.createSelector(SwitchBox.class, State.Checked), widgetStyle);
+		stylesheet.addRule(new AndCombinator(checkboxTypeSelector, stateCheckedSelector), widgetStyle);
+		stylesheet.addRule(new AndCombinator(radioboxTypeSelector, stateCheckedSelector), widgetStyle);
+		stylesheet.addRule(new AndCombinator(switchboxTypeSelector, stateCheckedSelector), widgetStyle);
 
 		// Sets the image widget style.
 		EditableStyle widgetImageStyle = new EditableStyle();
@@ -185,34 +168,25 @@ public class StylesheetPopulator {
 		widgetPictoStyle.setForegroundColor(0x10bdf1);
 		widgetPictoStyle.setFontProfile(widgetPictoFontProfile);
 		stylesheet.addRule(new TypeSelector(PictoSlider.class), widgetPictoStyle);
-		stylesheet.addRule(SelectorHelper.createSelector(PictoCheck.class, State.Checked), widgetPictoStyle);
-		stylesheet.addRule(SelectorHelper.createSelector(PictoRadio.class, State.Checked), widgetPictoStyle);
-		stylesheet.addRule(SelectorHelper.createSelector(PictoSwitch.class, State.Checked), widgetPictoStyle);
+		stylesheet.addRule(new AndCombinator(pictocheckTypeSelector, stateCheckedSelector), widgetPictoStyle);
+		stylesheet.addRule(new AndCombinator(pictoradioTypeSelector, stateCheckedSelector), widgetPictoStyle);
+		stylesheet.addRule(new AndCombinator(pictoswitchTypeSelector, stateCheckedSelector), widgetPictoStyle);
 		stylesheet.addRule(new TypeSelector(PictoProgress.class), widgetPictoStyle);
 
 		// Sets the illustrated button style.
+		ClassSelector illustratedButtonSelector = new ClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
 		EditableStyle buttonStyle = new EditableStyle();
-		PlainBackground buttonBackground = new PlainBackground();
-		buttonBackground.setColor(0x10bdf1);
-		buttonStyle.setBorder(buttonBackground);
-		ComplexOutline buttonMargin = new ComplexOutline();
-		buttonMargin.setLeft(60);
-		buttonMargin.setRight(60);
-		buttonMargin.setTop(12);
-		buttonMargin.setBottom(12);
-		buttonStyle.setMargin(buttonMargin);
+		buttonStyle.setBackgroundColor(0x10bdf1);
+		buttonStyle.setMargin(new ComplexOutline(12, 60, 12, 60));
 		// The content of the button is centered horizontally and vertically.
 		buttonStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
-		stylesheet.addRule(new ClassSelector(ClassSelectors.ILLUSTRATED_BUTTON), buttonStyle);
+		stylesheet.addRule(illustratedButtonSelector, buttonStyle);
 
 		// Sets the illustrated active button style.
 		EditableStyle activeButtonStyle = new EditableStyle();
-		PlainBackground activeButtonBackground = new PlainBackground();
-		activeButtonBackground.setColor(0x1185a8);
-		activeButtonStyle.setBorder(activeButtonBackground);
-		AndCombinator activeButtonSelector = new AndCombinator(new ClassSelector(ClassSelectors.ILLUSTRATED_BUTTON),
-				new StateSelector(State.Active));
-		stylesheet.addRule(activeButtonSelector, activeButtonStyle);
+		activeButtonStyle.setBackgroundColor(0x1185a8);
+		stylesheet.addRule(new AndCombinator(illustratedButtonSelector, new StateSelector(State.Active)),
+				activeButtonStyle);
 
 		// Sets the text title style.
 		EditableStyle textTitleStyle = new EditableStyle();
@@ -224,8 +198,7 @@ public class StylesheetPopulator {
 
 		// Sets the multiline style.
 		EditableStyle multilineStyle = new EditableStyle();
-		ComplexTextManager complexTextManager = new ComplexTextManager();
-		complexTextManager.setLineHeight(40);
+		ComplexTextManager complexTextManager = new ComplexTextManager(40);
 		multilineStyle.setTextManager(complexTextManager);
 		stylesheet.addRule(new ClassSelector(ClassSelectors.MULTILINE), multilineStyle);
 	}

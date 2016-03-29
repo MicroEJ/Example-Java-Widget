@@ -43,7 +43,7 @@ public class WidgetsDemo {
 	public static void main(String[] args) {
 		MicroUI.start();
 		Desktop = newTransitionDesktop();
-		StylesheetPopulator.initialize(Desktop);
+		StylesheetPopulator.initialize();
 		Desktop.show(MainPage.class.getName());
 		Desktop.show();
 	}

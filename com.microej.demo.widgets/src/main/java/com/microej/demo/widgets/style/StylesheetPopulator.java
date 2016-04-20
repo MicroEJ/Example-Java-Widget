@@ -12,6 +12,7 @@ import ej.microui.display.GraphicsContext;
 import ej.style.State;
 import ej.style.Stylesheet;
 import ej.style.background.NoBackground;
+import ej.style.background.PlainBackground;
 import ej.style.border.ComplexRectangularBorder;
 import ej.style.font.FontProfile;
 import ej.style.font.FontProfile.FontSize;
@@ -114,6 +115,7 @@ public class StylesheetPopulator {
 		stylesheet.addRule(listItemSelector, listItemStyle);
 
 		EditableStyle evenListItemStyle = new EditableStyle();
+		evenListItemStyle.setBackground(new PlainBackground());
 		evenListItemStyle.setBackgroundColor(0x505051);
 		stylesheet.addRule(new AndCombinator(listItemSelector, new EvenChildSelector()), evenListItemStyle);
 

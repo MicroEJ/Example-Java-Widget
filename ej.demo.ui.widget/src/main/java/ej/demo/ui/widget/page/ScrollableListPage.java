@@ -46,7 +46,9 @@ public class ScrollableListPage extends AbstractDemoPage {
 
 		addItems(1, FIRST_SHOT_COUNT);
 
-		return new Scroll(false, this.listComposite, true);
+		Scroll scroll = new Scroll(false, true);
+		scroll.setWidget( this.listComposite);
+		return scroll;
 	}
 
 	private void addItems(int start, int end) {

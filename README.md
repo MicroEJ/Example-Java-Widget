@@ -23,12 +23,12 @@ See `GraphicsContext` and `AntiAliasedShapes` classes for more information.
 ## Raster graphics (images)
 Widgets are drawn using images. This approach requires more ROM depending on the size and number of images used. It is most of the time faster than vector drawing and requires less CPU load.
 
-Images can be either embedded encoded (PNG for example, decoded at runtime) or embedded as bitmaps (directly drawn to the display, the conversion is done on the PC).
+Images can be either embedded encoded (PNG for example, decoded at runtime) or embedded as bitmaps (directly drawn to the display, the conversion is done on at build time).
 
 See UI reference manual for more information.
 
 ## Pictograms (monochrome images)
-Widgets are drawn using monochrome images that can be colored dynamically. This approach requires less ROM than using colorful images but can be applied only for monochrome elements.
+Widgets are drawn using monochrome images that can be colored dynamically. This approach requires less ROM than using colorful images but can only be applied for monochrome elements.
 
 It can be achieved using fonts (MicroEJ font designer can import images into a font) or monochrome images with alpha transparency.
 
@@ -41,7 +41,7 @@ This demo includes two implementations of screens transition.
 Screens are dynamically created as images (buffer in RAM) for the transition. This approach requires more RAM (twice the size of the screen in buffers) but is faster than the 2nd implementation.
 
 ## Dynamic
-Screens are drawn while moving. For each step of the transition, all widgets are drawn in the moving screen. This approach uses more CPU but fewer RAM. Transition speed might be slower depending on the number of widgets to draw.
+Screens are drawn while moving. For each step of the transition, all widgets are drawn in the moving screen. This approach uses more CPU but less RAM. Transition speed might be slower depending on the number of widgets to draw.
 
 # Project Setup
 First of all, you have to download the entire repository by using the `Download` button or by cloning the repository. After having retrieved the repository content, open MicroEJ and then import _Existing project into workspace_ by selecting either the ZIP file or the root directory.
@@ -72,11 +72,11 @@ It is however possible to develop a GUI with MicroUI without MWT+Widget librarie
 * when there is no or little user interaction,
 * for simple screens and a limited number of widgets,
 * for simple screen layout,
-* for small screens (that implied they need to be simple!),
+* for small screens (which implies they need to be simple!),
 * for quick image-based design tests.
 
 # Changes
 - December 2015: initial version.
 
 # License
-See the license file `LICENSE.md` located at the root of this repository.
+See the license file [LICENSE.md](LICENSE.md) located at the root of this repository.

@@ -71,7 +71,8 @@ public class StylesheetPopulator {
 		defaultStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
 		stylesheet.setDefaultStyle(defaultStyle);
 
-		// Default margin not added in the default style because it also applies for the composites.
+		// Default margin not added in the default style because it also applies
+		// for the composites.
 		SimpleOutline defaultMargin = new SimpleOutline(6);
 
 		TypeSelector labelTypeSelector = new TypeSelector(Label.class);
@@ -101,13 +102,14 @@ public class StylesheetPopulator {
 		titleStyle.setFontProfile(new FontProfile(FontFamilies.ROBOTO, FontSize.LARGE, Font.STYLE_PLAIN));
 		ComplexRectangularBorder titleBorder = new ComplexRectangularBorder();
 		titleBorder.setBottom(2);
-		titleBorder.setColorBottom(Colors.SILVER);
+		titleStyle.setBackgroundColor(Colors.SILVER);
 		titleStyle.setBorder(titleBorder);
 		stylesheet.addRule(new ClassSelector(ClassSelectors.TITLE), titleStyle);
 
 		// Sets the list item style.
 		EditableStyle listItemStyle = new EditableStyle();
-		// ComplexRectangularBorder listItemBorder = new ComplexRectangularBorder();
+		// ComplexRectangularBorder listItemBorder = new
+		// ComplexRectangularBorder();
 		// listItemBorder.setBottom(1);
 		// listItemBorder.setColorBottom(Colors.GRAY);
 		// listItemStyle.setBorder(listItemBorder);
@@ -194,7 +196,7 @@ public class StylesheetPopulator {
 		EditableStyle textTitleStyle = new EditableStyle();
 		ComplexRectangularBorder textTitleBorder = new ComplexRectangularBorder();
 		textTitleBorder.setBottom(1);
-		textTitleBorder.setColorBottom(Colors.SILVER);
+		textTitleStyle.setBackgroundColor(Colors.SILVER);
 		textTitleStyle.setBorder(textTitleBorder);
 		stylesheet.addRule(new ClassSelector(ClassSelectors.TEXT_TITLE), textTitleStyle);
 

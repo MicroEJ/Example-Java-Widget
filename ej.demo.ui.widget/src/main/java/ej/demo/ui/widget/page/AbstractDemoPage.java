@@ -14,7 +14,6 @@ import ej.demo.ui.widget.style.Images;
 import ej.demo.ui.widget.style.Pictos;
 import ej.exit.ExitHandler;
 import ej.mwt.Desktop;
-import ej.mwt.MWT;
 import ej.mwt.Widget;
 import ej.navigation.page.Page;
 import ej.widget.basic.Image;
@@ -98,7 +97,7 @@ public abstract class AbstractDemoPage extends Page {
 					WidgetsDemo.back();
 				}
 			});
-			topBar.setLast(backButton);
+			topBar.setFirst(backButton);
 		} else {
 			// Add an exit button.
 			ButtonComposite exitButton = new ButtonComposite();
@@ -114,7 +113,7 @@ public abstract class AbstractDemoPage extends Page {
 			});
 			Image exitIcon = new Image(ImageHelper.loadImage(Images.MICROEJ_LOGO));
 			exitButton.setWidget(exitIcon);
-			topBar.setLast(exitButton);
+			topBar.setFirst(exitButton);
 		}
 		return topBar;
 	}

@@ -46,7 +46,9 @@ public class ScrollableListPage extends AbstractDemoPage {
 
 		addItems(1, FIRST_SHOT_COUNT);
 
-		return new Scroll(false, this.listComposite, true);
+		Scroll scroll = new Scroll(false, true);
+		scroll.setWidget(this.listComposite);
+		return scroll;
 	}
 
 	private void addItems(int start, int end) {
@@ -66,16 +68,18 @@ public class ScrollableListPage extends AbstractDemoPage {
 			timer.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					getDesktop().getDisplay().callSerially(new Runnable() {
-						@Override
-						public void run() {
-							if (!ScrollableListPage.this.complete) {
-								ScrollableListPage.this.complete = true;
-								addItems(FIRST_SHOT_COUNT + 1, ITEM_COUNT);
+					if (isShown()) {
+						getDesktop().getDisplay().callSerially(new Runnable() {
+							@Override
+							public void run() {
+								if (!ScrollableListPage.this.complete) {
+									ScrollableListPage.this.complete = true;
+									addItems(FIRST_SHOT_COUNT + 1, ITEM_COUNT);
+								}
 							}
-						}
-					});
-					revalidate();
+						});
+						revalidate();
+					}
 				}
 			}, APPEARANCE_DELAY);
 		}

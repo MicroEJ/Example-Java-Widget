@@ -14,7 +14,6 @@ import ej.demo.ui.widget.style.Images;
 import ej.demo.ui.widget.style.Pictos;
 import ej.exit.ExitHandler;
 import ej.mwt.Desktop;
-import ej.mwt.MWT;
 import ej.mwt.Widget;
 import ej.navigation.page.Page;
 import ej.widget.basic.Image;
@@ -62,15 +61,15 @@ public abstract class AbstractDemoPage extends Page {
 
 	@Override
 	public void show(Desktop desktop) throws NullPointerException {
-		this.content.add(createTopBar(), MWT.NORTH);
+		this.content.setFirst(createTopBar());
 		super.show(desktop);
 	}
 
 	private Widget createContent() {
 		this.content = new Dock();
 		this.content.setHorizontal(false);
-		this.content.add(createTopBar(), MWT.NORTH);
-		this.content.add(createMainContent(), MWT.CENTER);
+		this.content.setFirst(createTopBar());
+		this.content.setCenter(createMainContent());
 		return this.content;
 	}
 
@@ -85,7 +84,7 @@ public abstract class AbstractDemoPage extends Page {
 		titleLabel.addClassSelector(ClassSelectors.TITLE);
 
 		Dock topBar = new Dock();
-		topBar.add(titleLabel, MWT.CENTER);
+		topBar.setCenter(titleLabel);
 
 		if (WidgetsDemo.canGoBack()) {
 			// Add a back button.
@@ -98,7 +97,7 @@ public abstract class AbstractDemoPage extends Page {
 					WidgetsDemo.back();
 				}
 			});
-			topBar.add(backButton, MWT.WEST);
+			topBar.setFirst(backButton);
 		} else {
 			// Add an exit button.
 			ButtonComposite exitButton = new ButtonComposite();
@@ -114,7 +113,7 @@ public abstract class AbstractDemoPage extends Page {
 			});
 			Image exitIcon = new Image(ImageHelper.loadImage(Images.MICROEJ_LOGO));
 			exitButton.setWidget(exitIcon);
-			topBar.add(exitButton, MWT.WEST);
+			topBar.setFirst(exitButton);
 		}
 		return topBar;
 	}

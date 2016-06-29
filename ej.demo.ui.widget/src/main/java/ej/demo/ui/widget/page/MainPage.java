@@ -40,7 +40,9 @@ public class MainPage extends AbstractDemoPage {
 		listComposite.add(newSelectableItem("Progress bar", ProgressBarPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Scrollable list", ScrollableListPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Scrollable text", ScrollableTextPage.class.getName())); //$NON-NLS-1$
-		return new Scroll(false, listComposite, true);
+		Scroll scroll = new Scroll(false,true);
+		scroll.setWidget(listComposite);
+		return scroll;
 	}
 
 	// A button that leads to the given page.

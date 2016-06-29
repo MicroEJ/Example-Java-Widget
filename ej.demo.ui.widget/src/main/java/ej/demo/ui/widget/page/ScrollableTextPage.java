@@ -34,7 +34,9 @@ public class ScrollableTextPage extends AbstractDemoPage {
 		add("MicroEJ Application Store", "store.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
 		add("MicroEJ OS", "os.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
 
-		return new Scroll(false, listComposite, true);
+		Scroll scroll = new Scroll(false, true);
+		scroll.setWidget(listComposite);
+		return scroll;
 	}
 
 	private void add(String title, String filename, List listComposite) {

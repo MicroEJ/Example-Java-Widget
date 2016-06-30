@@ -60,3 +60,5 @@ sp_cleanup.use_this_for_non_static_field_access_only_if_necessary=false
 sp_cleanup.use_this_for_non_static_method_access=false
 sp_cleanup.use_this_for_non_static_method_access_only_if_necessary=true
 sp_cleanup.use_type_arguments=false
+sp_jautodoc.cleanup.add_header=false
+sp_jautodoc.cleanup.replace_header=false

@@ -85,123 +85,121 @@ public class StylesheetPopulator {
 		ClassSelector listItemSelector = new ClassSelector(ClassSelectors.LIST_ITEM);
 
 		// Sets the label style.
-		EditableStyle labelStyle = new EditableStyle();
-		labelStyle.setPadding(defaultMargin);
-		stylesheet.addRule(new AndCombinator(labelTypeSelector, listItemSelector), labelStyle);
-		labelStyle.setBackground(NoBackground.NO_BACKGROUND);
-		stylesheet.addRule(labelTypeSelector, labelStyle);
+		EditableStyle style = new EditableStyle();
+		style.setPadding(defaultMargin);
+		stylesheet.addRule(new AndCombinator(labelTypeSelector, listItemSelector), style);
+		style.setBackground(NoBackground.NO_BACKGROUND);
+		stylesheet.addRule(labelTypeSelector, style);
 
 		// Sets the large picto style.
-		EditableStyle largePictoStyle = new EditableStyle();
-		largePictoStyle.setFontProfile(new FontProfile(FontFamilies.PICTO, FontSize.LARGE, Font.STYLE_PLAIN));
-		stylesheet.addRule(new ClassSelector(ClassSelectors.LARGE_ICON), largePictoStyle);
+		style.clear();
+		style.setFontProfile(new FontProfile(FontFamilies.PICTO, FontSize.LARGE, Font.STYLE_PLAIN));
+		stylesheet.addRule(new ClassSelector(ClassSelectors.LARGE_ICON), style);
 
 		// Sets the title style.
-		EditableStyle titleStyle = new EditableStyle();
-		titleStyle.setFontProfile(new FontProfile(FontFamilies.ROBOTO, FontSize.LARGE, Font.STYLE_PLAIN));
+		style.clear();
+		style.setFontProfile(new FontProfile(FontFamilies.ROBOTO, FontSize.LARGE, Font.STYLE_PLAIN));
+		style.setBorderColor(Colors.SILVER);
 		ComplexRectangularBorder titleBorder = new ComplexRectangularBorder();
 		titleBorder.setBottom(2);
-		titleStyle.setBorderColor(Colors.SILVER);
-		titleStyle.setBorder(titleBorder);
-		stylesheet.addRule(new ClassSelector(ClassSelectors.TITLE), titleStyle);
+		style.setBorder(titleBorder);
+		stylesheet.addRule(new ClassSelector(ClassSelectors.TITLE), style);
 
 		// Sets the list item style.
-		EditableStyle listItemStyle = new EditableStyle();
+		style.clear();
 		// ComplexRectangularBorder listItemBorder = new ComplexRectangularBorder();
 		// listItemBorder.setBottom(1);
 		// listItemBorder.setColorBottom(Colors.GRAY);
 		// listItemStyle.setBorder(listItemBorder);
-		listItemStyle.setMargin(new ComplexOutline(0, 4, 0, 4));
-		stylesheet.addRule(listItemSelector, listItemStyle);
+		style.setMargin(new ComplexOutline(0, 4, 0, 4));
+		stylesheet.addRule(listItemSelector, style);
 
-		EditableStyle evenListItemStyle = new EditableStyle();
-		evenListItemStyle.setBackground(new PlainBackground());
-		evenListItemStyle.setBackgroundColor(0x505051);
-		stylesheet.addRule(new AndCombinator(listItemSelector, new EvenChildSelector()), evenListItemStyle);
+		style.clear();
+		style.setBackground(new PlainBackground());
+		style.setBackgroundColor(0x505051);
+		stylesheet.addRule(new AndCombinator(listItemSelector, new EvenChildSelector()), style);
 
 		// Sets the image style.
-		EditableStyle imageStyle = new EditableStyle();
+		style.clear();
 		// Align with back button size.
-		imageStyle.setPadding(new ComplexOutline(0, 0, 0, 5));
-		stylesheet.addRule(new TypeSelector(Image.class), imageStyle);
+		style.setPadding(new ComplexOutline(0, 0, 0, 5));
+		stylesheet.addRule(new TypeSelector(Image.class), style);
 
 		// Sets the unchecked toggle style.
-		EditableStyle toggleStyle = new EditableStyle();
-		toggleStyle.setForegroundColor(0xbcbec0);
-		toggleStyle.setMargin(defaultMargin);
-		stylesheet.addRule(checkboxTypeSelector, toggleStyle);
-		stylesheet.addRule(radioboxTypeSelector, toggleStyle);
-		stylesheet.addRule(switchboxTypeSelector, toggleStyle);
+		style.clear();
+		style.setForegroundColor(0xbcbec0);
+		style.setMargin(defaultMargin);
+		stylesheet.addRule(checkboxTypeSelector, style);
+		stylesheet.addRule(radioboxTypeSelector, style);
+		stylesheet.addRule(switchboxTypeSelector, style);
 
 		// The font to use for the most of the picto widgets.
 		FontProfile widgetPictoFontProfile = new FontProfile(FontFamilies.PICTO, FontSize.MEDIUM, Font.STYLE_PLAIN);
 
 		// Sets the unchecked picto toggle style.
-		EditableStyle pictoToggleStyle = new EditableStyle();
-		pictoToggleStyle.setFontProfile(widgetPictoFontProfile);
-		pictoToggleStyle.setForegroundColor(0xbcbec0);
-		pictoToggleStyle.setMargin(defaultMargin);
-		stylesheet.addRule(pictocheckTypeSelector, pictoToggleStyle);
-		stylesheet.addRule(pictoradioTypeSelector, pictoToggleStyle);
-		stylesheet.addRule(pictoswitchTypeSelector, pictoToggleStyle);
+		style.clear();
+		style.setFontProfile(widgetPictoFontProfile);
+		style.setForegroundColor(0xbcbec0);
+		style.setMargin(defaultMargin);
+		stylesheet.addRule(pictocheckTypeSelector, style);
+		stylesheet.addRule(pictoradioTypeSelector, style);
+		stylesheet.addRule(pictoswitchTypeSelector, style);
 
 		// Sets the widget and checked toggle style.
-		EditableStyle widgetStyle = new EditableStyle();
-		widgetStyle.setMargin(defaultMargin);
-		widgetStyle.setForegroundColor(0x10bdf1);
-		stylesheet.addRule(new TypeSelector(ProgressBar.class), widgetStyle);
-		stylesheet.addRule(new TypeSelector(CircularProgressBar.class), widgetStyle);
-		stylesheet.addRule(new TypeSelector(Slider.class), widgetStyle);
-		stylesheet.addRule(new AndCombinator(checkboxTypeSelector, stateCheckedSelector), widgetStyle);
-		stylesheet.addRule(new AndCombinator(radioboxTypeSelector, stateCheckedSelector), widgetStyle);
-		stylesheet.addRule(new AndCombinator(switchboxTypeSelector, stateCheckedSelector), widgetStyle);
+		style.clear();
+		style.setMargin(defaultMargin);
+		style.setForegroundColor(0x10bdf1);
+		stylesheet.addRule(new TypeSelector(ProgressBar.class), style);
+		stylesheet.addRule(new TypeSelector(CircularProgressBar.class), style);
+		stylesheet.addRule(new TypeSelector(Slider.class), style);
+		stylesheet.addRule(new AndCombinator(checkboxTypeSelector, stateCheckedSelector), style);
+		stylesheet.addRule(new AndCombinator(radioboxTypeSelector, stateCheckedSelector), style);
+		stylesheet.addRule(new AndCombinator(switchboxTypeSelector, stateCheckedSelector), style);
 
 		// Sets the image widget style.
-		EditableStyle widgetImageStyle = new EditableStyle();
-		widgetImageStyle.setMargin(defaultMargin);
-		stylesheet.addRule(new TypeSelector(ImageSlider.class), widgetImageStyle);
-		stylesheet.addRule(new TypeSelector(ImageRadio.class), widgetImageStyle);
-		stylesheet.addRule(new TypeSelector(ImageCheck.class), widgetImageStyle);
-		stylesheet.addRule(new TypeSelector(ImageSwitch.class), widgetImageStyle);
+		style.clear();
+		style.setMargin(defaultMargin);
+		stylesheet.addRule(new TypeSelector(ImageSlider.class), style);
+		stylesheet.addRule(new TypeSelector(ImageRadio.class), style);
+		stylesheet.addRule(new TypeSelector(ImageCheck.class), style);
+		stylesheet.addRule(new TypeSelector(ImageSwitch.class), style);
 
 		// Sets the picto widget and checked picto toggle style.
-		EditableStyle widgetPictoStyle = new EditableStyle();
-		widgetPictoStyle.setMargin(defaultMargin);
-		widgetPictoStyle.setForegroundColor(0x10bdf1);
-		widgetPictoStyle.setFontProfile(widgetPictoFontProfile);
-		stylesheet.addRule(new TypeSelector(PictoSlider.class), widgetPictoStyle);
-		stylesheet.addRule(new AndCombinator(pictocheckTypeSelector, stateCheckedSelector), widgetPictoStyle);
-		stylesheet.addRule(new AndCombinator(pictoradioTypeSelector, stateCheckedSelector), widgetPictoStyle);
-		stylesheet.addRule(new AndCombinator(pictoswitchTypeSelector, stateCheckedSelector), widgetPictoStyle);
-		stylesheet.addRule(new TypeSelector(PictoProgress.class), widgetPictoStyle);
+		style.clear();
+		style.setMargin(defaultMargin);
+		style.setForegroundColor(0x10bdf1);
+		style.setFontProfile(widgetPictoFontProfile);
+		stylesheet.addRule(new TypeSelector(PictoSlider.class), style);
+		stylesheet.addRule(new AndCombinator(pictocheckTypeSelector, stateCheckedSelector), style);
+		stylesheet.addRule(new AndCombinator(pictoradioTypeSelector, stateCheckedSelector), style);
+		stylesheet.addRule(new AndCombinator(pictoswitchTypeSelector, stateCheckedSelector), style);
+		stylesheet.addRule(new TypeSelector(PictoProgress.class), style);
 
 		// Sets the illustrated button style.
 		ClassSelector illustratedButtonSelector = new ClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
-		EditableStyle buttonStyle = new EditableStyle();
-		buttonStyle.setBackgroundColor(0x10bdf1);
-		buttonStyle.setMargin(new ComplexOutline(12, 60, 12, 60));
+		style.clear();
+		style.setBackgroundColor(0x10bdf1);
+		style.setMargin(new ComplexOutline(12, 60, 12, 60));
 		// The content of the button is centered horizontally and vertically.
-		buttonStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
-		stylesheet.addRule(illustratedButtonSelector, buttonStyle);
+		style.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+		stylesheet.addRule(illustratedButtonSelector, style);
 
 		// Sets the illustrated active button style.
-		EditableStyle activeButtonStyle = new EditableStyle();
-		activeButtonStyle.setBackgroundColor(0x1185a8);
-		stylesheet.addRule(new AndCombinator(illustratedButtonSelector, new StateSelector(State.Active)),
-				activeButtonStyle);
+		style.clear();
+		style.setBackgroundColor(0x1185a8);
+		stylesheet.addRule(new AndCombinator(illustratedButtonSelector, new StateSelector(State.Active)), style);
 
 		// Sets the text title style.
-		EditableStyle textTitleStyle = new EditableStyle();
+		style.clear();
+		style.setBorderColor(Colors.SILVER);
 		ComplexRectangularBorder textTitleBorder = new ComplexRectangularBorder();
 		textTitleBorder.setBottom(1);
-		textTitleStyle.setBorderColor(Colors.SILVER);
-		textTitleStyle.setBorder(textTitleBorder);
-		stylesheet.addRule(new ClassSelector(ClassSelectors.TEXT_TITLE), textTitleStyle);
+		style.setBorder(textTitleBorder);
+		stylesheet.addRule(new ClassSelector(ClassSelectors.TEXT_TITLE), style);
 
 		// Sets the multiline style.
-		EditableStyle multilineStyle = new EditableStyle();
-		ComplexTextManager complexTextManager = new ComplexTextManager(40);
-		multilineStyle.setTextManager(complexTextManager);
-		stylesheet.addRule(new ClassSelector(ClassSelectors.MULTILINE), multilineStyle);
+		style.clear();
+		style.setTextManager(new ComplexTextManager(40));
+		stylesheet.addRule(new ClassSelector(ClassSelectors.MULTILINE), style);
 	}
 }

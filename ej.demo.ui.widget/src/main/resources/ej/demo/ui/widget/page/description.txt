@@ -1,0 +1,11 @@
+MicroEJ SDK
+MicroEJ SDK provides a scalable OS and tools built on Eclipse to develop software for embedded and IoT devices. MicroEJ Workbench allows firmware developers to integrate, configure, and build an embedded MicroEJ OS for running mixed Java and C software applications on their device.
+
+MicroEJ Studio
+MicroEJ Studio provides tools built on Eclipse to develop software applications for MicroEJ-ready devices. MicroEJ Studio allows application developers to write Java applications, run them on a virtual (simulated) or real device, and publish them to the MicroEJ Application Store.
+
+MicroEJ Application Store
+MicroEJ Application Store provides Cloud-based services to deploy software applications to MicroEJ-ready devices. MicroEJ Application Store allows OEMs to manage users, expose devices, distribute and monetize applications.
+
+MicroEJ OS
+MicroEJ Operating System (OS) is a scalable OS for resource-constraint embedded and IoT devices running on 32-bit microcontrollers or microprocessors. MicroEJ OS allows devices to run multiple and mixed Java and C software applications.

@@ -1,0 +1,1 @@
+MicroEJ Operating System (OS) is a scalable OS for resource-constraint embedded and IoT devices running on 32-bit microcontrollers or microprocessors. MicroEJ OS allows devices to run multiple and mixed Java and C software applications.

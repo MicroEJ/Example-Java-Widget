@@ -5,7 +5,7 @@
 	IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
 -->
 <ivy-module version="2.0" xmlns:ea="http://www.easyant.org"> 
-	<info organisation="ej.demo.ui" module="widgets" status="integration" revision="4.0.0">
+	<info organisation="ej.demo.ui" module="widgets" status="integration" revision="5.0.1">
 		<!-- Use this build type to run sonar easily. (Version 1.+ because it does not require a README.md) -->
 		<ea:build organisation="com.is2t.easyant.buildtypes" module="build-microej-javalib" revision="1.+">
 		</ea:build>
@@ -28,7 +28,7 @@
 		<dependency org="ej.api" name="microui" rev="[2.0.0-RC0,3.0.0-RC0[" conf="provided->*" />
 		<dependency org="ej.api" name="mwt" rev="[2.0.0-RC0,3.0.0-RC0[" conf="provided->*" />
 		<dependency org="ej.library.runtime" name="components" rev="[3.0.0-RC0,4.0.0-RC0["/>
-		<dependency org="ej.library.ui" name="widget" rev="[2.0.0-a,3.0.0-a["/>
+		<dependency org="ej.library.ui" name="widget" rev="2.0.0-alpha.8"/>
 		<dependency org="ej.library.util" name="exit" rev="[1.0.0-RC0,2.0.0-RC0["/>
 	</dependencies>
 </ivy-module>

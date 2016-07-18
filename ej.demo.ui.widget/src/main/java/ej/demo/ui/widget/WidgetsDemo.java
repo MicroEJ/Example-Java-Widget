@@ -10,12 +10,12 @@ import ej.demo.ui.widget.page.DirectURLResolver;
 import ej.demo.ui.widget.page.MainPage;
 import ej.demo.ui.widget.style.StylesheetPopulator;
 import ej.microui.MicroUI;
-import ej.navigation.desktop.HorizontalNavigationDesktop;
-import ej.navigation.desktop.HorizontalScreenshotNavigationDesktop;
-import ej.navigation.desktop.NavigationDesktop;
-import ej.navigation.page.PagesStack;
-import ej.navigation.page.PagesStackURL;
 import ej.navigation.page.URLResolver;
+import ej.navigation.stack.PagesStack;
+import ej.navigation.stack.PagesStackURL;
+import ej.navigation.tree.HorizontalTreeNavigationDesktop;
+import ej.navigation.tree.HorizontalTreeScreenshotNavigationDesktop;
+import ej.navigation.tree.TreeNavigationDesktop;
 
 /**
  * This demo illustrates the widgets library.
@@ -24,7 +24,7 @@ public class WidgetsDemo {
 
 	private static final boolean WITH_SCREENSHOT_TRANSITION = System
 			.getProperty("com.microej.demo.widgets.transition.screenshot") != null; //$NON-NLS-1$
-	private static NavigationDesktop Desktop;
+	private static TreeNavigationDesktop Desktop;
 
 	private static boolean GoingForward;
 	private static boolean GoingBackward;
@@ -47,13 +47,13 @@ public class WidgetsDemo {
 		Desktop.show();
 	}
 
-	private static NavigationDesktop newTransitionDesktop() {
+	private static TreeNavigationDesktop newTransitionDesktop() {
 		URLResolver urlResolver = new DirectURLResolver();
 		PagesStack pagesStack = new PagesStackURL(urlResolver);
 		if (WITH_SCREENSHOT_TRANSITION) {
-			return new HorizontalScreenshotNavigationDesktop(urlResolver, pagesStack);
+			return new HorizontalTreeScreenshotNavigationDesktop(urlResolver, pagesStack);
 		} else {
-			return new HorizontalNavigationDesktop(urlResolver, pagesStack);
+			return new HorizontalTreeNavigationDesktop(urlResolver, pagesStack);
 		}
 	}
 

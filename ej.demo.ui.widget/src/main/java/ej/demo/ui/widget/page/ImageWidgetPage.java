@@ -12,7 +12,7 @@ import ej.widget.basic.image.ImageRadio;
 import ej.widget.basic.image.ImageSlider;
 import ej.widget.basic.image.ImageSwitch;
 import ej.widget.composed.Toggle;
-import ej.widget.composed.ToggleComposite;
+import ej.widget.composed.ToggleWrapper;
 import ej.widget.toggle.RadioModel;
 
 /**
@@ -26,17 +26,17 @@ public class ImageWidgetPage extends WidgetPage {
 	}
 
 	@Override
-	protected ToggleComposite newCheckBox(String string) {
+	protected ToggleWrapper newCheckBox(String string) {
 		return new Toggle(new ImageCheck(), string);
 	}
 
 	@Override
-	protected ToggleComposite newRadioButton(String string) {
+	protected ToggleWrapper newRadioButton(String string) {
 		return new Toggle(new RadioModel(), new ImageRadio(), string);
 	}
 
 	@Override
-	protected ToggleComposite newSwitch(String string) {
+	protected ToggleWrapper newSwitch(String string) {
 		return new Toggle(new ImageSwitch(), string);
 	}
 

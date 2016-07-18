@@ -11,7 +11,8 @@ import ej.demo.ui.widget.style.ClassSelectors;
 import ej.mwt.Widget;
 import ej.widget.basic.AbstractSlider;
 import ej.widget.composed.Button;
-import ej.widget.composed.ToggleComposite;
+import ej.widget.composed.ToggleWrapper;
+import ej.widget.composed.Wrapper;
 import ej.widget.toggle.ToggleGroup;
 
 /**
@@ -32,24 +33,26 @@ public abstract class WidgetPage extends AbstractDemoPage {
 
 		Grid grid = new Grid(true, 2);
 
-		ToggleComposite switch_ = newSwitch("Switch"); //$NON-NLS-1$
+		ToggleWrapper switch_ = newSwitch("Switch"); //$NON-NLS-1$
 		grid.add(switch_);
 
 		ToggleGroup toggleGroup = new ToggleGroup();
 
-		ToggleComposite radio1 = newRadioButton("Radio1"); //$NON-NLS-1$
+		ToggleWrapper radio1 = newRadioButton("Radio1"); //$NON-NLS-1$
 		grid.add(radio1);
 		toggleGroup.addToggle(radio1.getToggle());
 
-		ToggleComposite checkbox = newCheckBox("Checkbox"); //$NON-NLS-1$
+		ToggleWrapper checkbox = newCheckBox("Checkbox"); //$NON-NLS-1$
 		grid.add(checkbox);
 
-		ToggleComposite radio2 = newRadioButton("Radio2"); //$NON-NLS-1$
+		ToggleWrapper radio2 = newRadioButton("Radio2"); //$NON-NLS-1$
 		toggleGroup.addToggle(radio2.getToggle());
 		grid.add(radio2);
 
 		AbstractSlider slider = newSlider(MIN_VALUE, MAX_VALUE, INITIAL_VALUE);
-		grid.add(slider);
+		Wrapper wrapper = new Wrapper();
+		wrapper.setWidget(slider);
+		grid.add(wrapper);
 
 		Button button = new Button("Button"); //$NON-NLS-1$
 		button.addClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
@@ -65,7 +68,7 @@ public abstract class WidgetPage extends AbstractDemoPage {
 	 *            the label of the check box.
 	 * @return a new check box widget with the given state.
 	 */
-	protected abstract ToggleComposite newCheckBox(String string);
+	protected abstract ToggleWrapper newCheckBox(String string);
 
 	/**
 	 * Gets a new switch widget with the given state.
@@ -74,7 +77,7 @@ public abstract class WidgetPage extends AbstractDemoPage {
 	 *            the label of the switch.
 	 * @return a new switch widget with the given state.
 	 */
-	protected abstract ToggleComposite newSwitch(String string);
+	protected abstract ToggleWrapper newSwitch(String string);
 
 	/**
 	 * Gets a new radio button widget with the given state.
@@ -83,7 +86,7 @@ public abstract class WidgetPage extends AbstractDemoPage {
 	 *            the label of the radio button.
 	 * @return a new radio button widget with the given state.
 	 */
-	protected abstract ToggleComposite newRadioButton(String string);
+	protected abstract ToggleWrapper newRadioButton(String string);
 
 	/**
 	 * Gets a new slider widget with the given parameters.

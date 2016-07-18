@@ -12,7 +12,7 @@ import ej.widget.basic.picto.PictoRadio;
 import ej.widget.basic.picto.PictoSlider;
 import ej.widget.basic.picto.PictoSwitch;
 import ej.widget.composed.Toggle;
-import ej.widget.composed.ToggleComposite;
+import ej.widget.composed.ToggleWrapper;
 import ej.widget.toggle.RadioModel;
 
 /**
@@ -26,17 +26,17 @@ public class PictoWidgetPage extends WidgetPage {
 	}
 
 	@Override
-	protected ToggleComposite newCheckBox(String string) {
+	protected ToggleWrapper newCheckBox(String string) {
 		return new Toggle(new PictoCheck(), string);
 	}
 
 	@Override
-	protected ToggleComposite newRadioButton(String string) {
+	protected ToggleWrapper newRadioButton(String string) {
 		return new Toggle(new RadioModel(), new PictoRadio(), string);
 	}
 
 	@Override
-	protected ToggleComposite newSwitch(String string) {
+	protected ToggleWrapper newSwitch(String string) {
 		return new Toggle(new PictoSwitch(), string);
 	}
 

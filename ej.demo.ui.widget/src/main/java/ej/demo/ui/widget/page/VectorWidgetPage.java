@@ -10,7 +10,7 @@ import ej.widget.basic.drawing.Slider;
 import ej.widget.composed.Check;
 import ej.widget.composed.Radio;
 import ej.widget.composed.Switch;
-import ej.widget.composed.ToggleComposite;
+import ej.widget.composed.ToggleWrapper;
 
 /**
  * This page illustrates the drawn widgets.
@@ -23,17 +23,17 @@ public class VectorWidgetPage extends WidgetPage {
 	}
 
 	@Override
-	protected ToggleComposite newCheckBox(String string) {
+	protected ToggleWrapper newCheckBox(String string) {
 		return new Check(string);
 	}
 
 	@Override
-	protected ToggleComposite newRadioButton(String string) {
+	protected ToggleWrapper newRadioButton(String string) {
 		return new Radio(string);
 	}
 
 	@Override
-	protected ToggleComposite newSwitch(String string) {
+	protected ToggleWrapper newSwitch(String string) {
 		return new Switch(string);
 	}
 

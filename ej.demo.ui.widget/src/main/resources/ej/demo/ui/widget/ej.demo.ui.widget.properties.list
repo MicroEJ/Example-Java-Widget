@@ -4,7 +4,8 @@
 # Implementations to use
 ej.style.font.loader.FontLoader=ej.demo.ui.widget.style.WidgetsFontLoader
 ej.widget.basic.image.ImageTheme=ej.demo.ui.widget.style.WidgetsImageTheme
-ej.style.Stylesheet=ej.style.cascading.CascadingStylesheet
 
 # Transitions with screenshots, uncomment the line below to use it.
 # ej.demo.ui.widget.transition.screenshot=SET
+
+ej.animation.Animator.period=30

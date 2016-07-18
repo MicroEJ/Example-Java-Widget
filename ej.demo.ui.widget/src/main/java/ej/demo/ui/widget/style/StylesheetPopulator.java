@@ -9,11 +9,15 @@ package ej.demo.ui.widget.style;
 import ej.microui.display.Colors;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
+import ej.mwt.MWT;
 import ej.style.State;
 import ej.style.Stylesheet;
 import ej.style.background.NoBackground;
 import ej.style.background.PlainBackground;
 import ej.style.border.ComplexRectangularBorder;
+import ej.style.border.SimpleRectangularBorder;
+import ej.style.border.SimpleRoundedBorder;
+import ej.style.dimension.FixedDimension;
 import ej.style.font.FontProfile;
 import ej.style.font.FontProfile.FontSize;
 import ej.style.outline.ComplexOutline;
@@ -128,10 +132,34 @@ public class StylesheetPopulator {
 		// Sets the unchecked toggle style.
 		style.clear();
 		style.setForegroundColor(0xbcbec0);
+		style.setBorderColor(0xbcbec0);
 		style.setMargin(defaultMargin);
+		style.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
 		stylesheet.addRule(checkboxTypeSelector, style);
 		stylesheet.addRule(radioboxTypeSelector, style);
 		stylesheet.addRule(switchboxTypeSelector, style);
+
+		style.clear();
+		style.setBorder(new SimpleRectangularBorder(3));
+		style.setPadding(new SimpleOutline(3));
+		stylesheet.addRule(checkboxTypeSelector, style);
+
+		style.clear();
+		style.setBorder(new SimpleRoundedBorder(1000, 2));
+		style.setPadding(new SimpleOutline(4));
+		stylesheet.addRule(radioboxTypeSelector, style);
+
+		style.clear();
+		style.setBorder(new SimpleRoundedBorder(1000, 2));
+		// style.setBackground(new SimpleRoundedPlainBackground(1000));
+		style.setPadding(new ComplexOutline(4, 20, 4, 4));
+		style.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
+		stylesheet.addRule(switchboxTypeSelector, style);
+
+		style.clear();
+		style.setPadding(new ComplexOutline(4, 4, 4, 20));
+		style.setAlignment(GraphicsContext.RIGHT | GraphicsContext.VCENTER);
+		stylesheet.addRule(new AndCombinator(switchboxTypeSelector, stateCheckedSelector), style);
 
 		// The font to use for the most of the picto widgets.
 		FontProfile widgetPictoFontProfile = new FontProfile(FontFamilies.PICTO, FontSize.MEDIUM, Font.STYLE_PLAIN);
@@ -149,12 +177,19 @@ public class StylesheetPopulator {
 		style.clear();
 		style.setMargin(defaultMargin);
 		style.setForegroundColor(0x10bdf1);
+		style.setBorderColor(0x10bdf1);
 		stylesheet.addRule(new TypeSelector(ProgressBar.class), style);
 		stylesheet.addRule(new TypeSelector(CircularProgressBar.class), style);
 		stylesheet.addRule(new TypeSelector(Slider.class), style);
 		stylesheet.addRule(new AndCombinator(checkboxTypeSelector, stateCheckedSelector), style);
 		stylesheet.addRule(new AndCombinator(radioboxTypeSelector, stateCheckedSelector), style);
 		stylesheet.addRule(new AndCombinator(switchboxTypeSelector, stateCheckedSelector), style);
+
+		style.clear();
+		style.setDimension(new FixedDimension(MWT.NONE, 10));
+		style.setBackground(new PlainBackground());
+		style.setBackgroundColor(0x0a7a9c);
+		stylesheet.addRule(new TypeSelector(ProgressBar.class), style);
 
 		// Sets the image widget style.
 		style.clear();

@@ -20,7 +20,7 @@ import ej.widget.basic.Image;
 import ej.widget.basic.Label;
 import ej.widget.basic.image.ImageHelper;
 import ej.widget.composed.Button;
-import ej.widget.composed.ButtonComposite;
+import ej.widget.composed.ButtonWrapper;
 import ej.widget.listener.OnClickListener;
 
 /**
@@ -100,7 +100,7 @@ public abstract class AbstractDemoPage extends Page {
 			topBar.setFirst(backButton);
 		} else {
 			// Add an exit button.
-			ButtonComposite exitButton = new ButtonComposite();
+			ButtonWrapper exitButton = new ButtonWrapper();
 			exitButton.addOnClickListener(new OnClickListener() {
 
 				@Override
@@ -111,9 +111,11 @@ public abstract class AbstractDemoPage extends Page {
 					}
 				}
 			});
+
 			Image exitIcon = new Image(ImageHelper.loadImage(Images.MICROEJ_LOGO));
 			exitButton.setWidget(exitIcon);
 			topBar.setFirst(exitButton);
+
 		}
 		return topBar;
 	}

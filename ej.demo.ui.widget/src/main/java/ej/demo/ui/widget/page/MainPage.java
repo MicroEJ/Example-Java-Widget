@@ -12,7 +12,7 @@ import ej.demo.ui.widget.WidgetsDemo;
 import ej.demo.ui.widget.style.ClassSelectors;
 import ej.mwt.Widget;
 import ej.widget.composed.Button;
-import ej.widget.composed.ButtonComposite;
+import ej.widget.composed.ButtonWrapper;
 import ej.widget.listener.OnClickListener;
 
 /**
@@ -46,7 +46,7 @@ public class MainPage extends AbstractDemoPage {
 	}
 
 	// A button that leads to the given page.
-	private ButtonComposite newSelectableItem(String name, final String url) {
+	private ButtonWrapper newSelectableItem(String name, final String url) {
 		Button button = new Button(name);
 		button.addClassSelector(ClassSelectors.LIST_ITEM);
 		button.addOnClickListener(new OnClickListener() {

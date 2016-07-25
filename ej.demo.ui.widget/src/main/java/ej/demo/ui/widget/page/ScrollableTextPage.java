@@ -9,11 +9,11 @@ package ej.demo.ui.widget.page;
 import java.io.IOException;
 import java.io.InputStream;
 
-import ej.container.List;
-import ej.container.Scroll;
 import ej.demo.ui.widget.style.ClassSelectors;
 import ej.mwt.Widget;
 import ej.widget.basic.Label;
+import ej.widget.container.List;
+import ej.widget.container.Scroll;
 
 /**
  * This page illustrates the scrollable text.

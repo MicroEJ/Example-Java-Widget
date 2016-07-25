@@ -6,11 +6,11 @@
  */
 package ej.demo.ui.widget.page;
 
-import ej.container.Grid;
 import ej.mwt.Widget;
 import ej.widget.basic.drawing.CircularProgressBar;
 import ej.widget.basic.drawing.ProgressBar;
 import ej.widget.basic.picto.PictoProgress;
+import ej.widget.container.Grid;
 
 /**
  * This page illustrates different implementations of a progress bar.

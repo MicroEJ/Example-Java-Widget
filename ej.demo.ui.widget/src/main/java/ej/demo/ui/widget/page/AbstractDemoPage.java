@@ -7,7 +7,6 @@
 package ej.demo.ui.widget.page;
 
 import ej.components.dependencyinjection.ServiceLoaderFactory;
-import ej.container.Dock;
 import ej.demo.ui.widget.WidgetsDemo;
 import ej.demo.ui.widget.style.ClassSelectors;
 import ej.demo.ui.widget.style.Images;
@@ -21,6 +20,7 @@ import ej.widget.basic.Label;
 import ej.widget.basic.image.ImageHelper;
 import ej.widget.composed.Button;
 import ej.widget.composed.ButtonWrapper;
+import ej.widget.container.Dock;
 import ej.widget.listener.OnClickListener;
 
 /**

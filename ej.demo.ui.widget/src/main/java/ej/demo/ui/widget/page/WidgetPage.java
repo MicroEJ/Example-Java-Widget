@@ -6,13 +6,13 @@
  */
 package ej.demo.ui.widget.page;
 
-import ej.container.Grid;
 import ej.demo.ui.widget.style.ClassSelectors;
 import ej.mwt.Widget;
 import ej.widget.basic.AbstractSlider;
 import ej.widget.composed.Button;
 import ej.widget.composed.ToggleWrapper;
 import ej.widget.composed.Wrapper;
+import ej.widget.container.Grid;
 import ej.widget.toggle.ToggleGroup;
 
 /**

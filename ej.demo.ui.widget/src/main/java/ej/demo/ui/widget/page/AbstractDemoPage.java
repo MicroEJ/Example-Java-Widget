@@ -10,14 +10,13 @@ import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.demo.ui.widget.WidgetsDemo;
 import ej.demo.ui.widget.style.ClassSelectors;
 import ej.demo.ui.widget.style.Images;
-import ej.demo.ui.widget.style.Pictos;
 import ej.exit.ExitHandler;
 import ej.mwt.Widget;
 import ej.navigation.page.Page;
 import ej.style.util.StyleHelper;
 import ej.widget.basic.Image;
 import ej.widget.basic.Label;
-import ej.widget.composed.Button;
+import ej.widget.composed.ButtonImage;
 import ej.widget.composed.ButtonWrapper;
 import ej.widget.container.SimpleDock;
 import ej.widget.listener.OnClickListener;
@@ -73,8 +72,9 @@ public abstract class AbstractDemoPage extends Page {
 
 		if (WidgetsDemo.canGoBack()) {
 			// Add a back button.
-			Button backButton = new Button(Character.toString(Pictos.BACK));
-			backButton.addClassSelector(ClassSelectors.LARGE_ICON);
+			// Button backButton = new Button(Character.toString(Pictos.BACK));
+			// backButton.getLabel().addClassSelector(ClassSelectors.LARGE_ICON);
+			ButtonImage backButton = new ButtonImage("/images/back.png"); //$NON-NLS-1$
 			backButton.addOnClickListener(new OnClickListener() {
 
 				@Override

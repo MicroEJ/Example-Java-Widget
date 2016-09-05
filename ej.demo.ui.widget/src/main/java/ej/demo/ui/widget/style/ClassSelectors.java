@@ -12,11 +12,6 @@ package ej.demo.ui.widget.style;
 public interface ClassSelectors {
 
 	/**
-	 * The large icon class selector.
-	 */
-	String LARGE_ICON = "large_icon"; //$NON-NLS-1$
-
-	/**
 	 * The title class selector.
 	 */
 	String TITLE = "title"; //$NON-NLS-1$

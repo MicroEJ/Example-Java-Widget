@@ -6,7 +6,6 @@
  */
 package ej.demo.ui.widget.style;
 
-import ej.microui.display.Colors;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.mwt.MWT;
@@ -53,6 +52,14 @@ import ej.widget.basic.picto.PictoSwitch;
  */
 public class StylesheetPopulator {
 
+	private static final int FOREGROUND = MicroEJColors.WHITE;
+	private static final int BACKGROUND = MicroEJColors.CONCRETE_BLACK_75;
+	private static final int LIST_EVEN_BACKGROUND = MicroEJColors.CONCRETE_BLACK_50;
+	private static final int TITLE_BORDER = MicroEJColors.CONCRETE_BLACK_25;
+	private static final int CHECKED_FOREGROUND = MicroEJColors.BONDI;
+	private static final int UNCHECKED_FOREGROUND = MicroEJColors.CONCRETE_BLACK_25;
+	private static final int ACTIVE_FOREGROUND = MicroEJColors.TURQUOISE;
+
 	// Prevents initialization.
 	private StylesheetPopulator() {
 	}
@@ -65,8 +72,8 @@ public class StylesheetPopulator {
 
 		// Sets the default style.
 		EditableStyle defaultStyle = new EditableStyle();
-		defaultStyle.setForegroundColor(Colors.WHITE);
-		defaultStyle.setBackgroundColor(0x404041);
+		defaultStyle.setForegroundColor(FOREGROUND);
+		defaultStyle.setBackgroundColor(BACKGROUND);
 		FontProfile defaultFontProfile = new FontProfile();
 		defaultFontProfile.setFamily(FontFamilies.ROBOTO);
 		defaultFontProfile.setSize(FontSize.MEDIUM);
@@ -95,15 +102,10 @@ public class StylesheetPopulator {
 		style.setBackground(NoBackground.NO_BACKGROUND);
 		stylesheet.addRule(labelTypeSelector, style);
 
-		// Sets the large picto style.
-		style.clear();
-		style.setFontProfile(new FontProfile(FontFamilies.PICTO, FontSize.LARGE, Font.STYLE_PLAIN));
-		stylesheet.addRule(new ClassSelector(ClassSelectors.LARGE_ICON), style);
-
 		// Sets the title style.
 		style.clear();
 		style.setFontProfile(new FontProfile(FontFamilies.ROBOTO, FontSize.LARGE, Font.STYLE_PLAIN));
-		style.setBorderColor(Colors.SILVER);
+		style.setBorderColor(TITLE_BORDER);
 		ComplexRectangularBorder titleBorder = new ComplexRectangularBorder();
 		titleBorder.setBottom(2);
 		style.setBorder(titleBorder);
@@ -120,7 +122,7 @@ public class StylesheetPopulator {
 
 		style.clear();
 		style.setBackground(new PlainBackground());
-		style.setBackgroundColor(0x505051);
+		style.setBackgroundColor(LIST_EVEN_BACKGROUND);
 		stylesheet.addRule(new AndCombinator(listItemSelector, new EvenChildSelector()), style);
 
 		// Sets the image style.
@@ -131,8 +133,8 @@ public class StylesheetPopulator {
 
 		// Sets the unchecked toggle style.
 		style.clear();
-		style.setForegroundColor(0xbcbec0);
-		style.setBorderColor(0xbcbec0);
+		style.setForegroundColor(UNCHECKED_FOREGROUND);
+		style.setBorderColor(UNCHECKED_FOREGROUND);
 		style.setMargin(defaultMargin);
 		style.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
 		stylesheet.addRule(checkboxTypeSelector, style);
@@ -167,7 +169,7 @@ public class StylesheetPopulator {
 		// Sets the unchecked picto toggle style.
 		style.clear();
 		style.setFontProfile(widgetPictoFontProfile);
-		style.setForegroundColor(0xbcbec0);
+		style.setForegroundColor(UNCHECKED_FOREGROUND);
 		style.setMargin(defaultMargin);
 		stylesheet.addRule(pictocheckTypeSelector, style);
 		stylesheet.addRule(pictoradioTypeSelector, style);
@@ -176,8 +178,8 @@ public class StylesheetPopulator {
 		// Sets the widget and checked toggle style.
 		style.clear();
 		style.setMargin(defaultMargin);
-		style.setForegroundColor(0x10bdf1);
-		style.setBorderColor(0x10bdf1);
+		style.setForegroundColor(CHECKED_FOREGROUND);
+		style.setBorderColor(CHECKED_FOREGROUND);
 		stylesheet.addRule(new TypeSelector(ProgressBar.class), style);
 		stylesheet.addRule(new TypeSelector(CircularProgressBar.class), style);
 		stylesheet.addRule(new TypeSelector(Slider.class), style);
@@ -188,7 +190,7 @@ public class StylesheetPopulator {
 		style.clear();
 		style.setDimension(new FixedDimension(MWT.NONE, 10));
 		style.setBackground(new PlainBackground());
-		style.setBackgroundColor(0x0a7a9c);
+		style.setBackgroundColor(ACTIVE_FOREGROUND);
 		stylesheet.addRule(new TypeSelector(ProgressBar.class), style);
 
 		// Sets the image widget style.
@@ -202,7 +204,7 @@ public class StylesheetPopulator {
 		// Sets the picto widget and checked picto toggle style.
 		style.clear();
 		style.setMargin(defaultMargin);
-		style.setForegroundColor(0x10bdf1);
+		style.setForegroundColor(CHECKED_FOREGROUND);
 		style.setFontProfile(widgetPictoFontProfile);
 		stylesheet.addRule(new TypeSelector(PictoSlider.class), style);
 		stylesheet.addRule(new AndCombinator(pictocheckTypeSelector, stateCheckedSelector), style);
@@ -213,7 +215,7 @@ public class StylesheetPopulator {
 		// Sets the illustrated button style.
 		ClassSelector illustratedButtonSelector = new ClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
 		style.clear();
-		style.setBackgroundColor(0x10bdf1);
+		style.setBackgroundColor(CHECKED_FOREGROUND);
 		style.setMargin(new ComplexOutline(12, 60, 12, 60));
 		// The content of the button is centered horizontally and vertically.
 		style.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
@@ -221,12 +223,12 @@ public class StylesheetPopulator {
 
 		// Sets the illustrated active button style.
 		style.clear();
-		style.setBackgroundColor(0x1185a8);
+		style.setBackgroundColor(ACTIVE_FOREGROUND);
 		stylesheet.addRule(new AndCombinator(illustratedButtonSelector, new StateSelector(State.Active)), style);
 
 		// Sets the text title style.
 		style.clear();
-		style.setBorderColor(Colors.SILVER);
+		style.setBorderColor(TITLE_BORDER);
 		ComplexRectangularBorder textTitleBorder = new ComplexRectangularBorder();
 		textTitleBorder.setBottom(1);
 		style.setBorder(textTitleBorder);

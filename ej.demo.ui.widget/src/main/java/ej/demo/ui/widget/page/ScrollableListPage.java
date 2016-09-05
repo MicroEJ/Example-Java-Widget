@@ -10,6 +10,7 @@ import ej.bon.Timer;
 import ej.bon.TimerTask;
 import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.demo.ui.widget.style.ClassSelectors;
+import ej.microui.display.Display;
 import ej.mwt.Widget;
 import ej.widget.basic.Label;
 import ej.widget.container.List;
@@ -69,7 +70,7 @@ public class ScrollableListPage extends AbstractDemoPage {
 				@Override
 				public void run() {
 					if (isShown()) {
-						getDesktop().getDisplay().callSerially(new Runnable() {
+						Display.getDefaultDisplay().callSerially(new Runnable() {
 							@Override
 							public void run() {
 								if (!ScrollableListPage.this.complete) {

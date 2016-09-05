@@ -6,6 +6,6 @@ ej.style.font.loader.FontLoader=ej.demo.ui.widget.style.WidgetsFontLoader
 ej.widget.basic.image.ImageTheme=ej.demo.ui.widget.style.WidgetsImageTheme
 
 # Transitions with screenshots, uncomment the line below to use it.
-# ej.demo.ui.widget.transition.screenshot=SET
+#ej.demo.ui.widget.transition.screenshot=SET
 
-ej.animation.Animator.period=30
+ej.animation.Animator.period=60

@@ -12,7 +12,6 @@ import ej.demo.ui.widget.style.ClassSelectors;
 import ej.demo.ui.widget.style.Images;
 import ej.exit.ExitHandler;
 import ej.mwt.Widget;
-import ej.navigation.page.Page;
 import ej.style.util.StyleHelper;
 import ej.widget.basic.Image;
 import ej.widget.basic.Label;
@@ -20,6 +19,7 @@ import ej.widget.composed.ButtonImage;
 import ej.widget.composed.ButtonWrapper;
 import ej.widget.container.SimpleDock;
 import ej.widget.listener.OnClickListener;
+import ej.widget.navigation.page.Page;
 
 /**
  * Common abstract page implementation for all the application pages.

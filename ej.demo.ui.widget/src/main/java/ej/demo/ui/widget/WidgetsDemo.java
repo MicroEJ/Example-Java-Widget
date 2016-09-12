@@ -12,12 +12,12 @@ import ej.demo.ui.widget.style.StylesheetPopulator;
 import ej.microui.MicroUI;
 import ej.mwt.Desktop;
 import ej.mwt.Panel;
-import ej.navigation.navigator.HistorizedNavigator;
-import ej.navigation.page.URLResolver;
-import ej.navigation.stack.PageStack;
-import ej.navigation.stack.PageStackURL;
-import ej.navigation.transition.HorizontalScreenshotTransitionManager;
-import ej.navigation.transition.HorizontalTransitionManager;
+import ej.widget.navigation.navigator.HistorizedNavigator;
+import ej.widget.navigation.page.URLResolver;
+import ej.widget.navigation.stack.PageStack;
+import ej.widget.navigation.stack.PageStackURL;
+import ej.widget.navigation.transition.HorizontalScreenshotTransitionManager;
+import ej.widget.navigation.transition.HorizontalTransitionManager;
 
 /**
  * This demo illustrates the widgets library.

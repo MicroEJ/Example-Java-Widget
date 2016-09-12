@@ -9,9 +9,9 @@ package ej.demo.ui.widget.page;
 import java.util.HashMap;
 import java.util.Map;
 
-import ej.navigation.page.ClassNameURLResolver;
-import ej.navigation.page.Page;
-import ej.navigation.page.PageNotFoundException;
+import ej.widget.navigation.page.ClassNameURLResolver;
+import ej.widget.navigation.page.Page;
+import ej.widget.navigation.page.PageNotFoundException;
 
 /**
  * The direct URL resolver is a class name resolver that put the loaded pages in

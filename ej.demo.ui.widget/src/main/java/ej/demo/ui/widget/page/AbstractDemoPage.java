@@ -10,17 +10,15 @@ import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.demo.ui.widget.WidgetsDemo;
 import ej.demo.ui.widget.style.ClassSelectors;
 import ej.demo.ui.widget.style.Images;
-import ej.demo.ui.widget.style.Pictos;
 import ej.exit.ExitHandler;
-import ej.mwt.Desktop;
 import ej.mwt.Widget;
 import ej.navigation.page.Page;
+import ej.style.util.StyleHelper;
 import ej.widget.basic.Image;
 import ej.widget.basic.Label;
-import ej.widget.basic.image.ImageHelper;
-import ej.widget.composed.Button;
+import ej.widget.composed.ButtonImage;
 import ej.widget.composed.ButtonWrapper;
-import ej.widget.container.Dock;
+import ej.widget.container.SimpleDock;
 import ej.widget.listener.OnClickListener;
 
 /**
@@ -28,7 +26,7 @@ import ej.widget.listener.OnClickListener;
  */
 public abstract class AbstractDemoPage extends Page {
 
-	private Dock content;
+	private SimpleDock content;
 
 	/**
 	 * Creates a new demo page.
@@ -51,22 +49,8 @@ public abstract class AbstractDemoPage extends Page {
 		}
 	}
 
-	// @Override
-	// public void showNotify() {
-	// super.showNotify();
-	// System.gc();
-	// Runtime runtime = Runtime.getRuntime();
-	// System.out.println(runtime.totalMemory() - runtime.freeMemory() + "b");
-	// }
-
-	@Override
-	public void show(Desktop desktop) throws NullPointerException {
-		this.content.setFirst(createTopBar());
-		super.show(desktop);
-	}
-
 	private Widget createContent() {
-		this.content = new Dock();
+		this.content = new SimpleDock();
 		this.content.setHorizontal(false);
 		this.content.setFirst(createTopBar());
 		this.content.setCenter(createMainContent());
@@ -83,13 +67,14 @@ public abstract class AbstractDemoPage extends Page {
 		Label titleLabel = new Label(getTitle());
 		titleLabel.addClassSelector(ClassSelectors.TITLE);
 
-		Dock topBar = new Dock();
+		SimpleDock topBar = new SimpleDock();
 		topBar.setCenter(titleLabel);
 
 		if (WidgetsDemo.canGoBack()) {
 			// Add a back button.
-			Button backButton = new Button(Character.toString(Pictos.BACK));
-			backButton.getLabel().addClassSelector(ClassSelectors.LARGE_ICON);
+			// Button backButton = new Button(Character.toString(Pictos.BACK));
+			// backButton.getLabel().addClassSelector(ClassSelectors.LARGE_ICON);
+			ButtonImage backButton = new ButtonImage("/images/back.png"); //$NON-NLS-1$
 			backButton.addOnClickListener(new OnClickListener() {
 
 				@Override
@@ -112,7 +97,7 @@ public abstract class AbstractDemoPage extends Page {
 				}
 			});
 
-			Image exitIcon = new Image(ImageHelper.loadImage(Images.MICROEJ_LOGO));
+			Image exitIcon = new Image(StyleHelper.getImage(Images.MICROEJ_LOGO));
 			exitButton.setWidget(exitIcon);
 			topBar.setFirst(exitButton);
 

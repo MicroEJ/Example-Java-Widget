@@ -3,11 +3,13 @@
 
 images/microej_logo.png:ARGB4444
 
-images/checkbox_checked.png:ARGB4444
-images/checkbox_unchecked.png:ARGB4444
-images/radio_checked.png:ARGB4444
-images/radio_unchecked.png:ARGB4444
-images/slider_bar.png:ARGB4444
-images/slider_cursor.png:ARGB4444
-images/switch_checked.png:ARGB4444
-images/switch_unchecked.png:ARGB4444
+images/checkbox_checked.png:ARGB8888
+images/checkbox_unchecked.png:ARGB8888
+images/radio_checked.png:ARGB8888
+images/radio_unchecked.png:ARGB8888
+images/slider_bar.png:ARGB8888
+images/slider_cursor.png:ARGB8888
+images/switch_checked.png:ARGB8888
+images/switch_unchecked.png:ARGB8888
+
+images/back.png:A4

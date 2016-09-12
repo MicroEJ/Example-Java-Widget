@@ -10,12 +10,14 @@ import ej.demo.ui.widget.page.DirectURLResolver;
 import ej.demo.ui.widget.page.MainPage;
 import ej.demo.ui.widget.style.StylesheetPopulator;
 import ej.microui.MicroUI;
+import ej.mwt.Desktop;
+import ej.mwt.Panel;
+import ej.navigation.navigator.HistorizedNavigator;
 import ej.navigation.page.URLResolver;
-import ej.navigation.stack.PagesStack;
-import ej.navigation.stack.PagesStackURL;
-import ej.navigation.tree.HorizontalTreeNavigationDesktop;
-import ej.navigation.tree.HorizontalTreeScreenshotNavigationDesktop;
-import ej.navigation.tree.TreeNavigationDesktop;
+import ej.navigation.stack.PageStack;
+import ej.navigation.stack.PageStackURL;
+import ej.navigation.transition.HorizontalScreenshotTransitionManager;
+import ej.navigation.transition.HorizontalTransitionManager;
 
 /**
  * This demo illustrates the widgets library.
@@ -23,8 +25,9 @@ import ej.navigation.tree.TreeNavigationDesktop;
 public class WidgetsDemo {
 
 	private static final boolean WITH_SCREENSHOT_TRANSITION = System
-			.getProperty("com.microej.demo.widgets.transition.screenshot") != null; //$NON-NLS-1$
-	private static TreeNavigationDesktop Desktop;
+			.getProperty("ej.demo.ui.widget.transition.screenshot") != null; //$NON-NLS-1$
+
+	private static HistorizedNavigator HistorizedNavigator;
 
 	private static boolean GoingForward;
 	private static boolean GoingBackward;
@@ -40,21 +43,36 @@ public class WidgetsDemo {
 	 *            not used.
 	 */
 	public static void main(String[] args) {
+		// Start MicroUI framework.
 		MicroUI.start();
-		Desktop = newTransitionDesktop();
+
+		// Initialize stylesheet rules.
 		StylesheetPopulator.initialize();
-		Desktop.show(MainPage.class.getName());
-		Desktop.show();
+
+		// Create the navigator.
+		HistorizedNavigator = newNavigator();
+
+		// Show the main page.
+		HistorizedNavigator.show(MainPage.class.getName());
+
+		// Show the navigator.
+		Desktop desktop = new Desktop();
+		Panel panel = new Panel();
+		panel.setWidget(HistorizedNavigator);
+		panel.show(desktop, true);
+		desktop.show();
 	}
 
-	private static TreeNavigationDesktop newTransitionDesktop() {
+	private static HistorizedNavigator newNavigator() {
 		URLResolver urlResolver = new DirectURLResolver();
-		PagesStack pagesStack = new PagesStackURL(urlResolver);
+		PageStack pageStack = new PageStackURL(urlResolver);
+		HistorizedNavigator navigator = new HistorizedNavigator(urlResolver, pageStack);
 		if (WITH_SCREENSHOT_TRANSITION) {
-			return new HorizontalTreeScreenshotNavigationDesktop(urlResolver, pagesStack);
+			navigator.setTransitionManager(new HorizontalScreenshotTransitionManager());
 		} else {
-			return new HorizontalTreeNavigationDesktop(urlResolver, pagesStack);
+			navigator.setTransitionManager(new HorizontalTransitionManager());
 		}
+		return navigator;
 	}
 
 	/**
@@ -65,7 +83,7 @@ public class WidgetsDemo {
 	 */
 	public static void show(String url) {
 		GoingForward = true;
-		Desktop.show(url);
+		HistorizedNavigator.show(url);
 		GoingForward = false;
 	}
 
@@ -74,7 +92,7 @@ public class WidgetsDemo {
 	 */
 	public static void back() {
 		GoingBackward = true;
-		Desktop.back();
+		HistorizedNavigator.back();
 		GoingBackward = false;
 	}
 
@@ -86,8 +104,8 @@ public class WidgetsDemo {
 	 * @return <code>true</code> it is possible to go back, <code>false</code> otherwise.
 	 */
 	public static boolean canGoBack() {
-		int historySize = Desktop.getHistorySize();
-		return (historySize > 1 || GoingForward) && !(historySize == 1 && GoingBackward);
+		int historySize = HistorizedNavigator.getHistorySize();
+		return (historySize > 0 || GoingForward) && !(historySize == 0 && GoingBackward);
 	}
 
 }

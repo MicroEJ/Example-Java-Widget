@@ -51,14 +51,16 @@ public class WidgetsDemo {
 
 		// Create the navigator.
 		HistorizedNavigator = newNavigator();
+
+		// Show the main page.
+		HistorizedNavigator.show(MainPage.class.getName());
+
+		// Show the navigator.
 		Desktop desktop = new Desktop();
 		Panel panel = new Panel();
 		panel.setWidget(HistorizedNavigator);
 		panel.show(desktop, true);
 		desktop.show();
-
-		// Show the main page.
-		HistorizedNavigator.show(MainPage.class.getName());
 	}
 
 	private static HistorizedNavigator newNavigator() {

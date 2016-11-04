@@ -1,6 +1,4 @@
-ej.style.cascading.CascadingStylesheet
 ej.demo.ui.widget.page.MainPage
-ej.style.font.loader.FontLoader
 ej.demo.ui.widget.style.WidgetsFontLoader
 ej.demo.ui.widget.page.PictoWidgetPage
 ej.widget.basic.image.ImageTheme

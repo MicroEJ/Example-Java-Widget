@@ -35,19 +35,19 @@ public abstract class AbstractDemoPage extends Page {
 		setWidget(createContent());
 	}
 
-	@Override
-	public void onTransitionStart() {
-		super.onTransitionStart();
-		hideNotify();
-	}
-
-	@Override
-	public void onTransitionStop() {
-		super.onTransitionStop();
-		if (isShown()) {
-			showNotify();
-		}
-	}
+	// @Override
+	// public void onTransitionStart() {
+	// super.onTransitionStart();
+	// hideNotify();
+	// }
+	//
+	// @Override
+	// public void onTransitionStop() {
+	// super.onTransitionStop();
+	// if (isShown()) {
+	// showNotify();
+	// }
+	// }
 
 	private Widget createContent() {
 		this.content = new SimpleDock();

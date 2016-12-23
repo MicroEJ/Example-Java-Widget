@@ -40,6 +40,8 @@ public class MainPage extends AbstractDemoPage {
 		listComposite.add(newSelectableItem("Progress bar", ProgressBarPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Scrollable list", ScrollableListPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Scrollable text", ScrollableTextPage.class.getName())); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Keyboard", AzertyKeyboardPage.class.getName())); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Chart", ChartPage.class.getName())); //$NON-NLS-1$
 		Scroll scroll = new Scroll(false, true);
 		scroll.setWidget(listComposite);
 		return scroll;

@@ -9,3 +9,4 @@ ej.widget.basic.image.ImageTheme=ej.demo.ui.widget.style.WidgetsImageTheme
 ej.demo.ui.widget.transition.screenshot=SET
 
 ej.animation.Animator.period=30
+ej.microui.event.generator.Keyboard=ej.event.generator.SystemKeyboard

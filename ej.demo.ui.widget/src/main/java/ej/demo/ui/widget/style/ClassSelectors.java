@@ -35,4 +35,19 @@ public interface ClassSelectors {
 	 * The multiline class selector.
 	 */
 	String MULTILINE = "multiline"; //$NON-NLS-1$
+
+	/**
+	 * The form class selector.
+	 */
+	String FORM = "form"; //$NON-NLS-1$
+
+	/**
+	 * The chart class selector.
+	 */
+	String CHART = "chart"; //$NON-NLS-1$
+
+	/**
+	 * The switch button class selector.
+	 */
+	String SWITCH_BUTTON = "switch_button"; //$NON-NLS-1$
 }

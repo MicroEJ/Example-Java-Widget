@@ -10,27 +10,30 @@ import ej.demo.ui.widget.page.DirectURLResolver;
 import ej.demo.ui.widget.page.MainPage;
 import ej.demo.ui.widget.style.StylesheetPopulator;
 import ej.microui.MicroUI;
+import ej.microui.display.Display;
 import ej.mwt.Desktop;
 import ej.mwt.Panel;
+import ej.widget.StyledDesktop;
 import ej.widget.navigation.navigator.HistorizedNavigator;
 import ej.widget.navigation.page.URLResolver;
 import ej.widget.navigation.stack.PageStack;
 import ej.widget.navigation.stack.PageStackURL;
-import ej.widget.navigation.transition.HorizontalScreenshotTransitionManager;
-import ej.widget.navigation.transition.HorizontalTransitionManager;
 
 /**
  * This demo illustrates the widgets library.
  */
 public class WidgetsDemo {
 
-	private static final boolean WITH_SCREENSHOT_TRANSITION = System
-			.getProperty("ej.demo.ui.widget.transition.screenshot") != null; //$NON-NLS-1$
+	public static int WIDTH;
+	public static int HEIGHT;
+	public static int KEYBOARD_HEIGHT = 0;
 
+	private static Desktop Desktop;
 	private static HistorizedNavigator HistorizedNavigator;
 
 	private static boolean GoingForward;
 	private static boolean GoingBackward;
+	public static Panel panel;
 
 	// Prevents initialization.
 	private WidgetsDemo() {
@@ -55,23 +58,32 @@ public class WidgetsDemo {
 		// Show the main page.
 		HistorizedNavigator.show(MainPage.class.getName());
 
+		WIDTH = Display.getDefaultDisplay().getWidth();
+		HEIGHT = Display.getDefaultDisplay().getHeight();
+
 		// Show the navigator.
-		Desktop desktop = new Desktop();
-		Panel panel = new Panel();
+		Desktop = new StyledDesktop();
+		panel = new Panel() {
+			@Override
+			public void validate(int widthHint, int heightHint) {
+				super.validate(WIDTH, HEIGHT - KEYBOARD_HEIGHT);
+				setBounds(0, 0, WIDTH, HEIGHT - KEYBOARD_HEIGHT);
+			}
+		};
 		panel.setWidget(HistorizedNavigator);
-		panel.show(desktop, true);
-		desktop.show();
+		panel.show(Desktop, true);
+		Desktop.show();
+	}
+
+	public static Desktop getDesktop() {
+		return Desktop;
 	}
 
 	private static HistorizedNavigator newNavigator() {
 		URLResolver urlResolver = new DirectURLResolver();
 		PageStack pageStack = new PageStackURL(urlResolver);
 		HistorizedNavigator navigator = new HistorizedNavigator(urlResolver, pageStack);
-		if (WITH_SCREENSHOT_TRANSITION) {
-			navigator.setTransitionManager(new HorizontalScreenshotTransitionManager());
-		} else {
-			navigator.setTransitionManager(new HorizontalTransitionManager());
-		}
+		// navigator.setTransitionManager(new HorizontalTransitionManager());
 		return navigator;
 	}
 

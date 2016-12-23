@@ -14,8 +14,9 @@ import ej.style.font.loader.AbstractFontLoader;
  */
 public class WidgetsFontLoader extends AbstractFontLoader {
 
-	private static final int LARGE_HEIGHT = 50;
+	private static final int LARGE_HEIGHT = 44;
 	private static final int MEDIUM_HEIGHT = 30;
+	private static final int SMALL_HEIGHT = 18;
 
 	@Override
 	protected int getFontHeight(FontProfile fontProfile) {
@@ -24,6 +25,8 @@ public class WidgetsFontLoader extends AbstractFontLoader {
 			return fontProfile.getSizeValue();
 		case LARGE:
 			return LARGE_HEIGHT;
+		case SMALL:
+			return SMALL_HEIGHT;
 		case MEDIUM:
 		default:
 			return MEDIUM_HEIGHT;

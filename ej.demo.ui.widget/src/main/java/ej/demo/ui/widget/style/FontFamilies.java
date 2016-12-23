@@ -17,7 +17,12 @@ public interface FontFamilies {
 	String PICTO = "picto"; //$NON-NLS-1$
 
 	/**
-	 * The roboto font family.
+	 * The source sans pro font family.
 	 */
-	String ROBOTO = "roboto"; //$NON-NLS-1$
+	String SOURCE_SANS_PRO = "source_sans_pro"; //$NON-NLS-1$
+
+	/**
+	 * The source sans pro light font family.
+	 */
+	String SOURCE_SANS_PRO_LIGHT = "source_sans_pro_light"; //$NON-NLS-1$
 }

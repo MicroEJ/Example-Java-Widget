@@ -21,6 +21,11 @@ import ej.style.util.StyleHelper;
 public class BarChart extends BasicChart {
 
 	/**
+	 * Values
+	 */
+	private static final int BAR_THICKNESS = 9;
+
+	/**
 	 * Attributes
 	 */
 	private float xStep;
@@ -34,10 +39,9 @@ public class BarChart extends BasicChart {
 		int fontHeight = font.getHeight();
 
 		this.xStep = (bounds.getWidth() - LEFT_PADDING) / (getPoints().size() - 0.5f);
-		int thickness = (int) (this.xStep / 2.5f);
 
-		int yBarBottom = getBarBottom(fontHeight, bounds) - thickness / 2 - 1;
-		int yBarTop = getBarTop(fontHeight, bounds) + thickness / 2;
+		int yBarBottom = getBarBottom(fontHeight, bounds) - BAR_THICKNESS / 2 - 1;
+		int yBarTop = getBarTop(fontHeight, bounds) + BAR_THICKNESS / 2;
 
 		float topValue = getScale().getTopValue();
 
@@ -51,7 +55,7 @@ public class BarChart extends BasicChart {
 		g.setFont(font);
 
 		AntiAliasedShapes antiAliasedShapes = AntiAliasedShapes.Singleton;
-		antiAliasedShapes.setThickness(thickness);
+		antiAliasedShapes.setThickness(BAR_THICKNESS);
 
 		int pointIndex = 0;
 		for (ChartPoint chartPoint : getPoints()) {

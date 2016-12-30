@@ -9,6 +9,7 @@ package ej.demo.ui.widget.style;
 /**
  *
  */
+@SuppressWarnings("javadoc")
 public interface MicroEJColors {
 
 	int CORAL = 0xee502e;

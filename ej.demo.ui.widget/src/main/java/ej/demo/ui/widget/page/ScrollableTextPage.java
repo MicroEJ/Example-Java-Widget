@@ -28,6 +28,7 @@ public class ScrollableTextPage extends AbstractDemoPage {
 	@Override
 	protected Widget createMainContent() {
 		List listComposite = new List(false);
+		listComposite.addClassSelector(ClassSelectors.TEXT_SCROLL);
 
 		add("MicroEJ SDK", "sdk.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
 		add("MicroEJ Studio", "studio.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
@@ -49,11 +50,8 @@ public class ScrollableTextPage extends AbstractDemoPage {
 		descriptionLabel.addClassSelector(ClassSelectors.MULTILINE);
 		descriptionLabel.setText(description);
 
-		Label emptyLabel = new Label();
-
 		listComposite.add(titleLabel);
 		listComposite.add(descriptionLabel);
-		listComposite.add(emptyLabel);
 	}
 
 	private String read(String filename) {

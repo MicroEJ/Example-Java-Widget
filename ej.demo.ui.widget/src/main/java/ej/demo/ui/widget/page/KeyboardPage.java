@@ -20,8 +20,8 @@ import ej.widget.keyboard.azerty.KeyboardText;
  */
 public abstract class KeyboardPage extends AbstractDemoPage {
 
-	private static final String FIRST_NAME = "Prénom"; //$NON-NLS-1$
-	private static final String LAST_NAME = "Nom"; //$NON-NLS-1$
+	private static final String FIRST_NAME = "First name"; //$NON-NLS-1$
+	private static final String LAST_NAME = "Last name"; //$NON-NLS-1$
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
 	private KeyboardText firstName;
@@ -47,7 +47,7 @@ public abstract class KeyboardPage extends AbstractDemoPage {
 		return scroll;
 	}
 
-	public int getKeyboardHeight() {
+	private int getKeyboardHeight() {
 		return (int) (getKeyboardRatio() * WidgetsDemo.HEIGHT);
 	}
 
@@ -87,8 +87,18 @@ public abstract class KeyboardPage extends AbstractDemoPage {
 		WidgetsDemo.panel.validate();
 	}
 
+	/**
+	 * Creates the keyboard
+	 *
+	 * @return the keyboard widget
+	 */
 	protected abstract Widget createKeyboard();
 
+	/**
+	 * Gets the keyboard height ratio
+	 *
+	 * @return the keyboard height ratio
+	 */
 	protected abstract float getKeyboardRatio();
 
 }

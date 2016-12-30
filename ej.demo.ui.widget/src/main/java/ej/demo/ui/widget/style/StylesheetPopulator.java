@@ -6,7 +6,6 @@
  */
 package ej.demo.ui.widget.style;
 
-import ej.demo.ui.widget.page.KeyboardPage;
 import ej.microui.display.Colors;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
@@ -26,11 +25,11 @@ import ej.style.font.FontProfile.FontSize;
 import ej.style.outline.ComplexOutline;
 import ej.style.outline.SimpleOutline;
 import ej.style.selector.ClassSelector;
-import ej.style.selector.EvenChildSelector;
+import ej.style.selector.OddChildSelector;
 import ej.style.selector.StateSelector;
-import ej.style.selector.TypeOrSubtypeSelector;
 import ej.style.selector.TypeSelector;
 import ej.style.selector.combinator.AndCombinator;
+import ej.style.selector.combinator.OrCombinator;
 import ej.style.text.ComplexTextManager;
 import ej.style.text.SimpleTextManager;
 import ej.style.util.EditableStyle;
@@ -41,6 +40,7 @@ import ej.widget.basic.drawing.CheckBox;
 import ej.widget.basic.drawing.CircularProgressBar;
 import ej.widget.basic.drawing.ProgressBar;
 import ej.widget.basic.drawing.RadioBox;
+import ej.widget.basic.drawing.Scrollbar;
 import ej.widget.basic.drawing.Slider;
 import ej.widget.basic.drawing.SwitchBox;
 import ej.widget.basic.image.ImageCheck;
@@ -64,25 +64,22 @@ import ej.widget.keyboard.azerty.StandardKey;
  */
 public class StylesheetPopulator {
 
-	private static final int FOREGROUND = MicroEJColors.WHITE;
-	private static final int BACKGROUND = MicroEJColors.CONCRETE_BLACK_75;
-	private static final int LIST_EVEN_BACKGROUND = MicroEJColors.CONCRETE_BLACK_50;
-	private static final int TITLE_BORDER = MicroEJColors.CONCRETE_BLACK_25;
-	private static final int CHECKED_FOREGROUND = MicroEJColors.BONDI;
+	private static final int FOREGROUND = MicroEJColors.CONCRETE_BLACK_25;
+	private static final int BACKGROUND = MicroEJColors.WHITE;
+	private static final int LIST_ODD_BACKGROUND = MicroEJColors.CONCRETE_WHITE_75;
+	private static final int TITLE_BORDER = MicroEJColors.CONCRETE_WHITE_50;
+	private static final int CHECKED_FOREGROUND = MicroEJColors.CORAL;
 	private static final int UNCHECKED_FOREGROUND = MicroEJColors.CONCRETE_BLACK_25;
-	private static final int ACTIVE_FOREGROUND = MicroEJColors.TURQUOISE;
+	private static final int ACTIVE_FOREGROUND = MicroEJColors.POMEGRANATE;
 
-	private static final int KEYBOARD_BACKGROUND_COLOR = 0x232323;
-	private static final int KEYBOARD_KEY_COLOR = 0x8c8c8c;
-	private static final int KEYBOARD_HIGHLIGHT_COLOR = 0x0067b6;
+	private static final int KEYBOARD_BACKGROUND_COLOR = MicroEJColors.CONCRETE_WHITE_75;
+	private static final int KEYBOARD_KEY_COLOR = MicroEJColors.CONCRETE;
+	private static final int KEYBOARD_HIGHLIGHT_COLOR = MicroEJColors.BONDI;
 
-	private static final int ACTIVE_TEXTFIELD_BACKGROUND = 0x757575;
-	private static final int TEXTFIELD_BACKGROUND = 0x4a4a4a;
-	private static final int TEXTFIELD_CORNER_RADIUS = 5;
-	private static final int TEXT_PLACEHOLDER_COLOR = 0x8f8f8f;
+	private static final int TEXT_PLACEHOLDER_COLOR = MicroEJColors.CONCRETE_WHITE_25;
 
 	private static final int KEY_CORNER_RADIUS = 10;
-	private static final int CHART_MARGIN = 10;
+	private static final int BUTTON_CORNER_RADIUS = 14;
 
 	// Prevents initialization.
 	private StylesheetPopulator() {
@@ -99,7 +96,7 @@ public class StylesheetPopulator {
 		defaultStyle.setForegroundColor(FOREGROUND);
 		defaultStyle.setBackgroundColor(BACKGROUND);
 		FontProfile defaultFontProfile = new FontProfile();
-		defaultFontProfile.setFamily(FontFamilies.SOURCE_SANS_PRO_LIGHT);
+		defaultFontProfile.setFamily(FontFamilies.SOURCE_SANS_PRO);
 		defaultFontProfile.setSize(FontSize.MEDIUM);
 		defaultStyle.setFontProfile(defaultFontProfile);
 		// defaultStyle.setBackground(NoBackground.NO_BACKGROUND);
@@ -121,33 +118,37 @@ public class StylesheetPopulator {
 
 		// Sets the label style.
 		EditableStyle style = new EditableStyle();
-		style.setPadding(defaultMargin);
-		stylesheet.addRule(new AndCombinator(labelTypeSelector, listItemSelector), style);
 		style.setBackground(NoBackground.NO_BACKGROUND);
 		stylesheet.addRule(labelTypeSelector, style);
 
+		// Sets the scroll style
+		style.clear();
+		style.setBackground(NoBackground.NO_BACKGROUND);
+		stylesheet.addRule(new TypeSelector(Scrollbar.class), style);
+
+		// Sets the top bar style.
+		style.clear();
+		style.setPadding(new SimpleOutline(7));
+		style.setFontProfile(new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.LARGE, Font.STYLE_PLAIN));
+		style.setBorderColor(TITLE_BORDER);
+		style.setBorder(new ComplexRectangularBorder(0, 0, 2, 0));
+		stylesheet.addRule(new ClassSelector(ClassSelectors.TOP_BAR), style);
+
 		// Sets the title style.
 		style.clear();
-		style.setFontProfile(new FontProfile(FontFamilies.SOURCE_SANS_PRO_LIGHT, FontSize.LARGE, Font.STYLE_PLAIN));
-		style.setBorderColor(TITLE_BORDER);
-		ComplexRectangularBorder titleBorder = new ComplexRectangularBorder();
-		titleBorder.setBottom(2);
-		style.setBorder(titleBorder);
+		style.setMargin(new ComplexOutline(0, 0, 0, 15));
 		stylesheet.addRule(new ClassSelector(ClassSelectors.TITLE), style);
 
 		// Sets the list item style.
 		style.clear();
-		// ComplexRectangularBorder listItemBorder = new ComplexRectangularBorder();
-		// listItemBorder.setBottom(1);
-		// listItemBorder.setColorBottom(Colors.GRAY);
-		// listItemStyle.setBorder(listItemBorder);
-		style.setMargin(new ComplexOutline(0, 4, 0, 4));
+		style.setPadding(new SimpleOutline(10));
 		stylesheet.addRule(listItemSelector, style);
 
+		// Sets the odd list item style.
 		style.clear();
 		style.setBackground(new PlainBackground());
-		style.setBackgroundColor(LIST_EVEN_BACKGROUND);
-		stylesheet.addRule(new AndCombinator(listItemSelector, new EvenChildSelector()), style);
+		style.setBackgroundColor(LIST_ODD_BACKGROUND);
+		stylesheet.addRule(new AndCombinator(listItemSelector, new OddChildSelector()), style);
 
 		// Sets the image style.
 		style.clear();
@@ -188,7 +189,8 @@ public class StylesheetPopulator {
 		stylesheet.addRule(new AndCombinator(switchboxTypeSelector, stateCheckedSelector), style);
 
 		// The font to use for the most of the picto widgets.
-		FontProfile widgetPictoFontProfile = new FontProfile(FontFamilies.PICTO, FontSize.MEDIUM, Font.STYLE_PLAIN);
+		FontProfile widgetPictoFontProfile = new FontProfile(FontFamilies.PICTO, FontFamilies.PICTO_SIZE,
+				Font.STYLE_PLAIN);
 
 		// Sets the unchecked picto toggle style.
 		style.clear();
@@ -237,18 +239,30 @@ public class StylesheetPopulator {
 		stylesheet.addRule(new TypeSelector(PictoProgress.class), style);
 
 		// Sets the illustrated button style.
-		ClassSelector illustratedButtonSelector = new ClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
 		style.clear();
-		style.setBackgroundColor(CHECKED_FOREGROUND);
-		style.setMargin(new ComplexOutline(12, 60, 12, 60));
-		// The content of the button is centered horizontally and vertically.
+		style.setMargin(new ComplexOutline(18, 60, 18, 60));
+		style.setForegroundColor(MicroEJColors.WHITE);
+		style.setBackgroundColor(MicroEJColors.CORAL);
+		style.setBackground(new SimpleRoundedPlainBackground(BUTTON_CORNER_RADIUS - 1));
+		style.setBorderColor(MicroEJColors.CORAL);
+		style.setBorder(new SimpleRoundedBorder(BUTTON_CORNER_RADIUS, 1));
+		FontProfile illustratedButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM,
+				Font.STYLE_PLAIN);
+		style.setFontProfile(illustratedButtonFont);
 		style.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+		Selector illustratedButtonSelector = new ClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
 		stylesheet.addRule(illustratedButtonSelector, style);
 
 		// Sets the illustrated active button style.
 		style.clear();
 		style.setBackgroundColor(ACTIVE_FOREGROUND);
+		style.setBorderColor(ACTIVE_FOREGROUND);
 		stylesheet.addRule(new AndCombinator(illustratedButtonSelector, new StateSelector(State.Active)), style);
+
+		// Sets the text scroll style.
+		style.clear();
+		style.setPadding(new SimpleOutline(12));
+		stylesheet.addRule(new ClassSelector(ClassSelectors.TEXT_SCROLL), style);
 
 		// Sets the text title style.
 		style.clear();
@@ -260,15 +274,17 @@ public class StylesheetPopulator {
 
 		// Sets the multiline style.
 		style.clear();
-		style.setTextManager(new ComplexTextManager(40));
+		style.setTextManager(new ComplexTextManager(25));
+		style.setPadding(new ComplexOutline(0, 0, 20, 0));
 		stylesheet.addRule(new ClassSelector(ClassSelectors.MULTILINE), style);
 
 		// Sets the AZERTY keyboard style.
-		FontProfile keyboardFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.SMALL, Font.STYLE_PLAIN);
+		FontProfile keyboardFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM, Font.STYLE_PLAIN);
 		initAzertyKeyboardStyle(stylesheet, keyboardFont);
 
 		// Sets the edition style.
-		initEditionStyle(stylesheet, keyboardFont);
+		FontProfile editionFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM, Font.STYLE_PLAIN);
+		initEditionStyle(stylesheet, editionFont);
 
 		// Sets the chart style.
 		initializeChartStyle(stylesheet);
@@ -286,12 +302,14 @@ public class StylesheetPopulator {
 		azertyKeyStyle.setForegroundColor(KEYBOARD_KEY_COLOR);
 		azertyKeyStyle.setBackground(NoBackground.NO_BACKGROUND);
 		azertyKeyStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
-		TypeSelector azertyKeySelector = new TypeSelector(StandardKey.class);
+		azertyKeyStyle.setMargin(new ComplexOutline(4, 2, 4, 2));
+		Selector azertyKeySelector = new OrCombinator(new TypeSelector(StandardKey.class),
+				new TypeSelector(SpecialKey.class));
 		stylesheet.addRule(azertyKeySelector, azertyKeyStyle);
 
 		EditableStyle azertyActiveKeyStyle = new EditableStyle();
 		azertyActiveKeyStyle.setForegroundColor(Colors.WHITE);
-		azertyActiveKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS));
+		azertyActiveKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS - 1));
 		azertyActiveKeyStyle.setBackgroundColor(KEYBOARD_HIGHLIGHT_COLOR);
 		azertyActiveKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS, 1));
 		azertyActiveKeyStyle.setBorderColor(KEYBOARD_HIGHLIGHT_COLOR);
@@ -299,69 +317,48 @@ public class StylesheetPopulator {
 		AndCombinator azertyActiveKeySelector = new AndCombinator(azertyKeySelector, activeSelector);
 		stylesheet.addRule(azertyActiveKeySelector, azertyActiveKeyStyle);
 
-		EditableStyle azertySpecialKeyStyle = new EditableStyle();
-		azertySpecialKeyStyle.setBackground(NoBackground.NO_BACKGROUND);
-		azertySpecialKeyStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.BOTTOM);
-		TypeSelector specialKeySelctor = new TypeSelector(SpecialKey.class);
-		stylesheet.addRule(specialKeySelctor, azertySpecialKeyStyle);
-
 		EditableStyle azertySpaceKeyStyle = new EditableStyle();
+		azertySpaceKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS - 1));
 		azertySpaceKeyStyle.setBackgroundColor(KEYBOARD_KEY_COLOR);
-		azertySpaceKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS));
 		azertySpaceKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS, 1));
 		azertySpaceKeyStyle.setBorderColor(KEYBOARD_KEY_COLOR);
 		ClassSelector azertySpaceKeySelector = new ClassSelector(Keyboard.SPACE_KEY_SELECTOR);
 		stylesheet.addRule(azertySpaceKeySelector, azertySpaceKeyStyle);
 
 		EditableStyle azertyActiveShiftKeyStyle = new EditableStyle();
-		azertyActiveShiftKeyStyle.setForegroundColor(Colors.WHITE);
+		azertyActiveShiftKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS - 1));
+		azertyActiveShiftKeyStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_50);
+		azertyActiveShiftKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS, 1));
+		azertyActiveShiftKeyStyle.setBorderColor(MicroEJColors.CONCRETE_WHITE_50);
 		ClassSelector azertyActiveShiftKeySelector = new ClassSelector(Keyboard.SHIFT_KEY_ACTIVE_SELECTOR);
 		stylesheet.addRule(azertyActiveShiftKeySelector, azertyActiveShiftKeyStyle);
-
-		EditableStyle azertyShiftKeyStyle = new EditableStyle();
-		azertyShiftKeyStyle.setForegroundColor(KEYBOARD_KEY_COLOR);
-		ClassSelector azertyShiftKeySelector = new ClassSelector(Keyboard.SHIFT_KEY_INACTIVE_SELECTOR);
-		stylesheet.addRule(azertyShiftKeySelector, azertyShiftKeyStyle);
-
-		EditableStyle azertyNumKeyStyle = new EditableStyle();
-		azertyNumKeyStyle.setForegroundColor(KEYBOARD_KEY_COLOR);
-		ClassSelector azertyNumKeySelector = new ClassSelector(Keyboard.SWITCH_MAPPING_KEY_SELECTOR);
-		stylesheet.addRule(azertyNumKeySelector, azertyNumKeyStyle);
-
-		EditableStyle backspaceKeyStyle = new EditableStyle();
-		ClassSelector backspaceKeySelector = new ClassSelector(Keyboard.BACKSPACE_KEY_SELECTOR);
-		stylesheet.addRule(backspaceKeySelector, backspaceKeyStyle);
 	}
 
 	private static void initEditionStyle(Stylesheet stylesheet, FontProfile fontProfile) {
-		EditableStyle editionStyle = new EditableStyle();
-		editionStyle.setFontProfile(fontProfile);
-		editionStyle.setBackground(new PlainBackground());
-		editionStyle.setForegroundColor(Colors.WHITE);
-		editionStyle.setBackgroundColor(Colors.BLACK);
-		TypeOrSubtypeSelector editionSelector = new TypeOrSubtypeSelector(KeyboardPage.class);
-		stylesheet.addRule(editionSelector, editionStyle);
-
 		EditableStyle textStyle = new EditableStyle();
-		textStyle.setForegroundColor(TEXT_PLACEHOLDER_COLOR);
-		textStyle.setBackgroundColor(TEXTFIELD_BACKGROUND);
-		textStyle.setBackground(new SimpleRoundedPlainBackground(TEXTFIELD_CORNER_RADIUS));
-		textStyle.setBorderColor(TEXTFIELD_BACKGROUND);
+		textStyle.setForegroundColor(FOREGROUND);
+		textStyle.setBackground(NoBackground.NO_BACKGROUND);
+		textStyle.setBorderColor(FOREGROUND);
+		textStyle.setBorder(new ComplexRectangularBorder(0, 0, 2, 0));
 		textStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
-		textStyle.setBorder(new SimpleRoundedBorder(TEXTFIELD_CORNER_RADIUS, 1));
 		textStyle.setTextManager(new SimpleTextManager());
 		textStyle.setMargin(new SimpleOutline(5));
-		textStyle.setPadding(new ComplexOutline(1, 5, 1, 5));
+		textStyle.setPadding(new ComplexOutline(0, 3, 0, 3));
+		textStyle.setFontProfile(fontProfile);
 		TypeSelector textSelector = new TypeSelector(KeyboardText.class);
 		stylesheet.addRule(textSelector, textStyle);
 
 		EditableStyle focusedTextStyle = new EditableStyle();
-		focusedTextStyle.setForegroundColor(Colors.WHITE);
-		focusedTextStyle.setBackgroundColor(ACTIVE_TEXTFIELD_BACKGROUND);
-		focusedTextStyle.setBorderColor(ACTIVE_TEXTFIELD_BACKGROUND);
+		focusedTextStyle.setBorderColor(CHECKED_FOREGROUND);
 		StateSelector focusSelector = new StateSelector(State.Focus);
 		AndCombinator focusedTextSelector = new AndCombinator(textSelector, focusSelector);
 		stylesheet.addRule(focusedTextSelector, focusedTextStyle);
+
+		EditableStyle placeholderTextStyle = new EditableStyle();
+		placeholderTextStyle.setForegroundColor(TEXT_PLACEHOLDER_COLOR);
+		StateSelector emptySelector = new StateSelector(State.Empty);
+		AndCombinator placeholderTextSelector = new AndCombinator(textSelector, emptySelector);
+		stylesheet.addRule(placeholderTextSelector, placeholderTextStyle);
 
 		EditableStyle formStyle = new EditableStyle();
 		formStyle.setMargin(new SimpleOutline(10));
@@ -372,37 +369,28 @@ public class StylesheetPopulator {
 	private static void initializeChartStyle(Stylesheet stylesheet) {
 		// Sets the chart style.
 		EditableStyle chartStyle = new EditableStyle();
-		chartStyle.setForegroundColor(Colors.WHITE);
+		chartStyle.setForegroundColor(MicroEJColors.CONCRETE_WHITE_25);
 		chartStyle.setBackground(NoBackground.NO_BACKGROUND);
 		FontProfile chartFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.SMALL, Font.STYLE_PLAIN);
 		chartStyle.setFontProfile(chartFont);
-		chartStyle.setMargin(new SimpleOutline(CHART_MARGIN));
+		chartStyle.setMargin(new ComplexOutline(10, 40, 10, 40));
 		stylesheet.addRule(new ClassSelector(ClassSelectors.CHART), chartStyle);
 
 		// Sets the chart point style.
 		EditableStyle chartPointStyle = new EditableStyle();
-		chartPointStyle.setForegroundColor(0x009898);
-		chartPointStyle.setBackgroundColor(Colors.GRAY);
+		chartPointStyle.setForegroundColor(MicroEJColors.CONCRETE_WHITE_25);
 		Selector chartPointSelector = new TypeSelector(ChartPoint.class);
 		stylesheet.addRule(chartPointSelector, chartPointStyle);
 
-		// Sets the highlighted chart point style.
-		EditableStyle chartPointHighlightedStyle = new EditableStyle();
-		chartPointHighlightedStyle.setForegroundColor(Colors.PURPLE);
-		chartPointHighlightedStyle.setBackgroundColor(Colors.MAGENTA);
-		Selector chartPointHighlightedSelector = new AndCombinator(chartPointSelector,
-				new StateSelector(State.Visited));
-		stylesheet.addRule(chartPointHighlightedSelector, chartPointHighlightedStyle);
-
 		// Sets the selected chart point style.
 		EditableStyle chartPointSelectedStyle = new EditableStyle();
-		chartPointSelectedStyle.setForegroundColor(Colors.CYAN);
+		chartPointSelectedStyle.setForegroundColor(MicroEJColors.CORAL);
 		Selector chartPointSelectedSelector = new AndCombinator(chartPointSelector, new StateSelector(State.Checked));
 		stylesheet.addRule(chartPointSelectedSelector, chartPointSelectedStyle);
 
 		// Sets the selected chart point value style.
 		EditableStyle chartPointValueStyle = new EditableStyle();
-		chartPointValueStyle.setForegroundColor(Colors.CYAN);
+		chartPointValueStyle.setForegroundColor(MicroEJColors.CORAL);
 		FontProfile chartPointValueFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.SMALL,
 				Font.STYLE_PLAIN);
 		chartPointValueStyle.setFontProfile(chartPointValueFont);
@@ -411,12 +399,25 @@ public class StylesheetPopulator {
 
 		// Sets the switch button style.
 		EditableStyle switchButtonStyle = new EditableStyle();
-		switchButtonStyle.setForegroundColor(Colors.CYAN);
-		FontProfile switchButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.SMALL, Font.STYLE_PLAIN);
+		switchButtonStyle.setMargin(new ComplexOutline(4, 140, 13, 140));
+		switchButtonStyle.setForegroundColor(MicroEJColors.WHITE);
+		switchButtonStyle.setBackgroundColor(MicroEJColors.CORAL);
+		switchButtonStyle.setBackground(new SimpleRoundedPlainBackground(BUTTON_CORNER_RADIUS - 1));
+		switchButtonStyle.setBorderColor(MicroEJColors.CORAL);
+		switchButtonStyle.setBorder(new SimpleRoundedBorder(BUTTON_CORNER_RADIUS, 1));
+		FontProfile switchButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM, Font.STYLE_PLAIN);
 		switchButtonStyle.setFontProfile(switchButtonFont);
 		switchButtonStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
 		Selector switchButtonSelector = new ClassSelector(ClassSelectors.SWITCH_BUTTON);
 		stylesheet.addRule(switchButtonSelector, switchButtonStyle);
+
+		// Sets the switch active button style.
+		EditableStyle activeSwitchButtonStyle = new EditableStyle();
+		activeSwitchButtonStyle.setBackgroundColor(ACTIVE_FOREGROUND);
+		activeSwitchButtonStyle.setBorderColor(ACTIVE_FOREGROUND);
+		stylesheet.addRule(new AndCombinator(switchButtonSelector, new StateSelector(State.Active)),
+				activeSwitchButtonStyle);
+
 	}
 
 }

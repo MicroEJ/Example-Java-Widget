@@ -68,6 +68,7 @@ public abstract class AbstractDemoPage extends Page {
 		titleLabel.addClassSelector(ClassSelectors.TITLE);
 
 		SimpleDock topBar = new SimpleDock();
+		topBar.addClassSelector(ClassSelectors.TOP_BAR);
 		topBar.setCenter(titleLabel);
 
 		if (WidgetsDemo.canGoBack()) {

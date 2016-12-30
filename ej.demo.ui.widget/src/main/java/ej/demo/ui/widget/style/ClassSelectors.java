@@ -12,7 +12,12 @@ package ej.demo.ui.widget.style;
 public interface ClassSelectors {
 
 	/**
-	 * The title class selector.
+	 * The top bar selector.
+	 */
+	String TOP_BAR = "top_bar"; //$NON-NLS-1$
+
+	/**
+	 * The title selector.
 	 */
 	String TITLE = "title"; //$NON-NLS-1$
 
@@ -25,6 +30,11 @@ public interface ClassSelectors {
 	 * The illustrated button class selector.
 	 */
 	String ILLUSTRATED_BUTTON = "illustrated_button"; //$NON-NLS-1$
+
+	/**
+	 * The text scroll class selector.
+	 */
+	String TEXT_SCROLL = "text_scroll"; //$NON-NLS-1$
 
 	/**
 	 * The text title class selector.

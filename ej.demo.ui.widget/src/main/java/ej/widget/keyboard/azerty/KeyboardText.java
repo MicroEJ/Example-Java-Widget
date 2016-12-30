@@ -442,7 +442,7 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 		bounds.decrementSize(1, 1);
 
 		// handling placeholder case
-		if (isEmpty() && !this.focused) {
+		if (isEmpty()) {
 			text = this.placeHolder;
 		}
 

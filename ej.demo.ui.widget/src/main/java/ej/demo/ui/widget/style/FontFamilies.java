@@ -22,7 +22,7 @@ public interface FontFamilies {
 	String SOURCE_SANS_PRO = "source_sans_pro"; //$NON-NLS-1$
 
 	/**
-	 * The source sans pro light font family.
+	 * The picto font size.
 	 */
-	String SOURCE_SANS_PRO_LIGHT = "source_sans_pro_light"; //$NON-NLS-1$
+	int PICTO_SIZE = 30;
 }

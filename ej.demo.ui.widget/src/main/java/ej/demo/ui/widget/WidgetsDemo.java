@@ -18,6 +18,7 @@ import ej.widget.navigation.navigator.HistorizedNavigator;
 import ej.widget.navigation.page.URLResolver;
 import ej.widget.navigation.stack.PageStack;
 import ej.widget.navigation.stack.PageStackURL;
+import ej.widget.navigation.transition.HorizontalTransitionManager;
 
 /**
  * This demo illustrates the widgets library.
@@ -83,7 +84,7 @@ public class WidgetsDemo {
 		URLResolver urlResolver = new DirectURLResolver();
 		PageStack pageStack = new PageStackURL(urlResolver);
 		HistorizedNavigator navigator = new HistorizedNavigator(urlResolver, pageStack);
-		// navigator.setTransitionManager(new HorizontalTransitionManager());
+		navigator.setTransitionManager(new HorizontalTransitionManager());
 		return navigator;
 	}
 

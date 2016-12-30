@@ -21,16 +21,28 @@ import ej.style.util.StyleHelper;
 public class LineChart extends BasicChart {
 
 	/**
+	 * Values
+	 */
+	private static final int CIRCLE_RADIUS = 2;
+
+	/**
 	 * Attributes
 	 */
-	private boolean drawArea;
+	private final boolean drawArea;
+	private final boolean drawCircles;
 	private float xStep;
 
 	/**
 	 * Constructor
+	 *
+	 * @param drawArea
+	 *            draw the area under the line
+	 * @param drawCircles
+	 *            draw the circles
 	 */
-	public LineChart(boolean drawArea) {
+	public LineChart(boolean drawArea, boolean drawCircles) {
 		this.drawArea = drawArea;
+		this.drawCircles = drawCircles;
 	}
 
 	/**
@@ -44,7 +56,7 @@ public class LineChart extends BasicChart {
 		int yBarBottom = getBarBottom(fontHeight, bounds);
 		int yBarTop = getBarTop(fontHeight, bounds);
 
-		this.xStep = (bounds.getWidth() - LEFT_PADDING - fontHeight/4) / (getPoints().size() - 1.0f);
+		this.xStep = (bounds.getWidth() - LEFT_PADDING - fontHeight / 4) / (getPoints().size() - 1.0f);
 
 		float topValue = getScale().getTopValue();
 
@@ -56,13 +68,14 @@ public class LineChart extends BasicChart {
 
 		AntiAliasedShapes antiAliasedShapes = AntiAliasedShapes.Singleton;
 		antiAliasedShapes.setThickness(0);
+		antiAliasedShapes.setFade(1);
 
 		int previousX = -1;
 		int previousY = -1;
 		int previousBackgroundColor = -1;
 		int pointIndex = 0;
 		for (ChartPoint chartPoint : getPoints()) {
-			int currentX = (int) (LEFT_PADDING + pointIndex*this.xStep);
+			int currentX = (int) (LEFT_PADDING + pointIndex * this.xStep);
 			float value = chartPoint.getValue();
 
 			int foregroundColor = chartPoint.getStyle().getForegroundColor();
@@ -89,14 +102,14 @@ public class LineChart extends BasicChart {
 						int midX = (currentX + previousX) / 2;
 						g.setColor(previousBackgroundColor);
 						for (int x = previousX; x < midX; x++) {
-							g.drawLine(x, (int) (previousY + (x-previousX)*stepY), x, yBarBottom);
+							g.drawLine(x, (int) (previousY + (x - previousX) * stepY), x, yBarBottom);
 						}
 						g.setColor(backgroundColor);
 						for (int x = midX; x < currentX; x++) {
-							g.drawLine(x, (int) (previousY + (x-previousX)*stepY), x, yBarBottom);
+							g.drawLine(x, (int) (previousY + (x - previousX) * stepY), x, yBarBottom);
 						}
 					}
-	
+
 					g.setColor(style.getForegroundColor());
 					antiAliasedShapes.drawLine(g, previousX, previousY, currentX, currentY);
 				}
@@ -113,30 +126,33 @@ public class LineChart extends BasicChart {
 		renderScale(g, style, bounds, topValue);
 
 		// draw circles
-		if (this.drawArea) {
-			int radius = (int) (this.xStep / 4);
-			radius = Math.max(1, radius);
-			radius = Math.min(3, radius);
+		if (this.drawCircles) {
 			pointIndex = 0;
 			for (ChartPoint chartPoint : getPoints()) {
-				int currentX = (int) (LEFT_PADDING + pointIndex*this.xStep);
+				int currentX = (int) (LEFT_PADDING + pointIndex * this.xStep);
 				float value = chartPoint.getValue();
 				if (value < 0.0f) {
 					pointIndex++;
 					continue;
 				}
-	
+
 				int foregroundColor = chartPoint.getStyle().getForegroundColor();
 				g.setColor(foregroundColor);
-	
+
 				int finalLength = (int) ((yBarBottom - yBarTop) * value / topValue);
 				int apparitionLength = (int) (finalLength * getAnimationRatio());
 				int yTop = yBarBottom - apparitionLength;
 				int currentY = yTop;
-	
+
+				int circleX = currentX - CIRCLE_RADIUS;
+				int circleY = currentY - CIRCLE_RADIUS;
+				int circleD = 2 * CIRCLE_RADIUS + 1;
+
 				g.setColor(foregroundColor);
-				g.fillCircle(currentX-radius, currentY-radius, 2*radius+1);
-	
+				g.fillCircle(circleX, circleY, circleD);
+				antiAliasedShapes.setThickness(2);
+				antiAliasedShapes.drawCircle(g, circleX, circleY, circleD);
+
 				pointIndex++;
 			}
 		}

@@ -23,13 +23,14 @@ import ej.widget.listener.OnClickListener;
  */
 public class ChartPage extends AbstractDemoPage {
 
-	private static final String[] POINTS = { "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
-			"Nine", "Ten" };
+	@SuppressWarnings("nls")
+	private static final String[] MONTHS = { "January", "February", "March", "April", "May", "June", "July", "August",
+			"September", "October", "November", "December" };
 
 	private static final String UNIT = "km"; //$NON-NLS-1$
 	private static final String SWITCH_TO_BAR = "Switch to bar chart"; //$NON-NLS-1$
 	private static final String SWITCH_TO_LINE = "Switch to line chart"; //$NON-NLS-1$
-	private static final float SPLIT_RATIO = 0.90f;
+	private static final float SPLIT_RATIO = 0.80f;
 
 	@Override
 	protected String getTitle() {
@@ -51,7 +52,7 @@ public class ChartPage extends AbstractDemoPage {
 			@Override
 			public void onClick() {
 				this.isBar = !this.isBar;
-				Chart newChart = (this.isBar ? new BarChart() : new LineChart(true));
+				Chart newChart = (this.isBar ? new BarChart() : new LineChart(false, true));
 				loadChart(newChart);
 				split.setFirst(newChart);
 				split.revalidate();
@@ -69,9 +70,9 @@ public class ChartPage extends AbstractDemoPage {
 		chart.addClassSelector(ClassSelectors.CHART);
 
 		// add points
-		for (int i = 0; i < POINTS.length; i++) {
-			String name = Integer.toString(i);
-			String fullName = POINTS[i];
+		for (int i = 0; i < MONTHS.length; i++) {
+			String name = MONTHS[i].substring(0, 1);
+			String fullName = MONTHS[i];
 			float value = genRandomValue();
 			ChartPoint chartPoint = new ChartPoint(name, fullName, value);
 			chart.addPoint(chartPoint);
@@ -82,10 +83,10 @@ public class ChartPage extends AbstractDemoPage {
 		chart.updateScale();
 
 		// set unit
-		chart.setUnit(this.UNIT);
+		chart.setUnit(ChartPage.UNIT);
 
 		// set format
-		chart.setFormat(new DecimalsChartFormat(1, 3));
+		chart.setFormat(new DecimalsChartFormat(0, 3));
 	}
 
 	private float genRandomValue() {

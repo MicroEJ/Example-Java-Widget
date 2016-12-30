@@ -28,13 +28,12 @@ import ej.style.util.StyleHelper;
  */
 public abstract class BasicChart extends Chart implements Animation {
 
-	protected static final int LEFT_PADDING = 50;
+	protected static final int LEFT_PADDING = 30;
 
 	private static final int APPARITION_DURATION = 300;
 	private static final int APPARITION_STEPS = 100;
 
 	private static final int SELECTED_VALUE_PADDING = 5;
-	private static final int SELECTED_VALUE_CORNER_RADIUS = 5;
 
 	public static final String CLASS_SELECTOR_SELECTED_VALUE = "chart-selected-value";
 
@@ -108,11 +107,9 @@ public abstract class BasicChart extends Chart implements Animation {
 			int action = Pointer.getAction(event);
 			switch (action) {
 			case Pointer.PRESSED:
-				onPointerPressed(pointerX, pointerY);
-				break;
 			case Pointer.DRAGGED:
 				onPointerPressed(pointerX, pointerY);
-				break;
+				return true;
 			}
 		}
 		return super.handleEvent(event);
@@ -154,6 +151,7 @@ public abstract class BasicChart extends Chart implements Animation {
 			int yScale = yBarBottom + (yBarTop - yBarBottom) * i / numScaleValues;
 
 			g.drawString(scaleString, xScale, yScale, GraphicsContext.RIGHT | GraphicsContext.VCENTER);
+			g.setStrokeStyle(GraphicsContext.DOTTED);
 			g.drawLine(LEFT_PADDING, yScale, bounds.getWidth(), yScale);
 		}
 
@@ -177,17 +175,13 @@ public abstract class BasicChart extends Chart implements Animation {
 
 			Style labelStyle = this.selectedValueElement.getStyle();
 			Font labelFont = StyleHelper.getFont(labelStyle);
-			int labelFontHeight = labelFont.getHeight();
 
 			int labelW = labelFont.stringWidth(labelString) + 2 * SELECTED_VALUE_PADDING;
-			int labelH = labelFontHeight;
-			int labelX = bounds.getWidth() - 1 - labelW;
+			int labelX = (bounds.getWidth() - labelW) / 2;
 			int labelY = 0;
-			int arcSize = 2 * SELECTED_VALUE_CORNER_RADIUS;
 
 			g.setFont(labelFont);
 			g.setColor(labelStyle.getForegroundColor());
-			g.drawRoundRect(labelX, labelY, labelW, labelH, arcSize, arcSize);
 			g.drawString(labelString, labelX + SELECTED_VALUE_PADDING, labelY,
 					GraphicsContext.LEFT | GraphicsContext.TOP);
 		}

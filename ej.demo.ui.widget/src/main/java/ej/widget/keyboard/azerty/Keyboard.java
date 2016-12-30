@@ -97,7 +97,7 @@ public class Keyboard extends StyledComposite {
 		add(new StandardKey('m', this.keyboard), secondRow, 9, 1);
 		this.rows[1] = secondRow;
 
-		Row thirdRow = new Row(10);
+		Row thirdRow = new Row(9);
 		add(newShiftKey(false), thirdRow, 0, 1);
 		add(new StandardKey('w', this.keyboard), thirdRow, 1, 1);
 		add(new StandardKey('x', this.keyboard), thirdRow, 2, 1);
@@ -105,7 +105,7 @@ public class Keyboard extends StyledComposite {
 		add(new StandardKey('v', this.keyboard), thirdRow, 4, 1);
 		add(new StandardKey('b', this.keyboard), thirdRow, 5, 1);
 		add(new StandardKey('n', this.keyboard), thirdRow, 6, 1);
-		add(newBackspaceKey(), thirdRow, 8, 2);
+		add(newBackspaceKey(), thirdRow, 7, 2);
 		this.rows[2] = thirdRow;
 
 		Row fourthRow = new Row(10);
@@ -146,7 +146,7 @@ public class Keyboard extends StyledComposite {
 		add(new StandardKey('M', this.keyboard), secondRow, 9, 1);
 		this.rows[1] = secondRow;
 
-		Row thirdRow = new Row(10);
+		Row thirdRow = new Row(9);
 		add(newShiftKey(true), thirdRow, 0, 1);
 		add(new StandardKey('W', this.keyboard), thirdRow, 1, 1);
 		add(new StandardKey('X', this.keyboard), thirdRow, 2, 1);
@@ -154,7 +154,7 @@ public class Keyboard extends StyledComposite {
 		add(new StandardKey('V', this.keyboard), thirdRow, 4, 1);
 		add(new StandardKey('B', this.keyboard), thirdRow, 5, 1);
 		add(new StandardKey('N', this.keyboard), thirdRow, 6, 1);
-		add(newBackspaceKey(), thirdRow, 8, 2);
+		add(newBackspaceKey(), thirdRow, 7, 2);
 		this.rows[2] = thirdRow;
 
 		Row fourthRow = new Row(10);

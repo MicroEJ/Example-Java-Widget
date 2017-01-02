@@ -9,6 +9,7 @@ package ej.demo.ui.widget.page;
 import ej.demo.ui.widget.style.ClassSelectors;
 import ej.mwt.Widget;
 import ej.widget.chart.BarChart;
+import ej.widget.chart.BasicChart;
 import ej.widget.chart.Chart;
 import ej.widget.chart.ChartPoint;
 import ej.widget.chart.LineChart;
@@ -52,8 +53,9 @@ public class ChartPage extends AbstractDemoPage {
 			@Override
 			public void onClick() {
 				this.isBar = !this.isBar;
-				Chart newChart = (this.isBar ? new BarChart() : new LineChart(false, true));
+				BasicChart newChart = (this.isBar ? new BarChart() : new LineChart(false, true));
 				loadChart(newChart);
+				newChart.onTransitionStop();
 				split.setFirst(newChart);
 				split.revalidate();
 				switchButton.setText(this.isBar ? SWITCH_TO_LINE : SWITCH_TO_BAR);

@@ -336,7 +336,7 @@ public class StylesheetPopulator {
 		textStyle.setForegroundColor(FOREGROUND);
 		textStyle.setBackground(NoBackground.NO_BACKGROUND);
 		textStyle.setBorderColor(FOREGROUND);
-		textStyle.setBorder(new ComplexRectangularBorder(0, 0, 2, 0));
+		textStyle.setBorder(new ComplexRectangularBorder(0, 0, 1, 0));
 		textStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
 		textStyle.setTextManager(new SimpleTextManager());
 		textStyle.setMargin(new SimpleOutline(5));
@@ -347,6 +347,8 @@ public class StylesheetPopulator {
 
 		EditableStyle focusedTextStyle = new EditableStyle();
 		focusedTextStyle.setBorderColor(CHECKED_FOREGROUND);
+		focusedTextStyle.setBorder(new ComplexRectangularBorder(0, 0, 2, 0));
+		focusedTextStyle.setPadding(new ComplexOutline(0, 1, -1, 1));
 		StateSelector focusSelector = new StateSelector(State.Focus);
 		AndCombinator focusedTextSelector = new AndCombinator(textSelector, focusSelector);
 		stylesheet.addRule(focusedTextSelector, focusedTextStyle);

@@ -340,7 +340,7 @@ public class StylesheetPopulator {
 		textStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
 		textStyle.setTextManager(new SimpleTextManager());
 		textStyle.setMargin(new SimpleOutline(5));
-		textStyle.setPadding(new ComplexOutline(0, 3, 0, 3));
+		textStyle.setPadding(new ComplexOutline(0, 1, 0, 1));
 		textStyle.setFontProfile(fontProfile);
 		TypeSelector textSelector = new TypeSelector(KeyboardText.class);
 		stylesheet.addRule(textSelector, textStyle);
@@ -356,6 +356,10 @@ public class StylesheetPopulator {
 		StateSelector emptySelector = new StateSelector(State.Empty);
 		AndCombinator placeholderTextSelector = new AndCombinator(textSelector, emptySelector);
 		stylesheet.addRule(placeholderTextSelector, placeholderTextStyle);
+
+		EditableStyle selectionStyle = new EditableStyle();
+		selectionStyle.setForegroundColor(MicroEJColors.CHICK);
+		stylesheet.addRule(new ClassSelector(KeyboardText.CLASS_SELECTOR_SELECTION), selectionStyle);
 
 		EditableStyle formStyle = new EditableStyle();
 		formStyle.setMargin(new ComplexOutline(5, 10, 5, 10));

@@ -24,6 +24,7 @@ import ej.style.State;
 import ej.style.Style;
 import ej.style.container.Rectangle;
 import ej.style.text.TextManager;
+import ej.style.util.ElementAdapter;
 import ej.style.util.StyleHelper;
 import ej.widget.StyledWidget;
 import ej.widget.listener.OnClickListener;
@@ -37,6 +38,8 @@ import ej.widget.util.ControlCharacters;
 @Element
 public class KeyboardText extends StyledWidget implements EventHandler {
 
+	public static final String CLASS_SELECTOR_SELECTION = "keyboard-text-selection"; //$NON-NLS-1$
+
 	private static final OnClickListener[] EMPTY_LISTENERS = new OnClickListener[0];
 	private static final OnTextChangeListener[] EMPTY_TEXT_LISTENERS = new OnTextChangeListener[0];
 	private static final OnFocusListener[] EMPTY_FOCUS_LISTENERS = new OnFocusListener[0];
@@ -44,6 +47,8 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
 	private static final long BLINK_PERIOD = 500;
+
+	private final ElementAdapter selectionElement;
 
 	private StringBuffer buffer;
 	private String placeHolder;
@@ -91,6 +96,8 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 	@ElementConstructor
 	public KeyboardText(@ElementAttribute(defaultValue = EMPTY_STRING) String text,
 			@ElementAttribute(defaultValue = EMPTY_STRING) String placeHolder) {
+		this.selectionElement = new ElementAdapter(this);
+		this.selectionElement.addClassSelector(CLASS_SELECTOR_SELECTION);
 		this.onTextChangeListeners = EMPTY_TEXT_LISTENERS;
 		this.onClickListeners = EMPTY_LISTENERS;
 		this.onFocusListeners = EMPTY_FOCUS_LISTENERS;
@@ -503,10 +510,12 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 		int selectionStart = getSelectionStart();
 		int selectionEnd = getSelectionEnd();
 		if (selectionStart != selectionEnd || this.showCursor) {
+			Style selectionStyle = this.selectionElement.getStyle();
 			Rectangle[] selection = textManager.getBounds(selectionStart, selectionEnd, text, font, bounds, alignment);
-			g.setColor(foregroundColor);
+			g.setColor(selectionStyle.getForegroundColor());
 			for (Rectangle rectangle : selection) {
-				g.drawRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+				int w = (selectionStart != selectionEnd ? rectangle.getWidth() : 1);
+				g.fillRect(rectangle.getX() + 1, rectangle.getY(), w, rectangle.getHeight());
 			}
 		}
 
@@ -556,6 +565,7 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 	public void lostFocus() {
 		super.lostFocus();
 		notifyOnLostFocusListeners();
+		this.caretEnd = this.caretStart = this.buffer.length();
 		this.blinkTask.cancel();
 		updateStyle();
 	}

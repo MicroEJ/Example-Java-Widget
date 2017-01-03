@@ -22,6 +22,7 @@ import ej.microui.event.generator.Pointer;
 import ej.microui.util.EventHandler;
 import ej.style.State;
 import ej.style.Style;
+import ej.style.container.AlignmentHelper;
 import ej.style.container.Rectangle;
 import ej.style.text.TextManager;
 import ej.style.util.ElementAdapter;
@@ -39,6 +40,7 @@ import ej.widget.util.ControlCharacters;
 public class KeyboardText extends StyledWidget implements EventHandler {
 
 	public static final String CLASS_SELECTOR_SELECTION = "keyboard-text-selection"; //$NON-NLS-1$
+	public static final String CLASS_SELECTOR_CLEAR_BUTTON = "keyboard-text-clear-button"; //$NON-NLS-1$
 
 	private static final OnClickListener[] EMPTY_LISTENERS = new OnClickListener[0];
 	private static final OnTextChangeListener[] EMPTY_TEXT_LISTENERS = new OnTextChangeListener[0];
@@ -49,6 +51,7 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 	private static final long BLINK_PERIOD = 500;
 
 	private final ElementAdapter selectionElement;
+	private final ElementAdapter clearButtonElement;
 
 	private StringBuffer buffer;
 	private String placeHolder;
@@ -98,6 +101,8 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 			@ElementAttribute(defaultValue = EMPTY_STRING) String placeHolder) {
 		this.selectionElement = new ElementAdapter(this);
 		this.selectionElement.addClassSelector(CLASS_SELECTOR_SELECTION);
+		this.clearButtonElement = new ElementAdapter(this);
+		this.clearButtonElement.addClassSelector(CLASS_SELECTOR_CLEAR_BUTTON);
 		this.onTextChangeListeners = EMPTY_TEXT_LISTENERS;
 		this.onClickListeners = EMPTY_LISTENERS;
 		this.onFocusListeners = EMPTY_FOCUS_LISTENERS;
@@ -523,6 +528,12 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 		g.translate(1, 1);
 		textManager.drawText(g, text, font, foregroundColor, bounds, alignment);
 		g.translate(-1, -1);
+
+		// Draw clear button.
+		Style clearButtonStyle = this.clearButtonElement.getStyle();
+		Font clearButtonFont = StyleHelper.getFont(clearButtonStyle);
+		textManager.drawText(g, "x", clearButtonFont, clearButtonStyle.getForegroundColor(), bounds,
+				clearButtonStyle.getAlignment());
 	}
 
 	@Override
@@ -626,6 +637,19 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 	}
 
 	private void onPointerPressed(int pointerX, int pointerY) {
+		// check clear button event
+		Rectangle bounds = this.getContentBounds();
+		Style style = this.clearButtonElement.getStyle();
+		int clearButtonWidth = StyleHelper.getFont(style).stringWidth("x");
+		int clearButtonX = AlignmentHelper.computeXLeftCorner(clearButtonWidth, bounds.getX(), bounds.getWidth(),
+				style.getAlignment());
+		int pX = getRelativeX(pointerX);
+		if (pX >= clearButtonX && pX < clearButtonX + clearButtonWidth) {
+			setText("");
+			return;
+		}
+
+		// set caret
 		int newCaret = getCaret(pointerX, pointerY);
 		setCaret(newCaret); // reset selection and caret to current position
 	}

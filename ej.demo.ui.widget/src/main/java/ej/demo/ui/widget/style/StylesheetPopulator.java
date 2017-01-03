@@ -363,6 +363,13 @@ public class StylesheetPopulator {
 		selectionStyle.setForegroundColor(MicroEJColors.CHICK);
 		stylesheet.addRule(new ClassSelector(KeyboardText.CLASS_SELECTOR_SELECTION), selectionStyle);
 
+		EditableStyle clearButtonStyle = new EditableStyle();
+		clearButtonStyle.setAlignment(GraphicsContext.RIGHT | GraphicsContext.VCENTER);
+		clearButtonStyle.setForegroundColor(FOREGROUND);
+		FontProfile clearButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.LARGE, Font.STYLE_PLAIN);
+		clearButtonStyle.setFontProfile(clearButtonFont);
+		stylesheet.addRule(new ClassSelector(KeyboardText.CLASS_SELECTOR_CLEAR_BUTTON), clearButtonStyle);
+
 		EditableStyle formStyle = new EditableStyle();
 		formStyle.setMargin(new ComplexOutline(5, 10, 5, 10));
 		ClassSelector formSelector = new ClassSelector(ClassSelectors.FORM);

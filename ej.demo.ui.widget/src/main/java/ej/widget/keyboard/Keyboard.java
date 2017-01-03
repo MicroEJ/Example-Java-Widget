@@ -22,16 +22,26 @@ import ej.widget.util.ControlCharacters;
  */
 public class Keyboard extends StyledComposite {
 
-	public static final String SPACE_KEY_SELECTOR = "space_key";
-	public static final String BACKSPACE_KEY_SELECTOR = "backspace_key";
-	public static final String SHIFT_KEY_INACTIVE_SELECTOR = "shift_key_inactive";
-	public static final String SHIFT_KEY_ACTIVE_SELECTOR = "shift_key_active";
-	public static final String SWITCH_MAPPING_KEY_SELECTOR = "switch_mapping_key";
-	public static final String SPECIAL_KEY_SELECTOR = "special_key";
+	public static final String SPACE_KEY_SELECTOR = "space_key"; //$NON-NLS-1$
+	public static final String BACKSPACE_KEY_SELECTOR = "backspace_key"; //$NON-NLS-1$
+	public static final String SHIFT_KEY_INACTIVE_SELECTOR = "shift_key_inactive"; //$NON-NLS-1$
+	public static final String SHIFT_KEY_ACTIVE_SELECTOR = "shift_key_active"; //$NON-NLS-1$
+	public static final String SWITCH_MAPPING_KEY_SELECTOR = "switch_mapping_key"; //$NON-NLS-1$
+	public static final String SPECIAL_KEY_SELECTOR = "special_key"; //$NON-NLS-1$
 
-	private static final int ABC_MAPPING = 0;
-	private static final int NUMERIC_MAPPING = 1;
-	private static final int SYMBOL_MAPPING = 2;
+	enum Mapping {
+		ABC("ABC"), NUMERIC("123"), SYMBOL("#+="); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
+		String string;
+
+		Mapping(String string) {
+			this.string = string;
+		}
+
+		public String getString() {
+			return this.string;
+		}
+	}
 
 	private static class Cell {
 
@@ -63,6 +73,7 @@ public class Keyboard extends StyledComposite {
 
 	private final Row[] rows;
 	private final ej.microui.event.generator.Keyboard keyboard;
+	private Layout[] layouts;
 	private String specialKeyText;
 	private OnClickListener specialKeyListener;
 
@@ -72,8 +83,19 @@ public class Keyboard extends StyledComposite {
 	public Keyboard() {
 		this.keyboard = ServiceLoaderFactory.getServiceLoader().getService(ej.microui.event.generator.Keyboard.class);
 		this.rows = new Row[4];
+		this.layouts = null;
 		createKeys();
-		setLowerLetterMapping();
+	}
+
+	/**
+	 * Sets the layouts
+	 *
+	 * @param layouts
+	 *            the four keyboard layouts to use
+	 */
+	public void setLayouts(Layout[] layouts) {
+		this.layouts = layouts;
+		setLowerCaseMapping();
 	}
 
 	/**
@@ -120,112 +142,80 @@ public class Keyboard extends StyledComposite {
 		return new Key(this.keyboard);
 	}
 
-	private void setLowerLetterMapping() {
-		// first row
-		final String firstRowChars = "azertyuiop";
-		for (int i = 0; i < 10; i++) {
-			setStandardKey(0, i, firstRowChars.charAt(i));
-		}
-
-		// second row
-		final String secondRowChars = "qsdfghjklm";
-		for (int i = 0; i < 10; i++) {
-			setStandardKey(1, i, secondRowChars.charAt(i));
-		}
-
+	private void setLowerCaseMapping() {
 		// third row
-		final String thirdRowChars = "wxcvbn";
 		setShiftKey(2, 0, false);
-		for (int i = 0; i < 6; i++) {
-			setStandardKey(2, i + 1, thirdRowChars.charAt(i));
-		}
 		setBackspaceKey(2, 7);
 
 		// fourth row
-		setMappingKey(3, 0, NUMERIC_MAPPING);
+		setMappingKey(3, 0, Mapping.NUMERIC);
 		setSpaceKey(3, 1);
 		setSpecialKey(3, 2);
+
+		// layout
+		applyLayout(this.layouts[0]);
 	}
 
-	private void setUpperLetterMapping() {
-		// first row
-		final String firstRowChars = "AZERTYUIOP";
-		for (int i = 0; i < 10; i++) {
-			setStandardKey(0, i, firstRowChars.charAt(i));
-		}
-
-		// second row
-		final String secondRowChars = "QSDFGHJKLM";
-		for (int i = 0; i < 10; i++) {
-			setStandardKey(1, i, secondRowChars.charAt(i));
-		}
-
+	private void setUpperCaseMapping() {
 		// third row
-		final String thirdRowChars = "WXCVBN";
 		setShiftKey(2, 0, true);
-		for (int i = 0; i < 6; i++) {
-			setStandardKey(2, i + 1, thirdRowChars.charAt(i));
-		}
 		setBackspaceKey(2, 7);
 
 		// fourth row
-		setMappingKey(3, 0, NUMERIC_MAPPING);
+		setMappingKey(3, 0, Mapping.NUMERIC);
 		setSpaceKey(3, 1);
 		setSpecialKey(3, 2);
+
+		// layout
+		applyLayout(this.layouts[1]);
 	}
 
 	private void setNumericMapping() {
-		// first row
-		final String firstRowChars = "1234567890";
-		for (int i = 0; i < 10; i++) {
-			setStandardKey(0, i, firstRowChars.charAt(i));
-		}
-
-		// second row
-		final String secondRowChars = "-/:;()$&@\"";
-		for (int i = 0; i < 10; i++) {
-			setStandardKey(1, i, secondRowChars.charAt(i));
-		}
-
 		// third row
-		final String thirdRowChars = ".,?!\'§";
-		setMappingKey(2, 0, SYMBOL_MAPPING);
-		for (int i = 0; i < 6; i++) {
-			setStandardKey(2, i + 1, thirdRowChars.charAt(i));
-		}
+		setMappingKey(2, 0, Mapping.SYMBOL);
 		setBackspaceKey(2, 7);
 
 		// fourth row
-		setMappingKey(3, 0, ABC_MAPPING);
+		setMappingKey(3, 0, Mapping.ABC);
 		setSpaceKey(3, 1);
 		setSpecialKey(3, 2);
+
+		// layout
+		applyLayout(this.layouts[2]);
 	}
 
 	private void setSymbolMapping() {
+		// third row
+		setMappingKey(2, 0, Mapping.NUMERIC);
+		setBackspaceKey(2, 7);
+
+		// fourth row
+		setMappingKey(3, 0, Mapping.ABC);
+		setSpaceKey(3, 1);
+		setSpecialKey(3, 2);
+
+		// layout
+		applyLayout(this.layouts[3]);
+	}
+
+	private void applyLayout(Layout layout) {
 		// first row
-		final String firstRowChars = "[]{}#%^*+=";
+		final String firstRowChars = layout.getFirstRow();
 		for (int i = 0; i < 10; i++) {
 			setStandardKey(0, i, firstRowChars.charAt(i));
 		}
 
 		// second row
-		final String secondRowChars = "_\\|~<>€£¥\u25cf";
+		final String secondRowChars = layout.getSecondRow();
 		for (int i = 0; i < 10; i++) {
 			setStandardKey(1, i, secondRowChars.charAt(i));
 		}
 
 		// third row
-		final String thirdRowChars = ".,?!\'§";
-		setMappingKey(2, 0, NUMERIC_MAPPING);
+		final String thirdRowChars = layout.getThirdRow();
 		for (int i = 0; i < 6; i++) {
 			setStandardKey(2, i + 1, thirdRowChars.charAt(i));
 		}
-		setBackspaceKey(2, 7);
-
-		// fourth row
-		setMappingKey(3, 0, ABC_MAPPING);
-		setSpaceKey(3, 1);
-		setSpecialKey(3, 2);
 	}
 
 	private Key getKey(int row, int col) {
@@ -249,9 +239,9 @@ public class Keyboard extends StyledComposite {
 			@Override
 			public void onClick() {
 				if (active) {
-					setLowerLetterMapping();
+					setLowerCaseMapping();
 				} else {
-					setUpperLetterMapping();
+					setUpperCaseMapping();
 				}
 			}
 		};
@@ -262,22 +252,19 @@ public class Keyboard extends StyledComposite {
 		getKey(row, col).setSpecial(text, listener, classSelector);
 	}
 
-	private void setMappingKey(int row, int col, int mappingId) {
-		String text;
+	private void setMappingKey(int row, int col, Mapping mapping) {
 		OnClickListener listener;
 
-		switch (mappingId) {
-		case ABC_MAPPING:
-			text = "ABC";
+		switch (mapping) {
+		case ABC:
 			listener = new OnClickListener() {
 				@Override
 				public void onClick() {
-					setLowerLetterMapping();
+					setLowerCaseMapping();
 				}
 			};
 			break;
-		case NUMERIC_MAPPING:
-			text = "123";
+		case NUMERIC:
 			listener = new OnClickListener() {
 				@Override
 				public void onClick() {
@@ -285,8 +272,7 @@ public class Keyboard extends StyledComposite {
 				}
 			};
 			break;
-		case SYMBOL_MAPPING:
-			text = "#+=";
+		case SYMBOL:
 			listener = new OnClickListener() {
 				@Override
 				public void onClick() {
@@ -298,6 +284,7 @@ public class Keyboard extends StyledComposite {
 			throw new IllegalArgumentException();
 		}
 
+		String text = mapping.getString();
 		getKey(row, col).setSpecial(text, listener, SWITCH_MAPPING_KEY_SELECTOR);
 	}
 
@@ -368,7 +355,6 @@ public class Keyboard extends StyledComposite {
 		int width = bounds.getWidth();
 		int height = bounds.getHeight();
 
-		// TODO Try to merge with validate.
 		int length = getWidgetsCount();
 		if (length == 0) {
 			return;

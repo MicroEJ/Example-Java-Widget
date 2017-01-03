@@ -9,6 +9,7 @@ package ej.demo.ui.widget.page;
 import ej.demo.ui.widget.WidgetsDemo;
 import ej.widget.StyledPanel;
 import ej.widget.keyboard.Keyboard;
+import ej.widget.keyboard.Layout;
 import ej.widget.navigation.TransitionListener;
 import ej.widget.navigation.TransitionManager;
 import ej.widget.navigation.page.Page;
@@ -40,6 +41,16 @@ public abstract class KeyboardPage extends AbstractDemoPage implements Transitio
 		// create keyboard
 		this.keyboard = new Keyboard();
 		this.keyboardDialog.setWidget(this.keyboard);
+	}
+
+	/**
+	 * Sets the keyboard layouts to use
+	 *
+	 * @param keyboardLayouts
+	 *            the four keyboard layouts to use
+	 */
+	public void setKeyboardLayouts(Layout[] keyboardLayouts) {
+		this.keyboard.setLayouts(keyboardLayouts);
 	}
 
 	/**

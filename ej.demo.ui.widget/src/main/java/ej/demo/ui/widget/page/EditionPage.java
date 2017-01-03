@@ -1,12 +1,17 @@
 package ej.demo.ui.widget.page;
 
 import ej.demo.ui.widget.WidgetsDemo;
+import ej.demo.ui.widget.keyboard.LowerCaseLayout;
+import ej.demo.ui.widget.keyboard.NumericLayout;
+import ej.demo.ui.widget.keyboard.SymbolLayout;
+import ej.demo.ui.widget.keyboard.UpperCaseLayout;
 import ej.demo.ui.widget.style.ClassSelectors;
 import ej.mwt.Widget;
 import ej.widget.basic.Label;
 import ej.widget.container.List;
 import ej.widget.container.Scroll;
 import ej.widget.keyboard.KeyboardText;
+import ej.widget.keyboard.Layout;
 import ej.widget.listener.OnClickListener;
 import ej.widget.listener.OnFocusListener;
 
@@ -27,6 +32,16 @@ public class EditionPage extends KeyboardPage {
 	private KeyboardText firstName;
 	private KeyboardText lastName;
 	private Label resultLabel;
+
+	/**
+	 * Constructor
+	 */
+	public EditionPage() {
+		// set keyboard layouts
+		Layout[] layouts = new Layout[] { new LowerCaseLayout(), new UpperCaseLayout(), new NumericLayout(),
+				new SymbolLayout() };
+		setKeyboardLayouts(layouts);
+	}
 
 	/**
 	 * Creates the widget representing the main content of the page

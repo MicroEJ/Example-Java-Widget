@@ -29,7 +29,6 @@ import ej.style.selector.OddChildSelector;
 import ej.style.selector.StateSelector;
 import ej.style.selector.TypeSelector;
 import ej.style.selector.combinator.AndCombinator;
-import ej.style.selector.combinator.OrCombinator;
 import ej.style.text.ComplexTextManager;
 import ej.style.text.SimpleTextManager;
 import ej.style.util.EditableStyle;
@@ -54,10 +53,9 @@ import ej.widget.basic.picto.PictoSlider;
 import ej.widget.basic.picto.PictoSwitch;
 import ej.widget.chart.BasicChart;
 import ej.widget.chart.ChartPoint;
-import ej.widget.keyboard.azerty.Keyboard;
-import ej.widget.keyboard.azerty.KeyboardText;
-import ej.widget.keyboard.azerty.SpecialKey;
-import ej.widget.keyboard.azerty.StandardKey;
+import ej.widget.keyboard.Key;
+import ej.widget.keyboard.Keyboard;
+import ej.widget.keyboard.KeyboardText;
 
 /**
  * Class responsible for initializing the demo styles.
@@ -303,8 +301,7 @@ public class StylesheetPopulator {
 		azertyKeyStyle.setBackground(NoBackground.NO_BACKGROUND);
 		azertyKeyStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
 		azertyKeyStyle.setMargin(new ComplexOutline(4, 2, 4, 2));
-		Selector azertyKeySelector = new OrCombinator(new TypeSelector(StandardKey.class),
-				new TypeSelector(SpecialKey.class));
+		Selector azertyKeySelector = new TypeSelector(Key.class);
 		stylesheet.addRule(azertyKeySelector, azertyKeyStyle);
 
 		EditableStyle azertyActiveKeyStyle = new EditableStyle();

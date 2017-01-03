@@ -6,7 +6,7 @@ import ej.mwt.Widget;
 import ej.widget.basic.Label;
 import ej.widget.container.List;
 import ej.widget.container.Scroll;
-import ej.widget.keyboard.azerty.KeyboardText;
+import ej.widget.keyboard.KeyboardText;
 import ej.widget.listener.OnClickListener;
 import ej.widget.listener.OnFocusListener;
 

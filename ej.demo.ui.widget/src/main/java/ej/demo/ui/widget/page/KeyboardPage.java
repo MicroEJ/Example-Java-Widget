@@ -8,7 +8,7 @@ package ej.demo.ui.widget.page;
 
 import ej.demo.ui.widget.WidgetsDemo;
 import ej.widget.StyledPanel;
-import ej.widget.keyboard.azerty.Keyboard;
+import ej.widget.keyboard.Keyboard;
 import ej.widget.navigation.TransitionListener;
 import ej.widget.navigation.TransitionManager;
 import ej.widget.navigation.page.Page;

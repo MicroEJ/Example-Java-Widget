@@ -4,7 +4,7 @@
  * Copyright 2015 IS2T. All rights reserved.
  * IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package ej.widget.keyboard.azerty;
+package ej.widget.keyboard;
 
 import ej.bon.Timer;
 import ej.bon.TimerTask;
@@ -31,7 +31,6 @@ import ej.widget.listener.OnFocusListener;
 import ej.widget.listener.OnTextChangeListener;
 import ej.widget.util.ControlCharacters;
 
-/** IPR start **/
 /**
  * A text is a widget that holds a string that can be modified by the user.
  */
@@ -676,4 +675,3 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 	}
 
 }
-/** IPR end **/

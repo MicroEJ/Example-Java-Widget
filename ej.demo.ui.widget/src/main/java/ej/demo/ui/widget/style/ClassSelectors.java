@@ -52,6 +52,11 @@ public interface ClassSelectors {
 	String FORM = "form"; //$NON-NLS-1$
 
 	/**
+	 * The result label class selector.
+	 */
+	String RESULT_LABEL = "result_label"; //$NON-NLS-1$
+
+	/**
 	 * The chart class selector.
 	 */
 	String CHART = "chart"; //$NON-NLS-1$

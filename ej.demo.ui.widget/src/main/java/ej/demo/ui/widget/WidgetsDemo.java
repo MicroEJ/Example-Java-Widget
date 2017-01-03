@@ -11,6 +11,8 @@ import ej.demo.ui.widget.page.MainPage;
 import ej.demo.ui.widget.style.StylesheetPopulator;
 import ej.microui.MicroUI;
 import ej.microui.display.Display;
+import ej.microui.event.Event;
+import ej.microui.event.generator.Pointer;
 import ej.mwt.Desktop;
 import ej.mwt.Panel;
 import ej.widget.StyledDesktop;
@@ -27,14 +29,13 @@ public class WidgetsDemo {
 
 	public static int WIDTH;
 	public static int HEIGHT;
-	public static int KEYBOARD_HEIGHT = 0;
 
 	private static Desktop Desktop;
+	private static Panel Panel;
 	private static HistorizedNavigator HistorizedNavigator;
 
 	private static boolean GoingForward;
 	private static boolean GoingBackward;
-	public static Panel panel;
 
 	// Prevents initialization.
 	private WidgetsDemo() {
@@ -64,15 +65,9 @@ public class WidgetsDemo {
 
 		// Show the navigator.
 		Desktop = new StyledDesktop();
-		panel = new Panel() {
-			@Override
-			public void validate(int widthHint, int heightHint) {
-				super.validate(WIDTH, HEIGHT - KEYBOARD_HEIGHT);
-				setBounds(0, 0, WIDTH, HEIGHT - KEYBOARD_HEIGHT);
-			}
-		};
-		panel.setWidget(HistorizedNavigator);
-		panel.show(Desktop, true);
+		Panel = new Panel();
+		Panel.setWidget(HistorizedNavigator);
+		Panel.show(Desktop, true);
 		Desktop.show();
 	}
 
@@ -80,10 +75,28 @@ public class WidgetsDemo {
 		return Desktop;
 	}
 
+	public static Panel getPanel() {
+		return Panel;
+	}
+
 	private static HistorizedNavigator newNavigator() {
 		URLResolver urlResolver = new DirectURLResolver();
 		PageStack pageStack = new PageStackURL(urlResolver);
-		HistorizedNavigator navigator = new HistorizedNavigator(urlResolver, pageStack);
+		HistorizedNavigator navigator = new HistorizedNavigator(urlResolver, pageStack) {
+			@Override
+			public boolean handleEvent(int event) {
+				// set panel focus to null when we click on a blank space
+				int type = Event.getType(event);
+				if (type == Event.POINTER) {
+					int action = Pointer.getAction(event);
+					if (action == Pointer.RELEASED) {
+						getPanel().setFocus(null);
+						return true;
+					}
+				}
+				return false;
+			}
+		};
 		navigator.setTransitionManager(new HorizontalTransitionManager());
 		return navigator;
 	}

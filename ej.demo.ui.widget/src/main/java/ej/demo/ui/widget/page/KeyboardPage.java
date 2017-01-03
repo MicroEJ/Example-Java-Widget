@@ -7,98 +7,120 @@
 package ej.demo.ui.widget.page;
 
 import ej.demo.ui.widget.WidgetsDemo;
-import ej.demo.ui.widget.style.ClassSelectors;
-import ej.microui.display.Display;
-import ej.mwt.Widget;
 import ej.widget.StyledPanel;
-import ej.widget.container.List;
-import ej.widget.container.Scroll;
-import ej.widget.keyboard.azerty.KeyboardText;
+import ej.widget.keyboard.azerty.Keyboard;
+import ej.widget.navigation.TransitionListener;
+import ej.widget.navigation.TransitionManager;
+import ej.widget.navigation.page.Page;
 
 /**
  * This page illustrates a keyboard.
  */
-public abstract class KeyboardPage extends AbstractDemoPage {
+public abstract class KeyboardPage extends AbstractDemoPage implements TransitionListener {
 
-	private static final String FIRST_NAME = "First name"; //$NON-NLS-1$
-	private static final String LAST_NAME = "Last name"; //$NON-NLS-1$
-	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
+	private static final float KEYBOARD_RATIO = 0.45f;
 
-	private KeyboardText firstName;
-	private StyledPanel keyboardDialog;
+	private final Keyboard keyboard;
+	private final StyledPanel keyboardDialog;
 
+	/**
+	 * Constructor
+	 */
+	public KeyboardPage() {
+		// create keyboard dialog
+		final int keyboardHeight = (int) (WidgetsDemo.HEIGHT * KEYBOARD_RATIO);
+		this.keyboardDialog = new StyledPanel() {
+			@Override
+			public void validate(int widthHint, int heightHint) {
+				super.validate(WidgetsDemo.WIDTH, keyboardHeight);
+			}
+		};
+		this.keyboardDialog.setBounds(0, WidgetsDemo.HEIGHT - keyboardHeight, WidgetsDemo.WIDTH, keyboardHeight);
+
+		// create keyboard
+		this.keyboard = new Keyboard();
+		this.keyboardDialog.setWidget(this.keyboard);
+	}
+
+	/**
+	 * Gets the title of the page
+	 */
 	@Override
 	protected String getTitle() {
 		return "Keyboard"; //$NON-NLS-1$
 	}
 
+	/**
+	 * Handles page transition start
+	 */
 	@Override
-	protected Widget createMainContent() {
-		this.firstName = new KeyboardText(EMPTY_STRING, FIRST_NAME);
-		final KeyboardText lastName = new KeyboardText(EMPTY_STRING, LAST_NAME);
-
-		final List list = new List(false);
-		list.add(this.firstName);
-		list.add(lastName);
-		list.addClassSelector(ClassSelectors.FORM);
-
-		final Scroll scroll = new Scroll(false, false);
-		scroll.setWidget(list);
-		return scroll;
+	public void onTransitionStart(int transitionsSteps, int transitionsStop, Page from, Page to) {
+		hideKeyboard();
 	}
 
-	private int getKeyboardHeight() {
-		return (int) (getKeyboardRatio() * WidgetsDemo.HEIGHT);
+	/**
+	 * Handles page transition step
+	 */
+	@Override
+	public void onTransitionStep(int step) {
+		// do nothing
 	}
 
+	/**
+	 * Handles page transition stop
+	 */
+	@Override
+	public void onTransitionStop() {
+		showKeyboard();
+	}
+
+	/**
+	 * Handles show notification
+	 */
 	@Override
 	public void showNotify() {
-		this.keyboardDialog = new StyledPanel() {
-			@Override
-			public void validate(int widthHint, int heightHint) {
-				int keyboardHeight = getKeyboardHeight();
-				super.validate(WidgetsDemo.WIDTH, keyboardHeight);
-				setBounds(0, WidgetsDemo.HEIGHT - keyboardHeight, WidgetsDemo.WIDTH, keyboardHeight);
-			}
-		};
-
-		Widget keyboard = createKeyboard();
-		this.keyboardDialog.setWidget(keyboard);
-		this.keyboardDialog.show(WidgetsDemo.getDesktop());
-
-		WidgetsDemo.KEYBOARD_HEIGHT = getKeyboardHeight();
-		WidgetsDemo.panel.invalidate();
-		WidgetsDemo.panel.validate();
-
-		Display.getDefaultDisplay().callSerially(new Runnable() {
-			@Override
-			public void run() {
-				WidgetsDemo.panel.setFocus(KeyboardPage.this.firstName);
-			}
-		});
+		super.showNotify();
+		TransitionManager.addGlobalTransitionListener(this);
 	}
 
+	/**
+	 * Handles hide notification
+	 */
 	@Override
 	public void hideNotify() {
-		this.keyboardDialog.hide();
-
-		WidgetsDemo.KEYBOARD_HEIGHT = 0;
-		WidgetsDemo.panel.invalidate();
-		WidgetsDemo.panel.validate();
+		TransitionManager.removeGlobalTransitionListener(this);
+		super.hideNotify();
 	}
 
 	/**
-	 * Creates the keyboard
+	 * Gets the keyboard
 	 *
-	 * @return the keyboard widget
+	 * @return the keyboard
 	 */
-	protected abstract Widget createKeyboard();
+	protected Keyboard getKeyboard() {
+		return this.keyboard;
+	}
 
 	/**
-	 * Gets the keyboard height ratio
-	 *
-	 * @return the keyboard height ratio
+	 * Shows the keyboard
 	 */
-	protected abstract float getKeyboardRatio();
+	protected void showKeyboard() {
+		// show keyboard dialog
+		this.keyboardDialog.show(WidgetsDemo.getDesktop());
 
+		// resize main panel
+		final int keyboardHeight = (int) (WidgetsDemo.HEIGHT * KEYBOARD_RATIO);
+		WidgetsDemo.getPanel().setBounds(0, 0, WidgetsDemo.WIDTH, WidgetsDemo.HEIGHT - keyboardHeight);
+	}
+
+	/**
+	 * Hides the keyboard
+	 */
+	protected void hideKeyboard() {
+		// resize main panel
+		WidgetsDemo.getPanel().setBounds(0, 0, WidgetsDemo.WIDTH, WidgetsDemo.HEIGHT);
+
+		// hide keyboard dialog
+		this.keyboardDialog.hide();
+	}
 }

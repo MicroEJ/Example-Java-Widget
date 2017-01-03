@@ -361,9 +361,14 @@ public class StylesheetPopulator {
 		stylesheet.addRule(placeholderTextSelector, placeholderTextStyle);
 
 		EditableStyle formStyle = new EditableStyle();
-		formStyle.setMargin(new SimpleOutline(10));
+		formStyle.setMargin(new ComplexOutline(5, 10, 5, 10));
 		ClassSelector formSelector = new ClassSelector(ClassSelectors.FORM);
 		stylesheet.addRule(formSelector, formStyle);
+
+		EditableStyle resultLabelStyle = new EditableStyle();
+		resultLabelStyle.setMargin(new SimpleOutline(5));
+		ClassSelector resultLabelSelector = new ClassSelector(ClassSelectors.RESULT_LABEL);
+		stylesheet.addRule(resultLabelSelector, resultLabelStyle);
 	}
 
 	private static void initializeChartStyle(Stylesheet stylesheet) {

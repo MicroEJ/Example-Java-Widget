@@ -27,6 +27,7 @@ import ej.style.text.TextManager;
 import ej.style.util.StyleHelper;
 import ej.widget.StyledWidget;
 import ej.widget.listener.OnClickListener;
+import ej.widget.listener.OnFocusListener;
 import ej.widget.listener.OnTextChangeListener;
 import ej.widget.util.ControlCharacters;
 
@@ -39,6 +40,7 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 
 	private static final OnClickListener[] EMPTY_LISTENERS = new OnClickListener[0];
 	private static final OnTextChangeListener[] EMPTY_TEXT_LISTENERS = new OnTextChangeListener[0];
+	private static final OnFocusListener[] EMPTY_FOCUS_LISTENERS = new OnFocusListener[0];
 
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
@@ -51,10 +53,10 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 	private int caretEnd;
 	private OnTextChangeListener[] onTextChangeListeners;
 	private OnClickListener[] onClickListeners;
+	private OnFocusListener[] onFocusListeners;
 
 	private TimerTask blinkTask;
 	private boolean showCursor;
-	private boolean focused;
 
 	/**
 	 * Creates an empty text.
@@ -92,6 +94,7 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 			@ElementAttribute(defaultValue = EMPTY_STRING) String placeHolder) {
 		this.onTextChangeListeners = EMPTY_TEXT_LISTENERS;
 		this.onClickListeners = EMPTY_LISTENERS;
+		this.onFocusListeners = EMPTY_FOCUS_LISTENERS;
 		setText(text);
 		setPlaceHolder(placeHolder);
 	}
@@ -429,6 +432,57 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 		}
 	}
 
+	/**
+	 * Adds a listener on the focus events of the text.
+	 *
+	 * @param onFocusListener
+	 *            the focus listener to add.
+	 */
+	public void addOnFocusListener(OnFocusListener onFocusListener) {
+		OnFocusListener[] onFocusListeners = this.onFocusListeners;
+		int listenersLength = onFocusListeners.length;
+		OnFocusListener[] newArray = new OnFocusListener[listenersLength + 1];
+		System.arraycopy(onFocusListeners, 0, newArray, 0, listenersLength);
+		newArray[listenersLength] = onFocusListener;
+		this.onFocusListeners = newArray;
+	}
+
+	/**
+	 * Removes a listener on the focus events of the text.
+	 *
+	 * @param onFocusListener
+	 *            the focus listener to remove.
+	 */
+	public void removeOnFocusListener(OnFocusListener onFocusListener) {
+		OnFocusListener[] onFocusListeners = this.onFocusListeners;
+		int listenersLength = onFocusListeners.length;
+		for (int i = listenersLength; --i >= 0;) {
+			OnFocusListener candidate = onFocusListeners[i];
+			if (candidate.equals(onFocusListener)) {
+				if (listenersLength == 1) {
+					this.onFocusListeners = EMPTY_FOCUS_LISTENERS;
+				} else {
+					OnFocusListener[] newArray = new OnFocusListener[listenersLength - 1];
+					System.arraycopy(onFocusListeners, 0, newArray, 0, i);
+					System.arraycopy(onFocusListeners, i + 1, newArray, i, listenersLength - i - 1);
+					this.onFocusListeners = newArray;
+				}
+			}
+		}
+	}
+
+	private void notifyOnGainFocusListeners() {
+		for (OnFocusListener onFocusListener : this.onFocusListeners) {
+			onFocusListener.onGainFocus();
+		}
+	}
+
+	private void notifyOnLostFocusListeners() {
+		for (OnFocusListener onFocusListener : this.onFocusListeners) {
+			onFocusListener.onLostFocus();
+		}
+	}
+
 	@Override
 	public void renderContent(GraphicsContext g, Style style, Rectangle bounds) {
 		Font font = StyleHelper.getFont(style);
@@ -478,8 +532,9 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 		if (keyboard != null) {
 			keyboard.setEventHandler(this);
 		}
-		this.focused = true;
 		super.gainFocus();
+		notifyOnGainFocusListeners();
+
 		this.blinkTask = new TimerTask() {
 			@Override
 			public void run() {
@@ -501,7 +556,7 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 	@Override
 	public void lostFocus() {
 		super.lostFocus();
-		this.focused = false;
+		notifyOnLostFocusListeners();
 		this.blinkTask.cancel();
 		updateStyle();
 	}
@@ -533,7 +588,7 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 			switch (action) {
 			case Pointer.PRESSED:
 				onPointerPressed(pointerX, pointerY);
-				break;
+				return true;
 			case Pointer.RELEASED:
 				onPointerReleased();
 				return true;

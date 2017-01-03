@@ -8,15 +8,16 @@ package ej.event.generator;
 
 import ej.microui.event.generator.Keyboard;
 
-/** IPR start **/
-
+/**
+ * Represents a simple keyboard registered in the system pool
+ */
 public class SystemKeyboard extends Keyboard {
 
+	/**
+	 * Constructor
+	 */
 	public SystemKeyboard() {
 		super(1);
 		addToSystemPool();
 	}
-
 }
-
-/** IPR end **/

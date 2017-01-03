@@ -8,6 +8,6 @@ ej.demo.ui.widget.page.VectorWidgetPage
 ej.demo.ui.widget.page.ProgressBarPage
 ej.demo.ui.widget.page.ScrollableListPage
 ej.demo.ui.widget.page.ScrollableTextPage
-ej.demo.ui.widget.page.AzertyKeyboardPage
+ej.demo.ui.widget.page.EditionPage
 ej.demo.ui.widget.page.ChartPage
 ej.event.generator.SystemKeyboard

@@ -532,7 +532,8 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 		// Draw clear button.
 		Style clearButtonStyle = this.clearButtonElement.getStyle();
 		Font clearButtonFont = StyleHelper.getFont(clearButtonStyle);
-		textManager.drawText(g, "x", clearButtonFont, clearButtonStyle.getForegroundColor(), bounds,
+		String clearButtonString = "\u00D7"; //$NON-NLS-1$
+		textManager.drawText(g, clearButtonString, clearButtonFont, clearButtonStyle.getForegroundColor(), bounds,
 				clearButtonStyle.getAlignment());
 	}
 

@@ -90,6 +90,14 @@ public class EditionPage extends KeyboardPage {
 	}
 
 	/**
+	 * Handles page transition stop
+	 */
+	@Override
+	public void onTransitionStop() {
+		WidgetsDemo.getPanel().setFocus(this.form[0]);
+	}
+
+	/**
 	 * Shows the keyboard
 	 */
 	@Override

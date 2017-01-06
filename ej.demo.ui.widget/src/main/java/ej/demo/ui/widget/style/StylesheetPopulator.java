@@ -278,9 +278,9 @@ public class StylesheetPopulator {
 		style.setPadding(new ComplexOutline(0, 0, 20, 0));
 		stylesheet.addRule(new ClassSelector(ClassSelectors.MULTILINE), style);
 
-		// Sets the AZERTY keyboard style.
+		// Sets the keyboard style.
 		FontProfile keyboardFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM, Font.STYLE_PLAIN);
-		initAzertyKeyboardStyle(stylesheet, keyboardFont);
+		initKeyboardStyle(stylesheet, keyboardFont);
 
 		// Sets the edition style.
 		FontProfile editionFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM, Font.STYLE_PLAIN);
@@ -293,47 +293,47 @@ public class StylesheetPopulator {
 		initializeDateStyle(stylesheet);
 	}
 
-	private static void initAzertyKeyboardStyle(Stylesheet stylesheet, FontProfile keyboardFont) {
-		EditableStyle azertyKeyboardStyle = new EditableStyle();
-		azertyKeyboardStyle.setFontProfile(keyboardFont);
-		azertyKeyboardStyle.setBackground(new PlainBackground());
-		azertyKeyboardStyle.setBackgroundColor(KEYBOARD_BACKGROUND_COLOR);
-		TypeSelector azertyKeyboardSelector = new TypeSelector(Keyboard.class);
-		stylesheet.addRule(azertyKeyboardSelector, azertyKeyboardStyle);
+	private static void initKeyboardStyle(Stylesheet stylesheet, FontProfile keyboardFont) {
+		EditableStyle keyboardStyle = new EditableStyle();
+		keyboardStyle.setFontProfile(keyboardFont);
+		keyboardStyle.setBackground(new PlainBackground());
+		keyboardStyle.setBackgroundColor(KEYBOARD_BACKGROUND_COLOR);
+		TypeSelector keyboardSelector = new TypeSelector(Keyboard.class);
+		stylesheet.addRule(keyboardSelector, keyboardStyle);
 
-		EditableStyle azertyKeyStyle = new EditableStyle();
-		azertyKeyStyle.setForegroundColor(KEYBOARD_KEY_COLOR);
-		azertyKeyStyle.setBackground(NoBackground.NO_BACKGROUND);
-		azertyKeyStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
-		azertyKeyStyle.setMargin(new ComplexOutline(4, 2, 4, 2));
-		Selector azertyKeySelector = new TypeSelector(Key.class);
-		stylesheet.addRule(azertyKeySelector, azertyKeyStyle);
+		EditableStyle keyStyle = new EditableStyle();
+		keyStyle.setForegroundColor(KEYBOARD_KEY_COLOR);
+		keyStyle.setBackground(NoBackground.NO_BACKGROUND);
+		keyStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+		keyStyle.setMargin(new ComplexOutline(4, 2, 4, 2));
+		Selector keySelector = new TypeSelector(Key.class);
+		stylesheet.addRule(keySelector, keyStyle);
 
-		EditableStyle azertyActiveKeyStyle = new EditableStyle();
-		azertyActiveKeyStyle.setForegroundColor(Colors.WHITE);
-		azertyActiveKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS - 1));
-		azertyActiveKeyStyle.setBackgroundColor(KEYBOARD_HIGHLIGHT_COLOR);
-		azertyActiveKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS, 1));
-		azertyActiveKeyStyle.setBorderColor(KEYBOARD_HIGHLIGHT_COLOR);
+		EditableStyle activeKeyStyle = new EditableStyle();
+		activeKeyStyle.setForegroundColor(Colors.WHITE);
+		activeKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS - 1));
+		activeKeyStyle.setBackgroundColor(KEYBOARD_HIGHLIGHT_COLOR);
+		activeKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS, 1));
+		activeKeyStyle.setBorderColor(KEYBOARD_HIGHLIGHT_COLOR);
 		StateSelector activeSelector = new StateSelector(State.Active);
-		AndCombinator azertyActiveKeySelector = new AndCombinator(azertyKeySelector, activeSelector);
-		stylesheet.addRule(azertyActiveKeySelector, azertyActiveKeyStyle);
+		AndCombinator activeKeySelector = new AndCombinator(keySelector, activeSelector);
+		stylesheet.addRule(activeKeySelector, activeKeyStyle);
 
-		EditableStyle azertySpaceKeyStyle = new EditableStyle();
-		azertySpaceKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS - 1));
-		azertySpaceKeyStyle.setBackgroundColor(KEYBOARD_KEY_COLOR);
-		azertySpaceKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS, 1));
-		azertySpaceKeyStyle.setBorderColor(KEYBOARD_KEY_COLOR);
-		ClassSelector azertySpaceKeySelector = new ClassSelector(Keyboard.SPACE_KEY_SELECTOR);
-		stylesheet.addRule(azertySpaceKeySelector, azertySpaceKeyStyle);
+		EditableStyle spaceKeyStyle = new EditableStyle();
+		spaceKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS - 1));
+		spaceKeyStyle.setBackgroundColor(KEYBOARD_KEY_COLOR);
+		spaceKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS, 1));
+		spaceKeyStyle.setBorderColor(KEYBOARD_KEY_COLOR);
+		ClassSelector spaceKeySelector = new ClassSelector(Keyboard.SPACE_KEY_SELECTOR);
+		stylesheet.addRule(spaceKeySelector, spaceKeyStyle);
 
-		EditableStyle azertyActiveShiftKeyStyle = new EditableStyle();
-		azertyActiveShiftKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS - 1));
-		azertyActiveShiftKeyStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_50);
-		azertyActiveShiftKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS, 1));
-		azertyActiveShiftKeyStyle.setBorderColor(MicroEJColors.CONCRETE_WHITE_50);
-		ClassSelector azertyActiveShiftKeySelector = new ClassSelector(Keyboard.SHIFT_KEY_ACTIVE_SELECTOR);
-		stylesheet.addRule(azertyActiveShiftKeySelector, azertyActiveShiftKeyStyle);
+		EditableStyle activeShiftKeyStyle = new EditableStyle();
+		activeShiftKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS - 1));
+		activeShiftKeyStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_50);
+		activeShiftKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS, 1));
+		activeShiftKeyStyle.setBorderColor(MicroEJColors.CONCRETE_WHITE_50);
+		ClassSelector activeShiftKeySelector = new ClassSelector(Keyboard.SHIFT_KEY_ACTIVE_SELECTOR);
+		stylesheet.addRule(activeShiftKeySelector, activeShiftKeyStyle);
 
 		EditableStyle specialKeyStyle = new EditableStyle();
 		specialKeyStyle.setForegroundColor(MicroEJColors.WHITE);

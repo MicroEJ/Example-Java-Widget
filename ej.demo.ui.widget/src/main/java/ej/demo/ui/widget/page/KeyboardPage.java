@@ -82,7 +82,7 @@ public abstract class KeyboardPage extends AbstractDemoPage implements Transitio
 	 */
 	@Override
 	public void onTransitionStop() {
-		showKeyboard();
+		// do nothing
 	}
 
 	/**

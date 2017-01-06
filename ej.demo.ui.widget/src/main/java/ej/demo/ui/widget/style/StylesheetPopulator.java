@@ -56,6 +56,7 @@ import ej.widget.chart.ChartPoint;
 import ej.widget.keyboard.Key;
 import ej.widget.keyboard.Keyboard;
 import ej.widget.keyboard.KeyboardText;
+import ej.widget.wheel.Wheel;
 
 /**
  * Class responsible for initializing the demo styles.
@@ -72,9 +73,10 @@ public class StylesheetPopulator {
 
 	private static final int KEYBOARD_BACKGROUND_COLOR = MicroEJColors.CONCRETE_WHITE_75;
 	private static final int KEYBOARD_KEY_COLOR = MicroEJColors.CONCRETE;
-	private static final int KEYBOARD_HIGHLIGHT_COLOR = MicroEJColors.BONDI;
-
+	private static final int KEYBOARD_HIGHLIGHT_COLOR = MicroEJColors.CORAL;
 	private static final int TEXT_PLACEHOLDER_COLOR = MicroEJColors.CONCRETE_WHITE_25;
+	private static final int TEXT_SELECTION_COLOR = 0xf9c2b7;
+	private static final int WHEEL_LINE_COLOR = 0xf28168;
 
 	private static final int KEY_CORNER_RADIUS = 10;
 	private static final int BUTTON_CORNER_RADIUS = 14;
@@ -286,6 +288,9 @@ public class StylesheetPopulator {
 
 		// Sets the chart style.
 		initializeChartStyle(stylesheet);
+
+		// Sets the date style.
+		initializeDateStyle(stylesheet);
 	}
 
 	private static void initAzertyKeyboardStyle(Stylesheet stylesheet, FontProfile keyboardFont) {
@@ -329,6 +334,23 @@ public class StylesheetPopulator {
 		azertyActiveShiftKeyStyle.setBorderColor(MicroEJColors.CONCRETE_WHITE_50);
 		ClassSelector azertyActiveShiftKeySelector = new ClassSelector(Keyboard.SHIFT_KEY_ACTIVE_SELECTOR);
 		stylesheet.addRule(azertyActiveShiftKeySelector, azertyActiveShiftKeyStyle);
+
+		EditableStyle specialKeyStyle = new EditableStyle();
+		specialKeyStyle.setForegroundColor(MicroEJColors.WHITE);
+		specialKeyStyle.setBackgroundColor(MicroEJColors.CORAL);
+		specialKeyStyle.setBackground(new SimpleRoundedPlainBackground(BUTTON_CORNER_RADIUS - 1));
+		specialKeyStyle.setBorderColor(MicroEJColors.CORAL);
+		specialKeyStyle.setBorder(new SimpleRoundedBorder(BUTTON_CORNER_RADIUS, 1));
+		FontProfile specialKeyFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM, Font.STYLE_PLAIN);
+		specialKeyStyle.setFontProfile(specialKeyFont);
+		ClassSelector specialKeySelector = new ClassSelector(Keyboard.SPECIAL_KEY_SELECTOR);
+		stylesheet.addRule(specialKeySelector, specialKeyStyle);
+
+		EditableStyle activeSpecialKeyStyle = new EditableStyle();
+		activeSpecialKeyStyle.setBackgroundColor(ACTIVE_FOREGROUND);
+		activeSpecialKeyStyle.setBorderColor(ACTIVE_FOREGROUND);
+		stylesheet.addRule(new AndCombinator(specialKeySelector, new StateSelector(State.Active)),
+				activeSpecialKeyStyle);
 	}
 
 	private static void initEditionStyle(Stylesheet stylesheet, FontProfile fontProfile) {
@@ -340,7 +362,7 @@ public class StylesheetPopulator {
 		textStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
 		textStyle.setTextManager(new SimpleTextManager());
 		textStyle.setMargin(new SimpleOutline(5));
-		textStyle.setPadding(new ComplexOutline(0, 1, 0, 1));
+		textStyle.setPadding(new ComplexOutline(0, 1, 1, 1));
 		textStyle.setFontProfile(fontProfile);
 		TypeSelector textSelector = new TypeSelector(KeyboardText.class);
 		stylesheet.addRule(textSelector, textStyle);
@@ -360,7 +382,7 @@ public class StylesheetPopulator {
 		stylesheet.addRule(placeholderTextSelector, placeholderTextStyle);
 
 		EditableStyle selectionStyle = new EditableStyle();
-		selectionStyle.setForegroundColor(MicroEJColors.CHICK);
+		selectionStyle.setForegroundColor(TEXT_SELECTION_COLOR);
 		stylesheet.addRule(new ClassSelector(KeyboardText.CLASS_SELECTOR_SELECTION), selectionStyle);
 
 		EditableStyle clearButtonStyle = new EditableStyle();
@@ -432,7 +454,23 @@ public class StylesheetPopulator {
 		activeSwitchButtonStyle.setBorderColor(ACTIVE_FOREGROUND);
 		stylesheet.addRule(new AndCombinator(switchButtonSelector, new StateSelector(State.Active)),
 				activeSwitchButtonStyle);
-
 	}
 
+	private static void initializeDateStyle(Stylesheet stylesheet) {
+		EditableStyle wheelStyle = new EditableStyle();
+		wheelStyle.setForegroundColor(MicroEJColors.CONCRETE_BLACK_50);
+		wheelStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_25);
+		wheelStyle.setBackground(NoBackground.NO_BACKGROUND);
+		FontProfile wheelFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.LARGE, Font.STYLE_PLAIN);
+		wheelStyle.setFontProfile(wheelFont);
+		stylesheet.addRule(new TypeSelector(Wheel.class), wheelStyle);
+
+		EditableStyle lineStyle = new EditableStyle();
+		lineStyle.setForegroundColor(WHEEL_LINE_COLOR);
+		stylesheet.addRule(new ClassSelector(Wheel.CLASS_SELECTOR_LINE), lineStyle);
+
+		EditableStyle datePickerStyle = new EditableStyle();
+		datePickerStyle.setMargin(new SimpleOutline(16));
+		stylesheet.addRule(new ClassSelector(ClassSelectors.DATE_PICKER), datePickerStyle);
+	}
 }

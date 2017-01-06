@@ -65,4 +65,9 @@ public interface ClassSelectors {
 	 * The switch button class selector.
 	 */
 	String SWITCH_BUTTON = "switch_button"; //$NON-NLS-1$
+
+	/**
+	 * The date picker class selector.
+	 */
+	String DATE_PICKER = "date_picker"; //$NON-NLS-1$
 }

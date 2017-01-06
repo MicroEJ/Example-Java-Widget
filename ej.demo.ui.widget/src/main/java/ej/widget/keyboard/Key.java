@@ -27,6 +27,7 @@ public class Key extends Button {
 	public Key(Keyboard keyboard) {
 		this.keyboard = keyboard;
 		this.currentClickListener = null;
+		setEnabled(false);
 	}
 
 	/**
@@ -60,6 +61,7 @@ public class Key extends Button {
 	 *            the character printed by the key
 	 */
 	public void setStandard(final char character) {
+		setEnabled(true);
 		setText(String.valueOf(character));
 		addOnClickListener(new OnClickListener() {
 			@Override
@@ -92,6 +94,7 @@ public class Key extends Button {
 	 *            the action to execute when the key is pressed
 	 */
 	public void setSpecial(String text, OnClickListener listener) {
+		setEnabled(true);
 		setText(text);
 		addOnClickListener(listener);
 		removeAllClassSelectors();
@@ -116,6 +119,7 @@ public class Key extends Button {
 	 * Sets the key as a blank key
 	 */
 	public void setBlank() {
+		setEnabled(false);
 		setText(""); //$NON-NLS-1$
 		if (this.currentClickListener != null) {
 			removeOnClickListener(this.currentClickListener);

@@ -109,14 +109,14 @@ public class Keyboard extends StyledComposite {
 	public void setSpecialKey(String text, OnClickListener listener) {
 		this.specialKeyText = text;
 		this.specialKeyListener = listener;
-		setSpecialKey(3, 2);
+		setSpecialKey(3, 4);
 	}
 
 	private void createKeys() {
 		// create rows
 		this.rows[0] = new Row(10);
 		this.rows[1] = new Row(10);
-		this.rows[2] = new Row(9);
+		this.rows[2] = new Row(10);
 		this.rows[3] = new Row(10);
 
 		// fill first and second row
@@ -127,15 +127,17 @@ public class Keyboard extends StyledComposite {
 
 		// fill third row
 		add(createKey(), this.rows[2], 0, 1);
-		for (int i = 1; i < 7; i++) {
+		for (int i = 1; i < 8; i++) {
 			add(createKey(), this.rows[2], i, 1);
 		}
-		add(createKey(), this.rows[2], 7, 2);
+		add(createKey(), this.rows[2], 8, 2);
 
 		// fill fourth row
-		add(createKey(), this.rows[3], 0, 2);
+		add(createKey(), this.rows[3], 0, 1);
+		add(createKey(), this.rows[3], 1, 1);
 		add(createKey(), this.rows[3], 2, 5);
-		add(createKey(), this.rows[3], 7, 3);
+		add(createKey(), this.rows[3], 7, 1);
+		add(createKey(), this.rows[3], 8, 2);
 	}
 
 	private Key createKey() {
@@ -143,62 +145,34 @@ public class Keyboard extends StyledComposite {
 	}
 
 	private void setLowerCaseMapping() {
-		// third row
+		setMapping(this.layouts[0]);
+
 		setShiftKey(2, 0, false);
-		setBackspaceKey(2, 7);
-
-		// fourth row
 		setMappingKey(3, 0, Mapping.NUMERIC);
-		setSpaceKey(3, 1);
-		setSpecialKey(3, 2);
-
-		// layout
-		applyLayout(this.layouts[0]);
 	}
 
 	private void setUpperCaseMapping() {
-		// third row
+		setMapping(this.layouts[1]);
+
 		setShiftKey(2, 0, true);
-		setBackspaceKey(2, 7);
-
-		// fourth row
 		setMappingKey(3, 0, Mapping.NUMERIC);
-		setSpaceKey(3, 1);
-		setSpecialKey(3, 2);
-
-		// layout
-		applyLayout(this.layouts[1]);
 	}
 
 	private void setNumericMapping() {
-		// third row
+		setMapping(this.layouts[2]);
+
 		setMappingKey(2, 0, Mapping.SYMBOL);
-		setBackspaceKey(2, 7);
-
-		// fourth row
 		setMappingKey(3, 0, Mapping.ABC);
-		setSpaceKey(3, 1);
-		setSpecialKey(3, 2);
-
-		// layout
-		applyLayout(this.layouts[2]);
 	}
 
 	private void setSymbolMapping() {
-		// third row
+		setMapping(this.layouts[3]);
+
 		setMappingKey(2, 0, Mapping.NUMERIC);
-		setBackspaceKey(2, 7);
-
-		// fourth row
 		setMappingKey(3, 0, Mapping.ABC);
-		setSpaceKey(3, 1);
-		setSpecialKey(3, 2);
-
-		// layout
-		applyLayout(this.layouts[3]);
 	}
 
-	private void applyLayout(Layout layout) {
+	private void setMapping(Layout layout) {
 		// first row
 		final String firstRowChars = layout.getFirstRow();
 		for (int i = 0; i < 10; i++) {
@@ -213,17 +187,32 @@ public class Keyboard extends StyledComposite {
 
 		// third row
 		final String thirdRowChars = layout.getThirdRow();
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 7; i++) {
 			setStandardKey(2, i + 1, thirdRowChars.charAt(i));
 		}
+		setBackspaceKey(2, 8);
+
+		// fourth row
+		setBlankKey(3, 1);
+		setSpaceKey(3, 2);
+		setBlankKey(3, 3);
+		setSpecialKey(3, 4);
 	}
 
 	private Key getKey(int row, int col) {
 		return this.rows[row].getKey(col);
 	}
 
+	private void setBlankKey(int row, int col) {
+		getKey(row, col).setBlank();
+	}
+
 	private void setStandardKey(int row, int col, char character) {
-		getKey(row, col).setStandard(character);
+		if (character == '\00') {
+			getKey(row, col).setBlank();
+		} else {
+			getKey(row, col).setStandard(character);
+		}
 	}
 
 	private void setSpaceKey(int row, int col) {

@@ -14,11 +14,11 @@ public class LowerCaseLayout implements Layout {
 
 	@Override
 	public String getSecondRow() {
-		return "asdfghjklm"; //$NON-NLS-1$
+		return "asdfghjkl\00"; //$NON-NLS-1$
 	}
 
 	@Override
 	public String getThirdRow() {
-		return "zxcvbn"; //$NON-NLS-1$
+		return "zxcvbnm"; //$NON-NLS-1$
 	}
 }

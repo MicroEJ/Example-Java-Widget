@@ -39,7 +39,14 @@ import ej.widget.util.ControlCharacters;
 @Element
 public class KeyboardText extends StyledWidget implements EventHandler {
 
+	/**
+	 * The class selector for the selection
+	 */
 	public static final String CLASS_SELECTOR_SELECTION = "keyboard-text-selection"; //$NON-NLS-1$
+
+	/**
+	 * The class selector for the clear button
+	 */
 	public static final String CLASS_SELECTOR_CLEAR_BUTTON = "keyboard-text-clear-button"; //$NON-NLS-1$
 
 	private static final OnClickListener[] EMPTY_LISTENERS = new OnClickListener[0];
@@ -47,6 +54,7 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 	private static final OnFocusListener[] EMPTY_FOCUS_LISTENERS = new OnFocusListener[0];
 
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
+	private static final String CLEAR_BUTTON_STRING = "\u00D7"; //$NON-NLS-1$
 
 	private static final long BLINK_PERIOD = 500;
 
@@ -532,7 +540,7 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 		// Draw clear button.
 		Style clearButtonStyle = this.clearButtonElement.getStyle();
 		Font clearButtonFont = StyleHelper.getFont(clearButtonStyle);
-		String clearButtonString = "\u00D7"; //$NON-NLS-1$
+		String clearButtonString = CLEAR_BUTTON_STRING;
 		textManager.drawText(g, clearButtonString, clearButtonFont, clearButtonStyle.getForegroundColor(), bounds,
 				clearButtonStyle.getAlignment());
 	}
@@ -641,12 +649,12 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 		// check clear button event
 		Rectangle bounds = this.getContentBounds();
 		Style style = this.clearButtonElement.getStyle();
-		int clearButtonWidth = StyleHelper.getFont(style).stringWidth("x");
+		int clearButtonWidth = StyleHelper.getFont(style).stringWidth(CLEAR_BUTTON_STRING);
 		int clearButtonX = AlignmentHelper.computeXLeftCorner(clearButtonWidth, bounds.getX(), bounds.getWidth(),
 				style.getAlignment());
 		int pX = getRelativeX(pointerX);
 		if (pX >= clearButtonX && pX < clearButtonX + clearButtonWidth) {
-			setText("");
+			setText(EMPTY_STRING);
 			return;
 		}
 

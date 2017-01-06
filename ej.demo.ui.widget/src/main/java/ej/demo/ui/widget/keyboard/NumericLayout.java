@@ -19,6 +19,6 @@ public class NumericLayout implements Layout {
 
 	@Override
 	public String getThirdRow() {
-		return ".,?!\'§"; //$NON-NLS-1$
+		return ".,?!\'§¤"; //$NON-NLS-1$
 	}
 }

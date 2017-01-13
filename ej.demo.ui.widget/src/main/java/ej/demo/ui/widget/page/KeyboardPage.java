@@ -117,7 +117,7 @@ public abstract class KeyboardPage extends AbstractDemoPage implements Transitio
 	 */
 	protected void showKeyboard() {
 		// show keyboard dialog
-		this.keyboardDialog.show(WidgetsDemo.getDesktop());
+		this.keyboardDialog.showUsingBounds(WidgetsDemo.getDesktop());
 
 		// resize main panel
 		final int keyboardHeight = (int) (WidgetsDemo.HEIGHT * KEYBOARD_RATIO);

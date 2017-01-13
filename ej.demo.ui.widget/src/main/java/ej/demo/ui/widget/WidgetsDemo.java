@@ -66,15 +66,26 @@ public class WidgetsDemo {
 		// Show the navigator.
 		Desktop = new StyledDesktop();
 		Panel = new Panel();
+		Panel.setBounds(0, 0, WIDTH, HEIGHT);
 		Panel.setWidget(HistorizedNavigator);
-		Panel.show(Desktop, true);
+		Panel.showUsingBounds(Desktop);
 		Desktop.show();
 	}
 
+	/**
+	 * Gets the desktop
+	 *
+	 * @return the desktop
+	 */
 	public static Desktop getDesktop() {
 		return Desktop;
 	}
 
+	/**
+	 * Gets the panel
+	 *
+	 * @return the panel
+	 */
 	public static Panel getPanel() {
 		return Panel;
 	}

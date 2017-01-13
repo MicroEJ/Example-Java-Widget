@@ -34,18 +34,22 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		Grid grid = new Grid(true, 2);
 
 		ToggleWrapper switch_ = newSwitch("Switch"); //$NON-NLS-1$
+		switch_.setAdjustedToChild(false);
 		grid.add(switch_);
 
 		ToggleGroup toggleGroup = new ToggleGroup();
 
 		ToggleWrapper radio1 = newRadioButton("Radio1"); //$NON-NLS-1$
+		radio1.setAdjustedToChild(false);
 		grid.add(radio1);
 		toggleGroup.addToggle(radio1.getToggle());
 
 		ToggleWrapper checkbox = newCheckBox("Checkbox"); //$NON-NLS-1$
+		checkbox.setAdjustedToChild(false);
 		grid.add(checkbox);
 
 		ToggleWrapper radio2 = newRadioButton("Radio2"); //$NON-NLS-1$
+		radio2.setAdjustedToChild(false);
 		toggleGroup.addToggle(radio2.getToggle());
 		grid.add(radio2);
 

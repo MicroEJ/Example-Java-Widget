@@ -2,7 +2,7 @@
  * Java
  *
  * Copyright 2016 IS2T. All rights reserved.
- * Use of this source code is subject to license terms.
+ * IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package ej.widget.navigation;
 
@@ -50,7 +50,7 @@ public abstract class TransitionManager {
 	 * @throws IllegalArgumentException
 	 *             if it is already associated with a navigator.
 	 */
-	void setNavigator(final Navigator navigator) {
+	void setNavigator(Navigator navigator) {
 		if (navigator != null && this.navigator != null) {
 			throw new IllegalArgumentException();
 		}
@@ -70,35 +70,33 @@ public abstract class TransitionManager {
 	 * Notifies that the transition is started.
 	 */
 	protected void startTransition() {
-		final EventGenerator[] eventGenerators = EventGenerator.get(EventGenerator.class);
-		for (final EventGenerator eventGenerator : eventGenerators) {
+		EventGenerator[] eventGenerators = EventGenerator.get(EventGenerator.class);
+		for (EventGenerator eventGenerator : eventGenerators) {
 			this.eventHandlers.put(eventGenerator, eventGenerator.getEventHandler());
 			try {
 				eventGenerator.setEventHandler(null);
-			} catch (final SecurityException e) {
+			} catch (SecurityException e) {
 				// Cannot change this event generator handler… forget it!.
 				this.eventHandlers.remove(eventGenerator);
 			}
 		}
-
 	}
 
 	/**
 	 * Notifies that the transition is stopped.
 	 */
 	protected void stopTransition() {
-		final EventGenerator[] eventGenerators = EventGenerator.get(EventGenerator.class);
-		for (final EventGenerator eventGenerator : eventGenerators) {
-			final EventHandler eventHandler = this.eventHandlers.remove(eventGenerator);
+		EventGenerator[] eventGenerators = EventGenerator.get(EventGenerator.class);
+		for (EventGenerator eventGenerator : eventGenerators) {
+			EventHandler eventHandler = this.eventHandlers.remove(eventGenerator);
 			if (eventHandler != null) {
 				try {
 					eventGenerator.setEventHandler(eventHandler);
-				} catch (final SecurityException e) {
+				} catch (SecurityException e) {
 					// Nothing to do…
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -125,7 +123,7 @@ public abstract class TransitionManager {
 	 * @param bounds
 	 *            the remaining size to render the content.
 	 */
-	protected void render(final GraphicsContext g, final Style style, final Rectangle bounds) {
+	protected void render(GraphicsContext g, Style style, Rectangle bounds) {
 		// Do nothing by default.
 	}
 
@@ -136,7 +134,7 @@ public abstract class TransitionManager {
 	 *            the event to handle.
 	 * @return <code>true</code> if the widget has consumed the event, <code>false</code> otherwise.
 	 */
-	protected boolean handleEvent(final int event) {
+	protected boolean handleEvent(int event) {
 		return false;
 	}
 
@@ -146,7 +144,7 @@ public abstract class TransitionManager {
 	 * @param page
 	 *            the page to add.
 	 */
-	protected void addPage(final Page page) {
+	protected void addPage(Page page) {
 		this.navigator.add(page);
 	}
 
@@ -156,7 +154,7 @@ public abstract class TransitionManager {
 	 * @param page
 	 *            the page to remove.
 	 */
-	protected void removePage(final Page page) {
+	protected void removePage(Page page) {
 		this.navigator.remove(page);
 	}
 
@@ -166,7 +164,7 @@ public abstract class TransitionManager {
 	 * @param newPage
 	 *            the new page.
 	 */
-	protected void setCurrentPage(final Page newPage) {
+	protected void setCurrentPage(Page newPage) {
 		this.navigator.setCurrentPage(newPage);
 	}
 
@@ -188,7 +186,7 @@ public abstract class TransitionManager {
 		return this.navigator.getPreviousPage();
 	}
 
-	protected void showPage(final Page oldPage, final Page newPage) {
+	protected void showPage(Page oldPage, Page newPage) {
 		if (oldPage != null) {
 			removePage(oldPage);
 		}
@@ -242,7 +240,7 @@ public abstract class TransitionManager {
 	 *            the new page.
 	 * @see #getContentBounds()
 	 */
-	protected void setChildBounds(final Page newPage) {
+	protected void setChildBounds(Page newPage) {
 		this.navigator.setChildBounds(newPage);
 	}
 
@@ -252,10 +250,10 @@ public abstract class TransitionManager {
 	 * @return the bounds of a child page.
 	 */
 	protected Rectangle getContentBounds() {
-		final Navigator navigator = this.navigator;
-		final Rectangle bounds = new Rectangle(0, 0, navigator.getWidth(), navigator.getHeight());
-		final Style style = navigator.getStyle();
-		final Rectangle contentBounds = StyleHelper.computeContentBounds(bounds, style);
+		Navigator navigator = this.navigator;
+		Rectangle bounds = new Rectangle(0, 0, navigator.getWidth(), navigator.getHeight());
+		Style style = navigator.getStyle();
+		Rectangle contentBounds = StyleHelper.computeContentBounds(bounds, style);
 		return contentBounds;
 	}
 
@@ -267,7 +265,7 @@ public abstract class TransitionManager {
 	 * @param forward
 	 *            <code>true</code> if going to a new page, <code>false</code> if going back in the stack of pages.
 	 */
-	protected void show(final Page newPage, final boolean forward) {
+	protected void show(Page newPage, boolean forward) {
 		this.navigator.show(newPage, forward);
 	}
 
@@ -279,7 +277,7 @@ public abstract class TransitionManager {
 	 * @return true (as specified by Collection.add)
 	 * @see List#add(Object)
 	 */
-	public boolean addTransitionListener(final TransitionListener listener) {
+	public boolean addTransitionListener(TransitionListener listener) {
 		return this.listeners.add(listener);
 	}
 
@@ -291,7 +289,7 @@ public abstract class TransitionManager {
 	 * @return true if this list contained the specified element
 	 * @see List#remove(Object)
 	 */
-	public boolean removeTransitionListener(final TransitionListener listener) {
+	public boolean removeTransitionListener(TransitionListener listener) {
 		return this.listeners.remove(listener);
 	}
 
@@ -303,7 +301,7 @@ public abstract class TransitionManager {
 	 * @return true (as specified by Collection.add)
 	 * @see List#add(Object)
 	 */
-	public static boolean addGlobalTransitionListener(final TransitionListener listener) {
+	public static boolean addGlobalTransitionListener(TransitionListener listener) {
 		return GlobalListeners.add(listener);
 	}
 
@@ -315,7 +313,7 @@ public abstract class TransitionManager {
 	 * @return true if this list contained the specified element
 	 * @see List#remove(Object)
 	 */
-	public static boolean removeGlobalTransitionListener(final TransitionListener listener) {
+	public static boolean removeGlobalTransitionListener(TransitionListener listener) {
 		return GlobalListeners.remove(listener);
 	}
 
@@ -331,14 +329,14 @@ public abstract class TransitionManager {
 	 * @param forward
 	 *            Wether the transition is going forward.
 	 */
-	protected void notifyTransitionStart(final int transitionsStart, final int transitionsStop, final Page from,
-			final Page to) {
+	protected void notifyTransitionStart(int transitionsStart, int transitionsStop, Page from,
+			Page to) {
 		if (!this.isStarted) {
 			this.isStarted = true;
-			for (final TransitionListener transitionListener : this.listeners) {
+			for (TransitionListener transitionListener : this.listeners) {
 				transitionListener.onTransitionStart(transitionsStart, transitionsStop, from, to);
 			}
-			for (final TransitionListener transitionListener : GlobalListeners) {
+			for (TransitionListener transitionListener : GlobalListeners) {
 				transitionListener.onTransitionStart(transitionsStart, transitionsStop, from, to);
 			}
 		}
@@ -350,12 +348,12 @@ public abstract class TransitionManager {
 	 * @param step
 	 *            the current step.
 	 */
-	protected void notifyTransitionTick(final int step) {
-		for (final TransitionListener transitionListener : this.listeners) {
+	protected void notifyTransitionTick(int step) {
+		for (TransitionListener transitionListener : this.listeners) {
 			transitionListener.onTransitionStep(step);
 		}
 
-		for (final TransitionListener transitionListener : GlobalListeners) {
+		for (TransitionListener transitionListener : GlobalListeners) {
 			transitionListener.onTransitionStep(step);
 		}
 	}
@@ -363,10 +361,10 @@ public abstract class TransitionManager {
 	protected void notifyTransitionStop() {
 		if (this.isStarted) {
 			this.isStarted = false;
-			for (final TransitionListener transitionListener : this.listeners) {
+			for (TransitionListener transitionListener : this.listeners) {
 				transitionListener.onTransitionStop();
 			}
-			for (final TransitionListener transitionListener : GlobalListeners) {
+			for (TransitionListener transitionListener : GlobalListeners) {
 				transitionListener.onTransitionStop();
 			}
 		}
@@ -375,17 +373,17 @@ public abstract class TransitionManager {
 	/**
 	 * @param currentPage
 	 */
-	public void notifyShow(final Page currentPage) {
+	public void notifyShow(Page currentPage) {
 		notifyTransitionStart(0, 0, this.navigator.getPreviousPage(), currentPage);
 		notifyTransitionStop();
 	}
 
-	public static void notifyGlobalListeners(final int transitionsStart, final int transitionsStop, final Page from,
-			final Page to) {
-		for (final TransitionListener transitionListener : GlobalListeners) {
+	public static void notifyGlobalListeners(int transitionsStart, int transitionsStop, Page from,
+			Page to) {
+		for (TransitionListener transitionListener : GlobalListeners) {
 			transitionListener.onTransitionStart(transitionsStart, transitionsStop, from, to);
 		}
-		for (final TransitionListener transitionListener : GlobalListeners) {
+		for (TransitionListener transitionListener : GlobalListeners) {
 			transitionListener.onTransitionStop();
 		}
 	}

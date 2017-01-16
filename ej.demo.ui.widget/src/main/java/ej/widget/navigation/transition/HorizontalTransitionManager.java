@@ -2,7 +2,7 @@
  * Java
  *
  * Copyright 2016 IS2T. All rights reserved.
- * Use of this source code is subject to license terms.
+ * IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package ej.widget.navigation.transition;
 
@@ -91,7 +91,7 @@ public class HorizontalTransitionManager extends TransitionManager {
 
 		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
 		animator.startAnimation(
-				new HorizontalAnimation(navigation, newPage, oldPage, motion, contentX, contentY, shift, forward));
+				new HorizontalAnimation(navigation, newPage, oldPage, motion, contentX, contentY, shift));
 	}
 
 	private void addPage(Page page, int contentWidth, int contentHeight) {
@@ -280,7 +280,7 @@ public class HorizontalTransitionManager extends TransitionManager {
 		private final Display display;
 
 		private HorizontalAnimation(Navigator navigation, Page newPage, Page oldPage, Motion motion, int contentX,
-				int contentY, int shift, boolean forward) {
+				int contentY, int shift) {
 			this.navigation = navigation;
 			this.newPage = newPage;
 			this.oldPage = oldPage;
@@ -296,7 +296,6 @@ public class HorizontalTransitionManager extends TransitionManager {
 		@Override
 		public boolean tick(long currentTimeMillis) {
 			long elapsed = currentTimeMillis - this.startTimeMillis;
-
 			final int currentValue = this.motion.getValue(elapsed);
 			notifyTransitionTick(currentValue);
 			boolean finished = elapsed > DURATION;// motion.isFinished();

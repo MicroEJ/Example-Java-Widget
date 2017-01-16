@@ -2,7 +2,7 @@
  * Java
  *
  * Copyright 2016 IS2T. All rights reserved.
- * Use of this source code is subject to license terms.
+ * IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package ej.widget.navigation.transition;
 
@@ -57,15 +57,15 @@ public class HorizontalScreenshotTransitionManager extends TransitionManager {
 	private Page nextPage;
 
 	@Override
-	public void animate(Page oldPage, final Page newPage, final boolean forward) {
-		final Navigator navigation = getNavigator();
-		final Rectangle contentBounds = getContentBounds();
+	public void animate(Page oldPage, Page newPage, boolean forward) {
+		Navigator navigation = getNavigator();
+		Rectangle contentBounds = getContentBounds();
 
-		final int width = navigation.getWidth();
+		int width = navigation.getWidth();
 		this.contentX = contentBounds.getX();
 		this.contentY = contentBounds.getY();
-		final int contentWidth = contentBounds.getWidth();
-		final int contentHeight = contentBounds.getHeight();
+		int contentWidth = contentBounds.getWidth();
+		int contentHeight = contentBounds.getHeight();
 
 		if (forward) {
 			this.shift = width;
@@ -73,11 +73,10 @@ public class HorizontalScreenshotTransitionManager extends TransitionManager {
 			this.shift = -width;
 		}
 
-
 		int startX;
 		if (this.dragged) {
 			if (oldPage == newPage) {
-				final Image tempImage = this.newImage;
+				Image tempImage = this.newImage;
 				this.newImage = this.oldImage;
 				this.oldImage = tempImage;
 				if (forward) {
@@ -90,11 +89,9 @@ public class HorizontalScreenshotTransitionManager extends TransitionManager {
 			} else {
 				startX = this.currentX;
 			}
-
 			notifyTransitionStart(startX, -shift, oldPage, newPage);
 		} else {
 			startX = 0;
-
 			notifyTransitionStart(startX, -shift, oldPage, newPage);
 			// oldPage.onTransitionStart();
 			// newPage.onTransitionStart();
@@ -106,54 +103,52 @@ public class HorizontalScreenshotTransitionManager extends TransitionManager {
 			createNewPageScreenshot(newPage, contentWidth, contentHeight);
 		}
 
-
-		final long duration = DURATION - (DURATION * Math.abs(startX) / Math.abs(this.shift));
-		final Motion motion = new LinearMotion(startX, -this.shift, duration);
+		long duration = DURATION - (DURATION * Math.abs(startX) / Math.abs(this.shift));
+		Motion motion = new LinearMotion(startX, -this.shift, duration);
 
 		this.animating = true;
-		final Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
+		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
 		animator.startAnimation(new HorizontalScreenshotAnimation(navigation, newPage, oldPage, motion));
 	}
 
-	private void createCurrentScreenshot(final Page oldPage, final int contentWidth, final int contentHeight) {
+	private void createCurrentScreenshot(Page oldPage, int contentWidth, int contentHeight) {
 		this.oldImage = Image.createImage(contentWidth, contentHeight);
-		final GraphicsContext g = this.oldImage.getGraphicsContext();
+		GraphicsContext g = this.oldImage.getGraphicsContext();
 		g.drawRegion(Display.getDefaultDisplay(), oldPage.getAbsoluteX(), oldPage.getAbsoluteY(), contentWidth,
 				contentHeight, 0, 0, GraphicsContext.LEFT | GraphicsContext.TOP);
 		removePage(oldPage);
 	}
 
-	private void createNewPageScreenshot(final Page newPage, final int contentWidth, final int contentHeight) {
+	private void createNewPageScreenshot(Page newPage, int contentWidth, int contentHeight) {
 		this.newImage = createPageScreenshot(newPage, contentWidth, contentHeight);
 	}
 
-	private Image createPageScreenshot(final Page page, final int contentWidth, final int contentHeight) {
+	private Image createPageScreenshot(Page page, int contentWidth, int contentHeight) {
 		page.validate(contentWidth, contentHeight);
 		page.setSize(contentWidth, contentHeight);
-		final Image image = Image.createImage(contentWidth, contentHeight);
-		final GraphicsContext g = image.getGraphicsContext();
+		Image image = Image.createImage(contentWidth, contentHeight);
+		GraphicsContext g = image.getGraphicsContext();
 		DrawScreenHelper.draw(g, page);
 		return image;
 	}
 
 	@Override
-	public void render(final GraphicsContext g, final Style style, final Rectangle bounds) {
+	public void render(GraphicsContext g, Style style, Rectangle bounds) {
 		if (this.animating || this.dragged) {
 			g.translate(this.currentX, 0);
-			final int contentX = this.contentX;
-			g.drawImage(this.oldImage, contentX, this.contentY,
-					GraphicsContext.LEFT | GraphicsContext.TOP);
+			int contentX = this.contentX;
+			g.drawImage(this.oldImage, contentX, this.contentY, GraphicsContext.LEFT | GraphicsContext.TOP);
 			g.drawImage(this.newImage, contentX + this.shift, this.contentY,
 					GraphicsContext.LEFT | GraphicsContext.TOP);
 		}
 	}
 
 	@Override
-	public boolean handleEvent(final int event) {
+	public boolean handleEvent(int event) {
 		if (canGoBackward() || canGoForward()) {
 			if (Event.getType(event) == Event.POINTER) {
-				final Pointer pointer = (Pointer) Event.getGenerator(event);
-				final int pointerX = pointer.getX();
+				Pointer pointer = (Pointer) Event.getGenerator(event);
+				int pointerX = pointer.getX();
 				switch (Pointer.getAction(event)) {
 				case Pointer.PRESSED:
 					return onPointerPressed(pointerX);
@@ -167,7 +162,7 @@ public class HorizontalScreenshotTransitionManager extends TransitionManager {
 		return super.handleEvent(event);
 	}
 
-	private boolean onPointerPressed(final int pointerX) {
+	private boolean onPointerPressed(int pointerX) {
 		// Initiate drag.
 		this.pressed = true;
 		this.pressedX = pointerX;
@@ -182,9 +177,9 @@ public class HorizontalScreenshotTransitionManager extends TransitionManager {
 		this.nextPage = null;
 	}
 
-	private boolean onPointerDragged(final int pointerX) {
+	private boolean onPointerDragged(int pointerX) {
 		if (this.pressed) {
-			final Page currentPage = getNavigator().getCurrentPage();
+			Page currentPage = getNavigator().getCurrentPage();
 			// Move pages.
 			this.dragged = onDrag(currentPage, pointerX);
 
@@ -202,18 +197,18 @@ public class HorizontalScreenshotTransitionManager extends TransitionManager {
 	 *            the pointer current x coordinate.
 	 * @return <code>true</code> if two pages are visible, <code>false</code> otherwise.
 	 */
-	protected boolean onDrag(final Page currentPage, final int pointerX) {
+	protected boolean onDrag(Page currentPage, int pointerX) {
 		// Compute drag distance.
 		int dragWidth = pointerX - this.pressedX;
 
-		final Rectangle contentBounds = getContentBounds();
-		final int contentX = contentBounds.getX();
-		final int contentY = contentBounds.getY();
-		final int contentWidth = contentBounds.getWidth();
-		final int contentHeight = contentBounds.getHeight();
+		Rectangle contentBounds = getContentBounds();
+		int contentX = contentBounds.getX();
+		int contentY = contentBounds.getY();
+		int contentWidth = contentBounds.getWidth();
+		int contentHeight = contentBounds.getHeight();
 
-		final Navigator navigation = getNavigator();
-		final int width = navigation.getWidth();
+		Navigator navigation = getNavigator();
+		int width = navigation.getWidth();
 
 		Page previousPage = this.previousPage;
 		Page nextPage = this.nextPage;
@@ -256,8 +251,8 @@ public class HorizontalScreenshotTransitionManager extends TransitionManager {
 		return dragWidth != 0;
 	}
 
-	private int initPage(final Page currentPage, final int pointerX, int dragWidth, final int pageX, final int pageY, final Page page,
-			final int contentWidth, final int contentHeight) {
+	private int initPage(Page currentPage, int pointerX, int dragWidth, int pageX, int pageY, Page page,
+			int contentWidth, int contentHeight) {
 		if (page == null) {
 			// Can't go backward.
 			dragWidth = 0;
@@ -280,7 +275,7 @@ public class HorizontalScreenshotTransitionManager extends TransitionManager {
 	}
 
 	private void removeNextPage() {
-		final Page nextPage = this.nextPage;
+		Page nextPage = this.nextPage;
 		if (nextPage != null) {
 			// nextPage.onTransitionStop();
 			removePage(nextPage);
@@ -290,7 +285,7 @@ public class HorizontalScreenshotTransitionManager extends TransitionManager {
 	}
 
 	private void removePreviousPage() {
-		final Page previousPage = this.previousPage;
+		Page previousPage = this.previousPage;
 		if (previousPage != null) {
 			// previousPage.onTransitionStop();
 			removePage(previousPage);
@@ -299,14 +294,14 @@ public class HorizontalScreenshotTransitionManager extends TransitionManager {
 		}
 	}
 
-	private boolean onPointerReleased(final int pointerX) {
+	private boolean onPointerReleased(int pointerX) {
 		this.pressed = false;
 		if (this.dragged) {
-			final Navigator navigation = getNavigator();
-			final Page currentPage = navigation.getCurrentPage();
-			final int width = navigation.getWidth();
-			final int moveX = pointerX - this.pressedX;
-			final int minShiftX = width / MIN_SHIFT_RATIO;
+			Navigator navigation = getNavigator();
+			Page currentPage = navigation.getCurrentPage();
+			int width = navigation.getWidth();
+			int moveX = pointerX - this.pressedX;
+			int minShiftX = width / MIN_SHIFT_RATIO;
 			if (moveX > minShiftX) {
 				// Go backward.
 				removePage(this.previousPage);
@@ -337,7 +332,7 @@ public class HorizontalScreenshotTransitionManager extends TransitionManager {
 		private final Motion motion;
 		private final Display display;
 
-		private HorizontalScreenshotAnimation(final Navigator navigation, final Page newPage, final Page oldPage, final Motion motion) {
+		private HorizontalScreenshotAnimation(Navigator navigation, Page newPage, Page oldPage, Motion motion) {
 			this.newPage = newPage;
 			this.oldPage = oldPage;
 			this.navigation = navigation;
@@ -347,9 +342,9 @@ public class HorizontalScreenshotTransitionManager extends TransitionManager {
 		}
 
 		@Override
-		public boolean tick(final long currentTimeMillis) {
-			final int currentValue = this.motion.getCurrentValue();
-			final boolean finished = motion.isFinished();
+		public boolean tick(long currentTimeMillis) {
+			int currentValue = this.motion.getCurrentValue();
+			boolean finished = motion.isFinished();
 			HorizontalScreenshotTransitionManager.this.currentX = currentValue;
 			this.navigation.repaint();
 			if (finished) {
@@ -369,7 +364,7 @@ public class HorizontalScreenshotTransitionManager extends TransitionManager {
 		}
 
 		private void end() {
-			final Page newPage = this.newPage;
+			Page newPage = this.newPage;
 			addPage(newPage);
 			setCurrentPage(newPage);
 			setChildBounds(newPage);

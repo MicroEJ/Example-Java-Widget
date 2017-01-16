@@ -42,7 +42,7 @@ public class Wheel extends StyledWidget {
 
 	private final ElementAdapter lineElement;
 
-	private final int itemOnSideCount;
+	private final WheelGroup wheelGroup;
 	private Choice model;
 	private int spinOffset;
 	private int currentIndexDiff;
@@ -58,14 +58,23 @@ public class Wheel extends StyledWidget {
 	/**
 	 * Constructor
 	 *
-	 * @param itemOnSideCount
-	 *            the number of choices to show on the sides of the wheel
+	 * @param wheelGroup
+	 *            the wheel group
 	 */
-	public Wheel(int itemOnSideCount) {
+	public Wheel(WheelGroup wheelGroup) {
 		this.lineElement = new ElementAdapter(this);
 		this.lineElement.addClassSelector(CLASS_SELECTOR_LINE);
-		this.itemOnSideCount = itemOnSideCount;
+		this.wheelGroup = wheelGroup;
 		this.motionManager = new QuadMotionManager();
+	}
+
+	/**
+	 * Gets the wheel group
+	 *
+	 * @return the wheel group
+	 */
+	public WheelGroup getGroup() {
+		return this.wheelGroup;
 	}
 
 	/**
@@ -84,7 +93,7 @@ public class Wheel extends StyledWidget {
 		int remainingHeight = bounds.getHeight();
 
 		int lineHeight = getLineHeight();
-		int itemOnSideCount = this.itemOnSideCount;
+		int itemOnSideCount = this.wheelGroup.getNumSideValues();
 		int maxItemOnSideCount = itemOnSideCount + 1;
 		int currentValueY = (remainingHeight >> 1) + this.spinOffset;
 		int currentVisibleIndex = this.model.getCurrentIndex() + this.currentIndexDiff;
@@ -167,7 +176,7 @@ public class Wheel extends StyledWidget {
 	}
 
 	private int getLineHeight() {
-		return this.getHeight() / (this.itemOnSideCount * 2 + 1);
+		return this.getHeight() / (this.wheelGroup.getNumSideValues() * 2 + 1);
 	}
 
 	@Override
@@ -262,8 +271,12 @@ public class Wheel extends StyledWidget {
 		int pointerCoordinate = pointerY;
 		int start;
 		int stop;
-		int currentIndexDiffToBe = 0;
-		if (!this.dragged) {
+		int currentIndexDiffToBe;
+		if (this.wheelGroup.getNumActiveWheels() >= this.wheelGroup.getMaxActiveWheels()) {
+			currentIndexDiffToBe = computeIndexDiff(pointerCoordinate - (getHeight() >> 1));
+			start = -currentIndexDiffToBe * getLineHeight();
+			stop = -currentIndexDiffToBe * getLineHeight();
+		} else if (!this.dragged) {
 			currentIndexDiffToBe = computeIndexDiff(pointerCoordinate - (getHeight() >> 1));
 			start = 0;
 			stop = -currentIndexDiffToBe * getLineHeight();
@@ -308,17 +321,21 @@ public class Wheel extends StyledWidget {
 
 			@Override
 			public void stop(int value) {
-				Wheel.this.spinOffset = 0;
-				Wheel.this.currentIndexDiff = 0;
-				int newCurrentIndex = Wheel.this.model.getCurrentIndex() + currentIndexDiffToBe;
-				Wheel.this.model.setCurrentIndex(newCurrentIndex);
+				Wheel wheel = Wheel.this;
+				wheel.getGroup().setWheelActive(wheel, false);
+				wheel.spinOffset = 0;
+				wheel.currentIndexDiff = 0;
+				int newCurrentIndex = wheel.model.getCurrentIndex() + currentIndexDiffToBe;
+				wheel.model.setCurrentIndex(newCurrentIndex);
 				repaint();
 			}
 
 			@Override
 			public void step(int value) {
-				Wheel.this.spinOffset = computeSpinOffset(value, 0);
-				Wheel.this.currentIndexDiff = computeIndexDiff(-value);
+				Wheel wheel = Wheel.this;
+				wheel.getGroup().setWheelActive(wheel, true);
+				wheel.spinOffset = computeSpinOffset(value, 0);
+				wheel.currentIndexDiff = computeIndexDiff(-value);
 				repaint();
 			}
 

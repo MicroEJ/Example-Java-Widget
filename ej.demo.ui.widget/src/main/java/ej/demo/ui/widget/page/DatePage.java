@@ -8,11 +8,11 @@ package ej.demo.ui.widget.page;
 
 import ej.demo.ui.widget.style.ClassSelectors;
 import ej.mwt.Widget;
-import ej.widget.container.Grid;
 import ej.widget.wheel.Choice;
 import ej.widget.wheel.EndlessIntegerChoice;
 import ej.widget.wheel.EndlessStringChoice;
 import ej.widget.wheel.Wheel;
+import ej.widget.wheel.WheelGroup;
 
 /**
  * This page illustrates a date picker.
@@ -20,6 +20,7 @@ import ej.widget.wheel.Wheel;
 public class DatePage extends AbstractDemoPage {
 
 	private static final int WHEEL_SIDES = 2;
+	private static final int MAX_ACTIVE_WHEELS = 2;
 
 	@SuppressWarnings("nls")
 	private static final String[] MONTHS = { "January", "February", "March", "April", "May", "June", "July", "August",
@@ -32,24 +33,24 @@ public class DatePage extends AbstractDemoPage {
 
 	@Override
 	protected Widget createMainContent() {
-		Grid datePicker = new Grid(true, 3);
-		datePicker.addClassSelector(ClassSelectors.DATE_PICKER);
+		WheelGroup wheelGroup = new WheelGroup(WHEEL_SIDES, MAX_ACTIVE_WHEELS);
+		wheelGroup.addClassSelector(ClassSelectors.DATE_PICKER);
 
 		Choice monthChoice = new EndlessStringChoice(MONTHS, 11);
-		Wheel monthWheel = new Wheel(WHEEL_SIDES);
+		Wheel monthWheel = new Wheel(wheelGroup);
 		monthWheel.setModel(monthChoice);
-		datePicker.add(monthWheel);
+		wheelGroup.add(monthWheel);
 
 		Choice dayChoice = new EndlessIntegerChoice(1, 31, 25);
-		Wheel dayWheel = new Wheel(WHEEL_SIDES);
+		Wheel dayWheel = new Wheel(wheelGroup);
 		dayWheel.setModel(dayChoice);
-		datePicker.add(dayWheel);
+		wheelGroup.add(dayWheel);
 
 		Choice yearChoice = new EndlessIntegerChoice(2000, 2025, 2017);
-		Wheel yearWheel = new Wheel(WHEEL_SIDES);
+		Wheel yearWheel = new Wheel(wheelGroup);
 		yearWheel.setModel(yearChoice);
-		datePicker.add(yearWheel);
+		wheelGroup.add(yearWheel);
 
-		return datePicker;
+		return wheelGroup;
 	}
 }

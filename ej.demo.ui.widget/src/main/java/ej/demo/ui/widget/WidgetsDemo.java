@@ -105,10 +105,9 @@ public class WidgetsDemo {
 					int action = Pointer.getAction(event);
 					if (action == Pointer.RELEASED) {
 						getPanel().setFocus(null);
-						return true;
 					}
 				}
-				return false;
+				return super.handleEvent(event);
 			}
 		};
 

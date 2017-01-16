@@ -20,6 +20,7 @@ import ej.widget.navigation.navigator.HistorizedNavigator;
 import ej.widget.navigation.page.URLResolver;
 import ej.widget.navigation.stack.PageStack;
 import ej.widget.navigation.stack.PageStackURL;
+import ej.widget.navigation.transition.HorizontalScreenshotTransitionManager;
 import ej.widget.navigation.transition.HorizontalTransitionManager;
 
 /**
@@ -29,6 +30,8 @@ public class WidgetsDemo {
 
 	public static int WIDTH;
 	public static int HEIGHT;
+
+	private static boolean USE_SCREENSHOT_TRANSITION = true;
 
 	private static Desktop Desktop;
 	private static Panel Panel;
@@ -108,7 +111,12 @@ public class WidgetsDemo {
 				return false;
 			}
 		};
-		navigator.setTransitionManager(new HorizontalTransitionManager());
+
+		if (USE_SCREENSHOT_TRANSITION) {
+			navigator.setTransitionManager(new HorizontalScreenshotTransitionManager());
+		} else {
+			navigator.setTransitionManager(new HorizontalTransitionManager());
+		}
 		return navigator;
 	}
 

@@ -370,7 +370,7 @@ public class StylesheetPopulator {
 		EditableStyle focusedTextStyle = new EditableStyle();
 		focusedTextStyle.setBorderColor(CHECKED_FOREGROUND);
 		focusedTextStyle.setBorder(new ComplexRectangularBorder(0, 0, 2, 0));
-		focusedTextStyle.setPadding(new ComplexOutline(0, 1, -1, 1));
+		focusedTextStyle.setPadding(new ComplexOutline(0, 1, 0, 1));
 		StateSelector focusSelector = new StateSelector(State.Focus);
 		AndCombinator focusedTextSelector = new AndCombinator(textSelector, focusSelector);
 		stylesheet.addRule(focusedTextSelector, focusedTextStyle);

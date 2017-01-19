@@ -26,9 +26,8 @@
 		<dependency org="ej.api" name="edc" rev="[1.2.0-RC0,2.0.0-RC0[" conf="provided->*" />
 		<dependency org="ej.api" name="bon" rev="[1.2.0-RC0,2.0.0-RC0[" conf="provided->*" />
 		<dependency org="ej.api" name="microui" rev="[2.0.0-RC0,3.0.0-RC0[" conf="provided->*" />
-		<dependency org="ej.api" name="mwt" rev="[2.0.0-RC0,3.0.0-RC0[" conf="provided->*" />
 		<dependency org="ej.library.runtime" name="components" rev="[3.0.0-RC0,4.0.0-RC0["/>
-		<dependency org="ej.library.ui" name="widget" rev="2.0.0"/>
+		<dependency org="ej.library.ui" name="widget" rev="[2.0.0-RC0,3.0.0-RC0["/>
 		<dependency org="ej.library.util" name="exit" rev="[1.0.0-RC0,2.0.0-RC0["/>
 	</dependencies>
 </ivy-module>

@@ -65,6 +65,7 @@ public class StylesheetPopulator {
 
 	private static final int FOREGROUND = MicroEJColors.CONCRETE_BLACK_25;
 	private static final int BACKGROUND = MicroEJColors.WHITE;
+	private static final int TITLE_FOREGROUND = MicroEJColors.CONCRETE_BLACK_50;
 	private static final int LIST_ODD_BACKGROUND = MicroEJColors.CONCRETE_WHITE_75;
 	private static final int TITLE_BORDER = MicroEJColors.CONCRETE_WHITE_50;
 	private static final int CHECKED_FOREGROUND = MicroEJColors.CORAL;
@@ -130,6 +131,7 @@ public class StylesheetPopulator {
 		style.clear();
 		style.setPadding(new SimpleOutline(7));
 		style.setFontProfile(new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.LARGE, Font.STYLE_PLAIN));
+		style.setForegroundColor(TITLE_FOREGROUND);
 		style.setBorderColor(TITLE_BORDER);
 		style.setBorder(new ComplexRectangularBorder(0, 0, 2, 0));
 		stylesheet.addRule(new ClassSelector(ClassSelectors.TOP_BAR), style);

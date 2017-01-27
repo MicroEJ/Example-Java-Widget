@@ -7,7 +7,7 @@
 package ej.demo.ui.widget.page;
 
 import ej.demo.ui.widget.WidgetsDemo;
-import ej.widget.StyledPanel;
+import ej.mwt.Panel;
 import ej.widget.keyboard.Keyboard;
 import ej.widget.keyboard.Layout;
 import ej.widget.navigation.TransitionListener;
@@ -22,7 +22,7 @@ public abstract class KeyboardPage extends AbstractDemoPage implements Transitio
 	private static final float KEYBOARD_RATIO = 0.45f;
 
 	private final Keyboard keyboard;
-	private final StyledPanel keyboardDialog;
+	private final Panel keyboardDialog;
 
 	/**
 	 * Constructor
@@ -30,7 +30,7 @@ public abstract class KeyboardPage extends AbstractDemoPage implements Transitio
 	public KeyboardPage() {
 		// create keyboard dialog
 		final int keyboardHeight = (int) (WidgetsDemo.HEIGHT * KEYBOARD_RATIO);
-		this.keyboardDialog = new StyledPanel() {
+		this.keyboardDialog = new Panel() {
 			@Override
 			public void validate(int widthHint, int heightHint) {
 				super.validate(WidgetsDemo.WIDTH, keyboardHeight);

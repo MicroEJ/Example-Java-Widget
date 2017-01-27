@@ -12,7 +12,7 @@ package ej.demo.ui.widget.style;
 public interface Images {
 
 	/**
-	 * The MicroEJ logo.
+	 * The store icon.
 	 */
-	String MICROEJ_LOGO = "/images/microej_logo.png"; //$NON-NLS-1$
+	String STORE_ICON = "/images/store.png"; //$NON-NLS-1$
 }

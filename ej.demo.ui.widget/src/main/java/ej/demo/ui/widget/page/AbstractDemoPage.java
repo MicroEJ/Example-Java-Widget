@@ -98,7 +98,7 @@ public abstract class AbstractDemoPage extends Page {
 				}
 			});
 
-			Image exitIcon = new Image(StyleHelper.getImage(Images.MICROEJ_LOGO));
+			Image exitIcon = new Image(StyleHelper.getImage(Images.STORE_ICON));
 			exitButton.setWidget(exitIcon);
 			topBar.setFirst(exitButton);
 

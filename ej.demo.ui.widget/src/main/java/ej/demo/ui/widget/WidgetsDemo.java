@@ -15,7 +15,6 @@ import ej.microui.event.Event;
 import ej.microui.event.generator.Pointer;
 import ej.mwt.Desktop;
 import ej.mwt.Panel;
-import ej.widget.StyledDesktop;
 import ej.widget.navigation.navigator.HistorizedNavigator;
 import ej.widget.navigation.page.URLResolver;
 import ej.widget.navigation.stack.PageStack;
@@ -67,7 +66,7 @@ public class WidgetsDemo {
 		HEIGHT = Display.getDefaultDisplay().getHeight();
 
 		// Show the navigator.
-		Desktop = new StyledDesktop();
+		Desktop = new Desktop();
 		Panel = new Panel();
 		Panel.setBounds(0, 0, WIDTH, HEIGHT);
 		Panel.setWidget(HistorizedNavigator);

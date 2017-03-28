@@ -1,8 +1,8 @@
-com.microej.demo.widget.page.MainPage
+ej.event.generator.SystemKeyboard
 com.microej.demo.widget.style.WidgetsFontLoader
-com.microej.demo.widget.page.PictoWidgetPage
-ej.widget.basic.image.ImageTheme
 com.microej.demo.widget.style.WidgetsImageTheme
+com.microej.demo.widget.page.MainPage
+com.microej.demo.widget.page.PictoWidgetPage
 com.microej.demo.widget.page.ImageWidgetPage
 com.microej.demo.widget.page.VectorWidgetPage
 com.microej.demo.widget.page.ProgressBarPage
@@ -11,4 +11,4 @@ com.microej.demo.widget.page.ScrollableTextPage
 com.microej.demo.widget.page.EditionPage
 com.microej.demo.widget.page.ChartPage
 com.microej.demo.widget.page.DatePage
-ej.event.generator.SystemKeyboard
+com.microej.demo.widget.page.CarouselPage

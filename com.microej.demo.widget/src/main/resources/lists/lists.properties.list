@@ -8,5 +8,5 @@ ej.widget.basic.image.ImageTheme=com.microej.demo.widget.style.WidgetsImageTheme
 # Transitions with screenshots, uncomment the line below to use it.
 com.microej.demo.widget.transition.screenshot=SET
 
-ej.animation.Animator.period=30
+ej.animation.Animator.period=50
 ej.microui.event.generator.Keyboard=ej.event.generator.SystemKeyboard

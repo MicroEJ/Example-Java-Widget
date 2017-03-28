@@ -12,3 +12,9 @@ images/slider_bar.png:ARGB8888
 images/slider_cursor.png:ARGB8888
 images/switch_checked.png:ARGB8888
 images/switch_unchecked.png:ARGB8888
+
+images/carousel/cowboy.png:ARGB8888
+images/carousel/frenchie.png:ARGB8888
+images/carousel/santa.png:ARGB8888
+images/carousel/space.png:ARGB8888
+images/carousel/superjeo.png:ARGB8888

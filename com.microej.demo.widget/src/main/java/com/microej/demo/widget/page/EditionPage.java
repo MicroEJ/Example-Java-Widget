@@ -29,6 +29,8 @@ public class EditionPage extends KeyboardPage {
 	private static final String SPECIAL_NEXT = "Next"; //$NON-NLS-1$
 	private static final String SPECIAL_SUBMIT = "Submit"; //$NON-NLS-1$
 
+	private static final int MAX_TEXT_LENGTH = 33;
+
 	private KeyboardText[] form;
 	private KeyboardText firstName;
 	private KeyboardText lastName;
@@ -64,10 +66,12 @@ public class EditionPage extends KeyboardPage {
 
 		// first name
 		this.firstName = new KeyboardText(EMPTY_STRING, FIRST_NAME);
+		this.firstName.setMaxTextLength(MAX_TEXT_LENGTH);
 		this.firstName.addOnFocusListener(onFocusListener);
 
 		// last name
 		this.lastName = new KeyboardText(EMPTY_STRING, LAST_NAME);
+		this.lastName.setMaxTextLength(MAX_TEXT_LENGTH);
 		this.lastName.addOnFocusListener(onFocusListener);
 
 		// result label

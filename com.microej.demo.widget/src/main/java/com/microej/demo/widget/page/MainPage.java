@@ -28,12 +28,6 @@ public class MainPage extends AbstractDemoPage {
 
 	@Override
 	protected Widget createMainContent() {
-		// layout:
-		// Basic widgets - Picto
-		// Basic widgets - Drawing
-		// Progress bar
-		// Scrollable list
-
 		List listComposite = new List(false);
 		listComposite.add(newSelectableItem("Basic widgets - Picto", PictoWidgetPage.class.getName())); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Basic widgets - Image", ImageWidgetPage.class.getName())); //$NON-NLS-1$

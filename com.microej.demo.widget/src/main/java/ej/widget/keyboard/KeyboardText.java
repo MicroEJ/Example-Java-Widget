@@ -56,6 +56,8 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 	private static final String CLEAR_BUTTON_STRING = "\u00D7"; //$NON-NLS-1$
 
+	private static final int DEFAULT_MAX_TEXT_LENGTH = 25;
+
 	private static final long BLINK_PERIOD = 500;
 
 	private final ElementAdapter selectionElement;
@@ -63,6 +65,7 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 
 	private StringBuffer buffer;
 	private String placeHolder;
+	private int maxTextLength;
 
 	private int caretStart;
 	private int caretEnd;
@@ -116,6 +119,7 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 		this.onFocusListeners = EMPTY_FOCUS_LISTENERS;
 		setText(text);
 		setPlaceHolder(placeHolder);
+		setMaxTextLength(DEFAULT_MAX_TEXT_LENGTH);
 	}
 
 	/**
@@ -156,6 +160,25 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 	 */
 	public int getTextLength() {
 		return this.buffer.length();
+	}
+
+	/**
+	 * Gets the max text length of the text field.
+	 *
+	 * @return the max text length.
+	 */
+	public int getMaxTextLength() {
+		return this.maxTextLength;
+	}
+
+	/**
+	 * Sets the max text length of the text field.
+	 *
+	 * @param maxTextLength
+	 *            the max text length.
+	 */
+	public void setMaxTextLength(int maxTextLength) {
+		this.maxTextLength = maxTextLength;
 	}
 
 	/**
@@ -250,15 +273,17 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 	 * @see #addOnTextChangeListener(OnTextChangeListener)
 	 */
 	public void insert(char c) {
-		boolean wasEmpty = isEmpty();
-		removeSelection();
-		int caret = getCaret();
-		this.buffer.insert(caret, c);
-		int newCaret = caret + 1;
-		setCaret(newCaret);
-		invalidate();
-		updateEmptyState(wasEmpty, false);
-		notifyOnTextChangeListeners(newCaret, getText());
+		if (this.buffer.length() < this.maxTextLength) {
+			boolean wasEmpty = isEmpty();
+			removeSelection();
+			int caret = getCaret();
+			this.buffer.insert(caret, c);
+			int newCaret = caret + 1;
+			setCaret(newCaret);
+			invalidate();
+			updateEmptyState(wasEmpty, false);
+			notifyOnTextChangeListeners(newCaret, getText());
+		}
 	}
 
 	private void updateEmptyState(boolean wasEmpty, boolean isEmpty) {
@@ -540,8 +565,7 @@ public class KeyboardText extends StyledWidget implements EventHandler {
 		// Draw clear button.
 		Style clearButtonStyle = this.clearButtonElement.getStyle();
 		Font clearButtonFont = StyleHelper.getFont(clearButtonStyle);
-		String clearButtonString = CLEAR_BUTTON_STRING;
-		textManager.drawText(g, clearButtonString, clearButtonFont, clearButtonStyle.getForegroundColor(), bounds,
+		textManager.drawText(g, CLEAR_BUTTON_STRING, clearButtonFont, clearButtonStyle.getForegroundColor(), bounds,
 				clearButtonStyle.getAlignment());
 	}
 

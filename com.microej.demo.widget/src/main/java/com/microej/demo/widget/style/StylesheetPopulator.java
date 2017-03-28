@@ -134,6 +134,7 @@ public class StylesheetPopulator {
 		style.setForegroundColor(TITLE_FOREGROUND);
 		style.setBorderColor(TITLE_BORDER);
 		style.setBorder(new ComplexRectangularBorder(0, 0, 2, 0));
+		style.setDimension(new FixedDimension(MWT.NONE, 32));
 		stylesheet.addRule(new ClassSelector(ClassSelectors.TOP_BAR), style);
 
 		// Sets the title style.

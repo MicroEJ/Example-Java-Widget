@@ -74,8 +74,6 @@ public abstract class AbstractDemoPage extends Page {
 
 		if (WidgetsDemo.canGoBack()) {
 			// Add a back button.
-			// Button backButton = new Button(Character.toString(Pictos.BACK));
-			// backButton.getLabel().addClassSelector(ClassSelectors.LARGE_ICON);
 			ButtonImage backButton = new ButtonImage("/images/back.png"); //$NON-NLS-1$
 			backButton.addOnClickListener(new OnClickListener() {
 

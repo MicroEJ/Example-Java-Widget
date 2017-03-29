@@ -15,8 +15,8 @@ import ej.widget.listener.OnClickListener;
  */
 public class Key extends Button {
 
-	final Keyboard keyboard;
-	OnClickListener currentClickListener;
+	private final Keyboard keyboard;
+	private OnClickListener currentClickListener;
 
 	/**
 	 * Constructor

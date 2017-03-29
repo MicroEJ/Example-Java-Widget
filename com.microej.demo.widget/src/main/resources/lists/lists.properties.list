@@ -9,4 +9,4 @@ ej.widget.basic.image.ImageTheme=com.microej.demo.widget.style.WidgetsImageTheme
 com.microej.demo.widget.transition.screenshot=SET
 
 ej.animation.Animator.period=50
-ej.microui.event.generator.Keyboard=ej.event.generator.SystemKeyboard
+ej.microui.event.generator.Keyboard=ej.widget.keyboard.SystemKeyboard

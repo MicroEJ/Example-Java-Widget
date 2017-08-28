@@ -7,6 +7,8 @@ import com.microej.demo.widget.keyboard.SymbolLayout;
 import com.microej.demo.widget.keyboard.UpperCaseLayout;
 import com.microej.demo.widget.style.ClassSelectors;
 
+import ej.components.dependencyinjection.ServiceLoaderFactory;
+import ej.microui.event.generator.Keyboard;
 import ej.mwt.Widget;
 import ej.widget.basic.Label;
 import ej.widget.container.List;
@@ -50,29 +52,34 @@ public class EditionPage extends KeyboardPage {
 	 * Creates the widget representing the main content of the page
 	 */
 	@Override
-	protected Widget createMainContent() {
-		// create focus listener
-		OnFocusListener onFocusListener = new OnFocusListener() {
+	protected Widget createEditionContent() {
+		// first name
+		this.firstName = new KeyboardText(EMPTY_STRING, FIRST_NAME);
+		this.firstName.setMaxTextLength(MAX_TEXT_LENGTH);
+		this.firstName.addOnFocusListener(new OnFocusListener() {
 			@Override
 			public void onGainFocus() {
-				showKeyboard();
+				showKeyboard(EditionPage.this.firstName);
 			}
 
 			@Override
 			public void onLostFocus() {
-				hideKeyboard();
 			}
-		};
-
-		// first name
-		this.firstName = new KeyboardText(EMPTY_STRING, FIRST_NAME);
-		this.firstName.setMaxTextLength(MAX_TEXT_LENGTH);
-		this.firstName.addOnFocusListener(onFocusListener);
+		});
 
 		// last name
 		this.lastName = new KeyboardText(EMPTY_STRING, LAST_NAME);
 		this.lastName.setMaxTextLength(MAX_TEXT_LENGTH);
-		this.lastName.addOnFocusListener(onFocusListener);
+		this.lastName.addOnFocusListener(new OnFocusListener() {
+			@Override
+			public void onGainFocus() {
+				showKeyboard(EditionPage.this.lastName);
+			}
+
+			@Override
+			public void onLostFocus() {
+			}
+		});
 
 		// result label
 		this.resultLabel = new Label(RESULT_EMPTY);
@@ -94,66 +101,48 @@ public class EditionPage extends KeyboardPage {
 		return scroll;
 	}
 
-	/**
-	 * Handles page transition stop
-	 */
 	@Override
-	public void onTransitionStop() {
+	public void onStopAnimation() {
 		WidgetsDemo.getPanel().setFocus(this.form[0]);
 	}
 
-	/**
-	 * Shows the keyboard
-	 */
-	@Override
-	protected void showKeyboard() {
-		int focusedIndex = getFormFocusedIndex();
-		if (focusedIndex != -1) {
-			String specialString = (focusedIndex == this.form.length - 1 ? SPECIAL_SUBMIT : SPECIAL_NEXT);
-			getKeyboard().setSpecialKey(specialString, new OnClickListener() {
+	private void showKeyboard(KeyboardText keyboardText) {
+		showKeyboard();
+		keyboardText.setActive(true);
+		if (keyboardText == this.firstName) {
+			this.lastName.setActive(false);
+			getKeyboard().setSpecialKey(SPECIAL_NEXT, new OnClickListener() {
 				@Override
 				public void onClick() {
-					onSpecialKeyClick();
+					EditionPage.this.lastName.requestFocus();
+				}
+			});
+		} else {
+			this.firstName.setActive(false);
+			getKeyboard().setSpecialKey(SPECIAL_SUBMIT, new OnClickListener() {
+				@Override
+				public void onClick() {
+					submit();
 				}
 			});
 		}
-
-		super.showKeyboard();
-	}
-
-	/**
-	 * Gets the index of the widget currently focused
-	 */
-	private int getFormFocusedIndex() {
-		Widget focusedWidget = WidgetsDemo.getPanel().getFocus();
-		if (focusedWidget != null) {
-			for (int w = 0; w < this.form.length; w++) {
-				if (this.form[w] == focusedWidget) {
-					return w;
-				}
-			}
+		Keyboard keyboard = ServiceLoaderFactory.getServiceLoader().getService(Keyboard.class);
+		if (keyboard != null) {
+			keyboard.setEventHandler(keyboardText);
 		}
-		return -1;
 	}
 
-	/**
-	 * Handles special key click
-	 */
-	private void onSpecialKeyClick() {
-		int focusedIndex = getFormFocusedIndex();
-		if (focusedIndex != -1) {
-			if (focusedIndex == this.form.length - 1) {
-				String firstNameText = this.firstName.getText();
-				String lastNameText = this.lastName.getText();
-				if (firstNameText.length() > 0 && lastNameText.length() > 0) {
-					this.resultLabel.setText(RESULT_PREFIX + this.firstName.getText() + " " + this.lastName.getText()); //$NON-NLS-1$
-				} else {
-					this.resultLabel.setText(RESULT_EMPTY);
-				}
-			} else {
-				Widget nextWidget = this.form[focusedIndex + 1];
-				WidgetsDemo.getPanel().setFocus(nextWidget);
+	private void submit() {
+		String firstNameText = this.firstName.getText();
+		String lastNameText = this.lastName.getText();
+		if (firstNameText.length() > 0 && lastNameText.length() > 0) {
+			this.resultLabel.setText(RESULT_PREFIX + this.firstName.getText() + " " + this.lastName.getText()); //$NON-NLS-1$
+		} else {
+			this.resultLabel.setText(RESULT_EMPTY);
+			if (firstNameText.length() == 0) {
+				this.firstName.requestFocus();
 			}
 		}
 	}
+
 }

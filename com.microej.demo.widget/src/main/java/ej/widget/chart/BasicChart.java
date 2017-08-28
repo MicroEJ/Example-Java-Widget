@@ -20,16 +20,15 @@ import ej.style.Style;
 import ej.style.container.Rectangle;
 import ej.style.util.ElementAdapter;
 import ej.style.util.StyleHelper;
-import ej.widget.navigation.TransitionListener;
-import ej.widget.navigation.TransitionManager;
-import ej.widget.navigation.page.Page;
+import ej.widget.animation.AnimationListener;
+import ej.widget.animation.AnimationListenerRegistry;
 
 /** IPR start **/
 
 /**
  * Represents a chart with basic functionality.
  */
-public abstract class BasicChart extends Chart implements Animation, TransitionListener {
+public abstract class BasicChart extends Chart implements Animation, AnimationListener {
 
 	protected static final int LEFT_PADDING = 30;
 
@@ -71,29 +70,23 @@ public abstract class BasicChart extends Chart implements Animation, TransitionL
 		} else {
 			this.currentApparitionStep = APPARITION_STEPS;
 		}
-		TransitionManager.addGlobalTransitionListener(this);
+		AnimationListenerRegistry.register(this);
 	}
 
 	@Override
 	public void hideNotify() {
 		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
 		animator.stopAnimation(this);
-		TransitionManager.removeGlobalTransitionListener(this);
+		AnimationListenerRegistry.unregister(this);
 		super.hideNotify();
 	}
 
 	@Override
-	public void onTransitionStart(int transitionsSteps, int transitionsStop, Page from, Page to) {
-		// do nothing
+	public void onStartAnimation() {
 	}
 
 	@Override
-	public void onTransitionStep(int step) {
-		// do nothing
-	}
-
-	@Override
-	public void onTransitionStop() {
+	public void onStopAnimation() {
 		this.motion = new LinearMotion(0, APPARITION_STEPS, APPARITION_DURATION);
 		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
 		animator.startAnimation(BasicChart.this);

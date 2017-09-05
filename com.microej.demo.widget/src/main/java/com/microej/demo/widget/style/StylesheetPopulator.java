@@ -70,7 +70,7 @@ public class StylesheetPopulator {
 	private static final int TITLE_BORDER = MicroEJColors.CONCRETE_WHITE_50;
 	private static final int CHECKED_FOREGROUND = MicroEJColors.CORAL;
 	private static final int UNCHECKED_FOREGROUND = MicroEJColors.CONCRETE_BLACK_25;
-	private static final int ACTIVE_FOREGROUND = MicroEJColors.POMEGRANATE;
+	private static final int ACTIVE_FOREGROUND = 0xb53c1c;
 
 	private static final int KEYBOARD_BACKGROUND_COLOR = MicroEJColors.CONCRETE_WHITE_75;
 	private static final int KEYBOARD_KEY_COLOR = MicroEJColors.CONCRETE;

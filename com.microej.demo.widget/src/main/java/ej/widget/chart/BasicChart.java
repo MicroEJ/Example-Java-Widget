@@ -14,21 +14,19 @@ import ej.microui.display.GraphicsContext;
 import ej.microui.event.Event;
 import ej.microui.event.generator.Pointer;
 import ej.motion.Motion;
-import ej.motion.linear.LinearMotion;
+import ej.motion.quart.QuartEaseInOutMotion;
 import ej.mwt.MWT;
 import ej.style.Style;
 import ej.style.container.Rectangle;
 import ej.style.util.ElementAdapter;
 import ej.style.util.StyleHelper;
-import ej.widget.animation.AnimationListener;
-import ej.widget.animation.AnimationListenerRegistry;
 
 /** IPR start **/
 
 /**
  * Represents a chart with basic functionality.
  */
-public abstract class BasicChart extends Chart implements Animation, AnimationListener {
+public abstract class BasicChart extends Chart implements Animation {
 
 	protected static final int LEFT_PADDING = 30;
 
@@ -70,26 +68,16 @@ public abstract class BasicChart extends Chart implements Animation, AnimationLi
 		} else {
 			this.currentApparitionStep = APPARITION_STEPS;
 		}
-		AnimationListenerRegistry.register(this);
+		this.motion = new QuartEaseInOutMotion(0, APPARITION_STEPS, APPARITION_DURATION);
+		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
+		animator.startAnimation(BasicChart.this);
 	}
 
 	@Override
 	public void hideNotify() {
 		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
 		animator.stopAnimation(this);
-		AnimationListenerRegistry.unregister(this);
 		super.hideNotify();
-	}
-
-	@Override
-	public void onStartAnimation() {
-	}
-
-	@Override
-	public void onStopAnimation() {
-		this.motion = new LinearMotion(0, APPARITION_STEPS, APPARITION_DURATION);
-		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
-		animator.startAnimation(BasicChart.this);
 	}
 
 	@Override

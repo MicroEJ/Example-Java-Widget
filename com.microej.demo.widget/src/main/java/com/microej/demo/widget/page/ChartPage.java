@@ -56,7 +56,6 @@ public class ChartPage extends AbstractDemoPage {
 				this.isBar = !this.isBar;
 				BasicChart newChart = (this.isBar ? new BarChart() : new LineChart(false, true));
 				loadChart(newChart);
-				newChart.onStopAnimation();
 				split.setFirst(newChart);
 				split.revalidate();
 				switchButton.setText(this.isBar ? SWITCH_TO_LINE : SWITCH_TO_BAR);

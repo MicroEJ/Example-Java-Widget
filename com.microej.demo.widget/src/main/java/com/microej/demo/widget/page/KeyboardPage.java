@@ -21,7 +21,7 @@ public abstract class KeyboardPage extends AbstractDemoPage implements Animation
 	private static final float KEYBOARD_RATIO = 0.45f;
 
 	private Keyboard keyboard;
-	protected Dock dock;
+	private Dock dock;
 
 	/**
 	 * Constructor

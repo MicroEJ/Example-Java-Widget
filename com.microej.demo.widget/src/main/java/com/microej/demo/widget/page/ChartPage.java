@@ -9,6 +9,7 @@ package com.microej.demo.widget.page;
 import com.microej.demo.widget.style.ClassSelectors;
 
 import ej.mwt.Widget;
+import ej.widget.basic.Button;
 import ej.widget.chart.BarChart;
 import ej.widget.chart.BasicChart;
 import ej.widget.chart.Chart;
@@ -16,7 +17,6 @@ import ej.widget.chart.ChartPoint;
 import ej.widget.chart.LineChart;
 import ej.widget.chart.format.DecimalsChartFormat;
 import ej.widget.chart.scale.AdaptiveChartScale;
-import ej.widget.composed.Button;
 import ej.widget.container.Split;
 import ej.widget.listener.OnClickListener;
 

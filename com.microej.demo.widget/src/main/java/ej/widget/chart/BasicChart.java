@@ -14,22 +14,19 @@ import ej.microui.display.GraphicsContext;
 import ej.microui.event.Event;
 import ej.microui.event.generator.Pointer;
 import ej.motion.Motion;
-import ej.motion.linear.LinearMotion;
+import ej.motion.quart.QuartEaseInOutMotion;
 import ej.mwt.MWT;
 import ej.style.Style;
 import ej.style.container.Rectangle;
 import ej.style.util.ElementAdapter;
 import ej.style.util.StyleHelper;
-import ej.widget.navigation.TransitionListener;
-import ej.widget.navigation.TransitionManager;
-import ej.widget.navigation.page.Page;
 
 /** IPR start **/
 
 /**
  * Represents a chart with basic functionality.
  */
-public abstract class BasicChart extends Chart implements Animation, TransitionListener {
+public abstract class BasicChart extends Chart implements Animation {
 
 	protected static final int LEFT_PADDING = 30;
 
@@ -71,32 +68,16 @@ public abstract class BasicChart extends Chart implements Animation, TransitionL
 		} else {
 			this.currentApparitionStep = APPARITION_STEPS;
 		}
-		TransitionManager.addGlobalTransitionListener(this);
+		this.motion = new QuartEaseInOutMotion(0, APPARITION_STEPS, APPARITION_DURATION);
+		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
+		animator.startAnimation(BasicChart.this);
 	}
 
 	@Override
 	public void hideNotify() {
 		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
 		animator.stopAnimation(this);
-		TransitionManager.removeGlobalTransitionListener(this);
 		super.hideNotify();
-	}
-
-	@Override
-	public void onTransitionStart(int transitionsSteps, int transitionsStop, Page from, Page to) {
-		// do nothing
-	}
-
-	@Override
-	public void onTransitionStep(int step) {
-		// do nothing
-	}
-
-	@Override
-	public void onTransitionStop() {
-		this.motion = new LinearMotion(0, APPARITION_STEPS, APPARITION_DURATION);
-		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
-		animator.startAnimation(BasicChart.this);
 	}
 
 	@Override

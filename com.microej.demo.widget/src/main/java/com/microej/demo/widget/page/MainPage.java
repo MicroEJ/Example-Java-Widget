@@ -10,8 +10,7 @@ import com.microej.demo.widget.WidgetsDemo;
 import com.microej.demo.widget.style.ClassSelectors;
 
 import ej.mwt.Widget;
-import ej.widget.composed.Button;
-import ej.widget.composed.ButtonWrapper;
+import ej.widget.basic.Button;
 import ej.widget.container.List;
 import ej.widget.container.Scroll;
 import ej.widget.listener.OnClickListener;
@@ -45,7 +44,7 @@ public class MainPage extends AbstractDemoPage {
 	}
 
 	// A button that leads to the given page.
-	private ButtonWrapper newSelectableItem(String name, final String url) {
+	private Button newSelectableItem(String name, final String url) {
 		Button button = new Button(name);
 		button.addClassSelector(ClassSelectors.LIST_ITEM);
 		button.addOnClickListener(new OnClickListener() {

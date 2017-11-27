@@ -6,43 +6,41 @@
  */
 package com.microej.demo.widget.page;
 
-import com.microej.demo.widget.WidgetsDemo;
-
-import ej.mwt.Panel;
+import ej.mwt.Widget;
+import ej.widget.animation.AnimationListener;
+import ej.widget.animation.AnimationListenerRegistry;
+import ej.widget.container.Dock;
 import ej.widget.keyboard.Keyboard;
 import ej.widget.keyboard.Layout;
-import ej.widget.navigation.TransitionListener;
-import ej.widget.navigation.TransitionManager;
-import ej.widget.navigation.page.Page;
 
 /**
  * This page illustrates a keyboard.
  */
-public abstract class KeyboardPage extends AbstractDemoPage implements TransitionListener {
+public abstract class KeyboardPage extends AbstractDemoPage implements AnimationListener {
 
 	private static final float KEYBOARD_RATIO = 0.45f;
 
-	private final Keyboard keyboard;
-	private final Panel keyboardDialog;
+	private Keyboard keyboard;
+	private Dock dock;
 
 	/**
 	 * Constructor
 	 */
 	public KeyboardPage() {
-		// create keyboard dialog
-		final int keyboardHeight = (int) (WidgetsDemo.HEIGHT * KEYBOARD_RATIO);
-		this.keyboardDialog = new Panel() {
-			@Override
-			public void validate(int widthHint, int heightHint) {
-				super.validate(WidgetsDemo.WIDTH, keyboardHeight);
-			}
-		};
-		this.keyboardDialog.setBounds(0, WidgetsDemo.HEIGHT - keyboardHeight, WidgetsDemo.WIDTH, keyboardHeight);
-
 		// create keyboard
-		this.keyboard = new Keyboard();
-		this.keyboardDialog.setWidget(this.keyboard);
 	}
+
+	@Override
+	protected final Widget createMainContent() {
+		this.keyboard = new Keyboard();
+
+		this.dock = new Dock();
+		Widget editionContent = createEditionContent();
+		this.dock.setCenter(editionContent);
+		return this.dock;
+	}
+
+	protected abstract Widget createEditionContent();
 
 	/**
 	 * Sets the keyboard layouts to use
@@ -62,28 +60,13 @@ public abstract class KeyboardPage extends AbstractDemoPage implements Transitio
 		return "Keyboard"; //$NON-NLS-1$
 	}
 
-	/**
-	 * Handles page transition start
-	 */
 	@Override
-	public void onTransitionStart(int transitionsSteps, int transitionsStop, Page from, Page to) {
+	public void onStartAnimation() {
 		hideKeyboard();
 	}
 
-	/**
-	 * Handles page transition step
-	 */
 	@Override
-	public void onTransitionStep(int step) {
-		// do nothing
-	}
-
-	/**
-	 * Handles page transition stop
-	 */
-	@Override
-	public void onTransitionStop() {
-		// do nothing
+	public void onStopAnimation() {
 	}
 
 	/**
@@ -92,7 +75,7 @@ public abstract class KeyboardPage extends AbstractDemoPage implements Transitio
 	@Override
 	public void showNotify() {
 		super.showNotify();
-		TransitionManager.addGlobalTransitionListener(this);
+		AnimationListenerRegistry.register(this);
 	}
 
 	/**
@@ -100,7 +83,7 @@ public abstract class KeyboardPage extends AbstractDemoPage implements Transitio
 	 */
 	@Override
 	public void hideNotify() {
-		TransitionManager.removeGlobalTransitionListener(this);
+		AnimationListenerRegistry.unregister(this);
 		super.hideNotify();
 	}
 
@@ -118,21 +101,17 @@ public abstract class KeyboardPage extends AbstractDemoPage implements Transitio
 	 */
 	protected void showKeyboard() {
 		// show keyboard dialog
-		this.keyboardDialog.showUsingBounds(WidgetsDemo.getDesktop());
-
-		// resize main panel
-		final int keyboardHeight = (int) (WidgetsDemo.HEIGHT * KEYBOARD_RATIO);
-		WidgetsDemo.getPanel().setBounds(0, 0, WidgetsDemo.WIDTH, WidgetsDemo.HEIGHT - keyboardHeight);
+		if (this.keyboard.getParent() != this.dock) {
+			this.dock.addBottom(this.keyboard);
+			revalidate();
+		}
 	}
 
 	/**
 	 * Hides the keyboard
 	 */
 	protected void hideKeyboard() {
-		// resize main panel
-		WidgetsDemo.getPanel().setBounds(0, 0, WidgetsDemo.WIDTH, WidgetsDemo.HEIGHT);
-
-		// hide keyboard dialog
-		this.keyboardDialog.hide();
+		this.dock.remove(this.keyboard);
+		revalidate();
 	}
 }

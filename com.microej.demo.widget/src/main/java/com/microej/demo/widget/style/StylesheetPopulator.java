@@ -70,7 +70,7 @@ public class StylesheetPopulator {
 	private static final int TITLE_BORDER = MicroEJColors.CONCRETE_WHITE_50;
 	private static final int CHECKED_FOREGROUND = MicroEJColors.CORAL;
 	private static final int UNCHECKED_FOREGROUND = MicroEJColors.CONCRETE_BLACK_25;
-	private static final int ACTIVE_FOREGROUND = MicroEJColors.POMEGRANATE;
+	private static final int ACTIVE_FOREGROUND = 0xb53c1c;
 
 	private static final int KEYBOARD_BACKGROUND_COLOR = MicroEJColors.CONCRETE_WHITE_75;
 	private static final int KEYBOARD_KEY_COLOR = MicroEJColors.CONCRETE;
@@ -374,8 +374,8 @@ public class StylesheetPopulator {
 		focusedTextStyle.setBorderColor(CHECKED_FOREGROUND);
 		focusedTextStyle.setBorder(new ComplexRectangularBorder(0, 0, 2, 0));
 		focusedTextStyle.setPadding(new ComplexOutline(0, 1, 0, 1));
-		StateSelector focusSelector = new StateSelector(State.Focus);
-		AndCombinator focusedTextSelector = new AndCombinator(textSelector, focusSelector);
+		StateSelector activeSelector = new StateSelector(State.Active);
+		AndCombinator focusedTextSelector = new AndCombinator(textSelector, activeSelector);
 		stylesheet.addRule(focusedTextSelector, focusedTextStyle);
 
 		EditableStyle placeholderTextStyle = new EditableStyle();

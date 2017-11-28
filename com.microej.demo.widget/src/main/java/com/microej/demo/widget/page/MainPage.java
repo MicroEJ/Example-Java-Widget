@@ -33,7 +33,7 @@ public class MainPage extends AbstractDemoPage {
 		listComposite.add(newSelectableItem("Progress bar", ProgressBarPage.class)); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Scrollable list", ScrollableListPage.class)); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Scrollable text", ScrollableTextPage.class)); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Keyboard", EditionPage.class)); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Keyboard", KeyboardPage.class)); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Chart", ChartPage.class)); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Wheel", DatePage.class)); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Carousel", CarouselPage.class)); //$NON-NLS-1$

@@ -39,7 +39,7 @@ public class EditionPage extends KeyboardPage {
 	private Label resultLabel;
 
 	/**
-	 * Constructor
+	 * Creates an edition page.
 	 */
 	public EditionPage() {
 		// set keyboard layouts
@@ -52,7 +52,7 @@ public class EditionPage extends KeyboardPage {
 	 * Creates the widget representing the main content of the page
 	 */
 	@Override
-	protected Widget createEditionContent() {
+	protected Widget createForm() {
 		// first name
 		this.firstName = new KeyboardText(EMPTY_STRING, FIRST_NAME);
 		this.firstName.setMaxTextLength(MAX_TEXT_LENGTH);
@@ -64,6 +64,7 @@ public class EditionPage extends KeyboardPage {
 
 			@Override
 			public void onLostFocus() {
+				// Nothing to do.
 			}
 		});
 
@@ -78,6 +79,7 @@ public class EditionPage extends KeyboardPage {
 
 			@Override
 			public void onLostFocus() {
+				// Nothing to do.
 			}
 		});
 

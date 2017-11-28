@@ -20,9 +20,11 @@ import ej.widget.toggle.RadioModel;
  */
 public class ImageWidgetPage extends WidgetPage {
 
-	@Override
-	protected String getTitle() {
-		return "Images"; //$NON-NLS-1$
+	/**
+	 * Creates an image widget page.
+	 */
+	public ImageWidgetPage() {
+		super("Images"); //$NON-NLS-1$
 	}
 
 	@Override

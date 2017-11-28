@@ -9,7 +9,6 @@ package com.microej.demo.widget.page;
 import java.io.IOException;
 
 import ej.microui.display.Image;
-import ej.mwt.Widget;
 import ej.widget.carousel.Carousel;
 import ej.widget.carousel.CarouselEntry;
 import ej.widget.listener.OnClickListener;
@@ -29,13 +28,12 @@ public class CarouselPage extends AbstractDemoPage {
 	private static final int NUM_ENTRIES = 10;
 	private static final int INITIAL_ENTRY = NUM_ENTRIES / 2;
 
-	@Override
-	protected String getTitle() {
-		return "Carousel"; //$NON-NLS-1$
-	}
+	/**
+	 * Creates a carousel page.
+	 */
+	public CarouselPage() {
+		super(false, "Carousel"); //$NON-NLS-1$
 
-	@Override
-	protected Widget createMainContent() {
 		Image[] images = new Image[IMAGES.length];
 		int entryWidth = 0;
 		for (int i = 0; i < IMAGES.length; i++) {
@@ -56,7 +54,7 @@ public class CarouselPage extends AbstractDemoPage {
 			});
 			carouselEntries[e] = entry;
 		}
-		return new Carousel(carouselEntries, INITIAL_ENTRY, entryWidth);
+		setCenter(new Carousel(carouselEntries, INITIAL_ENTRY, entryWidth));
 	}
 
 	private Image loadImage(String string) {

@@ -18,29 +18,29 @@ import ej.widget.keyboard.Layout;
  */
 public abstract class KeyboardPage extends AbstractDemoPage implements AnimationListener {
 
-	private static final float KEYBOARD_RATIO = 0.45f;
-
-	private Keyboard keyboard;
-	private Dock dock;
+	private final Keyboard keyboard;
+	private final Dock dock;
 
 	/**
-	 * Constructor
+	 * Creates a keyboard page.
 	 */
 	public KeyboardPage() {
-		// create keyboard
-	}
+		super(false, "Keyboard"); //$NON-NLS-1$
 
-	@Override
-	protected final Widget createMainContent() {
 		this.keyboard = new Keyboard();
 
 		this.dock = new Dock();
-		Widget editionContent = createEditionContent();
+		Widget editionContent = createForm();
 		this.dock.setCenter(editionContent);
-		return this.dock;
+		setCenter(this.dock);
 	}
 
-	protected abstract Widget createEditionContent();
+	/**
+	 * Creates the page form.
+	 * 
+	 * @return a widget containing the form.
+	 */
+	protected abstract Widget createForm();
 
 	/**
 	 * Sets the keyboard layouts to use
@@ -52,14 +52,6 @@ public abstract class KeyboardPage extends AbstractDemoPage implements Animation
 		this.keyboard.setLayouts(keyboardLayouts);
 	}
 
-	/**
-	 * Gets the title of the page
-	 */
-	@Override
-	protected String getTitle() {
-		return "Keyboard"; //$NON-NLS-1$
-	}
-
 	@Override
 	public void onStartAnimation() {
 		hideKeyboard();
@@ -67,6 +59,7 @@ public abstract class KeyboardPage extends AbstractDemoPage implements Animation
 
 	@Override
 	public void onStopAnimation() {
+		// Nothing to do.
 	}
 
 	/**

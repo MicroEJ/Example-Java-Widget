@@ -8,7 +8,6 @@ package com.microej.demo.widget.page;
 
 import com.microej.demo.widget.style.ClassSelectors;
 
-import ej.mwt.Widget;
 import ej.widget.basic.Button;
 import ej.widget.chart.BarChart;
 import ej.widget.chart.BasicChart;
@@ -34,13 +33,12 @@ public class ChartPage extends AbstractDemoPage {
 	private static final String SWITCH_TO_LINE = "Switch to line chart"; //$NON-NLS-1$
 	private static final float SPLIT_RATIO = 0.80f;
 
-	@Override
-	protected String getTitle() {
-		return "Chart"; //$NON-NLS-1$
-	}
+	/**
+	 * Creates a chart page.
+	 */
+	public ChartPage() {
+		super(false, "Chart"); //$NON-NLS-1$
 
-	@Override
-	protected Widget createMainContent() {
 		Chart chart = new BarChart();
 		loadChart(chart);
 
@@ -64,7 +62,7 @@ public class ChartPage extends AbstractDemoPage {
 
 		split.setFirst(chart);
 		split.setLast(switchButton);
-		return split;
+		setCenter(split);
 	}
 
 	private void loadChart(Chart chart) {

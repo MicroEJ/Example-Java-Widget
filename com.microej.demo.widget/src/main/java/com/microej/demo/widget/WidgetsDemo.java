@@ -6,7 +6,6 @@
  */
 package com.microej.demo.widget;
 
-import com.microej.demo.widget.page.DirectURLResolver;
 import com.microej.demo.widget.page.MainPage;
 import com.microej.demo.widget.style.StylesheetPopulator;
 
@@ -16,12 +15,11 @@ import ej.microui.event.generator.Pointer;
 import ej.mwt.Desktop;
 import ej.mwt.MWT;
 import ej.mwt.Panel;
+import ej.mwt.Widget;
 import ej.widget.container.transition.SlideScreenshotTransitionContainer;
 import ej.widget.container.transition.SlideTransitionContainer;
 import ej.widget.container.transition.TransitionContainer;
-import ej.widget.navigation.page.Page;
-import ej.widget.navigation.page.URLResolver;
-import ej.widget.navigation.stack.PageStackURL;
+import ej.widget.navigation.page.PageNotFoundException;
 
 /**
  * This demo illustrates the widgets library.
@@ -32,8 +30,6 @@ public class WidgetsDemo {
 
 	private static Desktop Desktop;
 	private static Panel Panel;
-	private static URLResolver UrlResolver;
-	private static PageStackURL PageStack;
 	private static TransitionContainer TransitionContainer;
 
 	// Prevents initialization.
@@ -54,12 +50,10 @@ public class WidgetsDemo {
 		StylesheetPopulator.initialize();
 
 		// Create the navigator.
-		UrlResolver = new DirectURLResolver();
-		PageStack = new PageStackURL(UrlResolver);
 		TransitionContainer = newTransitionContainer();
 
 		// Show the main page.
-		show(MainPage.class.getName());
+		showMainPage();
 
 		// Show the navigator.
 		Desktop = new Desktop() {
@@ -109,36 +103,25 @@ public class WidgetsDemo {
 	}
 
 	/**
-	 * Shows the page corresponding to the given URL.
+	 * Shows the page corresponding to the given class.
 	 *
-	 * @param url
-	 *            the URL of the page to show.
+	 * @param clazz
+	 *            the class of the page to show.
 	 */
-	public static void show(String url) {
-		Page page = UrlResolver.resolve(url);
-		TransitionContainer.show(page, true);
-		PageStack.push(page);
+	public static void show(Class<? extends Widget> clazz) {
+		try {
+			Widget page = clazz.newInstance();
+			TransitionContainer.show(page, true);
+		} catch (InstantiationException | IllegalAccessException e) {
+			throw new PageNotFoundException(clazz.getName(), e);
+		}
 	}
 
 	/**
-	 * Shows the previous panel.
+	 * Shows the main page.
 	 */
-	public static void back() {
-		PageStack.pop();
-		Page page = PageStack.peek();
-		TransitionContainer.show(page, false);
-	}
-
-	/**
-	 * Checks whether or not it is possible to go back in the navigation history.
-	 * <p>
-	 * Beware, the result of this method consider that it is called while creating the new page.
-	 *
-	 * @return <code>true</code> it is possible to go back, <code>false</code> otherwise.
-	 */
-	public static boolean canGoBack() {
-		int historySize = PageStack.size();
-		return historySize >= 1;
+	public static void showMainPage() {
+		TransitionContainer.show(new MainPage(), false);
 	}
 
 }

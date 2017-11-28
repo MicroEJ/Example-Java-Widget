@@ -17,9 +17,11 @@ import ej.widget.composed.ToggleWrapper;
  */
 public class VectorWidgetPage extends WidgetPage {
 
-	@Override
-	protected String getTitle() {
-		return "Drawings"; //$NON-NLS-1$
+	/**
+	 * Creates a vector widget page.
+	 */
+	public VectorWidgetPage() {
+		super("Drawings"); //$NON-NLS-1$
 	}
 
 	@Override

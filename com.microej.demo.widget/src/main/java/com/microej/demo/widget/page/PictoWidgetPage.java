@@ -20,9 +20,11 @@ import ej.widget.toggle.RadioModel;
  */
 public class PictoWidgetPage extends WidgetPage {
 
-	@Override
-	protected String getTitle() {
-		return "Pictos"; //$NON-NLS-1$
+	/**
+	 * Creates a picto widget page.
+	 */
+	public PictoWidgetPage() {
+		super("Pictos"); //$NON-NLS-1$
 	}
 
 	@Override

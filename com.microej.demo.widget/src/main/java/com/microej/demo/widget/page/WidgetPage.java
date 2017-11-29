@@ -8,9 +8,8 @@ package com.microej.demo.widget.page;
 
 import com.microej.demo.widget.style.ClassSelectors;
 
-import ej.mwt.Widget;
 import ej.widget.basic.AbstractSlider;
-import ej.widget.composed.Button;
+import ej.widget.basic.Button;
 import ej.widget.composed.ToggleWrapper;
 import ej.widget.composed.Wrapper;
 import ej.widget.container.Grid;
@@ -25,8 +24,15 @@ public abstract class WidgetPage extends AbstractDemoPage {
 	private static final int MAX_VALUE = 100;
 	private static final int INITIAL_VALUE = 50;
 
-	@Override
-	protected Widget createMainContent() {
+	/**
+	 * Creates a widget page.
+	 *
+	 * @param title
+	 *            the page title.
+	 */
+	public WidgetPage(String title) {
+		super(false, title);
+
 		// layout:
 		// | switch | radio 1 |
 		// | check box | radio 2 |
@@ -63,7 +69,7 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		button.addClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
 		grid.add(button);
 
-		return grid;
+		setCenter(grid);
 	}
 
 	/**

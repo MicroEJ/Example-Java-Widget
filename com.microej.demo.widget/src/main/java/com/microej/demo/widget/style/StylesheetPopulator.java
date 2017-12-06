@@ -181,7 +181,6 @@ public class StylesheetPopulator {
 
 		style.clear();
 		style.setBorder(new SimpleRoundedBorder(1000, 2));
-		// style.setBackground(new SimpleRoundedPlainBackground(1000));
 		style.setPadding(new ComplexOutline(4, 20, 4, 4));
 		style.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
 		stylesheet.addRule(switchboxTypeSelector, style);
@@ -246,12 +245,12 @@ public class StylesheetPopulator {
 		style.setMargin(new ComplexOutline(18, 60, 18, 60));
 		style.setForegroundColor(MicroEJColors.WHITE);
 		style.setBackgroundColor(MicroEJColors.CORAL);
-		style.setBackground(new SimpleRoundedPlainBackground(BUTTON_CORNER_RADIUS - 1));
+		style.setBackground(new SimpleRoundedPlainBackground(BUTTON_CORNER_RADIUS));
 		style.setBorderColor(MicroEJColors.CORAL);
-		style.setBorder(new SimpleRoundedBorder(BUTTON_CORNER_RADIUS, 1));
 		FontProfile illustratedButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM,
 				Font.STYLE_PLAIN);
 		style.setFontProfile(illustratedButtonFont);
+		style.setBorder(new SimpleRoundedBorder(BUTTON_CORNER_RADIUS - 1, 1));
 		style.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
 		Selector illustratedButtonSelector = new ClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
 		stylesheet.addRule(illustratedButtonSelector, style);
@@ -314,26 +313,26 @@ public class StylesheetPopulator {
 
 		EditableStyle activeKeyStyle = new EditableStyle();
 		activeKeyStyle.setForegroundColor(Colors.WHITE);
-		activeKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS - 1));
+		activeKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS));
 		activeKeyStyle.setBackgroundColor(KEYBOARD_HIGHLIGHT_COLOR);
-		activeKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS, 1));
+		activeKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS - 1, 1));
 		activeKeyStyle.setBorderColor(KEYBOARD_HIGHLIGHT_COLOR);
 		StateSelector activeSelector = new StateSelector(State.Active);
 		AndCombinator activeKeySelector = new AndCombinator(keySelector, activeSelector);
 		stylesheet.addRule(activeKeySelector, activeKeyStyle);
 
 		EditableStyle spaceKeyStyle = new EditableStyle();
-		spaceKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS - 1));
+		spaceKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS));
 		spaceKeyStyle.setBackgroundColor(KEYBOARD_KEY_COLOR);
-		spaceKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS, 1));
+		spaceKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS - 1, 1));
 		spaceKeyStyle.setBorderColor(KEYBOARD_KEY_COLOR);
 		ClassSelector spaceKeySelector = new ClassSelector(Keyboard.SPACE_KEY_SELECTOR);
 		stylesheet.addRule(spaceKeySelector, spaceKeyStyle);
 
 		EditableStyle activeShiftKeyStyle = new EditableStyle();
-		activeShiftKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS - 1));
+		activeShiftKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS));
 		activeShiftKeyStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_50);
-		activeShiftKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS, 1));
+		activeShiftKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS - 1, 1));
 		activeShiftKeyStyle.setBorderColor(MicroEJColors.CONCRETE_WHITE_50);
 		ClassSelector activeShiftKeySelector = new ClassSelector(Keyboard.SHIFT_KEY_ACTIVE_SELECTOR);
 		stylesheet.addRule(activeShiftKeySelector, activeShiftKeyStyle);
@@ -341,9 +340,9 @@ public class StylesheetPopulator {
 		EditableStyle specialKeyStyle = new EditableStyle();
 		specialKeyStyle.setForegroundColor(MicroEJColors.WHITE);
 		specialKeyStyle.setBackgroundColor(MicroEJColors.CORAL);
-		specialKeyStyle.setBackground(new SimpleRoundedPlainBackground(BUTTON_CORNER_RADIUS - 1));
+		specialKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS));
 		specialKeyStyle.setBorderColor(MicroEJColors.CORAL);
-		specialKeyStyle.setBorder(new SimpleRoundedBorder(BUTTON_CORNER_RADIUS, 1));
+		specialKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS - 1, 1));
 		FontProfile specialKeyFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM, Font.STYLE_PLAIN);
 		specialKeyStyle.setFontProfile(specialKeyFont);
 		ClassSelector specialKeySelector = new ClassSelector(Keyboard.SPECIAL_KEY_SELECTOR);

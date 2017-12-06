@@ -96,9 +96,8 @@ public class StylesheetPopulator {
 		EditableStyle defaultStyle = new EditableStyle();
 		defaultStyle.setForegroundColor(FOREGROUND);
 		defaultStyle.setBackgroundColor(BACKGROUND);
-		FontProfile defaultFontProfile = new FontProfile();
-		defaultFontProfile.setFamily(FontFamilies.SOURCE_SANS_PRO);
-		defaultFontProfile.setSize(FontSize.MEDIUM);
+		FontProfile defaultFontProfile = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM,
+				Font.STYLE_PLAIN);
 		defaultStyle.setFontProfile(defaultFontProfile);
 		// defaultStyle.setBackground(NoBackground.NO_BACKGROUND);
 		defaultStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
@@ -247,9 +246,6 @@ public class StylesheetPopulator {
 		style.setBackgroundColor(MicroEJColors.CORAL);
 		style.setBackground(new SimpleRoundedPlainBackground(BUTTON_CORNER_RADIUS));
 		style.setBorderColor(MicroEJColors.CORAL);
-		FontProfile illustratedButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM,
-				Font.STYLE_PLAIN);
-		style.setFontProfile(illustratedButtonFont);
 		style.setBorder(new SimpleRoundedBorder(BUTTON_CORNER_RADIUS - 1, 1));
 		style.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
 		Selector illustratedButtonSelector = new ClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
@@ -281,12 +277,10 @@ public class StylesheetPopulator {
 		stylesheet.addRule(new ClassSelector(ClassSelectors.MULTILINE), style);
 
 		// Sets the keyboard style.
-		FontProfile keyboardFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM, Font.STYLE_PLAIN);
-		initKeyboardStyle(stylesheet, keyboardFont);
+		initKeyboardStyle(stylesheet, defaultFontProfile);
 
 		// Sets the edition style.
-		FontProfile editionFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM, Font.STYLE_PLAIN);
-		initEditionStyle(stylesheet, editionFont);
+		initEditionStyle(stylesheet, defaultFontProfile);
 
 		// Sets the chart style.
 		initializeChartStyle(stylesheet);

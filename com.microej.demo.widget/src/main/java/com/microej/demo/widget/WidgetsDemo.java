@@ -32,6 +32,8 @@ public class WidgetsDemo {
 	private static Panel Panel;
 	private static TransitionContainer TransitionContainer;
 
+	private static MainPage mainPage;
+
 	// Prevents initialization.
 	private WidgetsDemo() {
 	}
@@ -51,6 +53,8 @@ public class WidgetsDemo {
 
 		// Create the navigator.
 		TransitionContainer = newTransitionContainer();
+
+		mainPage = new MainPage();
 
 		// Show the main page.
 		showMainPage();
@@ -121,7 +125,7 @@ public class WidgetsDemo {
 	 * Shows the main page.
 	 */
 	public static void showMainPage() {
-		TransitionContainer.show(new MainPage(), false);
+		TransitionContainer.show(mainPage, false);
 	}
 
 }

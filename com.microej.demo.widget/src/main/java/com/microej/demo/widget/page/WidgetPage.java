@@ -61,13 +61,15 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		grid.add(radio2);
 
 		AbstractSlider slider = newSlider(MIN_VALUE, MAX_VALUE, INITIAL_VALUE);
-		Wrapper wrapper = new Wrapper();
-		wrapper.setWidget(slider);
-		grid.add(wrapper);
+		grid.add(slider);
 
+		Wrapper buttonWrapper = new Wrapper();
+		buttonWrapper.setAdjustedToChild(false);
 		Button button = new Button("Button"); //$NON-NLS-1$
 		button.addClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
-		grid.add(button);
+		buttonWrapper.setWidget(button);
+		buttonWrapper.addClassSelector(ClassSelectors.CENTERED);
+		grid.add(buttonWrapper);
 
 		setCenter(grid);
 	}

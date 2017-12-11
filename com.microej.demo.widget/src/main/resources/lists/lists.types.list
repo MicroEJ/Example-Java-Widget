@@ -7,7 +7,7 @@ com.microej.demo.widget.page.VectorWidgetPage
 com.microej.demo.widget.page.ProgressBarPage
 com.microej.demo.widget.page.ScrollableListPage
 com.microej.demo.widget.page.ScrollableTextPage
-com.microej.demo.widget.page.EditionPage
+com.microej.demo.widget.page.KeyboardPage
 com.microej.demo.widget.page.ChartPage
 com.microej.demo.widget.page.DatePage
 com.microej.demo.widget.page.CarouselPage

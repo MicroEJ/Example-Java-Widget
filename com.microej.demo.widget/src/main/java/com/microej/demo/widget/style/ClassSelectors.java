@@ -30,6 +30,10 @@ public interface ClassSelectors {
 	 * The illustrated button class selector.
 	 */
 	String ILLUSTRATED_BUTTON = "illustrated_button"; //$NON-NLS-1$
+	/**
+	 * The centered class selector.
+	 */
+	String CENTERED = "centered"; //$NON-NLS-1$
 
 	/**
 	 * The text scroll class selector.

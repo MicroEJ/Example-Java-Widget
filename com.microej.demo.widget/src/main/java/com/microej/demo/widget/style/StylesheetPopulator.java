@@ -98,7 +98,6 @@ public class StylesheetPopulator {
 		FontProfile defaultFontProfile = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM,
 				Font.STYLE_PLAIN);
 		defaultStyle.setFontProfile(defaultFontProfile);
-		// defaultStyle.setBackground(NoBackground.NO_BACKGROUND);
 		defaultStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
 		stylesheet.setDefaultStyle(defaultStyle);
 
@@ -149,7 +148,6 @@ public class StylesheetPopulator {
 		style.setBackground(new SimpleRoundedPlainBackground(BUTTON_CORNER_RADIUS));
 		style.setBorderColor(MicroEJColors.CORAL);
 		style.setBorder(new SimpleRoundedBorder(BUTTON_CORNER_RADIUS - 1, 1));
-		// style.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
 		Selector illustratedButtonSelector = new ClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
 		stylesheet.addRule(illustratedButtonSelector, style);
 

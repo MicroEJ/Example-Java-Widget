@@ -66,8 +66,8 @@ First of all, you have to download the entire repository by using the `Download`
   * `com.microej.demo.widget.page`: pages of the demo.
   * `com.microej.demo.widget.style`: look and feel management of the demo.
   * `ej.widget`: additional widgets.
+  * `MainActivity`: activity of the sandboxed demo.
   * `WidgetsDemo`: entry point of the standalone demo.
-  * `WidgetsDemo`: activity of the sandboxed demo.
 * `src/main/resources`: images, fonts…
 
 # Usage

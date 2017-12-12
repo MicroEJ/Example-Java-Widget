@@ -1,8 +1,8 @@
 /*
  * Java
  *
- * Copyright 2016 IS2T. All rights reserved.
- * IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright 2016-2017 IS2T. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package ej.widget.chart.scale;
 
@@ -18,7 +18,7 @@ public class FixedChartScale extends ChartScale {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param numValues
 	 *            the number of values to show on the scale
 	 * @param topValue
@@ -31,7 +31,7 @@ public class FixedChartScale extends ChartScale {
 
 	/**
 	 * Gets the top value of the scale This implementation simply returns the top value given in the constructor
-	 * 
+	 *
 	 * @return the top value of the scale
 	 */
 	@Override

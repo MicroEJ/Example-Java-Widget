@@ -1,8 +1,8 @@
 /*
  * Java
  *
- * Copyright 2016 IS2T. All rights reserved.
- * IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright 2016-2017 IS2T. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package ej.widget.chart.scale;
 
@@ -23,7 +23,7 @@ public abstract class ChartScale {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param numValues
 	 *            the number of values to show on the scale
 	 */
@@ -34,7 +34,7 @@ public abstract class ChartScale {
 
 	/**
 	 * Gets the number of values to show on the scale
-	 * 
+	 *
 	 * @return the number of values to show on the scale
 	 */
 	public int getNumValues() {
@@ -43,7 +43,7 @@ public abstract class ChartScale {
 
 	/**
 	 * Sets the maximum value of the chart points
-	 * 
+	 *
 	 * @param maxPointValue
 	 *            the maximum value of the chart points
 	 */
@@ -60,7 +60,7 @@ public abstract class ChartScale {
 
 	/**
 	 * Gets the top value of the scale
-	 * 
+	 *
 	 * @return the top value of the scale
 	 */
 	abstract public float getTopValue();

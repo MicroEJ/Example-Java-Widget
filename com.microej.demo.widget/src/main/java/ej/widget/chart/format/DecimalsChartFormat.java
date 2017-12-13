@@ -6,13 +6,24 @@
  */
 package ej.widget.chart.format;
 
+/**
+ * This implementation of chart format allows to choose the number of decimals for the short and long formats.
+ */
 public class DecimalsChartFormat implements ChartFormat {
 
-	private static String DECIMALS_SEPARATOR = ".";
+	private static String DECIMALS_SEPARATOR = "."; //$NON-NLS-1$
 
 	private final int shortDecimals;
 	private final int longDecimals;
 
+	/**
+	 * Creates a decimals chart format.
+	 *
+	 * @param shortDecimals
+	 *            the number of decimals in the short format.
+	 * @param longDecimals
+	 *            the number of decimals in the long format.
+	 */
 	public DecimalsChartFormat(int shortDecimals, int longDecimals) {
 		this.shortDecimals = shortDecimals;
 		this.longDecimals = longDecimals;
@@ -26,13 +37,6 @@ public class DecimalsChartFormat implements ChartFormat {
 	@Override
 	public String formatLong(float value) {
 		return getFloatString(value, this.longDecimals);
-	}
-
-	/**
-	 * Sets the decimals separator
-	 */
-	private static void setDecimalsSeparator(String decimalsSeparator) {
-		DECIMALS_SEPARATOR = decimalsSeparator;
 	}
 
 	/**

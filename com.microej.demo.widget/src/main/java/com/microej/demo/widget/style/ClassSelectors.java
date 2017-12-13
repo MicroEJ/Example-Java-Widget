@@ -74,4 +74,10 @@ public interface ClassSelectors {
 	 * The date picker class selector.
 	 */
 	String DATE_PICKER = "date_picker"; //$NON-NLS-1$
+
+	/**
+	 * The selected value class selector.
+	 */
+	String SELECTED_VALUE = "selected-value"; //$NON-NLS-1$
+
 }

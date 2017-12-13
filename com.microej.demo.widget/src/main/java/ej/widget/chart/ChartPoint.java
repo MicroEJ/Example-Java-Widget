@@ -10,8 +10,6 @@ import ej.style.Element;
 import ej.style.State;
 import ej.style.util.ElementAdapter;
 
-/** IPR start **/
-
 /**
  * Represents a point of a Chart
  */
@@ -29,7 +27,7 @@ public class ChartPoint extends ElementAdapter {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param name
 	 *            the name.
 	 * @param fullName
@@ -49,7 +47,7 @@ public class ChartPoint extends ElementAdapter {
 
 	/**
 	 * Gets the name.
-	 * 
+	 *
 	 * @return the name.
 	 */
 	public String getName() {
@@ -58,7 +56,7 @@ public class ChartPoint extends ElementAdapter {
 
 	/**
 	 * Sets the name.
-	 * 
+	 *
 	 * @param name
 	 *            the name to set.
 	 */
@@ -68,7 +66,7 @@ public class ChartPoint extends ElementAdapter {
 
 	/**
 	 * Gets the full name.
-	 * 
+	 *
 	 * @return the full name.
 	 */
 	public String getFullName() {
@@ -77,7 +75,7 @@ public class ChartPoint extends ElementAdapter {
 
 	/**
 	 * Sets the full name.
-	 * 
+	 *
 	 * @param fullName
 	 *            the full name to set.
 	 */
@@ -87,7 +85,7 @@ public class ChartPoint extends ElementAdapter {
 
 	/**
 	 * Gets the value.
-	 * 
+	 *
 	 * @return the value.
 	 */
 	public float getValue() {
@@ -96,7 +94,7 @@ public class ChartPoint extends ElementAdapter {
 
 	/**
 	 * Sets the value.
-	 * 
+	 *
 	 * @param value
 	 *            the value to set.
 	 */
@@ -106,7 +104,7 @@ public class ChartPoint extends ElementAdapter {
 
 	/**
 	 * Gets the parentElement.
-	 * 
+	 *
 	 * @return parentElement the parentElement.
 	 */
 	@Override
@@ -116,7 +114,7 @@ public class ChartPoint extends ElementAdapter {
 
 	/**
 	 * Sets the parentElement.
-	 * 
+	 *
 	 * @param parentElement
 	 *            the parentElement to set.
 	 */
@@ -126,7 +124,7 @@ public class ChartPoint extends ElementAdapter {
 
 	/**
 	 * Sets the highlight state.
-	 * 
+	 *
 	 * @param highlighted
 	 *            the highlight state to set.
 	 */
@@ -137,7 +135,7 @@ public class ChartPoint extends ElementAdapter {
 
 	/**
 	 * Sets the selection state.
-	 * 
+	 *
 	 * @param selected
 	 *            the selection state to set.
 	 */
@@ -148,7 +146,7 @@ public class ChartPoint extends ElementAdapter {
 
 	/**
 	 * Checks whether the point is in a given state.
-	 * 
+	 *
 	 * @param state
 	 *            the state.
 	 */
@@ -158,5 +156,3 @@ public class ChartPoint extends ElementAdapter {
 				|| super.isInState(state);
 	}
 }
-
-/** IPR end **/

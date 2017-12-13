@@ -15,8 +15,6 @@ import ej.widget.chart.format.DefaultChartFormat;
 import ej.widget.chart.scale.AdaptiveChartScale;
 import ej.widget.chart.scale.ChartScale;
 
-/** IPR start **/
-
 /**
  * Represents a chart with several ordered points.
  */
@@ -205,5 +203,3 @@ public abstract class Chart extends StyledComposite {
 		return this.format;
 	}
 }
-
-/** IPR end **/

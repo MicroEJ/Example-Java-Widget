@@ -21,8 +21,6 @@ import ej.style.container.Rectangle;
 import ej.style.util.ElementAdapter;
 import ej.style.util.StyleHelper;
 
-/** IPR start **/
-
 /**
  * Represents a chart with basic functionality.
  */
@@ -230,5 +228,3 @@ public abstract class BasicChart extends Chart implements Animation {
 	 */
 	protected abstract int getContentWidth();
 }
-
-/** IPR end **/

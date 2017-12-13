@@ -340,7 +340,7 @@ public class StylesheetPopulator {
 		spaceKeyStyle.setBackgroundColor(KEYBOARD_KEY_COLOR);
 		spaceKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS - 1, 1));
 		spaceKeyStyle.setBorderColor(KEYBOARD_KEY_COLOR);
-		ClassSelector spaceKeySelector = new ClassSelector(Keyboard.SPACE_KEY_SELECTOR);
+		ClassSelector spaceKeySelector = new ClassSelector(ClassSelectors.SPACE_KEY_SELECTOR);
 		stylesheet.addRule(spaceKeySelector, spaceKeyStyle);
 
 		EditableStyle activeShiftKeyStyle = new EditableStyle();
@@ -348,7 +348,7 @@ public class StylesheetPopulator {
 		activeShiftKeyStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_50);
 		activeShiftKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS - 1, 1));
 		activeShiftKeyStyle.setBorderColor(MicroEJColors.CONCRETE_WHITE_50);
-		ClassSelector activeShiftKeySelector = new ClassSelector(Keyboard.SHIFT_KEY_ACTIVE_SELECTOR);
+		ClassSelector activeShiftKeySelector = new ClassSelector(ClassSelectors.SHIFT_KEY_ACTIVE_SELECTOR);
 		stylesheet.addRule(activeShiftKeySelector, activeShiftKeyStyle);
 
 		EditableStyle specialKeyStyle = new EditableStyle();
@@ -359,7 +359,7 @@ public class StylesheetPopulator {
 		specialKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS - 1, 1));
 		FontProfile specialKeyFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM, Font.STYLE_PLAIN);
 		specialKeyStyle.setFontProfile(specialKeyFont);
-		ClassSelector specialKeySelector = new ClassSelector(Keyboard.SPECIAL_KEY_SELECTOR);
+		ClassSelector specialKeySelector = new ClassSelector(ClassSelectors.SPECIAL_KEY_SELECTOR);
 		stylesheet.addRule(specialKeySelector, specialKeyStyle);
 
 		EditableStyle activeSpecialKeyStyle = new EditableStyle();
@@ -398,14 +398,14 @@ public class StylesheetPopulator {
 
 		EditableStyle selectionStyle = new EditableStyle();
 		selectionStyle.setForegroundColor(TEXT_SELECTION_COLOR);
-		stylesheet.addRule(new ClassSelector(KeyboardText.CLASS_SELECTOR_SELECTION), selectionStyle);
+		stylesheet.addRule(new ClassSelector(ClassSelectors.CLASS_SELECTOR_SELECTION), selectionStyle);
 
 		EditableStyle clearButtonStyle = new EditableStyle();
 		clearButtonStyle.setAlignment(GraphicsContext.RIGHT | GraphicsContext.VCENTER);
 		clearButtonStyle.setForegroundColor(FOREGROUND);
 		FontProfile clearButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.LARGE, Font.STYLE_PLAIN);
 		clearButtonStyle.setFontProfile(clearButtonFont);
-		stylesheet.addRule(new ClassSelector(KeyboardText.CLASS_SELECTOR_CLEAR_BUTTON), clearButtonStyle);
+		stylesheet.addRule(new ClassSelector(ClassSelectors.CLASS_SELECTOR_CLEAR_BUTTON), clearButtonStyle);
 
 		EditableStyle formStyle = new EditableStyle();
 		formStyle.setMargin(new ComplexOutline(5, 10, 5, 10));

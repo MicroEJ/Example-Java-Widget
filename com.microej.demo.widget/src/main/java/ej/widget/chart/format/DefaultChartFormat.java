@@ -6,6 +6,9 @@
  */
 package ej.widget.chart.format;
 
+/**
+ * Default implementation of chart format.
+ */
 public class DefaultChartFormat implements ChartFormat {
 
 	@Override

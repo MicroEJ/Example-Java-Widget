@@ -6,6 +6,8 @@
  */
 package ej.widget.chart;
 
+import com.microej.demo.widget.style.ClassSelectors;
+
 import ej.animation.Animation;
 import ej.animation.Animator;
 import ej.components.dependencyinjection.ServiceLoaderFactory;
@@ -28,14 +30,12 @@ import ej.style.util.StyleHelper;
  */
 public abstract class BasicChart extends Chart implements Animation {
 
-	protected static final int LEFT_PADDING = 30;
+	static final int LEFT_PADDING = 30;
 
 	private static final int APPARITION_DURATION = 300;
 	private static final int APPARITION_STEPS = 100;
 
 	private static final int SELECTED_VALUE_PADDING = 5;
-
-	public static final String CLASS_SELECTOR_SELECTED_VALUE = "chart-selected-value";
 
 	/**
 	 * Elements
@@ -54,7 +54,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	public BasicChart() {
 		super();
 		this.selectedValueElement = new ElementAdapter();
-		this.selectedValueElement.addClassSelector(CLASS_SELECTOR_SELECTED_VALUE);
+		this.selectedValueElement.addClassSelector(ClassSelectors.SELECTED_VALUE);
 	}
 
 	/**
@@ -87,6 +87,11 @@ public abstract class BasicChart extends Chart implements Animation {
 		return !this.motion.isFinished();
 	}
 
+	/**
+	 * Gets the animation ratio.
+	 *
+	 * @return the animation ratio.
+	 */
 	protected float getAnimationRatio() {
 		return (float) this.currentApparitionStep / APPARITION_STEPS;
 	}
@@ -130,7 +135,16 @@ public abstract class BasicChart extends Chart implements Animation {
 	}
 
 	/**
-	 * Render scale
+	 * Render scale.
+	 *
+	 * @param g
+	 *            the graphics context.
+	 * @param style
+	 *            the chart style.
+	 * @param bounds
+	 *            the chart bounds.
+	 * @param topValue
+	 *            the value on the top of the chart.
 	 */
 	protected void renderScale(GraphicsContext g, Style style, Rectangle bounds, float topValue) {
 		Font font = StyleHelper.getFont(style);
@@ -160,7 +174,14 @@ public abstract class BasicChart extends Chart implements Animation {
 	}
 
 	/**
-	 * Render selected point value
+	 * Render selected point value.
+	 *
+	 * @param g
+	 *            the graphics context.
+	 * @param style
+	 *            the chart style.
+	 * @param bounds
+	 *            the chart bounds.
 	 */
 	protected void renderSelectedPointValue(GraphicsContext g, Style style, Rectangle bounds) {
 		ChartPoint selectedPoint = getSelectedPoint();
@@ -168,9 +189,9 @@ public abstract class BasicChart extends Chart implements Animation {
 			String labelInfoString = selectedPoint.getFullName();
 			float labelValue = selectedPoint.getValue();
 			String labelValueString = getFormat().formatLong(labelValue);
-			String labelString = labelInfoString + " : " + labelValueString;
+			String labelString = labelInfoString + " : " + labelValueString; //$NON-NLS-1$
 			if (getUnit() != null) {
-				labelString += " " + getUnit();
+				labelString += " " + getUnit(); //$NON-NLS-1$
 			}
 
 			Style labelStyle = this.selectedValueElement.getStyle();
@@ -207,26 +228,42 @@ public abstract class BasicChart extends Chart implements Animation {
 	}
 
 	/**
-	 * Gets the top position of the chart content
+	 * Gets the top position of the chart content.
+	 *
+	 * @param fontHeight
+	 *            the font height.
+	 * @param bounds
+	 *            the chart bounds.
+	 * @return the top position of the chart content.
 	 */
 	protected int getBarTop(int fontHeight, Rectangle bounds) {
 		return fontHeight + 5;
 	}
 
 	/**
-	 * Gets the bottom position of the chart content
+	 * Gets the bottom position of the chart content.
+	 *
+	 * @param fontHeight
+	 *            the font height.
+	 * @param bounds
+	 *            the chart bounds.
+	 * @return the bottom position of the chart content.
 	 */
 	protected int getBarBottom(int fontHeight, Rectangle bounds) {
 		return bounds.getHeight() - fontHeight - fontHeight / 5;
 	}
 
 	/**
-	 * Gets content X
+	 * Gets the content x coordinate.
+	 * 
+	 * @return the content x coordinate.
 	 */
 	protected abstract int getContentX();
 
 	/**
-	 * Gets content width
+	 * Gets the content width.
+	 * 
+	 * @return the content width.
 	 */
 	protected abstract int getContentWidth();
 }

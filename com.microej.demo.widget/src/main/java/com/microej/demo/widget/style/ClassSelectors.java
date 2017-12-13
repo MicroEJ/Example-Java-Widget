@@ -76,6 +76,11 @@ public interface ClassSelectors {
 	String DATE_PICKER = "date_picker"; //$NON-NLS-1$
 
 	/**
+	 * The selected value class selector.
+	 */
+	String SELECTED_VALUE = "selected-value"; //$NON-NLS-1$
+
+	/**
 	 * The space class selector.
 	 */
 	String SPACE_KEY_SELECTOR = "space_key"; //$NON-NLS-1$

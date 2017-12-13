@@ -51,7 +51,6 @@ import ej.widget.basic.picto.PictoProgress;
 import ej.widget.basic.picto.PictoRadio;
 import ej.widget.basic.picto.PictoSlider;
 import ej.widget.basic.picto.PictoSwitch;
-import ej.widget.chart.BasicChart;
 import ej.widget.chart.ChartPoint;
 import ej.widget.keyboard.Key;
 import ej.widget.keyboard.Keyboard;
@@ -446,7 +445,7 @@ public class StylesheetPopulator {
 		FontProfile chartPointValueFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.SMALL,
 				Font.STYLE_PLAIN);
 		chartPointValueStyle.setFontProfile(chartPointValueFont);
-		Selector chartPointValueSelector = new ClassSelector(BasicChart.CLASS_SELECTOR_SELECTED_VALUE);
+		Selector chartPointValueSelector = new ClassSelector(ClassSelectors.SELECTED_VALUE);
 		stylesheet.addRule(chartPointValueSelector, chartPointValueStyle);
 
 		// Sets the switch button style.

@@ -13,6 +13,9 @@ public class AdaptiveChartScale extends ChartScale {
 
 	/**
 	 * Constructor
+	 *
+	 * @param numValues
+	 *            the number of values to show on the scale
 	 */
 	public AdaptiveChartScale(int numValues) {
 		super(numValues);

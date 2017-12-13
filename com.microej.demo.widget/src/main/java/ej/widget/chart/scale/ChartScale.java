@@ -53,6 +53,8 @@ public abstract class ChartScale {
 
 	/**
 	 * Gets the maximum value of the chart points return the maximum value of the chart points
+	 * 
+	 * @return the maximum value.
 	 */
 	protected float getMaxPointValue() {
 		return this.maxPointValue;

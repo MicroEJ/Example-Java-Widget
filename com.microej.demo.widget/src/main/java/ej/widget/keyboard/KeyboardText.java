@@ -6,6 +6,8 @@
  */
 package ej.widget.keyboard;
 
+import com.microej.demo.widget.style.ClassSelectors;
+
 import ej.giml.annotation.Element;
 import ej.giml.annotation.ElementAttribute;
 import ej.giml.annotation.ElementConstructor;
@@ -28,16 +30,6 @@ import ej.widget.listener.OnFocusListener;
  */
 @Element
 public class KeyboardText extends Text implements EventHandler {
-
-	/**
-	 * The class selector for the selection
-	 */
-	public static final String CLASS_SELECTOR_SELECTION = "keyboard-text-selection"; //$NON-NLS-1$
-
-	/**
-	 * The class selector for the clear button
-	 */
-	public static final String CLASS_SELECTOR_CLEAR_BUTTON = "keyboard-text-clear-button"; //$NON-NLS-1$
 
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
@@ -90,9 +82,9 @@ public class KeyboardText extends Text implements EventHandler {
 			@ElementAttribute(defaultValue = EMPTY_STRING) String placeHolder) {
 		super(text, placeHolder);
 		this.selectionElement = new ElementAdapter(this);
-		this.selectionElement.addClassSelector(CLASS_SELECTOR_SELECTION);
+		this.selectionElement.addClassSelector(ClassSelectors.CLASS_SELECTOR_SELECTION);
 		this.clearButtonElement = new ElementAdapter(this);
-		this.clearButtonElement.addClassSelector(CLASS_SELECTOR_CLEAR_BUTTON);
+		this.clearButtonElement.addClassSelector(ClassSelectors.CLASS_SELECTOR_CLEAR_BUTTON);
 		this.onFocusListeners = EMPTY_FOCUS_LISTENERS;
 		setMaxTextLength(DEFAULT_MAX_TEXT_LENGTH);
 	}

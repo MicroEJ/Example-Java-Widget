@@ -9,6 +9,8 @@ package ej.widget.keyboard;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.microej.demo.widget.style.ClassSelectors;
+
 import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.mwt.MWT;
 import ej.style.Style;
@@ -21,13 +23,6 @@ import ej.widget.util.ControlCharacters;
  * Represents a virtual keyboard
  */
 public class Keyboard extends StyledComposite {
-
-	public static final String SPACE_KEY_SELECTOR = "space_key"; //$NON-NLS-1$
-	public static final String BACKSPACE_KEY_SELECTOR = "backspace_key"; //$NON-NLS-1$
-	public static final String SHIFT_KEY_INACTIVE_SELECTOR = "shift_key_inactive"; //$NON-NLS-1$
-	public static final String SHIFT_KEY_ACTIVE_SELECTOR = "shift_key_active"; //$NON-NLS-1$
-	public static final String SWITCH_MAPPING_KEY_SELECTOR = "switch_mapping_key"; //$NON-NLS-1$
-	public static final String SPECIAL_KEY_SELECTOR = "special_key"; //$NON-NLS-1$
 
 	enum Mapping {
 		ABC("ABC"), NUMERIC("123"), SYMBOL("#+="); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -216,11 +211,11 @@ public class Keyboard extends StyledComposite {
 	}
 
 	private void setSpaceKey(int row, int col) {
-		getKey(row, col).setStandard(ControlCharacters.SPACE, SPACE_KEY_SELECTOR);
+		getKey(row, col).setStandard(ControlCharacters.SPACE, ClassSelectors.SPACE_KEY_SELECTOR);
 	}
 
 	private void setBackspaceKey(int row, int col) {
-		getKey(row, col).setStandard(ControlCharacters.BACK_SPACE, BACKSPACE_KEY_SELECTOR);
+		getKey(row, col).setStandard(ControlCharacters.BACK_SPACE, ClassSelectors.BACKSPACE_KEY_SELECTOR);
 	}
 
 	private void setShiftKey(int row, int col, final boolean active) {
@@ -236,7 +231,8 @@ public class Keyboard extends StyledComposite {
 		};
 
 		String text = String.valueOf(ControlCharacters.SHIFT_IN);
-		String classSelector = (active ? SHIFT_KEY_ACTIVE_SELECTOR : SHIFT_KEY_INACTIVE_SELECTOR);
+		String classSelector = (active ? ClassSelectors.SHIFT_KEY_ACTIVE_SELECTOR
+				: ClassSelectors.SHIFT_KEY_INACTIVE_SELECTOR);
 
 		getKey(row, col).setSpecial(text, listener, classSelector);
 	}
@@ -274,14 +270,15 @@ public class Keyboard extends StyledComposite {
 		}
 
 		String text = mapping.getString();
-		getKey(row, col).setSpecial(text, listener, SWITCH_MAPPING_KEY_SELECTOR);
+		getKey(row, col).setSpecial(text, listener, ClassSelectors.SWITCH_MAPPING_KEY_SELECTOR);
 	}
 
 	private void setSpecialKey(int row, int col) {
 		if (this.specialKeyListener == null) {
 			getKey(row, col).setBlank();
 		} else {
-			getKey(row, col).setSpecial(this.specialKeyText, this.specialKeyListener, SPECIAL_KEY_SELECTOR);
+			getKey(row, col).setSpecial(this.specialKeyText, this.specialKeyListener,
+					ClassSelectors.SPECIAL_KEY_SELECTOR);
 		}
 	}
 

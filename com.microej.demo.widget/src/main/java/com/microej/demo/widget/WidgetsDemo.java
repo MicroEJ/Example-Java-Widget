@@ -26,7 +26,7 @@ import ej.widget.navigation.page.PageNotFoundException;
  */
 public class WidgetsDemo {
 
-	private static boolean USE_SCREENSHOT_TRANSITION = true;
+	private static final boolean USE_SCREENSHOT_TRANSITION = true;
 
 	private static Desktop Desktop;
 	private static Panel Panel;

@@ -48,7 +48,6 @@ public class Carousel extends StyledWidget {
 	private static final long DND_ANIM_DURATION = 200;
 
 	private static final int STOPPED_START_TIME = 80;
-	private static final int STOPPED_THROTTLE = 2;
 
 	private static final long RELEASE_WITH_NO_MOVE_DELAY = 80;
 
@@ -62,7 +61,6 @@ public class Carousel extends StyledWidget {
 
 	private TimerTask repaintTask;
 	private boolean stopped;
-	private int stoppedThrottle;
 
 	private long lastDragTime;
 	private int lastDragX;
@@ -122,7 +120,6 @@ public class Carousel extends StyledWidget {
 		// init repaint task
 		this.repaintTask = null;
 		this.stopped = false;
-		this.stoppedThrottle = 0;
 	}
 
 	/**
@@ -179,15 +176,42 @@ public class Carousel extends StyledWidget {
 		this.repaintTask = new TimerTask() {
 			@Override
 			public void run() {
-				// throttle repaints when carousel is stopped
-				if (!Carousel.this.stopped || Carousel.this.stoppedThrottle % STOPPED_THROTTLE == 0) {
-					repaint();
-				}
-				Carousel.this.stoppedThrottle++;
+				tick();
 			}
 		};
 		Timer timer = ServiceLoaderFactory.getServiceLoader().getService(Timer.class, Timer.class);
 		timer.schedule(this.repaintTask, REPAINT_RATE, REPAINT_RATE);
+	}
+
+	private void tick() {
+		Rectangle contentBounds = StyleHelper.computeContentBounds(new Rectangle(0, 0, getWidth(), getHeight()),
+				getStyle());
+		int halfWidth = contentBounds.getWidth() / 2;
+		// roll DND
+		if (this.dnd) {
+			this.dndDragX += (halfWidth - this.lastDragX) / EXPECTED_FPS * DND_DRAG_SPEED;
+			this.dndDragX = capDragFloat(this.dndDragX, this.endDragX - this.startDragX + this.currentDrag);
+		}
+
+		// start DND
+		long currentTime = System.currentTimeMillis();
+		if (!this.dnd && this.noDrag && currentTime - this.lastPressTime >= DND_START_TIME) {
+			if (this.lastPressX > halfWidth - this.entryWidth / 2
+					&& this.lastPressX < halfWidth + this.entryWidth / 2) {
+				startDND();
+			}
+		}
+
+		// check if the carousel is currently stopped
+		boolean stopped = (currentTime - this.lastDragTime >= STOPPED_START_TIME && this.gotoAnimDistance == 0
+				&& !this.dnd);
+
+		// Repaint one more time for an optimized rendering.
+		if (!this.stopped || !stopped) {
+			this.stopped = stopped;
+			repaint();
+		}
+		this.stopped = stopped;
 	}
 
 	@Override
@@ -220,29 +244,6 @@ public class Carousel extends StyledWidget {
 				stopGotoAnim();
 			}
 		}
-
-		// roll DND
-		if (this.dnd) {
-			this.dndDragX += (halfWidth - this.lastDragX) / EXPECTED_FPS * DND_DRAG_SPEED;
-			this.dndDragX = capDragFloat(this.dndDragX, this.endDragX - this.startDragX + this.currentDrag);
-		}
-
-		// start DND
-		long currentTime = System.currentTimeMillis();
-		if (!this.dnd && this.noDrag && currentTime - this.lastPressTime >= DND_START_TIME) {
-			if (this.lastPressX > halfWidth - this.entryWidth / 2
-					&& this.lastPressX < halfWidth + this.entryWidth / 2) {
-				startDND();
-			}
-		}
-
-		// check if the carousel is currently stopped
-		boolean stopped = (currentTime - this.lastDragTime >= STOPPED_START_TIME && this.gotoAnimDistance == 0
-				&& !this.dnd);
-		if (stopped && !this.stopped) {
-			this.stoppedThrottle = 0;
-		}
-		this.stopped = stopped;
 
 		// calculate drag
 		int totalDrag = getTotalDrag();
@@ -331,7 +332,6 @@ public class Carousel extends StyledWidget {
 				this.lastDragTime = currentTime;
 				this.lastDragX = pointerX;
 				this.lastDragY = pointerY;
-				this.stoppedThrottle = 0;
 			}
 
 			// handle drag

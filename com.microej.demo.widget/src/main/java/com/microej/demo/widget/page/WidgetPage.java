@@ -1,16 +1,15 @@
 /*
  * Java
  *
- * Copyright 2014-2015 IS2T. All rights reserved.
+ * Copyright 2014-2017 IS2T. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package com.microej.demo.widget.page;
 
 import com.microej.demo.widget.style.ClassSelectors;
 
-import ej.mwt.Widget;
 import ej.widget.basic.AbstractSlider;
-import ej.widget.composed.Button;
+import ej.widget.basic.Button;
 import ej.widget.composed.ToggleWrapper;
 import ej.widget.composed.Wrapper;
 import ej.widget.container.Grid;
@@ -25,8 +24,15 @@ public abstract class WidgetPage extends AbstractDemoPage {
 	private static final int MAX_VALUE = 100;
 	private static final int INITIAL_VALUE = 50;
 
-	@Override
-	protected Widget createMainContent() {
+	/**
+	 * Creates a widget page.
+	 *
+	 * @param title
+	 *            the page title.
+	 */
+	public WidgetPage(String title) {
+		super(false, title);
+
 		// layout:
 		// | switch | radio 1 |
 		// | check box | radio 2 |
@@ -55,15 +61,17 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		grid.add(radio2);
 
 		AbstractSlider slider = newSlider(MIN_VALUE, MAX_VALUE, INITIAL_VALUE);
-		Wrapper wrapper = new Wrapper();
-		wrapper.setWidget(slider);
-		grid.add(wrapper);
+		grid.add(slider);
 
+		Wrapper buttonWrapper = new Wrapper();
+		buttonWrapper.setAdjustedToChild(false);
 		Button button = new Button("Button"); //$NON-NLS-1$
 		button.addClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
-		grid.add(button);
+		buttonWrapper.setWidget(button);
+		buttonWrapper.addClassSelector(ClassSelectors.CENTERED);
+		grid.add(buttonWrapper);
 
-		return grid;
+		setCenter(grid);
 	}
 
 	/**

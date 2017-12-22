@@ -1,7 +1,7 @@
 /*
  * Java
  *
- * Copyright 2014-2015 IS2T. All rights reserved.
+ * Copyright 2014-2017 IS2T. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package com.microej.demo.widget.page;
@@ -10,8 +10,7 @@ import com.microej.demo.widget.WidgetsDemo;
 import com.microej.demo.widget.style.ClassSelectors;
 
 import ej.mwt.Widget;
-import ej.widget.composed.Button;
-import ej.widget.composed.ButtonWrapper;
+import ej.widget.basic.Button;
 import ej.widget.container.List;
 import ej.widget.container.Scroll;
 import ej.widget.listener.OnClickListener;
@@ -21,43 +20,37 @@ import ej.widget.listener.OnClickListener;
  */
 public class MainPage extends AbstractDemoPage {
 
-	@Override
-	protected String getTitle() {
-		return "MicroEJ Widgets"; //$NON-NLS-1$
-	}
-
-	@Override
-	protected Widget createMainContent() {
-		// layout:
-		// Basic widgets - Picto
-		// Basic widgets - Drawing
-		// Progress bar
-		// Scrollable list
+	/**
+	 * Creates a main page.
+	 */
+	public MainPage() {
+		super(true, "MicroEJ Widgets"); //$NON-NLS-1$
 
 		List listComposite = new List(false);
-		listComposite.add(newSelectableItem("Basic widgets - Picto", PictoWidgetPage.class.getName())); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Basic widgets - Image", ImageWidgetPage.class.getName())); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Basic widgets - Drawing", VectorWidgetPage.class.getName())); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Progress bar", ProgressBarPage.class.getName())); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Scrollable list", ScrollableListPage.class.getName())); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Scrollable text", ScrollableTextPage.class.getName())); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Keyboard", EditionPage.class.getName())); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Chart", ChartPage.class.getName())); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Wheel", DatePage.class.getName())); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Basic widgets - Picto", PictoWidgetPage.class)); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Basic widgets - Image", ImageWidgetPage.class)); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Basic widgets - Drawing", VectorWidgetPage.class)); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Progress bar", ProgressBarPage.class)); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Scrollable list", ScrollableListPage.class)); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Scrollable text", ScrollableTextPage.class)); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Keyboard", KeyboardPage.class)); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Chart", ChartPage.class)); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Wheel", DatePage.class)); //$NON-NLS-1$
+		listComposite.add(newSelectableItem("Carousel", CarouselPage.class)); //$NON-NLS-1$
 		Scroll scroll = new Scroll(false, true);
 		scroll.setWidget(listComposite);
-		return scroll;
+		setCenter(scroll);
 	}
 
 	// A button that leads to the given page.
-	private ButtonWrapper newSelectableItem(String name, final String url) {
+	private Button newSelectableItem(String name, final Class<? extends Widget> clazz) {
 		Button button = new Button(name);
 		button.addClassSelector(ClassSelectors.LIST_ITEM);
 		button.addOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick() {
-				WidgetsDemo.show(url);
+				WidgetsDemo.show(clazz);
 			}
 		});
 		return button;

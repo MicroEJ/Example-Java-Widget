@@ -1,47 +1,121 @@
 /*
  * Java
  *
- * Copyright 2015 IS2T. All rights reserved.
+ * Copyright 2015-2017 IS2T. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package com.microej.demo.widget.page;
 
 import com.microej.demo.widget.WidgetsDemo;
+import com.microej.demo.widget.keyboard.LowerCaseLayout;
+import com.microej.demo.widget.keyboard.NumericLayout;
+import com.microej.demo.widget.keyboard.SymbolLayout;
+import com.microej.demo.widget.keyboard.UpperCaseLayout;
+import com.microej.demo.widget.style.ClassSelectors;
 
-import ej.mwt.Panel;
+import ej.components.dependencyinjection.ServiceLoaderFactory;
+import ej.mwt.Widget;
+import ej.widget.basic.Label;
+import ej.widget.container.List;
+import ej.widget.container.Scroll;
 import ej.widget.keyboard.Keyboard;
+import ej.widget.keyboard.KeyboardText;
 import ej.widget.keyboard.Layout;
-import ej.widget.navigation.TransitionListener;
-import ej.widget.navigation.TransitionManager;
-import ej.widget.navigation.page.Page;
+import ej.widget.listener.OnClickListener;
+import ej.widget.listener.OnFocusListener;
 
 /**
  * This page illustrates a keyboard.
  */
-public abstract class KeyboardPage extends AbstractDemoPage implements TransitionListener {
+public class KeyboardPage extends AbstractDemoPage {
 
-	private static final float KEYBOARD_RATIO = 0.45f;
+	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
+	private static final String FIRST_NAME = "First name"; //$NON-NLS-1$
+	private static final String LAST_NAME = "Last name"; //$NON-NLS-1$
+	private static final String RESULT_EMPTY = "Please fill the form"; //$NON-NLS-1$
+	private static final String RESULT_PREFIX = "Your name is "; //$NON-NLS-1$
+	private static final String SPECIAL_NEXT = "Next"; //$NON-NLS-1$
+	private static final String SPECIAL_SUBMIT = "Submit"; //$NON-NLS-1$
+
+	private static final int MAX_TEXT_LENGTH = 33;
 
 	private final Keyboard keyboard;
-	private final Panel keyboardDialog;
+
+	private KeyboardText firstName;
+	private KeyboardText lastName;
+	private Label resultLabel;
 
 	/**
-	 * Constructor
+	 * Creates a keyboard page.
 	 */
 	public KeyboardPage() {
-		// create keyboard dialog
-		final int keyboardHeight = (int) (WidgetsDemo.HEIGHT * KEYBOARD_RATIO);
-		this.keyboardDialog = new Panel() {
-			@Override
-			public void validate(int widthHint, int heightHint) {
-				super.validate(WidgetsDemo.WIDTH, keyboardHeight);
-			}
-		};
-		this.keyboardDialog.setBounds(0, WidgetsDemo.HEIGHT - keyboardHeight, WidgetsDemo.WIDTH, keyboardHeight);
+		super(false, "Keyboard"); //$NON-NLS-1$
 
-		// create keyboard
 		this.keyboard = new Keyboard();
-		this.keyboardDialog.setWidget(this.keyboard);
+
+		// set keyboard layouts
+		Layout[] layouts = new Layout[] { new LowerCaseLayout(), new UpperCaseLayout(), new NumericLayout(),
+				new SymbolLayout() };
+		setKeyboardLayouts(layouts);
+
+		Widget editionContent = createForm();
+		setCenter(editionContent);
+	}
+
+	/**
+	 * Creates the page form.
+	 *
+	 * @return a widget containing the form.
+	 */
+	/**
+	 * Creates the widget representing the main content of the page
+	 */
+	private Widget createForm() {
+		// first name
+		this.firstName = new KeyboardText(EMPTY_STRING, FIRST_NAME);
+		this.firstName.setMaxTextLength(MAX_TEXT_LENGTH);
+		this.firstName.addOnFocusListener(new OnFocusListener() {
+			@Override
+			public void onGainFocus() {
+				showKeyboard(true);
+			}
+
+			@Override
+			public void onLostFocus() {
+				// Nothing to do.
+			}
+		});
+
+		// last name
+		this.lastName = new KeyboardText(EMPTY_STRING, LAST_NAME);
+		this.lastName.setMaxTextLength(MAX_TEXT_LENGTH);
+		this.lastName.addOnFocusListener(new OnFocusListener() {
+			@Override
+			public void onGainFocus() {
+				showKeyboard(false);
+			}
+
+			@Override
+			public void onLostFocus() {
+				// Nothing to do.
+			}
+		});
+
+		// result label
+		this.resultLabel = new Label(RESULT_EMPTY);
+		this.resultLabel.addClassSelector(ClassSelectors.RESULT_LABEL);
+
+		// list
+		List list = new List(false);
+		list.add(this.firstName);
+		list.add(this.lastName);
+		list.add(this.resultLabel);
+		list.addClassSelector(ClassSelectors.FORM);
+
+		// scroll
+		final Scroll scroll = new Scroll(false, false);
+		scroll.setWidget(list);
+		return scroll;
 	}
 
 	/**
@@ -54,54 +128,10 @@ public abstract class KeyboardPage extends AbstractDemoPage implements Transitio
 		this.keyboard.setLayouts(keyboardLayouts);
 	}
 
-	/**
-	 * Gets the title of the page
-	 */
-	@Override
-	protected String getTitle() {
-		return "Keyboard"; //$NON-NLS-1$
-	}
-
-	/**
-	 * Handles page transition start
-	 */
-	@Override
-	public void onTransitionStart(int transitionsSteps, int transitionsStop, Page from, Page to) {
-		hideKeyboard();
-	}
-
-	/**
-	 * Handles page transition step
-	 */
-	@Override
-	public void onTransitionStep(int step) {
-		// do nothing
-	}
-
-	/**
-	 * Handles page transition stop
-	 */
-	@Override
-	public void onTransitionStop() {
-		// do nothing
-	}
-
-	/**
-	 * Handles show notification
-	 */
 	@Override
 	public void showNotify() {
 		super.showNotify();
-		TransitionManager.addGlobalTransitionListener(this);
-	}
-
-	/**
-	 * Handles hide notification
-	 */
-	@Override
-	public void hideNotify() {
-		TransitionManager.removeGlobalTransitionListener(this);
-		super.hideNotify();
+		WidgetsDemo.getPanel().setFocus(this.firstName);
 	}
 
 	/**
@@ -118,21 +148,64 @@ public abstract class KeyboardPage extends AbstractDemoPage implements Transitio
 	 */
 	protected void showKeyboard() {
 		// show keyboard dialog
-		this.keyboardDialog.showUsingBounds(WidgetsDemo.getDesktop());
-
-		// resize main panel
-		final int keyboardHeight = (int) (WidgetsDemo.HEIGHT * KEYBOARD_RATIO);
-		WidgetsDemo.getPanel().setBounds(0, 0, WidgetsDemo.WIDTH, WidgetsDemo.HEIGHT - keyboardHeight);
+		if (this.keyboard.getParent() != this) {
+			setLast(this.keyboard);
+			revalidate();
+		}
 	}
 
 	/**
 	 * Hides the keyboard
 	 */
 	protected void hideKeyboard() {
-		// resize main panel
-		WidgetsDemo.getPanel().setBounds(0, 0, WidgetsDemo.WIDTH, WidgetsDemo.HEIGHT);
-
-		// hide keyboard dialog
-		this.keyboardDialog.hide();
+		remove(this.keyboard);
+		revalidate();
 	}
+
+	private void showKeyboard(boolean first) {
+		showKeyboard();
+		KeyboardText activeText;
+		KeyboardText otherText;
+		if (first) {
+			activeText = this.firstName;
+			otherText = this.lastName;
+			getKeyboard().setSpecialKey(SPECIAL_NEXT, new OnClickListener() {
+				@Override
+				public void onClick() {
+					KeyboardPage.this.lastName.requestFocus();
+				}
+			});
+		} else {
+			activeText = this.lastName;
+			otherText = this.firstName;
+			getKeyboard().setSpecialKey(SPECIAL_SUBMIT, new OnClickListener() {
+				@Override
+				public void onClick() {
+					submit();
+				}
+			});
+		}
+		activeText.setActive(true);
+		otherText.setActive(false);
+
+		ej.microui.event.generator.Keyboard keyboard = ServiceLoaderFactory.getServiceLoader()
+				.getService(ej.microui.event.generator.Keyboard.class);
+		if (keyboard != null) {
+			keyboard.setEventHandler(activeText);
+		}
+	}
+
+	private void submit() {
+		String firstNameText = this.firstName.getText();
+		String lastNameText = this.lastName.getText();
+		if (firstNameText.length() > 0 && lastNameText.length() > 0) {
+			this.resultLabel.setText(RESULT_PREFIX + this.firstName.getText() + " " + this.lastName.getText()); //$NON-NLS-1$
+		} else {
+			this.resultLabel.setText(RESULT_EMPTY);
+			if (firstNameText.length() == 0) {
+				this.firstName.requestFocus();
+			}
+		}
+	}
+
 }

@@ -1,7 +1,7 @@
 /*
  * Java
  *
- * Copyright 2014-2015 IS2T. All rights reserved.
+ * Copyright 2014-2017 IS2T. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package com.microej.demo.widget.page;
@@ -17,9 +17,11 @@ import ej.widget.composed.ToggleWrapper;
  */
 public class VectorWidgetPage extends WidgetPage {
 
-	@Override
-	protected String getTitle() {
-		return "Drawings"; //$NON-NLS-1$
+	/**
+	 * Creates a vector widget page.
+	 */
+	public VectorWidgetPage() {
+		super("Drawings"); //$NON-NLS-1$
 	}
 
 	@Override

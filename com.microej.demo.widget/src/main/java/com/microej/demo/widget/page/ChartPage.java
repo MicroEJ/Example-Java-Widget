@@ -1,14 +1,14 @@
 /*
  * Java
  *
- * Copyright 2015 IS2T. All rights reserved.
+ * Copyright 2015-2017 IS2T. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package com.microej.demo.widget.page;
 
 import com.microej.demo.widget.style.ClassSelectors;
 
-import ej.mwt.Widget;
+import ej.widget.basic.Button;
 import ej.widget.chart.BarChart;
 import ej.widget.chart.BasicChart;
 import ej.widget.chart.Chart;
@@ -16,7 +16,6 @@ import ej.widget.chart.ChartPoint;
 import ej.widget.chart.LineChart;
 import ej.widget.chart.format.DecimalsChartFormat;
 import ej.widget.chart.scale.AdaptiveChartScale;
-import ej.widget.composed.Button;
 import ej.widget.container.Split;
 import ej.widget.listener.OnClickListener;
 
@@ -34,13 +33,12 @@ public class ChartPage extends AbstractDemoPage {
 	private static final String SWITCH_TO_LINE = "Switch to line chart"; //$NON-NLS-1$
 	private static final float SPLIT_RATIO = 0.80f;
 
-	@Override
-	protected String getTitle() {
-		return "Chart"; //$NON-NLS-1$
-	}
+	/**
+	 * Creates a chart page.
+	 */
+	public ChartPage() {
+		super(false, "Chart"); //$NON-NLS-1$
 
-	@Override
-	protected Widget createMainContent() {
 		Chart chart = new BarChart();
 		loadChart(chart);
 
@@ -56,7 +54,6 @@ public class ChartPage extends AbstractDemoPage {
 				this.isBar = !this.isBar;
 				BasicChart newChart = (this.isBar ? new BarChart() : new LineChart(false, true));
 				loadChart(newChart);
-				newChart.onTransitionStop();
 				split.setFirst(newChart);
 				split.revalidate();
 				switchButton.setText(this.isBar ? SWITCH_TO_LINE : SWITCH_TO_BAR);
@@ -65,7 +62,7 @@ public class ChartPage extends AbstractDemoPage {
 
 		split.setFirst(chart);
 		split.setLast(switchButton);
-		return split;
+		setCenter(split);
 	}
 
 	private void loadChart(Chart chart) {

@@ -1,12 +1,11 @@
 /*
  * Java
  *
- * Copyright 2015 IS2T. All rights reserved.
+ * Copyright 2015-2017 IS2T. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package com.microej.demo.widget.page;
 
-import ej.mwt.Widget;
 import ej.widget.basic.drawing.CircularProgressBar;
 import ej.widget.basic.drawing.ProgressBar;
 import ej.widget.basic.picto.PictoProgress;
@@ -21,13 +20,12 @@ public class ProgressBarPage extends AbstractDemoPage {
 	private static final int MAX = 100;
 	private static final int INITIAL = 0;
 
-	@Override
-	protected String getTitle() {
-		return "Progress bar"; //$NON-NLS-1$
-	}
+	/**
+	 * Creates a progress bar page.
+	 */
+	public ProgressBarPage() {
+		super(false, "Progress bar"); //$NON-NLS-1$
 
-	@Override
-	protected Widget createMainContent() {
 		// layout:
 		// | progress bar |
 		// | circular progress bar - picto progress bar |
@@ -49,7 +47,7 @@ public class ProgressBarPage extends AbstractDemoPage {
 		circularProgressBar.setIndeterminate(true);
 		splitComposite.add(circularProgressBar);
 
-		return grid;
+		setCenter(grid);
 	}
 
 }

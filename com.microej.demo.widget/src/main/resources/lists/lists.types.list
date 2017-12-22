@@ -1,14 +1,14 @@
+# Copyright 2015-2017 IS2T. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
+
 com.microej.demo.widget.page.MainPage
-com.microej.demo.widget.style.WidgetsFontLoader
 com.microej.demo.widget.page.PictoWidgetPage
-ej.widget.basic.image.ImageTheme
-com.microej.demo.widget.style.WidgetsImageTheme
 com.microej.demo.widget.page.ImageWidgetPage
 com.microej.demo.widget.page.VectorWidgetPage
 com.microej.demo.widget.page.ProgressBarPage
 com.microej.demo.widget.page.ScrollableListPage
 com.microej.demo.widget.page.ScrollableTextPage
-com.microej.demo.widget.page.EditionPage
+com.microej.demo.widget.page.KeyboardPage
 com.microej.demo.widget.page.ChartPage
 com.microej.demo.widget.page.DatePage
-ej.event.generator.SystemKeyboard
+com.microej.demo.widget.page.CarouselPage

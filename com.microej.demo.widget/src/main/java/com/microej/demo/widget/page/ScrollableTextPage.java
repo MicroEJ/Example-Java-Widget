@@ -1,7 +1,7 @@
 /*
  * Java
  *
- * Copyright 2015 IS2T. All rights reserved.
+ * Copyright 2015-2017 IS2T. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package com.microej.demo.widget.page;
@@ -11,7 +11,6 @@ import java.io.InputStream;
 
 import com.microej.demo.widget.style.ClassSelectors;
 
-import ej.mwt.Widget;
 import ej.widget.basic.Label;
 import ej.widget.container.List;
 import ej.widget.container.Scroll;
@@ -21,13 +20,12 @@ import ej.widget.container.Scroll;
  */
 public class ScrollableTextPage extends AbstractDemoPage {
 
-	@Override
-	protected String getTitle() {
-		return "Scrollable text"; //$NON-NLS-1$
-	}
+	/**
+	 * Creates a scrollable text page.
+	 */
+	public ScrollableTextPage() {
+		super(false, "Scrollable text"); //$NON-NLS-1$
 
-	@Override
-	protected Widget createMainContent() {
 		List listComposite = new List(false);
 		listComposite.addClassSelector(ClassSelectors.TEXT_SCROLL);
 
@@ -38,7 +36,7 @@ public class ScrollableTextPage extends AbstractDemoPage {
 
 		Scroll scroll = new Scroll(false, true);
 		scroll.setWidget(listComposite);
-		return scroll;
+		setCenter(scroll);
 	}
 
 	private void add(String title, String filename, List listComposite) {

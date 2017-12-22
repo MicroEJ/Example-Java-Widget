@@ -1,44 +1,38 @@
 /*
  * Java
  *
- * Copyright 2014-2016 IS2T. All rights reserved.
+ * Copyright 2014-2017 IS2T. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package com.microej.demo.widget;
 
-import com.microej.demo.widget.page.DirectURLResolver;
 import com.microej.demo.widget.page.MainPage;
 import com.microej.demo.widget.style.StylesheetPopulator;
 
 import ej.microui.MicroUI;
-import ej.microui.display.Display;
 import ej.microui.event.Event;
 import ej.microui.event.generator.Pointer;
 import ej.mwt.Desktop;
+import ej.mwt.MWT;
 import ej.mwt.Panel;
-import ej.widget.navigation.navigator.HistorizedNavigator;
-import ej.widget.navigation.page.URLResolver;
-import ej.widget.navigation.stack.PageStack;
-import ej.widget.navigation.stack.PageStackURL;
-import ej.widget.navigation.transition.HorizontalScreenshotTransitionManager;
-import ej.widget.navigation.transition.HorizontalTransitionManager;
+import ej.mwt.Widget;
+import ej.widget.container.transition.SlideScreenshotTransitionContainer;
+import ej.widget.container.transition.SlideTransitionContainer;
+import ej.widget.container.transition.TransitionContainer;
+import ej.widget.navigation.page.PageNotFoundException;
 
 /**
  * This demo illustrates the widgets library.
  */
 public class WidgetsDemo {
 
-	public static int WIDTH;
-	public static int HEIGHT;
-
-	private static boolean USE_SCREENSHOT_TRANSITION = true;
+	private static final boolean USE_SCREENSHOT_TRANSITION = true;
 
 	private static Desktop Desktop;
 	private static Panel Panel;
-	private static HistorizedNavigator HistorizedNavigator;
+	private static TransitionContainer TransitionContainer;
 
-	private static boolean GoingForward;
-	private static boolean GoingBackward;
+	private static MainPage mainPage;
 
 	// Prevents initialization.
 	private WidgetsDemo() {
@@ -51,6 +45,13 @@ public class WidgetsDemo {
 	 *            not used.
 	 */
 	public static void main(String[] args) {
+		start();
+	}
+
+	/**
+	 * Starts the widgets demo.
+	 */
+	public static void start() {
 		// Start MicroUI framework.
 		MicroUI.start();
 
@@ -58,21 +59,39 @@ public class WidgetsDemo {
 		StylesheetPopulator.initialize();
 
 		// Create the navigator.
-		HistorizedNavigator = newNavigator();
+		TransitionContainer = newTransitionContainer();
+
+		mainPage = new MainPage();
 
 		// Show the main page.
-		HistorizedNavigator.show(MainPage.class.getName());
-
-		WIDTH = Display.getDefaultDisplay().getWidth();
-		HEIGHT = Display.getDefaultDisplay().getHeight();
+		showMainPage();
 
 		// Show the navigator.
-		Desktop = new Desktop();
+		Desktop = new Desktop() {
+			@Override
+			public boolean handleEvent(int event) {
+				// set panel focus to null when we click on a blank space
+				int type = Event.getType(event);
+				if (type == Event.POINTER) {
+					int action = Pointer.getAction(event);
+					if (action == Pointer.RELEASED) {
+						getPanel().setFocus(null);
+					}
+				}
+				return super.handleEvent(event);
+			}
+		};
 		Panel = new Panel();
-		Panel.setBounds(0, 0, WIDTH, HEIGHT);
-		Panel.setWidget(HistorizedNavigator);
-		Panel.showUsingBounds(Desktop);
+		Panel.setWidget(TransitionContainer);
+		Panel.showFullScreen(Desktop);
 		Desktop.show();
+	}
+
+	/**
+	 * Stops the widgets demo.
+	 */
+	public static void stop() {
+		// Nothing to do.
 	}
 
 	/**
@@ -93,63 +112,34 @@ public class WidgetsDemo {
 		return Panel;
 	}
 
-	private static HistorizedNavigator newNavigator() {
-		URLResolver urlResolver = new DirectURLResolver();
-		PageStack pageStack = new PageStackURL(urlResolver);
-		HistorizedNavigator navigator = new HistorizedNavigator(urlResolver, pageStack) {
-			@Override
-			public boolean handleEvent(int event) {
-				// set panel focus to null when we click on a blank space
-				int type = Event.getType(event);
-				if (type == Event.POINTER) {
-					int action = Pointer.getAction(event);
-					if (action == Pointer.RELEASED) {
-						getPanel().setFocus(null);
-					}
-				}
-				return super.handleEvent(event);
-			}
-		};
-
+	private static TransitionContainer newTransitionContainer() {
 		if (USE_SCREENSHOT_TRANSITION) {
-			navigator.setTransitionManager(new HorizontalScreenshotTransitionManager());
+			return new SlideScreenshotTransitionContainer(MWT.LEFT, false, false);
 		} else {
-			navigator.setTransitionManager(new HorizontalTransitionManager());
+			return new SlideTransitionContainer(MWT.LEFT, false);
 		}
-		return navigator;
 	}
 
 	/**
-	 * Shows the page corresponding to the given URL.
+	 * Shows the page corresponding to the given class.
 	 *
-	 * @param url
-	 *            the URL of the page to show.
+	 * @param clazz
+	 *            the class of the page to show.
 	 */
-	public static void show(String url) {
-		GoingForward = true;
-		HistorizedNavigator.show(url);
-		GoingForward = false;
+	public static void show(Class<? extends Widget> clazz) {
+		try {
+			Widget page = clazz.newInstance();
+			TransitionContainer.show(page, true);
+		} catch (InstantiationException | IllegalAccessException e) {
+			throw new PageNotFoundException(clazz.getName(), e);
+		}
 	}
 
 	/**
-	 * Shows the previous panel.
+	 * Shows the main page.
 	 */
-	public static void back() {
-		GoingBackward = true;
-		HistorizedNavigator.back();
-		GoingBackward = false;
-	}
-
-	/**
-	 * Checks whether or not it is possible to go back in the navigation history.
-	 * <p>
-	 * Beware, the result of this method consider that it is called while creating the new page.
-	 *
-	 * @return <code>true</code> it is possible to go back, <code>false</code> otherwise.
-	 */
-	public static boolean canGoBack() {
-		int historySize = HistorizedNavigator.getHistorySize();
-		return (historySize > 0 || GoingForward) && !(historySize == 0 && GoingBackward);
+	public static void showMainPage() {
+		TransitionContainer.show(mainPage, false);
 	}
 
 }

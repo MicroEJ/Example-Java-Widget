@@ -1,11 +1,11 @@
 <!--
 	IVY
 	
-	Copyright 2014-2016 IS2T. All rights reserved.
-	IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+	Copyright 2014-2017 IS2T. All rights reserved.
+	Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
 -->
 <ivy-module version="2.0" xmlns:ea="http://www.easyant.org"> 
-	<info organisation="com.microej.demo" module="widget" status="integration" revision="6.0.0">
+	<info organisation="com.microej.demo" module="widget" status="integration" revision="6.1.0">
 		<!-- Use this build type to run sonar easily. (Version 1.+ because it does not require a README.md) -->
 		<ea:build organisation="com.is2t.easyant.buildtypes" module="build-application" revision="5.+">
 		</ea:build>

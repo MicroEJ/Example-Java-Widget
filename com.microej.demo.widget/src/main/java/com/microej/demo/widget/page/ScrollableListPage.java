@@ -1,7 +1,7 @@
 /*
  * Java
  *
- * Copyright 2015 IS2T. All rights reserved.
+ * Copyright 2015-2017 IS2T. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package com.microej.demo.widget.page;
@@ -12,7 +12,6 @@ import ej.bon.Timer;
 import ej.bon.TimerTask;
 import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.microui.display.Display;
-import ej.mwt.Widget;
 import ej.widget.basic.Label;
 import ej.widget.container.List;
 import ej.widget.container.Scroll;
@@ -27,30 +26,28 @@ public class ScrollableListPage extends AbstractDemoPage {
 	private static final int ITEM_COUNT = 100;
 	private static final int FIRST_SHOT_COUNT = 20;
 
-	private List listComposite;
+	private final List listComposite;
 	private boolean complete;
 
-	@Override
-	protected String getTitle() {
-		return "Scrollable list"; //$NON-NLS-1$
-	}
+	/**
+	 * Creates a scrollable list page.
+	 */
+	public ScrollableListPage() {
+		super(false, "Scrollable list"); //$NON-NLS-1$
 
-	@Override
-	protected Widget createMainContent() {
 		// layout:
 		// Item 1
 		// Item 2
 		// ...
 		// Item n-1
 		// Item n
-
 		this.listComposite = new List(false);
 
 		addItems(1, FIRST_SHOT_COUNT);
 
 		Scroll scroll = new Scroll(false, true);
 		scroll.setWidget(this.listComposite);
-		return scroll;
+		setCenter(scroll);
 	}
 
 	private void addItems(int start, int end) {

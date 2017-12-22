@@ -1,10 +1,12 @@
 /*
  * Java
  *
- * Copyright 2016 IS2T. All rights reserved.
- * IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright 2016-2017 IS2T. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package ej.widget.chart;
+
+import com.microej.demo.widget.style.ClassSelectors;
 
 import ej.animation.Animation;
 import ej.animation.Animator;
@@ -14,31 +16,24 @@ import ej.microui.display.GraphicsContext;
 import ej.microui.event.Event;
 import ej.microui.event.generator.Pointer;
 import ej.motion.Motion;
-import ej.motion.linear.LinearMotion;
+import ej.motion.quart.QuartEaseInOutMotion;
 import ej.mwt.MWT;
 import ej.style.Style;
 import ej.style.container.Rectangle;
 import ej.style.util.ElementAdapter;
 import ej.style.util.StyleHelper;
-import ej.widget.navigation.TransitionListener;
-import ej.widget.navigation.TransitionManager;
-import ej.widget.navigation.page.Page;
-
-/** IPR start **/
 
 /**
  * Represents a chart with basic functionality.
  */
-public abstract class BasicChart extends Chart implements Animation, TransitionListener {
+public abstract class BasicChart extends Chart implements Animation {
 
-	protected static final int LEFT_PADDING = 30;
+	static final int LEFT_PADDING = 30;
 
 	private static final int APPARITION_DURATION = 300;
 	private static final int APPARITION_STEPS = 100;
 
 	private static final int SELECTED_VALUE_PADDING = 5;
-
-	public static final String CLASS_SELECTOR_SELECTED_VALUE = "chart-selected-value";
 
 	/**
 	 * Elements
@@ -57,7 +52,7 @@ public abstract class BasicChart extends Chart implements Animation, TransitionL
 	public BasicChart() {
 		super();
 		this.selectedValueElement = new ElementAdapter();
-		this.selectedValueElement.addClassSelector(CLASS_SELECTOR_SELECTED_VALUE);
+		this.selectedValueElement.addClassSelector(ClassSelectors.SELECTED_VALUE);
 	}
 
 	/**
@@ -71,32 +66,16 @@ public abstract class BasicChart extends Chart implements Animation, TransitionL
 		} else {
 			this.currentApparitionStep = APPARITION_STEPS;
 		}
-		TransitionManager.addGlobalTransitionListener(this);
+		this.motion = new QuartEaseInOutMotion(0, APPARITION_STEPS, APPARITION_DURATION);
+		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
+		animator.startAnimation(BasicChart.this);
 	}
 
 	@Override
 	public void hideNotify() {
 		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
 		animator.stopAnimation(this);
-		TransitionManager.removeGlobalTransitionListener(this);
 		super.hideNotify();
-	}
-
-	@Override
-	public void onTransitionStart(int transitionsSteps, int transitionsStop, Page from, Page to) {
-		// do nothing
-	}
-
-	@Override
-	public void onTransitionStep(int step) {
-		// do nothing
-	}
-
-	@Override
-	public void onTransitionStop() {
-		this.motion = new LinearMotion(0, APPARITION_STEPS, APPARITION_DURATION);
-		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
-		animator.startAnimation(BasicChart.this);
 	}
 
 	@Override
@@ -106,6 +85,11 @@ public abstract class BasicChart extends Chart implements Animation, TransitionL
 		return !this.motion.isFinished();
 	}
 
+	/**
+	 * Gets the animation ratio.
+	 *
+	 * @return the animation ratio.
+	 */
 	protected float getAnimationRatio() {
 		return (float) this.currentApparitionStep / APPARITION_STEPS;
 	}
@@ -149,7 +133,16 @@ public abstract class BasicChart extends Chart implements Animation, TransitionL
 	}
 
 	/**
-	 * Render scale
+	 * Render scale.
+	 *
+	 * @param g
+	 *            the graphics context.
+	 * @param style
+	 *            the chart style.
+	 * @param bounds
+	 *            the chart bounds.
+	 * @param topValue
+	 *            the value on the top of the chart.
 	 */
 	protected void renderScale(GraphicsContext g, Style style, Rectangle bounds, float topValue) {
 		Font font = StyleHelper.getFont(style);
@@ -179,7 +172,14 @@ public abstract class BasicChart extends Chart implements Animation, TransitionL
 	}
 
 	/**
-	 * Render selected point value
+	 * Render selected point value.
+	 *
+	 * @param g
+	 *            the graphics context.
+	 * @param style
+	 *            the chart style.
+	 * @param bounds
+	 *            the chart bounds.
 	 */
 	protected void renderSelectedPointValue(GraphicsContext g, Style style, Rectangle bounds) {
 		ChartPoint selectedPoint = getSelectedPoint();
@@ -187,9 +187,9 @@ public abstract class BasicChart extends Chart implements Animation, TransitionL
 			String labelInfoString = selectedPoint.getFullName();
 			float labelValue = selectedPoint.getValue();
 			String labelValueString = getFormat().formatLong(labelValue);
-			String labelString = labelInfoString + " : " + labelValueString;
+			String labelString = labelInfoString + " : " + labelValueString; //$NON-NLS-1$
 			if (getUnit() != null) {
-				labelString += " " + getUnit();
+				labelString += " " + getUnit(); //$NON-NLS-1$
 			}
 
 			Style labelStyle = this.selectedValueElement.getStyle();
@@ -226,28 +226,42 @@ public abstract class BasicChart extends Chart implements Animation, TransitionL
 	}
 
 	/**
-	 * Gets the top position of the chart content
+	 * Gets the top position of the chart content.
+	 *
+	 * @param fontHeight
+	 *            the font height.
+	 * @param bounds
+	 *            the chart bounds.
+	 * @return the top position of the chart content.
 	 */
 	protected int getBarTop(int fontHeight, Rectangle bounds) {
 		return fontHeight + 5;
 	}
 
 	/**
-	 * Gets the bottom position of the chart content
+	 * Gets the bottom position of the chart content.
+	 *
+	 * @param fontHeight
+	 *            the font height.
+	 * @param bounds
+	 *            the chart bounds.
+	 * @return the bottom position of the chart content.
 	 */
 	protected int getBarBottom(int fontHeight, Rectangle bounds) {
 		return bounds.getHeight() - fontHeight - fontHeight / 5;
 	}
 
 	/**
-	 * Gets content X
+	 * Gets the content x coordinate.
+	 * 
+	 * @return the content x coordinate.
 	 */
 	protected abstract int getContentX();
 
 	/**
-	 * Gets content width
+	 * Gets the content width.
+	 * 
+	 * @return the content width.
 	 */
 	protected abstract int getContentWidth();
 }
-
-/** IPR end **/

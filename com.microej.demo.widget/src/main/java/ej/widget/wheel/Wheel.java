@@ -1,5 +1,7 @@
 /*
- * Copyright 2014-2015 IS2T. All rights reserved.
+ * Java
+ *
+ * Copyright 2015-2017 IS2T. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package ej.widget.wheel;
@@ -7,7 +9,7 @@ package ej.widget.wheel;
 import java.util.ListIterator;
 
 import ej.bon.Timer;
-import ej.color.ColorHelper;
+import ej.color.GradientHelper;
 import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
@@ -36,9 +38,9 @@ public class Wheel extends StyledWidget {
 	 */
 	public static final String CLASS_SELECTOR_LINE = "wheel-line"; //$NON-NLS-1$
 
-	private static final int STATE_BY_STEP = 5;
-	private static final int ANIMATION_PERIOD = 50;
-	private static final int STEP_TIME = STATE_BY_STEP * ANIMATION_PERIOD;
+	private static final int ANIMATION_PERIOD = 30;
+	private static final int STEP_TIME = ANIMATION_PERIOD * 3;
+	private static final int MAX_DURATION = 400;
 
 	private final ElementAdapter lineElement;
 
@@ -157,22 +159,7 @@ public class Wheel extends StyledWidget {
 
 	private int computeFontColor(int y, int height, int color, int color2) {
 		int distance = Math.abs(y - (height >> 1));
-		return mixColor(color, color2, distance / (float) height);
-	}
-
-	private static int mixColor(int color1, int color2, float level) {
-		int red1 = ColorHelper.getRed(color1);
-		int green1 = ColorHelper.getGreen(color1);
-		int blue1 = ColorHelper.getBlue(color1);
-		int red2 = ColorHelper.getRed(color2);
-		int green2 = ColorHelper.getGreen(color2);
-		int blue2 = ColorHelper.getBlue(color2);
-
-		float invLevel = 1.0f - level;
-		int red = (int) (red1 * invLevel + red2 * level);
-		int green = (int) (green1 * invLevel + green2 * level);
-		int blue = (int) (blue1 * invLevel + blue2 * level);
-		return ColorHelper.getColor(red, green, blue);
+		return GradientHelper.blendColors(color, color2, distance / (float) height);
 	}
 
 	private int getLineHeight() {
@@ -311,11 +298,12 @@ public class Wheel extends StyledWidget {
 	 * @return the index difference
 	 */
 	protected int computeThrow(int deltaDistance, long deltaTime) {
-		return -deltaDistance / 10;
+		return -deltaDistance / 20;
 	}
 
 	private void spin(int start, int stop, final int currentIndexDiffToBe) {
 		int motionTime = (int) ((Math.abs(start - stop) / (float) getLineHeight()) * STEP_TIME);
+		motionTime = Math.min(motionTime, MAX_DURATION);
 		Motion spinMotion = this.motionManager.easeOut(start, stop, motionTime);
 		this.motionAnimator = new MotionAnimator(spinMotion, new MotionListener() {
 

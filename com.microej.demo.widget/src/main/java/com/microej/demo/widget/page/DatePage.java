@@ -1,14 +1,13 @@
 /*
  * Java
  *
- * Copyright 2015 IS2T. All rights reserved.
+ * Copyright 2015-2017 IS2T. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package com.microej.demo.widget.page;
 
 import com.microej.demo.widget.style.ClassSelectors;
 
-import ej.mwt.Widget;
 import ej.widget.wheel.Choice;
 import ej.widget.wheel.EndlessIntegerChoice;
 import ej.widget.wheel.EndlessStringChoice;
@@ -27,13 +26,12 @@ public class DatePage extends AbstractDemoPage {
 	private static final String[] MONTHS = { "January", "February", "March", "April", "May", "June", "July", "August",
 			"September", "October", "November", "December" };
 
-	@Override
-	protected String getTitle() {
-		return "Wheel"; //$NON-NLS-1$
-	}
+	/**
+	 * Creates a date page.
+	 */
+	public DatePage() {
+		super(false, "Wheel"); //$NON-NLS-1$
 
-	@Override
-	protected Widget createMainContent() {
 		WheelGroup wheelGroup = new WheelGroup(WHEEL_SIDES, MAX_ACTIVE_WHEELS);
 		wheelGroup.addClassSelector(ClassSelectors.DATE_PICKER);
 
@@ -52,6 +50,7 @@ public class DatePage extends AbstractDemoPage {
 		yearWheel.setModel(yearChoice);
 		wheelGroup.add(yearWheel);
 
-		return wheelGroup;
+		setCenter(wheelGroup);
 	}
+
 }

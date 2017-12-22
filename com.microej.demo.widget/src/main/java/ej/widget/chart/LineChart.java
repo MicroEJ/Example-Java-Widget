@@ -1,8 +1,8 @@
 /*
  * Java
  *
- * Copyright 2016 IS2T. All rights reserved.
- * IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright 2016-2017 IS2T. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package ej.widget.chart;
 
@@ -12,8 +12,6 @@ import ej.microui.display.shape.AntiAliasedShapes;
 import ej.style.Style;
 import ej.style.container.Rectangle;
 import ej.style.util.StyleHelper;
-
-/** IPR start **/
 
 /**
  * Represents a line chart with several ordered points.
@@ -174,5 +172,3 @@ public class LineChart extends BasicChart {
 		return (int) (getPoints().size() * this.xStep);
 	}
 }
-
-/** IPR end **/

@@ -1,8 +1,8 @@
 /*
  * Java
  *
- * Copyright 2016 IS2T. All rights reserved.
- * IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * Copyright 2016-2017 IS2T. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 package ej.widget.chart;
 
@@ -14,8 +14,6 @@ import ej.widget.chart.format.ChartFormat;
 import ej.widget.chart.format.DefaultChartFormat;
 import ej.widget.chart.scale.AdaptiveChartScale;
 import ej.widget.chart.scale.ChartScale;
-
-/** IPR start **/
 
 /**
  * Represents a chart with several ordered points.
@@ -205,5 +203,3 @@ public abstract class Chart extends StyledComposite {
 		return this.format;
 	}
 }
-
-/** IPR end **/

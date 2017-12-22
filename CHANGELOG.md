@@ -1,28 +1,29 @@
-<!--
-	Markdown
--->
-<!--
-Changelog template:
-
-## Revision (YYYY-mm-dd)
+## 6.1.0
 Features:
-  - List here the new features.
+  - Add carousel page.
+  - Manage key repeat in keyboard.
+  - Update on Widget 2.3.x.
+  - Simplify keyboard page.
+  - Use A8 image format when possible.
+  - Clean-up stylesheet.
   
-Bugfixes:
-  - List here the bug fixes.
--->
+Bug fixes:
+  - Fix keyboard text overflow.
+  - Fix initial animation of chart.
+  - Review pages structure.
+  - Fix buttons' corners.
 
 ## 6.0.0 (2017-01-30)
 Features:
-  - Changed overall demo design.
-  - Updated LibWidget version.
-  - Added keyboard page.
-  - Added chart page.
-  - Added wheel page
-  - Sandboxed the application.
+  - Change overall demo design.
+  - Update LibWidget version.
+  - Add keyboard page.
+  - Add chart page.
+  - Add wheel page
+  - Sandbox the application.
 
 ## 5.0.1 (2016-07-01)
-Bugfixes:
+Bug fixes:
   - Fix Widget version.
 
 ## 5.0.0 (2016-06-28)

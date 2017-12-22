@@ -1,0 +1,12 @@
+# Copyright 2015-2017 IS2T. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
+
+# Implementations to use
+ej.style.font.loader.FontLoader=com.microej.demo.widget.style.WidgetsFontLoader
+ej.widget.basic.image.ImageTheme=com.microej.demo.widget.style.WidgetsImageTheme
+
+# Transitions with screenshots, uncomment the line below to use it.
+com.microej.demo.widget.transition.screenshot=SET
+
+ej.animation.Animator.period=50
+ej.microui.event.generator.Keyboard=ej.widget.keyboard.SystemKeyboard

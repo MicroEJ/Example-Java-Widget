@@ -1,0 +1,8 @@
+# Copyright 2014-2017 IS2T. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
+
+fonts/source_sans_pro_14.ejf:0x21-0xfc:4
+fonts/source_sans_pro_16.ejf:0x8,0xf,0x21-0xfc,0x20ac,0x25cf:4
+fonts/source_sans_pro_24.ejf:0x21-0xfc:4
+
+fonts/picto_30px.ejf::4

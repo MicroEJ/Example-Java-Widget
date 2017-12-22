@@ -1,0 +1,20 @@
+# Copyright 2014-2017 IS2T. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
+
+images/store.png:A8
+images/back.png:A8
+
+images/checkbox_checked.png:A8
+images/checkbox_unchecked.png:A8
+images/radio_checked.png:A8
+images/radio_unchecked.png:A8
+images/slider_bar.png:A8
+images/slider_cursor.png:ARGB8888
+images/switch_checked.png:A8
+images/switch_unchecked.png:A8
+
+images/carousel/cowboy.png:ARGB8888
+images/carousel/frenchie.png:ARGB8888
+images/carousel/santa.png:ARGB8888
+images/carousel/space.png:ARGB8888
+images/carousel/superjeo.png:ARGB8888

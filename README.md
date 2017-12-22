@@ -1,16 +1,21 @@
 # Overview
-This demo illustrates the Widget library (ej.widget, ej.container, ej.style, ej.navigation, ej.color) based on MicroUI 2 and MWT 2.
+This demo illustrates the Widget library (`ej.widget`, `ej.style`, `ej.animation`, `ej.color`) based on MicroUI 2 and MWT 2.
 The main page allows to lead to all the pages of the application illustrating the following widgets:
-- button,
-- label,
-- scrolling list,
-- scroll bar,
-- slider,
-- radio button,
-- check box,
-- switch,
-- progress bar,
-- vertical lists.
+
+* button,
+* label,
+* scrolling list,
+* scroll bar,
+* slider,
+* radio button,
+* check box,
+* switch,
+* progress bar,
+* vertical lists,
+* keyboard,
+* chart,
+* wheel,
+* carousel.
 
 # Rendering
 This demo includes various implementations of widgets and screen transitions.
@@ -48,19 +53,22 @@ Screens are drawn while moving. For each step of the transition, all widgets are
 First of all, you have to download the entire repository by using the `Download` button or by cloning the repository. After having retrieved the repository content, open MicroEJ and then import _Existing project into workspace_ by selecting either the ZIP file or the root directory.
 
 ## Requirements
-* MicroEJ Studio or SDK 4.0 or later
+* MicroEJ Studio or SDK 4.1 or later
 * A platform with at least:
-	* EDC-1.2 or higher
-	* MICROUI-2.0 or higher
-	* MWT-2.1 or higher
+  * EDC-1.2 or higher
+  * MICROUI-2.0 or higher
+  * MWT-2.1 or higher
 * Hardware: this demo has been tested on ST STM32F746G-DISCO (480x272 display) board.
 
 ## Project structure
-  - `src/main/java`: Java sources.
-  		`ej.demo.ui.widget.page`: pages of the demo.
-  		`ej.demo.ui.widget.style`: look and feel management of the demo.
-  		`WidgetsDemo`: entry point of the demo.
-  - `src/main/resources`: images, fonts…
+* `src/main/java`: Java sources.
+  * `com.microej.demo.widget.keyboard`: layouts of the keyboard.
+  * `com.microej.demo.widget.page`: pages of the demo.
+  * `com.microej.demo.widget.style`: look and feel management of the demo.
+  * `ej.widget`: additional widgets.
+  * `MainActivity`: activity of the sandboxed demo.
+  * `WidgetsDemo`: entry point of the standalone demo.
+* `src/main/resources`: images, fonts…
 
 # Usage
 ## Run on MicroEJ Simulator
@@ -71,7 +79,7 @@ First of all, you have to download the entire repository by using the `Download`
 
 ## Run on device
 ### Build
-1. Right Click on [WidgetsDemo.java](ej.demo.ui.widget/src/main/java/ej/demo/ui/widget/WidgetsDemo.java)
+1. Right Click on [WidgetsDemo.java](ej.demo.ui.widget/src/main/java/com/microej/demo/widget/WidgetsDemo.java)
 1. Select **Run as -> Run Configuration**
 1. Select **MicroEJ Application** configuration kind
 1. Click on **New launch configuration** icon
@@ -79,7 +87,7 @@ First of all, you have to download the entire repository by using the `Download`
 	1. In **Target** frame, in **Platform** field, select a relevant platform (but not a virtual device)
 	1. In **Execution** frame
 		1. Select **Execute on Device**
-		2. In **Settings** field, select **Build & Deploy**
+		1. In **Settings** field, select **Build & Deploy**
 1. Press **Apply**
 1. Press **Run**
 1. Copy the generated `.out` file path shown by the console
@@ -90,6 +98,7 @@ First of all, you have to download the entire repository by using the `Download`
 # MicroUI vs. MWT+Widget
 By default, consider using MWT+Widget.
 It is however possible to develop a GUI with MicroUI without MWT+Widget libraries:
+
 * when there is no or little user interaction,
 * for simple screens and a limited number of widgets,
 * for simple screen layout,
@@ -97,7 +106,7 @@ It is however possible to develop a GUI with MicroUI without MWT+Widget librarie
 * for quick image-based design tests.
 
 # Changes
-- See the change log file [CHANGELOG.md](CHANGELOG.md) located at the root of this repository.
+See the change log file [CHANGELOG.md](CHANGELOG.md) located at the root of this repository.
 
 # License
 See the license file [LICENSE.md](LICENSE.md) located at the root of this repository.

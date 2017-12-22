@@ -30,7 +30,7 @@ public class MainActivity implements Activity {
 
 	@Override
 	public void onStart() {
-		WidgetsDemo.main(new String[0]);
+		WidgetsDemo.start();
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class MainActivity implements Activity {
 
 	@Override
 	public void onStop() {
-		// do nothing
+		WidgetsDemo.stop();
 	}
 
 	@Override

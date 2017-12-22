@@ -45,6 +45,13 @@ public class WidgetsDemo {
 	 *            not used.
 	 */
 	public static void main(String[] args) {
+		start();
+	}
+
+	/**
+	 * Starts the widgets demo.
+	 */
+	public static void start() {
 		// Start MicroUI framework.
 		MicroUI.start();
 
@@ -78,6 +85,13 @@ public class WidgetsDemo {
 		Panel.setWidget(TransitionContainer);
 		Panel.showFullScreen(Desktop);
 		Desktop.show();
+	}
+
+	/**
+	 * Stops the widgets demo.
+	 */
+	public static void stop() {
+		// Nothing to do.
 	}
 
 	/**

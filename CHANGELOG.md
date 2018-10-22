@@ -1,3 +1,7 @@
+## 6.1.1
+Bug fixes:
+ Fix API versions.
+
 ## 6.1.0
 Features:
   - Add carousel page.

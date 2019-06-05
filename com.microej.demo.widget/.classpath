@@ -2,18 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry kind="src" path="src/.generated~/.java">
-		<attributes>
-			<attribute name="addonProcessorKind" value="generatedJava"/>
-			<attribute name="addonProcessorKeep" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" path="src/.generated~/.resources">
-		<attributes>
-			<attribute name="addonProcessorKind" value="generatedJava"/>
-			<attribute name="addonProcessorKeep" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=com.microej.demo.widget&amp;ivyXmlPath=module.ivy&amp;confs=*"/>
+	<classpathentry kind="src" path="src-adpgenerated/wadapps/java">
+		<attributes>
+			<attribute name="addonProcessorKind" value="generatedJava"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

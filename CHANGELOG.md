@@ -5,13 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 6.2.0 - 2019-06-05
+## 6.2.0 - 2019-10-29
 
 ### Changed
 
   - Update to MicroEJ 5.1.
   - Use Firmware Single App build type.
   
+### Added
+
+  - Add standalone.types.list and standalone.properties.list to specify required types for standalone run
+
 ## 6.1.1 - 2018-10-22
 
 ### Fixed

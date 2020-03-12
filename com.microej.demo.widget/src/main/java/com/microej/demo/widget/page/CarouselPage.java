@@ -7,6 +7,7 @@ package com.microej.demo.widget.page;
 
 import ej.microui.MicroUIException;
 import ej.microui.display.Image;
+import ej.microui.display.ResourceImage;
 import ej.widget.carousel.Carousel;
 import ej.widget.carousel.CarouselEntry;
 import ej.widget.listener.OnClickListener;
@@ -58,7 +59,7 @@ public class CarouselPage extends AbstractDemoPage {
 
 	private Image loadImage(String string) {
 		try {
-			return Image.loadImage(string);
+			return ResourceImage.loadImage(string);
 		} catch (MicroUIException e) {
 			System.out.println("Could not load image '" + string + "'"); //$NON-NLS-1$ //$NON-NLS-2$
 			return null;

@@ -138,12 +138,12 @@ public class Wheel extends Container {
 		g.setColor(hLineStyle.getForegroundColor());
 
 		y = (remainingHeight >> 1) - (lineHeight >> 1);
-		g.drawHorizontalLine(0, y - 1, width - 1);
-		g.drawHorizontalLine(0, y, width - 1);
+		g.drawHorizontalLine(0, y - 1, width);
+		g.drawHorizontalLine(0, y, width);
 
 		y = (remainingHeight >> 1) + (lineHeight >> 1);
-		g.drawHorizontalLine(0, y - 1, width - 1);
-		g.drawHorizontalLine(0, y, width - 1);
+		g.drawHorizontalLine(0, y - 1, width);
+		g.drawHorizontalLine(0, y, width);
 	}
 
 	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment) {

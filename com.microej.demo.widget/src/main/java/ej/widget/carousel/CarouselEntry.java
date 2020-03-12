@@ -1,9 +1,7 @@
 /*
- * Java
- *
- * Copyright  2017-2019 MicroEJ Corp. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found with this software.
- * MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+ * Copyright 2017-2020 MicroEJ Corp. All rights reserved.
+ * This library is provided in source code for use, modification and test, subject to license terms.
+ * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
 package ej.widget.carousel;
 
@@ -13,10 +11,10 @@ import java.util.List;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.Image;
-import ej.microui.display.transform.ImageScale;
-import ej.style.container.AlignmentHelper;
-import ej.style.container.Rectangle;
-import ej.style.text.TextManager;
+import ej.microui.display.transform.Scale;
+import ej.mwt.style.container.Alignment;
+import ej.mwt.style.text.TextManager;
+import ej.mwt.util.Size;
 import ej.widget.listener.OnClickListener;
 
 /**
@@ -83,8 +81,10 @@ public class CarouselEntry {
 	 *
 	 * @param g
 	 *            the graphics context to draw on
-	 * @param bounds
-	 *            the bounds of the container
+	 * @param size
+	 *            the size of the container
+	 * @param font
+	 *            the font to render with.
 	 * @param tm
 	 *            the text manager to use
 	 * @param inDND
@@ -104,46 +104,41 @@ public class CarouselEntry {
 	 * @param isDND
 	 *            whether the entry is being dragged
 	 */
-	public void render(GraphicsContext g, Rectangle bounds, TextManager tm, boolean inDND, boolean stopped,
+	public void render(GraphicsContext g, Size size, Font font, TextManager tm, boolean inDND, boolean stopped,
 			boolean clicked, boolean selected, float sizeRatio, int offsetX, int offsetY, boolean isDND) {
 		// draw background
 		int imageWidth = Math.round(this.image.getWidth() * sizeRatio);
 		int imageHeight = Math.round(this.image.getHeight() * sizeRatio);
-		int imageX = AlignmentHelper.computeXLeftCorner(imageWidth, offsetX, bounds.getWidth(),
-				GraphicsContext.HCENTER);
-		int imageY = AlignmentHelper.computeYTopCorner(imageHeight + 30, offsetY, bounds.getHeight(),
-				GraphicsContext.VCENTER);
+		int imageX = Alignment.computeLeftX(imageWidth, offsetX, size.getWidth(), Alignment.HCENTER);
+		int imageY = Alignment.computeTopY(imageHeight + 30, offsetY, size.getHeight(), Alignment.VCENTER);
 		drawScaled(g, this.image, imageX, imageY, 255, sizeRatio, stopped);
 
 		// draw string
 		if (sizeRatio >= DRAW_STRING_RATIO && !isDND) {
-			Font font = g.getFont();
 			int marginX = 20 - (this.image.getWidth() - imageWidth) / 2;
 			int stringX = imageX + marginX;
 			int stringY = imageY + imageHeight + 10;
-			int stringAlignment = GraphicsContext.HCENTER | GraphicsContext.TOP;
-			Rectangle stringBounds = new Rectangle(0, 0, imageWidth - 2 * marginX, 2 * font.getHeight());
+			int stringAlignment = Alignment.HCENTER | Alignment.TOP;
+			Size stringSize = new Size(imageWidth - 2 * marginX, 2 * font.getHeight());
 			g.translate(stringX, stringY);
-			tm.drawText(g, this.string, font, g.getColor(), stringBounds, stringAlignment);
+			tm.drawText(g, this.string, font, g.getColor(), stringSize, stringAlignment);
 			g.translate(-stringX, -stringY);
 		}
 	}
 
 	private void drawScaled(GraphicsContext g, Image image, int x, int y, int alpha, float sizeRatio, boolean stopped) {
 		if (sizeRatio == 1.0f) {
-			g.drawImage(image, x, y, GraphicsContext.LEFT | GraphicsContext.TOP, alpha);
+			image.draw(g, x, y, alpha);
 		} else {
-			ImageScale s = ImageScale.Singleton;
+			Scale s = new Scale();
 			s.setAlpha(alpha);
 			s.setFactor(sizeRatio);
 
-			s.draw(g, image, x, y, GraphicsContext.LEFT | GraphicsContext.TOP);
-
-			// if (stopped) {
-			// s.drawBilinear(g, image, x, y, GraphicsContext.LEFT | GraphicsContext.TOP);
-			// } else {
-			// s.drawNearestNeighbor(g, image, x, y, GraphicsContext.LEFT | GraphicsContext.TOP);
-			// }
+			if (stopped) {
+				s.drawBilinear(g, image, x, y);
+			} else {
+				s.drawNearestNeighbor(g, image, x, y);
+			}
 		}
 	}
 }

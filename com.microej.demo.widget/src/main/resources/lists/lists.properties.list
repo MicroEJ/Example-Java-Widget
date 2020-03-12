@@ -1,8 +1,16 @@
-# Copyright  2015-2019 MicroEJ Corp. All rights reserved.
-# Use of this source code is governed by a BSD-style license that can be found with this software.
-# MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+# Copyright 2015-2020 MicroEJ Corp. All rights reserved.
+# This library is provided in source code for use, modification and test, subject to license terms.
+# Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
 
 # Transitions with screenshots, uncomment the line below to use it.
 com.microej.demo.widget.transition.screenshot=SET
 
+ej.bon.Timer=ej.bon.Timer
+
+ej.animation.Animator=ej.animation.Animator
 ej.animation.Animator.period=50
+
+ej.mwt.style.font.loader.FontLoader=com.microej.demo.widget.style.WidgetsFontLoader
+ej.widget.basic.image.ImageTheme=com.microej.demo.widget.style.WidgetsImageTheme
+
+ej.widget.util.Keyboard=ej.widget.util.Keyboard

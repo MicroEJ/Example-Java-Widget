@@ -1,18 +1,17 @@
 /*
- * Java
- *
- * Copyright  2016-2019 MicroEJ Corp. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found with this software.
- * MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+ * Copyright 2016-2020 MicroEJ Corp. All rights reserved.
+ * This library is provided in source code for use, modification and test, subject to license terms.
+ * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
 package ej.widget.chart;
 
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.shape.AntiAliasedShapes;
-import ej.style.Style;
-import ej.style.container.Rectangle;
-import ej.style.util.StyleHelper;
+import ej.mwt.style.Style;
+import ej.mwt.style.container.Alignment;
+import ej.mwt.style.util.StyleHelper;
+import ej.mwt.util.Size;
 
 /**
  * Represents a line chart with several ordered points.
@@ -31,6 +30,8 @@ public class LineChart extends BasicChart {
 	private final boolean drawCircles;
 	private float xStep;
 
+	private final AntiAliasedShapes antiAliasedShapes;
+
 	/**
 	 * Constructor
 	 *
@@ -42,30 +43,30 @@ public class LineChart extends BasicChart {
 	public LineChart(boolean drawArea, boolean drawCircles) {
 		this.drawArea = drawArea;
 		this.drawCircles = drawCircles;
+		this.antiAliasedShapes = new AntiAliasedShapes();
 	}
 
 	/**
 	 * Render widget
 	 */
 	@Override
-	public void renderContent(GraphicsContext g, Style style, Rectangle bounds) {
+	public void renderContent(GraphicsContext g, Size size) {
+		Style style = getStyle();
 		Font font = StyleHelper.getFont(style);
 		int fontHeight = font.getHeight();
 
-		int yBarBottom = getBarBottom(fontHeight, bounds);
-		int yBarTop = getBarTop(fontHeight, bounds);
+		int yBarBottom = getBarBottom(fontHeight, size);
+		int yBarTop = getBarTop(fontHeight, size);
 
-		this.xStep = (bounds.getWidth() - LEFT_PADDING - fontHeight / 4) / (getPoints().size() - 1.0f);
+		this.xStep = (size.getWidth() - LEFT_PADDING - fontHeight / 4) / (getPoints().size() - 1.0f);
 
 		float topValue = getScale().getTopValue();
 
 		// draw selected point value
-		renderSelectedPointValue(g, style, bounds);
+		renderSelectedPointValue(g, style, size);
 
 		// draw points
-		g.setFont(font);
-
-		AntiAliasedShapes antiAliasedShapes = AntiAliasedShapes.Singleton;
+		AntiAliasedShapes antiAliasedShapes = this.antiAliasedShapes;
 		antiAliasedShapes.setThickness(0);
 		antiAliasedShapes.setFade(1);
 
@@ -82,7 +83,7 @@ public class LineChart extends BasicChart {
 
 			String name = chartPoint.getName();
 			if (name != null) {
-				g.drawString(name, currentX, bounds.getHeight(), GraphicsContext.HCENTER | GraphicsContext.BOTTOM);
+				drawString(g, font, name, currentX, size.getHeight(), Alignment.HCENTER_BOTTOM);
 			}
 
 			if (value < 0.0f) {
@@ -122,7 +123,7 @@ public class LineChart extends BasicChart {
 		}
 
 		// draw scale
-		renderScale(g, style, bounds, topValue);
+		renderScale(g, style, size, topValue);
 
 		// draw circles
 		if (this.drawCircles) {
@@ -155,6 +156,12 @@ public class LineChart extends BasicChart {
 				pointIndex++;
 			}
 		}
+	}
+
+	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment) {
+		int x = Alignment.computeLeftX(font.stringWidth(string), anchorX, alignment);
+		int y = Alignment.computeTopY(font.getHeight(), anchorY, alignment);
+		font.drawString(g, string, x, y);
 	}
 
 	/**

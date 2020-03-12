@@ -1,40 +1,38 @@
 /*
- * Java
- *
- * Copyright  2016-2019 MicroEJ Corp. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found with this software.
- * MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+ * Copyright 2016-2020 MicroEJ Corp. All rights reserved.
+ * This library is provided in source code for use, modification and test, subject to license terms.
+ * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
 package com.microej.demo.widget.style;
 
 import ej.microui.display.Colors;
 import ej.microui.display.Font;
-import ej.microui.display.GraphicsContext;
-import ej.mwt.MWT;
-import ej.style.Selector;
-import ej.style.State;
-import ej.style.Stylesheet;
-import ej.style.background.NoBackground;
-import ej.style.background.PlainBackground;
-import ej.style.background.SimpleRoundedPlainBackground;
-import ej.style.border.ComplexRectangularBorder;
-import ej.style.border.SimpleRectangularBorder;
-import ej.style.border.SimpleRoundedBorder;
-import ej.style.dimension.FixedDimension;
-import ej.style.font.FontProfile;
-import ej.style.font.FontProfile.FontSize;
-import ej.style.outline.ComplexOutline;
-import ej.style.outline.SimpleOutline;
-import ej.style.selector.ClassSelector;
-import ej.style.selector.OddChildSelector;
-import ej.style.selector.StateSelector;
-import ej.style.selector.TypeSelector;
-import ej.style.selector.combinator.AndCombinator;
-import ej.style.text.ComplexTextManager;
-import ej.style.text.SimpleTextManager;
-import ej.style.util.EditableStyle;
-import ej.style.util.StyleHelper;
-import ej.widget.basic.Image;
+import ej.microui.display.Image;
+import ej.mwt.Widget;
+import ej.mwt.style.Selector;
+import ej.mwt.style.State;
+import ej.mwt.style.background.NoBackground;
+import ej.mwt.style.background.PlainBackground;
+import ej.mwt.style.background.SimpleRoundedPlainBackground;
+import ej.mwt.style.border.ComplexRectangularBorder;
+import ej.mwt.style.border.SimpleRectangularBorder;
+import ej.mwt.style.border.SimpleRoundedBorder;
+import ej.mwt.style.cascading.CascadingStylesheet;
+import ej.mwt.style.cascading.StyleBuilder;
+import ej.mwt.style.container.Alignment;
+import ej.mwt.style.dimension.FixedDimension;
+import ej.mwt.style.font.FontProfile;
+import ej.mwt.style.font.FontProfile.FontSize;
+import ej.mwt.style.outline.ComplexOutline;
+import ej.mwt.style.outline.SimpleOutline;
+import ej.mwt.style.selector.ClassSelector;
+import ej.mwt.style.selector.OddChildSelector;
+import ej.mwt.style.selector.StateSelector;
+import ej.mwt.style.selector.TypeSelector;
+import ej.mwt.style.selector.combinator.AndCombinator;
+import ej.mwt.style.text.ComplexTextManager;
+import ej.mwt.style.text.SimpleTextManager;
+import ej.mwt.style.util.StyleHelper;
 import ej.widget.basic.Label;
 import ej.widget.basic.drawing.CheckBox;
 import ej.widget.basic.drawing.CircularProgressBar;
@@ -89,22 +87,23 @@ public class StylesheetPopulator {
 	 * Populates the stylesheet.
 	 */
 	public static void initialize() {
-		Stylesheet stylesheet = StyleHelper.getStylesheet();
+		CascadingStylesheet stylesheet = new CascadingStylesheet();
+		StyleHelper.setStylesheet(stylesheet);
 
 		// Sets the default style.
-		EditableStyle defaultStyle = new EditableStyle();
+		StyleBuilder defaultStyle = new StyleBuilder();
 		defaultStyle.setForegroundColor(FOREGROUND);
 		defaultStyle.setBackgroundColor(BACKGROUND);
 		FontProfile defaultFontProfile = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM,
 				Font.STYLE_PLAIN);
 		defaultStyle.setFontProfile(defaultFontProfile);
-		defaultStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
+		defaultStyle.setAlignment(Alignment.LEFT | Alignment.VCENTER);
 		stylesheet.setDefaultStyle(defaultStyle);
 
 		TypeSelector labelTypeSelector = new TypeSelector(Label.class);
 
 		// Sets the label style.
-		EditableStyle style = new EditableStyle();
+		StyleBuilder style = new StyleBuilder();
 		style.setBackground(NoBackground.NO_BACKGROUND);
 		stylesheet.addRule(labelTypeSelector, style);
 
@@ -120,7 +119,7 @@ public class StylesheetPopulator {
 		style.setForegroundColor(TITLE_FOREGROUND);
 		style.setBorderColor(TITLE_BORDER);
 		style.setBorder(new ComplexRectangularBorder(0, 0, 2, 0));
-		style.setDimension(new FixedDimension(MWT.NONE, 32));
+		style.setDimension(new FixedDimension(Widget.NO_CONSTRAINT, 32));
 		stylesheet.addRule(new ClassSelector(ClassSelectors.TOP_BAR), style);
 
 		// Sets the title style.
@@ -130,7 +129,7 @@ public class StylesheetPopulator {
 
 		// Sets the centered style.
 		style.clear();
-		style.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+		style.setAlignment(Alignment.HCENTER_VCENTER);
 		stylesheet.addRule(new ClassSelector(ClassSelectors.CENTERED), style);
 
 		// Sets the image style.
@@ -165,8 +164,7 @@ public class StylesheetPopulator {
 		// Sets the text title style.
 		style.clear();
 		style.setBorderColor(TITLE_BORDER);
-		ComplexRectangularBorder textTitleBorder = new ComplexRectangularBorder();
-		textTitleBorder.setBottom(1);
+		ComplexRectangularBorder textTitleBorder = new ComplexRectangularBorder(0, 0, 1, 0);
 		style.setBorder(textTitleBorder);
 		stylesheet.addRule(new ClassSelector(ClassSelectors.TEXT_TITLE), style);
 
@@ -189,7 +187,7 @@ public class StylesheetPopulator {
 		initializeDateStyle(stylesheet);
 	}
 
-	private static void initializeWidgetsStyle(Stylesheet stylesheet) {
+	private static void initializeWidgetsStyle(CascadingStylesheet stylesheet) {
 		// Default margin not added in the default style because it also applies for the composites.
 		SimpleOutline defaultMargin = new SimpleOutline(6);
 
@@ -215,7 +213,7 @@ public class StylesheetPopulator {
 				Font.STYLE_PLAIN);
 
 		// Sets the picto style.
-		EditableStyle style = new EditableStyle();
+		StyleBuilder style = new StyleBuilder();
 		style.setFontProfile(widgetPictoFontProfile);
 		stylesheet.addRule(pictoProgressTypeSelector, style);
 		stylesheet.addRule(pictoSliderTypeSelector, style);
@@ -228,7 +226,7 @@ public class StylesheetPopulator {
 		style.setForegroundColor(FOREGROUND);
 		style.setBorderColor(FOREGROUND);
 		style.setMargin(defaultMargin);
-		style.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+		style.setAlignment(Alignment.HCENTER_VCENTER);
 		stylesheet.addRule(checkBoxTypeSelector, style);
 		stylesheet.addRule(radioBoxTypeSelector, style);
 		stylesheet.addRule(switchBoxTypeSelector, style);
@@ -246,17 +244,17 @@ public class StylesheetPopulator {
 		style.clear();
 		style.setBorder(new SimpleRoundedBorder(1000, 2));
 		style.setPadding(new ComplexOutline(4, 20, 4, 4));
-		style.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
+		style.setAlignment(Alignment.LEFT | Alignment.VCENTER);
 		stylesheet.addRule(switchBoxTypeSelector, style);
 
 		style.clear();
 		style.setPadding(new ComplexOutline(4, 4, 4, 20));
-		style.setAlignment(GraphicsContext.RIGHT | GraphicsContext.VCENTER);
+		style.setAlignment(Alignment.RIGHT | Alignment.VCENTER);
 		stylesheet.addRule(new AndCombinator(switchBoxTypeSelector, stateCheckedSelector), style);
 
 		style.clear();
-		style.setDimension(new FixedDimension(MWT.NONE, 10));
-		style.setBackground(new PlainBackground());
+		style.setDimension(new FixedDimension(Widget.NO_CONSTRAINT, 10));
+		style.setBackground(PlainBackground.PLAIN_BACKGROUND);
 		style.setBackgroundColor(ACTIVE_FOREGROUND);
 		stylesheet.addRule(progressBarTypeSelector, style);
 
@@ -296,36 +294,36 @@ public class StylesheetPopulator {
 		stylesheet.addRule(sliderTypeSelector, style);
 	}
 
-	private static void initializeListStyle(Stylesheet stylesheet) {
+	private static void initializeListStyle(CascadingStylesheet stylesheet) {
 		ClassSelector listItemSelector = new ClassSelector(ClassSelectors.LIST_ITEM);
 		// Sets the list item style.
-		EditableStyle style = new EditableStyle();
+		StyleBuilder style = new StyleBuilder();
 		style.setPadding(new SimpleOutline(10));
 		stylesheet.addRule(listItemSelector, style);
 
 		// Sets the odd list item style.
 		style.clear();
-		style.setBackground(new PlainBackground());
+		style.setBackground(PlainBackground.PLAIN_BACKGROUND);
 		style.setBackgroundColor(LIST_ODD_BACKGROUND);
-		stylesheet.addRule(new AndCombinator(listItemSelector, new OddChildSelector()), style);
+		stylesheet.addRule(new AndCombinator(listItemSelector, OddChildSelector.ODD_CHILD_SELECTOR), style);
 	}
 
-	private static void initializeKeyboardStyle(Stylesheet stylesheet) {
-		EditableStyle keyboardStyle = new EditableStyle();
-		keyboardStyle.setBackground(new PlainBackground());
+	private static void initializeKeyboardStyle(CascadingStylesheet stylesheet) {
+		StyleBuilder keyboardStyle = new StyleBuilder();
+		keyboardStyle.setBackground(PlainBackground.PLAIN_BACKGROUND);
 		keyboardStyle.setBackgroundColor(KEYBOARD_BACKGROUND_COLOR);
 		TypeSelector keyboardSelector = new TypeSelector(Keyboard.class);
 		stylesheet.addRule(keyboardSelector, keyboardStyle);
 
-		EditableStyle keyStyle = new EditableStyle();
+		StyleBuilder keyStyle = new StyleBuilder();
 		keyStyle.setForegroundColor(KEYBOARD_KEY_COLOR);
 		keyStyle.setBackground(NoBackground.NO_BACKGROUND);
-		keyStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+		keyStyle.setAlignment(Alignment.HCENTER_VCENTER);
 		keyStyle.setMargin(new ComplexOutline(4, 2, 4, 2));
 		Selector keySelector = new TypeSelector(Key.class);
 		stylesheet.addRule(keySelector, keyStyle);
 
-		EditableStyle activeKeyStyle = new EditableStyle();
+		StyleBuilder activeKeyStyle = new StyleBuilder();
 		activeKeyStyle.setForegroundColor(Colors.WHITE);
 		activeKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS));
 		activeKeyStyle.setBackgroundColor(KEYBOARD_HIGHLIGHT_COLOR);
@@ -335,7 +333,7 @@ public class StylesheetPopulator {
 		AndCombinator activeKeySelector = new AndCombinator(keySelector, activeSelector);
 		stylesheet.addRule(activeKeySelector, activeKeyStyle);
 
-		EditableStyle spaceKeyStyle = new EditableStyle();
+		StyleBuilder spaceKeyStyle = new StyleBuilder();
 		spaceKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS));
 		spaceKeyStyle.setBackgroundColor(KEYBOARD_KEY_COLOR);
 		spaceKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS - 1, 1));
@@ -343,7 +341,7 @@ public class StylesheetPopulator {
 		ClassSelector spaceKeySelector = new ClassSelector(ClassSelectors.SPACE_KEY_SELECTOR);
 		stylesheet.addRule(spaceKeySelector, spaceKeyStyle);
 
-		EditableStyle activeShiftKeyStyle = new EditableStyle();
+		StyleBuilder activeShiftKeyStyle = new StyleBuilder();
 		activeShiftKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS));
 		activeShiftKeyStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_50);
 		activeShiftKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS - 1, 1));
@@ -351,7 +349,7 @@ public class StylesheetPopulator {
 		ClassSelector activeShiftKeySelector = new ClassSelector(ClassSelectors.SHIFT_KEY_ACTIVE_SELECTOR);
 		stylesheet.addRule(activeShiftKeySelector, activeShiftKeyStyle);
 
-		EditableStyle specialKeyStyle = new EditableStyle();
+		StyleBuilder specialKeyStyle = new StyleBuilder();
 		specialKeyStyle.setForegroundColor(MicroEJColors.WHITE);
 		specialKeyStyle.setBackgroundColor(MicroEJColors.CORAL);
 		specialKeyStyle.setBackground(new SimpleRoundedPlainBackground(KEY_CORNER_RADIUS));
@@ -362,27 +360,27 @@ public class StylesheetPopulator {
 		ClassSelector specialKeySelector = new ClassSelector(ClassSelectors.SPECIAL_KEY_SELECTOR);
 		stylesheet.addRule(specialKeySelector, specialKeyStyle);
 
-		EditableStyle activeSpecialKeyStyle = new EditableStyle();
+		StyleBuilder activeSpecialKeyStyle = new StyleBuilder();
 		activeSpecialKeyStyle.setBackgroundColor(ACTIVE_FOREGROUND);
 		activeSpecialKeyStyle.setBorderColor(ACTIVE_FOREGROUND);
 		stylesheet.addRule(new AndCombinator(specialKeySelector, new StateSelector(State.Active)),
 				activeSpecialKeyStyle);
 	}
 
-	private static void initializeEditionStyle(Stylesheet stylesheet) {
-		EditableStyle textStyle = new EditableStyle();
+	private static void initializeEditionStyle(CascadingStylesheet stylesheet) {
+		StyleBuilder textStyle = new StyleBuilder();
 		textStyle.setForegroundColor(FOREGROUND);
 		textStyle.setBackground(NoBackground.NO_BACKGROUND);
 		textStyle.setBorderColor(FOREGROUND);
 		textStyle.setBorder(new ComplexRectangularBorder(0, 0, 1, 0));
-		textStyle.setAlignment(GraphicsContext.LEFT | GraphicsContext.VCENTER);
-		textStyle.setTextManager(new SimpleTextManager());
+		textStyle.setAlignment(Alignment.LEFT | Alignment.VCENTER);
+		textStyle.setTextManager(SimpleTextManager.SIMPLE_TEXT_MANAGER);
 		textStyle.setMargin(new SimpleOutline(5));
 		textStyle.setPadding(new ComplexOutline(0, 1, 1, 1));
 		TypeSelector textSelector = new TypeSelector(KeyboardText.class);
 		stylesheet.addRule(textSelector, textStyle);
 
-		EditableStyle focusedTextStyle = new EditableStyle();
+		StyleBuilder focusedTextStyle = new StyleBuilder();
 		focusedTextStyle.setBorderColor(CHECKED_FOREGROUND);
 		focusedTextStyle.setBorder(new ComplexRectangularBorder(0, 0, 2, 0));
 		focusedTextStyle.setPadding(new ComplexOutline(0, 1, 0, 1));
@@ -390,37 +388,37 @@ public class StylesheetPopulator {
 		AndCombinator focusedTextSelector = new AndCombinator(textSelector, activeSelector);
 		stylesheet.addRule(focusedTextSelector, focusedTextStyle);
 
-		EditableStyle placeholderTextStyle = new EditableStyle();
+		StyleBuilder placeholderTextStyle = new StyleBuilder();
 		placeholderTextStyle.setForegroundColor(TEXT_PLACEHOLDER_COLOR);
 		StateSelector emptySelector = new StateSelector(State.Empty);
 		AndCombinator placeholderTextSelector = new AndCombinator(textSelector, emptySelector);
 		stylesheet.addRule(placeholderTextSelector, placeholderTextStyle);
 
-		EditableStyle selectionStyle = new EditableStyle();
+		StyleBuilder selectionStyle = new StyleBuilder();
 		selectionStyle.setForegroundColor(TEXT_SELECTION_COLOR);
 		stylesheet.addRule(new ClassSelector(ClassSelectors.CLASS_SELECTOR_SELECTION), selectionStyle);
 
-		EditableStyle clearButtonStyle = new EditableStyle();
-		clearButtonStyle.setAlignment(GraphicsContext.RIGHT | GraphicsContext.VCENTER);
+		StyleBuilder clearButtonStyle = new StyleBuilder();
+		clearButtonStyle.setAlignment(Alignment.RIGHT | Alignment.VCENTER);
 		clearButtonStyle.setForegroundColor(FOREGROUND);
 		FontProfile clearButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.LARGE, Font.STYLE_PLAIN);
 		clearButtonStyle.setFontProfile(clearButtonFont);
 		stylesheet.addRule(new ClassSelector(ClassSelectors.CLASS_SELECTOR_CLEAR_BUTTON), clearButtonStyle);
 
-		EditableStyle formStyle = new EditableStyle();
+		StyleBuilder formStyle = new StyleBuilder();
 		formStyle.setMargin(new ComplexOutline(5, 10, 5, 10));
 		ClassSelector formSelector = new ClassSelector(ClassSelectors.FORM);
 		stylesheet.addRule(formSelector, formStyle);
 
-		EditableStyle resultLabelStyle = new EditableStyle();
+		StyleBuilder resultLabelStyle = new StyleBuilder();
 		resultLabelStyle.setMargin(new SimpleOutline(5));
 		ClassSelector resultLabelSelector = new ClassSelector(ClassSelectors.RESULT_LABEL);
 		stylesheet.addRule(resultLabelSelector, resultLabelStyle);
 	}
 
-	private static void initializeChartStyle(Stylesheet stylesheet) {
+	private static void initializeChartStyle(CascadingStylesheet stylesheet) {
 		// Sets the chart style.
-		EditableStyle chartStyle = new EditableStyle();
+		StyleBuilder chartStyle = new StyleBuilder();
 		chartStyle.setForegroundColor(MicroEJColors.CONCRETE_WHITE_25);
 		chartStyle.setBackground(NoBackground.NO_BACKGROUND);
 		FontProfile chartFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.SMALL, Font.STYLE_PLAIN);
@@ -429,19 +427,19 @@ public class StylesheetPopulator {
 		stylesheet.addRule(new ClassSelector(ClassSelectors.CHART), chartStyle);
 
 		// Sets the chart point style.
-		EditableStyle chartPointStyle = new EditableStyle();
+		StyleBuilder chartPointStyle = new StyleBuilder();
 		chartPointStyle.setForegroundColor(MicroEJColors.CONCRETE_WHITE_25);
 		Selector chartPointSelector = new TypeSelector(ChartPoint.class);
 		stylesheet.addRule(chartPointSelector, chartPointStyle);
 
 		// Sets the selected chart point style.
-		EditableStyle chartPointSelectedStyle = new EditableStyle();
+		StyleBuilder chartPointSelectedStyle = new StyleBuilder();
 		chartPointSelectedStyle.setForegroundColor(MicroEJColors.CORAL);
 		Selector chartPointSelectedSelector = new AndCombinator(chartPointSelector, new StateSelector(State.Checked));
 		stylesheet.addRule(chartPointSelectedSelector, chartPointSelectedStyle);
 
 		// Sets the selected chart point value style.
-		EditableStyle chartPointValueStyle = new EditableStyle();
+		StyleBuilder chartPointValueStyle = new StyleBuilder();
 		chartPointValueStyle.setForegroundColor(MicroEJColors.CORAL);
 		FontProfile chartPointValueFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.SMALL,
 				Font.STYLE_PLAIN);
@@ -450,7 +448,7 @@ public class StylesheetPopulator {
 		stylesheet.addRule(chartPointValueSelector, chartPointValueStyle);
 
 		// Sets the switch button style.
-		EditableStyle switchButtonStyle = new EditableStyle();
+		StyleBuilder switchButtonStyle = new StyleBuilder();
 		switchButtonStyle.setMargin(new ComplexOutline(4, 140, 13, 140));
 		switchButtonStyle.setForegroundColor(MicroEJColors.WHITE);
 		switchButtonStyle.setBackgroundColor(MicroEJColors.CORAL);
@@ -459,20 +457,20 @@ public class StylesheetPopulator {
 		switchButtonStyle.setBorder(new SimpleRoundedBorder(BUTTON_CORNER_RADIUS, 1));
 		FontProfile switchButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM, Font.STYLE_PLAIN);
 		switchButtonStyle.setFontProfile(switchButtonFont);
-		switchButtonStyle.setAlignment(GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+		switchButtonStyle.setAlignment(Alignment.HCENTER_VCENTER);
 		Selector switchButtonSelector = new ClassSelector(ClassSelectors.SWITCH_BUTTON);
 		stylesheet.addRule(switchButtonSelector, switchButtonStyle);
 
 		// Sets the switch active button style.
-		EditableStyle activeSwitchButtonStyle = new EditableStyle();
+		StyleBuilder activeSwitchButtonStyle = new StyleBuilder();
 		activeSwitchButtonStyle.setBackgroundColor(ACTIVE_FOREGROUND);
 		activeSwitchButtonStyle.setBorderColor(ACTIVE_FOREGROUND);
 		stylesheet.addRule(new AndCombinator(switchButtonSelector, new StateSelector(State.Active)),
 				activeSwitchButtonStyle);
 	}
 
-	private static void initializeDateStyle(Stylesheet stylesheet) {
-		EditableStyle wheelStyle = new EditableStyle();
+	private static void initializeDateStyle(CascadingStylesheet stylesheet) {
+		StyleBuilder wheelStyle = new StyleBuilder();
 		wheelStyle.setForegroundColor(MicroEJColors.CONCRETE_BLACK_50);
 		wheelStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_25);
 		wheelStyle.setBackground(NoBackground.NO_BACKGROUND);
@@ -480,11 +478,11 @@ public class StylesheetPopulator {
 		wheelStyle.setFontProfile(wheelFont);
 		stylesheet.addRule(new TypeSelector(Wheel.class), wheelStyle);
 
-		EditableStyle lineStyle = new EditableStyle();
+		StyleBuilder lineStyle = new StyleBuilder();
 		lineStyle.setForegroundColor(WHEEL_LINE_COLOR);
 		stylesheet.addRule(new ClassSelector(Wheel.CLASS_SELECTOR_LINE), lineStyle);
 
-		EditableStyle datePickerStyle = new EditableStyle();
+		StyleBuilder datePickerStyle = new StyleBuilder();
 		datePickerStyle.setMargin(new SimpleOutline(16));
 		stylesheet.addRule(new ClassSelector(ClassSelectors.DATE_PICKER), datePickerStyle);
 	}

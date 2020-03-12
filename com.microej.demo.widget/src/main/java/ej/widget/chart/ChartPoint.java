@@ -1,15 +1,15 @@
 /*
- * Java
- *
- * Copyright  2016-2019 MicroEJ Corp. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found with this software.
- * MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+ * Copyright 2016-2020 MicroEJ Corp. All rights reserved.
+ * This library is provided in source code for use, modification and test, subject to license terms.
+ * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
 package ej.widget.chart;
 
-import ej.style.Element;
-import ej.style.State;
-import ej.style.util.ElementAdapter;
+import ej.mwt.Container;
+import ej.mwt.style.State;
+import ej.mwt.style.Style;
+import ej.mwt.style.util.StyleHelper;
+import ej.widget.ElementAdapter;
 
 /**
  * Represents a point of a Chart
@@ -22,7 +22,7 @@ public class ChartPoint extends ElementAdapter {
 	private String name;
 	private String fullName;
 	private float value;
-	private Element parentElement;
+	private Container parentElement;
 	private boolean highlighted;
 	private boolean selected;
 
@@ -109,7 +109,7 @@ public class ChartPoint extends ElementAdapter {
 	 * @return parentElement the parentElement.
 	 */
 	@Override
-	public Element getParentElement() {
+	public Container getParent() {
 		return this.parentElement;
 	}
 
@@ -119,8 +119,21 @@ public class ChartPoint extends ElementAdapter {
 	 * @param parentElement
 	 *            the parentElement to set.
 	 */
-	public void setParentElement(Element parentElement) {
+	public void setParentElement(Container parentElement) {
 		this.parentElement = parentElement;
+	}
+
+	@Override
+	public boolean updateStyleOnly() {
+		if (this.parentElement != null) {
+			Style newStyle = StyleHelper.getStylesheet().getStyle(this);
+
+			if (!newStyle.equals(getStyle())) {
+				setStyle(newStyle);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -142,7 +155,7 @@ public class ChartPoint extends ElementAdapter {
 	 */
 	public void setSelected(boolean selected) {
 		this.selected = selected;
-		this.updateStyle();
+		this.updateStyleOnly();
 	}
 
 	/**

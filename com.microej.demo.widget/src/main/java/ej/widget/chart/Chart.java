@@ -1,16 +1,14 @@
 /*
- * Java
- *
- * Copyright  2016-2019 MicroEJ Corp. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found with this software.
- * MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+ * Copyright 2016-2020 MicroEJ Corp. All rights reserved.
+ * This library is provided in source code for use, modification and test, subject to license terms.
+ * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
 package ej.widget.chart;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ej.widget.StyledComposite;
+import ej.mwt.Container;
 import ej.widget.chart.format.ChartFormat;
 import ej.widget.chart.format.DefaultChartFormat;
 import ej.widget.chart.scale.AdaptiveChartScale;
@@ -19,7 +17,7 @@ import ej.widget.chart.scale.ChartScale;
 /**
  * Represents a chart with several ordered points.
  */
-public abstract class Chart extends StyledComposite {
+public abstract class Chart extends Container {
 
 	/**
 	 * Points
@@ -203,4 +201,14 @@ public abstract class Chart extends StyledComposite {
 	public ChartFormat getFormat() {
 		return this.format;
 	}
+
+	/**
+	 * Initializes the style of the points.
+	 */
+	protected void initializePointsStyle() {
+		for (ChartPoint point : getPoints()) {
+			point.initializeStyle();
+		}
+	}
+
 }

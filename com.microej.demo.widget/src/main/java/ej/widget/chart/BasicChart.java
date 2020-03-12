@@ -1,28 +1,28 @@
 /*
- * Java
- *
- * Copyright  2016-2019 MicroEJ Corp. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found with this software.
- * MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+ * Copyright 2016-2020 MicroEJ Corp. All rights reserved.
+ * This library is provided in source code for use, modification and test, subject to license terms.
+ * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
 package ej.widget.chart;
 
 import com.microej.demo.widget.style.ClassSelectors;
 
-import ej.animation.Animation;
-import ej.animation.Animator;
-import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.microui.event.Event;
 import ej.microui.event.generator.Pointer;
 import ej.motion.Motion;
 import ej.motion.quart.QuartEaseInOutMotion;
-import ej.mwt.MWT;
-import ej.style.Style;
-import ej.style.container.Rectangle;
-import ej.style.util.ElementAdapter;
-import ej.style.util.StyleHelper;
+import ej.mwt.Widget;
+import ej.mwt.animation.Animation;
+import ej.mwt.animation.Animator;
+import ej.mwt.style.Style;
+import ej.mwt.style.container.Alignment;
+import ej.mwt.style.util.StyleHelper;
+import ej.mwt.util.Rectangle;
+import ej.mwt.util.Size;
+import ej.service.ServiceFactory;
+import ej.widget.ElementAdapter;
 
 /**
  * Represents a chart with basic functionality.
@@ -60,23 +60,23 @@ public abstract class BasicChart extends Chart implements Animation {
 	 * Animation
 	 */
 	@Override
-	public void showNotify() {
-		super.showNotify();
+	public void onShown() {
+		super.onShown();
 		if (isEnabled()) {
 			this.currentApparitionStep = 0;
 		} else {
 			this.currentApparitionStep = APPARITION_STEPS;
 		}
 		this.motion = new QuartEaseInOutMotion(0, APPARITION_STEPS, APPARITION_DURATION);
-		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
+		Animator animator = ServiceFactory.getService(Animator.class);
 		animator.startAnimation(BasicChart.this);
 	}
 
 	@Override
-	public void hideNotify() {
-		Animator animator = ServiceLoaderFactory.getServiceLoader().getService(Animator.class);
+	public void onHidden() {
+		Animator animator = ServiceFactory.getService(Animator.class);
 		animator.stopAnimation(this);
-		super.hideNotify();
+		super.onHidden();
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	@Override
 	public boolean handleEvent(int event) {
 		if (Event.getType(event) == Event.POINTER) {
-			Rectangle margin = new Rectangle();
+			Rectangle margin = new Rectangle(0, 0, 0, 0);
 			getStyle().getMargin().unwrap(margin);
 
 			Pointer pointer = (Pointer) Event.getGenerator(event);
@@ -140,20 +140,19 @@ public abstract class BasicChart extends Chart implements Animation {
 	 *            the graphics context.
 	 * @param style
 	 *            the chart style.
-	 * @param bounds
+	 * @param size
 	 *            the chart bounds.
 	 * @param topValue
 	 *            the value on the top of the chart.
 	 */
-	protected void renderScale(GraphicsContext g, Style style, Rectangle bounds, float topValue) {
+	protected void renderScale(GraphicsContext g, Style style, Size size, float topValue) {
 		Font font = StyleHelper.getFont(style);
 		int fontHeight = font.getHeight();
 
-		int yBarBottom = getBarBottom(fontHeight, bounds);
-		int yBarTop = getBarTop(fontHeight, bounds);
+		int yBarBottom = getBarBottom(fontHeight, size);
+		int yBarTop = getBarTop(fontHeight, size);
 		int xScale = LEFT_PADDING - fontHeight / 2;
 
-		g.setFont(font);
 		g.setColor(style.getForegroundColor());
 
 		// draw values and lines
@@ -163,13 +162,18 @@ public abstract class BasicChart extends Chart implements Animation {
 			String scaleString = getFormat().formatShort(scaleValue);
 			int yScale = yBarBottom + (yBarTop - yBarBottom) * i / numScaleValues;
 
-			g.drawString(scaleString, xScale, yScale, GraphicsContext.RIGHT | GraphicsContext.VCENTER);
-			g.setStrokeStyle(GraphicsContext.DOTTED);
-			g.drawLine(LEFT_PADDING, yScale, bounds.getWidth(), yScale);
+			drawString(g, font, scaleString, xScale, yScale, Alignment.RIGHT_VCENTER);
+			g.drawLine(LEFT_PADDING, yScale, size.getWidth(), yScale);
 		}
 
 		// draw unit
-		g.drawString(getUnit(), xScale, 0, GraphicsContext.RIGHT | GraphicsContext.TOP);
+		drawString(g, font, getUnit(), xScale, 0, Alignment.RIGHT_TOP);
+	}
+
+	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment) {
+		int x = Alignment.computeLeftX(font.stringWidth(string), anchorX, alignment);
+		int y = Alignment.computeTopY(font.getHeight(), anchorY, alignment);
+		font.drawString(g, string, x, y);
 	}
 
 	/**
@@ -179,10 +183,10 @@ public abstract class BasicChart extends Chart implements Animation {
 	 *            the graphics context.
 	 * @param style
 	 *            the chart style.
-	 * @param bounds
-	 *            the chart bounds.
+	 * @param size
+	 *            the chart size.
 	 */
-	protected void renderSelectedPointValue(GraphicsContext g, Style style, Rectangle bounds) {
+	protected void renderSelectedPointValue(GraphicsContext g, Style style, Size size) {
 		ChartPoint selectedPoint = getSelectedPoint();
 		if (selectedPoint != null) {
 			String labelInfoString = selectedPoint.getFullName();
@@ -197,32 +201,34 @@ public abstract class BasicChart extends Chart implements Animation {
 			Font labelFont = StyleHelper.getFont(labelStyle);
 
 			int labelW = labelFont.stringWidth(labelString) + 2 * SELECTED_VALUE_PADDING;
-			int labelX = (bounds.getWidth() - labelW) / 2;
+			int labelX = (size.getWidth() - labelW) / 2;
 			int labelY = 0;
 
-			g.setFont(labelFont);
 			g.setColor(labelStyle.getForegroundColor());
-			g.drawString(labelString, labelX + SELECTED_VALUE_PADDING, labelY,
-					GraphicsContext.LEFT | GraphicsContext.TOP);
+			labelFont.drawString(g, labelString, labelX + SELECTED_VALUE_PADDING, labelY);
 		}
 	}
 
 	@Override
-	public Rectangle validateContent(Style style, Rectangle bounds) {
-		int height = bounds.getHeight();
-		int width = bounds.getWidth();
+	protected void computeContentOptimalSize(Size availableSize) {
+		Style style = getStyle();
+		initializePointsStyle();
+		this.selectedValueElement.initializeStyle();
+
+		int height = availableSize.getHeight();
+		int width = availableSize.getWidth();
 		int fontHeight = StyleHelper.getFont(style).getHeight();
-		if (height == MWT.NONE) {
+		if (height == Widget.NO_CONSTRAINT) {
 			height = 4 * fontHeight;
 		}
-		if (width == MWT.NONE) {
+		if (width == Widget.NO_CONSTRAINT) {
 			width = LEFT_PADDING;
 		}
-		return new Rectangle(0, 0, width, height);
+		availableSize.setSize(width, height);
 	}
 
 	@Override
-	protected void setBoundsContent(Rectangle bounds) {
+	protected void layOutChildren(int contentWidth, int contentHeight) {
 		// do nothing
 	}
 
@@ -231,11 +237,11 @@ public abstract class BasicChart extends Chart implements Animation {
 	 *
 	 * @param fontHeight
 	 *            the font height.
-	 * @param bounds
+	 * @param size
 	 *            the chart bounds.
 	 * @return the top position of the chart content.
 	 */
-	protected int getBarTop(int fontHeight, Rectangle bounds) {
+	protected int getBarTop(int fontHeight, Size size) {
 		return fontHeight + 5;
 	}
 
@@ -244,25 +250,27 @@ public abstract class BasicChart extends Chart implements Animation {
 	 *
 	 * @param fontHeight
 	 *            the font height.
-	 * @param bounds
-	 *            the chart bounds.
+	 * @param size
+	 *            the chart size.
 	 * @return the bottom position of the chart content.
 	 */
-	protected int getBarBottom(int fontHeight, Rectangle bounds) {
-		return bounds.getHeight() - fontHeight - fontHeight / 5;
+	protected int getBarBottom(int fontHeight, Size size) {
+		return size.getHeight() - fontHeight - fontHeight / 5;
 	}
 
 	/**
 	 * Gets the content x coordinate.
-	 * 
+	 *
 	 * @return the content x coordinate.
 	 */
+	@Override
 	protected abstract int getContentX();
 
 	/**
 	 * Gets the content width.
-	 * 
+	 *
 	 * @return the content width.
 	 */
+	@Override
 	protected abstract int getContentWidth();
 }

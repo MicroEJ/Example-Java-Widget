@@ -1,9 +1,7 @@
 /*
- * Java
- *
- * Copyright  2014-2019 MicroEJ Corp. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found with this software.
- * MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+ * Copyright 2014-2020 MicroEJ Corp. All rights reserved.
+ * This library is provided in source code for use, modification and test, subject to license terms.
+ * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
 package com.microej.demo.widget.page;
 
@@ -11,13 +9,9 @@ import com.microej.demo.widget.WidgetsDemo;
 import com.microej.demo.widget.style.ClassSelectors;
 import com.microej.demo.widget.style.Images;
 
-import ej.components.dependencyinjection.ServiceLoaderFactory;
-import ej.exit.ExitHandler;
-import ej.style.util.StyleHelper;
-import ej.widget.basic.ButtonImage;
-import ej.widget.basic.Image;
+import ej.widget.basic.ButtonImagePath;
+import ej.widget.basic.ImagePath;
 import ej.widget.basic.Label;
-import ej.widget.composed.ButtonWrapper;
 import ej.widget.container.SimpleDock;
 import ej.widget.listener.OnClickListener;
 
@@ -57,25 +51,11 @@ public abstract class AbstractDemoPage extends SimpleDock {
 		topBar.setCenter(titleLabel);
 
 		if (mainPage) {
-			// Add an exit button.
-			ButtonWrapper exitButton = new ButtonWrapper();
-			exitButton.addOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick() {
-					ExitHandler exitHandler = ServiceLoaderFactory.getServiceLoader().getService(ExitHandler.class);
-					if (exitHandler != null) {
-						exitHandler.exit();
-					}
-				}
-			});
-
-			Image exitIcon = new Image(StyleHelper.getImage(Images.STORE_ICON));
-			exitButton.setWidget(exitIcon);
-			topBar.setFirst(exitButton);
+			ImagePath exitIcon = new ImagePath(Images.STORE_ICON);
+			topBar.setFirst(exitIcon);
 		} else {
 			// Add a back button.
-			ButtonImage backButton = new ButtonImage("/images/back.png"); //$NON-NLS-1$
+			ButtonImagePath backButton = new ButtonImagePath("/images/back.png"); //$NON-NLS-1$
 			backButton.addOnClickListener(new OnClickListener() {
 
 				@Override

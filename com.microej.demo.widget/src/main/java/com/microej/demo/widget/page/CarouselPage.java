@@ -1,14 +1,11 @@
 /*
- * Java
- *
- * Copyright  2015-2019 MicroEJ Corp. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found with this software.
- * MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+ * Copyright 2015-2020 MicroEJ Corp. All rights reserved.
+ * This library is provided in source code for use, modification and test, subject to license terms.
+ * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
 package com.microej.demo.widget.page;
 
-import java.io.IOException;
-
+import ej.microui.MicroUIException;
 import ej.microui.display.Image;
 import ej.widget.carousel.Carousel;
 import ej.widget.carousel.CarouselEntry;
@@ -35,6 +32,7 @@ public class CarouselPage extends AbstractDemoPage {
 	public CarouselPage() {
 		super(false, "Carousel"); //$NON-NLS-1$
 
+		// TODO clean images
 		Image[] images = new Image[IMAGES.length];
 		int entryWidth = 0;
 		for (int i = 0; i < IMAGES.length; i++) {
@@ -60,8 +58,8 @@ public class CarouselPage extends AbstractDemoPage {
 
 	private Image loadImage(String string) {
 		try {
-			return Image.createImage(string);
-		} catch (IOException e) {
+			return Image.loadImage(string);
+		} catch (MicroUIException e) {
 			System.out.println("Could not load image '" + string + "'"); //$NON-NLS-1$ //$NON-NLS-2$
 			return null;
 		}

@@ -1,17 +1,13 @@
 /*
- * Java
- *
- * Copyright  2015-2019 MicroEJ Corp. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found with this software.
- * MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+ * Copyright 2015-2020 MicroEJ Corp. All rights reserved.
+ * This library is provided in source code for use, modification and test, subject to license terms.
+ * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
 package ej.widget.wheel;
 
 import java.util.ListIterator;
 
 import ej.bon.Timer;
-import ej.color.GradientHelper;
-import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.microui.event.Event;
@@ -21,18 +17,20 @@ import ej.motion.MotionManager;
 import ej.motion.quad.QuadMotionManager;
 import ej.motion.util.MotionAnimator;
 import ej.motion.util.MotionListener;
-import ej.mwt.MWT;
-import ej.style.Style;
-import ej.style.container.Rectangle;
-import ej.style.util.ElementAdapter;
-import ej.style.util.StyleHelper;
-import ej.widget.StyledWidget;
-import ej.widget.util.TouchConfiguration;
+import ej.mwt.Container;
+import ej.mwt.Widget;
+import ej.mwt.style.Style;
+import ej.mwt.style.container.Alignment;
+import ej.mwt.style.util.StyleHelper;
+import ej.mwt.util.Size;
+import ej.service.ServiceFactory;
+import ej.widget.ElementAdapter;
+import ej.widget.util.color.GradientHelper;
 
 /**
  * Represents a wheel from which the user can choose among a set of choices
  */
-public class Wheel extends StyledWidget {
+public class Wheel extends Container {
 
 	/**
 	 * The class selector for the horizontal lines
@@ -91,9 +89,10 @@ public class Wheel extends StyledWidget {
 	}
 
 	@Override
-	public void renderContent(GraphicsContext g, Style style, Rectangle bounds) {
-		int width = bounds.getWidth();
-		int remainingHeight = bounds.getHeight();
+	public void renderContent(GraphicsContext g, Size size) {
+		Style style = getStyle();
+		int width = size.getWidth();
+		int remainingHeight = size.getHeight();
 
 		int lineHeight = getLineHeight();
 		int itemOnSideCount = this.wheelGroup.getNumSideValues();
@@ -101,7 +100,7 @@ public class Wheel extends StyledWidget {
 		int currentValueY = (remainingHeight >> 1) + this.spinOffset;
 		int currentVisibleIndex = this.model.getCurrentIndex() + this.currentIndexDiff;
 		int windowHeight = lineHeight * (itemOnSideCount * 2 + 1);
-		g.clipRect(0, (remainingHeight - windowHeight) >> 1, width, windowHeight);
+		g.setClip(0, (remainingHeight - windowHeight) >> 1, width, windowHeight);
 
 		// Draws the current value.
 		int x = width >> 1;
@@ -111,9 +110,7 @@ public class Wheel extends StyledWidget {
 		int backgroundColor = style.getBackgroundColor();
 		g.setColor(foregroundColor);
 		Font font = StyleHelper.getFont(style);
-		g.setFont(font);
-		g.drawString(this.model.getValueAsString(currentVisibleIndex), x, y,
-				GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+		drawString(g, font, this.model.getValueAsString(currentVisibleIndex), x, y, Alignment.HCENTER_VCENTER);
 
 		// Draws the previous values.
 		ListIterator<String> valueIterator = this.model.listIterator(currentVisibleIndex);
@@ -121,9 +118,8 @@ public class Wheel extends StyledWidget {
 		while (previousValueCount-- > 0 && valueIterator.hasPrevious()) {
 			y -= lineHeight;
 			float fontRatio = computeFontRatio(y, remainingHeight);
-			font.setRatios(fontRatio, fontRatio);
 			g.setColor(computeFontColor(y, remainingHeight, foregroundColor, backgroundColor));
-			g.drawString(valueIterator.previous(), x, y, GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+			drawString(g, font, valueIterator.previous(), x, y, Alignment.HCENTER_VCENTER, fontRatio);
 		}
 
 		// Draws the next values.
@@ -133,9 +129,8 @@ public class Wheel extends StyledWidget {
 		while (nextValueCount-- > 0 && valueIterator.hasNext()) {
 			y += lineHeight;
 			float fontRatio = computeFontRatio(y, remainingHeight);
-			font.setRatios(fontRatio, fontRatio);
 			g.setColor(computeFontColor(y, remainingHeight, foregroundColor, backgroundColor));
-			g.drawString(valueIterator.next(), x, y, GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+			drawString(g, font, valueIterator.next(), x, y, Alignment.HCENTER_VCENTER, fontRatio);
 		}
 
 		// Draws the horizontal lines.
@@ -149,8 +144,19 @@ public class Wheel extends StyledWidget {
 		y = (remainingHeight >> 1) + (lineHeight >> 1);
 		g.drawHorizontalLine(0, y - 1, width - 1);
 		g.drawHorizontalLine(0, y, width - 1);
+	}
 
-		font.resetRatios();
+	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment) {
+		int x = Alignment.computeLeftX(font.stringWidth(string), anchorX, alignment);
+		int y = Alignment.computeTopY(font.getHeight(), anchorY, alignment);
+		font.drawString(g, string, x, y);
+	}
+
+	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment,
+			float fontRatio) {
+		int x = Alignment.computeLeftX((int) (font.stringWidth(string) * fontRatio), anchorX, alignment);
+		int y = Alignment.computeTopY((int) (font.getHeight() * fontRatio), anchorY, alignment);
+		font.drawString(g, string, x, y, fontRatio, fontRatio);
 	}
 
 	private float computeFontRatio(int y, int height) {
@@ -168,16 +174,16 @@ public class Wheel extends StyledWidget {
 	}
 
 	@Override
-	public Rectangle validateContent(Style style, Rectangle bounds) {
-		int availableWidth = bounds.getWidth();
-		int availableHeight = bounds.getHeight();
-		Rectangle contentSize = new Rectangle();
+	public void computeContentOptimalSize(Size availableSize) {
+		this.lineElement.initializeStyle();
+		int availableWidth = availableSize.getWidth();
+		int availableHeight = availableSize.getHeight();
 		int preferredWidth = availableWidth;
-		int width = availableWidth == MWT.NONE ? preferredWidth : Math.min(availableWidth, preferredWidth);
+		int width = availableWidth == Widget.NO_CONSTRAINT ? preferredWidth : Math.min(availableWidth, preferredWidth);
 		int preferredHeight = availableHeight;
-		int height = availableHeight == MWT.NONE ? preferredHeight : Math.min(availableHeight, preferredHeight);
-		contentSize.setSize(width, height);
-		return contentSize;
+		int height = availableHeight == Widget.NO_CONSTRAINT ? preferredHeight
+				: Math.min(availableHeight, preferredHeight);
+		availableSize.setSize(width, height);
 	}
 
 	private void stopAnimation() {
@@ -271,7 +277,7 @@ public class Wheel extends StyledWidget {
 		} else {
 			long now = System.currentTimeMillis();
 			int currentIndexDiff = this.currentIndexDiff;
-			if (now - this.lastPointerTime > TouchConfiguration.RELEASE_WITH_NO_MOVE_DELAY) {
+			if (now - this.lastPointerTime > 150) {
 				// The closer step will be the current value.
 				stop = -currentIndexDiff * getLineHeight();
 				start = stop + this.spinOffset;
@@ -338,8 +344,13 @@ public class Wheel extends StyledWidget {
 				stop(0);
 			}
 		});
-		Timer timer = ServiceLoaderFactory.getServiceLoader().getService(Timer.class);
+		Timer timer = ServiceFactory.getRequiredService(Timer.class);
 		this.motionAnimator.start(timer, ANIMATION_PERIOD);
+	}
+
+	@Override
+	protected void layOutChildren(int contentWidth, int contentHeight) {
+		// Nothing to to.
 	}
 
 }

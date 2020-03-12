@@ -1,21 +1,19 @@
 /*
- * Java
- *
- * Copyright  2015-2019 MicroEJ Corp. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found with this software.
- * MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+ * Copyright 2015-2020 MicroEJ Corp. All rights reserved.
+ * This library is provided in source code for use, modification and test, subject to license terms.
+ * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
 package com.microej.demo.widget.page;
 
-import com.microej.demo.widget.WidgetsDemo;
 import com.microej.demo.widget.keyboard.LowerCaseLayout;
 import com.microej.demo.widget.keyboard.NumericLayout;
 import com.microej.demo.widget.keyboard.SymbolLayout;
 import com.microej.demo.widget.keyboard.UpperCaseLayout;
 import com.microej.demo.widget.style.ClassSelectors;
 
-import ej.components.dependencyinjection.ServiceLoaderFactory;
+import ej.microui.event.Event;
 import ej.mwt.Widget;
+import ej.service.ServiceFactory;
 import ej.widget.basic.Label;
 import ej.widget.container.List;
 import ej.widget.container.Scroll;
@@ -23,7 +21,6 @@ import ej.widget.keyboard.Keyboard;
 import ej.widget.keyboard.KeyboardText;
 import ej.widget.keyboard.Layout;
 import ej.widget.listener.OnClickListener;
-import ej.widget.listener.OnFocusListener;
 
 /**
  * This page illustrates a keyboard.
@@ -73,34 +70,28 @@ public class KeyboardPage extends AbstractDemoPage {
 	 */
 	private Widget createForm() {
 		// first name
-		this.firstName = new KeyboardText(EMPTY_STRING, FIRST_NAME);
+		this.firstName = new KeyboardText(EMPTY_STRING, FIRST_NAME) {
+			@Override
+			public boolean handleEvent(int event) {
+				if (Event.getType(event) == Event.POINTER) {
+					showKeyboard(KeyboardPage.this.firstName);
+				}
+				return super.handleEvent(event);
+			}
+		};
 		this.firstName.setMaxTextLength(MAX_TEXT_LENGTH);
-		this.firstName.addOnFocusListener(new OnFocusListener() {
-			@Override
-			public void onGainFocus() {
-				showKeyboard(true);
-			}
-
-			@Override
-			public void onLostFocus() {
-				// Nothing to do.
-			}
-		});
 
 		// last name
-		this.lastName = new KeyboardText(EMPTY_STRING, LAST_NAME);
+		this.lastName = new KeyboardText(EMPTY_STRING, LAST_NAME) {
+			@Override
+			public boolean handleEvent(int event) {
+				if (Event.getType(event) == Event.POINTER) {
+					showKeyboard(KeyboardPage.this.lastName);
+				}
+				return super.handleEvent(event);
+			}
+		};
 		this.lastName.setMaxTextLength(MAX_TEXT_LENGTH);
-		this.lastName.addOnFocusListener(new OnFocusListener() {
-			@Override
-			public void onGainFocus() {
-				showKeyboard(false);
-			}
-
-			@Override
-			public void onLostFocus() {
-				// Nothing to do.
-			}
-		});
 
 		// result label
 		this.resultLabel = new Label(RESULT_EMPTY);
@@ -129,12 +120,6 @@ public class KeyboardPage extends AbstractDemoPage {
 		this.keyboard.setLayouts(keyboardLayouts);
 	}
 
-	@Override
-	public void showNotify() {
-		super.showNotify();
-		WidgetsDemo.getPanel().setFocus(this.firstName);
-	}
-
 	/**
 	 * Gets the keyboard
 	 *
@@ -151,7 +136,7 @@ public class KeyboardPage extends AbstractDemoPage {
 		// show keyboard dialog
 		if (this.keyboard.getParent() != this) {
 			setLast(this.keyboard);
-			revalidate();
+			requestLayOut();
 		}
 	}
 
@@ -160,25 +145,22 @@ public class KeyboardPage extends AbstractDemoPage {
 	 */
 	protected void hideKeyboard() {
 		remove(this.keyboard);
-		revalidate();
+		requestLayOut();
 	}
 
-	private void showKeyboard(boolean first) {
+	private void showKeyboard(KeyboardText keyboardText) {
 		showKeyboard();
-		KeyboardText activeText;
-		KeyboardText otherText;
-		if (first) {
-			activeText = this.firstName;
-			otherText = this.lastName;
+		keyboardText.setActive(true);
+		if (keyboardText == this.firstName) {
+			this.lastName.setActive(false);
 			getKeyboard().setSpecialKey(SPECIAL_NEXT, new OnClickListener() {
 				@Override
 				public void onClick() {
-					KeyboardPage.this.lastName.requestFocus();
+					showKeyboard(KeyboardPage.this.lastName);
 				}
 			});
 		} else {
-			activeText = this.lastName;
-			otherText = this.firstName;
+			this.firstName.setActive(false);
 			getKeyboard().setSpecialKey(SPECIAL_SUBMIT, new OnClickListener() {
 				@Override
 				public void onClick() {
@@ -186,13 +168,10 @@ public class KeyboardPage extends AbstractDemoPage {
 				}
 			});
 		}
-		activeText.setActive(true);
-		otherText.setActive(false);
-
-		ej.microui.event.generator.Keyboard keyboard = ServiceLoaderFactory.getServiceLoader()
-				.getService(ej.microui.event.generator.Keyboard.class);
+		repaint();
+		ej.widget.util.Keyboard keyboard = ServiceFactory.getService(ej.widget.util.Keyboard.class);
 		if (keyboard != null) {
-			keyboard.setEventHandler(activeText);
+			keyboard.setEventHandler(keyboardText);
 		}
 	}
 
@@ -204,7 +183,8 @@ public class KeyboardPage extends AbstractDemoPage {
 		} else {
 			this.resultLabel.setText(RESULT_EMPTY);
 			if (firstNameText.length() == 0) {
-				this.firstName.requestFocus();
+				this.firstName.setActive(true);
+				this.lastName.setActive(false);
 			}
 		}
 	}

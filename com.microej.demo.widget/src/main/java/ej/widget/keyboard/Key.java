@@ -1,22 +1,20 @@
 /*
- * Java
- *
- * Copyright  2016-2019 MicroEJ Corp. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found with this software.
- * MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+ * Copyright 2016-2020 MicroEJ Corp. All rights reserved.
+ * This library is provided in source code for use, modification and test, subject to license terms.
+ * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
 package ej.widget.keyboard;
 
 import ej.bon.Timer;
 import ej.bon.TimerTask;
-import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.microui.event.Event;
-import ej.microui.event.generator.Keyboard;
 import ej.microui.event.generator.Pointer;
-import ej.style.State;
+import ej.mwt.style.State;
+import ej.service.ServiceFactory;
 import ej.widget.basic.Label;
 import ej.widget.composed.Wrapper;
 import ej.widget.listener.OnClickListener;
+import ej.widget.util.Keyboard;
 
 /**
  * Represents one of the keys of a keyboard
@@ -61,7 +59,7 @@ public class Key extends Wrapper {
 		this.onClickListener = new OnClickListener() {
 			@Override
 			public void onClick() {
-				Key.this.keyboard.send(Keyboard.TEXT_INPUT, character);
+				Key.this.keyboard.send(character);
 			}
 		};
 		this.repeatable = true;
@@ -124,36 +122,8 @@ public class Key extends Wrapper {
 	}
 
 	@Override
-	public void gainFocus() {
-		super.gainFocus();
-		updateStyle();
-	}
-
-	@Override
-	public void lostFocus() {
-		super.lostFocus();
-		updateStyle();
-	}
-
-	@Override
 	public boolean isInState(State state) {
-		return (this.pressed && state == State.Active) || (state == State.Focus && hasFocus())
-				|| super.isInState(state);
-	}
-
-	@Override
-	public void requestFocus() {
-		getPanel().setFocus(this);
-	}
-
-	@Override
-	public boolean requestFocus(int direction) throws IllegalArgumentException {
-		if (hasFocus()) {
-			return false;
-		} else {
-			requestFocus();
-			return true;
-		}
+		return (this.pressed && state == State.Active) || super.isInState(state);
 	}
 
 	@Override
@@ -199,7 +169,7 @@ public class Key extends Wrapper {
 					Key.this.onClickListener.onClick();
 				}
 			};
-			Timer timer = ServiceLoaderFactory.getServiceLoader().getService(Timer.class, Timer.class);
+			Timer timer = ServiceFactory.getService(Timer.class, Timer.class);
 			timer.schedule(this.repeatTask, REPEAT_DELAY, REPEAT_PERIOD);
 		}
 	}

@@ -170,7 +170,7 @@ public class Carousel extends Widget {
 	}
 
 	@Override
-	public void onShown() {
+	protected void onShown() {
 		super.onShown();
 		// start the repaint task
 		this.repaintTask = new TimerTask() {
@@ -215,7 +215,7 @@ public class Carousel extends Widget {
 	}
 
 	@Override
-	public void onHidden() {
+	protected void onHidden() {
 		super.onHidden();
 		TimerTask repaintTask = this.repaintTask;
 		if (repaintTask != null) {

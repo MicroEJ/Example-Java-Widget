@@ -7,8 +7,8 @@ com.microej.demo.widget.transition.screenshot=SET
 
 ej.bon.Timer=ej.bon.Timer
 
-ej.animation.Animator=ej.animation.Animator
-ej.animation.Animator.period=50
+ej.mwt.animation.Animator=ej.mwt.animation.Animator
+ej.mwt.animation.Animator.period=50
 
 ej.mwt.style.font.loader.FontLoader=com.microej.demo.widget.style.WidgetsFontLoader
 ej.widget.basic.image.ImageTheme=com.microej.demo.widget.style.WidgetsImageTheme

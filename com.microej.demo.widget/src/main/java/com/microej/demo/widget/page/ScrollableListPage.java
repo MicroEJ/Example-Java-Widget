@@ -58,7 +58,7 @@ public class ScrollableListPage extends AbstractDemoPage {
 	}
 
 	@Override
-	public void onShown() {
+	protected void onShown() {
 		super.onShown();
 		if (!ScrollableListPage.this.complete) {
 			// Add missing items.

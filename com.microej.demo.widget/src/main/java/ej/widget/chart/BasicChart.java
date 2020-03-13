@@ -60,7 +60,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	 * Animation
 	 */
 	@Override
-	public void onShown() {
+	protected void onShown() {
 		super.onShown();
 		if (isEnabled()) {
 			this.currentApparitionStep = 0;
@@ -73,7 +73,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	}
 
 	@Override
-	public void onHidden() {
+	protected void onHidden() {
 		Animator animator = ServiceFactory.getService(Animator.class);
 		animator.stopAnimation(this);
 		super.onHidden();

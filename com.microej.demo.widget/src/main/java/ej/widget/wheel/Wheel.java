@@ -32,6 +32,8 @@ import ej.widget.util.color.GradientHelper;
  */
 public class Wheel extends Container {
 
+	private static final int RELEASE_WITH_NO_MOVE_DELAY = 150;
+
 	/**
 	 * The class selector for the horizontal lines
 	 */
@@ -277,7 +279,7 @@ public class Wheel extends Container {
 		} else {
 			long now = System.currentTimeMillis();
 			int currentIndexDiff = this.currentIndexDiff;
-			if (now - this.lastPointerTime > 150) {
+			if (now - this.lastPointerTime > RELEASE_WITH_NO_MOVE_DELAY) {
 				// The closer step will be the current value.
 				stop = -currentIndexDiff * getLineHeight();
 				start = stop + this.spinOffset;

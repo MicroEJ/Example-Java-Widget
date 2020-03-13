@@ -81,13 +81,13 @@ public class Keyboard extends Container {
 	}
 
 	@Override
-	public void onShown() {
+	protected void onShown() {
 		super.onShown();
 		this.keyboard.addToSystemPool();
 	}
 
 	@Override
-	public void onHidden() {
+	protected void onHidden() {
 		super.onHidden();
 		this.keyboard.removeFromSystemPool();
 	}

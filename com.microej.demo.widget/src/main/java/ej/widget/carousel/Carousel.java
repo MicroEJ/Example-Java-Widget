@@ -1,9 +1,7 @@
 /*
- * Java
- *
- * Copyright  2017-2019 MicroEJ Corp. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found with this software.
- * MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+ * Copyright 2017-2020 MicroEJ Corp. All rights reserved.
+ * This library is provided in source code for use, modification and test, subject to license terms.
+ * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
 package ej.widget.carousel;
 
@@ -13,7 +11,6 @@ import java.util.List;
 import ej.bon.Timer;
 import ej.bon.TimerTask;
 import ej.bon.XMath;
-import ej.components.dependencyinjection.ServiceLoaderFactory;
 import ej.microui.display.Colors;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
@@ -22,16 +19,17 @@ import ej.microui.event.generator.Pointer;
 import ej.motion.Motion;
 import ej.motion.linear.LinearMotion;
 import ej.motion.quad.QuadEaseOutMotion;
-import ej.style.Style;
-import ej.style.container.Rectangle;
-import ej.style.text.TextManager;
-import ej.style.util.StyleHelper;
-import ej.widget.StyledWidget;
+import ej.mwt.Widget;
+import ej.mwt.style.Style;
+import ej.mwt.style.text.TextManager;
+import ej.mwt.style.util.StyleHelper;
+import ej.mwt.util.Size;
+import ej.service.ServiceFactory;
 
 /**
  * Represents a carousel
  */
-public class Carousel extends StyledWidget {
+public class Carousel extends Widget {
 
 	private static final boolean DEBUG = false;
 
@@ -172,7 +170,8 @@ public class Carousel extends StyledWidget {
 	}
 
 	@Override
-	public void showNotify() {
+	protected void onShown() {
+		super.onShown();
 		// start the repaint task
 		this.repaintTask = new TimerTask() {
 			@Override
@@ -180,14 +179,14 @@ public class Carousel extends StyledWidget {
 				tick();
 			}
 		};
-		Timer timer = ServiceLoaderFactory.getServiceLoader().getService(Timer.class, Timer.class);
+		Timer timer = ServiceFactory.getService(Timer.class, Timer.class);
 		timer.schedule(this.repaintTask, REPAINT_RATE, REPAINT_RATE);
 	}
 
 	private void tick() {
-		Rectangle contentBounds = StyleHelper.computeContentBounds(new Rectangle(0, 0, getWidth(), getHeight()),
-				getStyle());
-		int halfWidth = contentBounds.getWidth() / 2;
+		Size size = new Size(getWidth(), getHeight());
+		StyleHelper.unwrapOutlines(getWidth(), getHeight(), size, getStyle());
+		int halfWidth = size.getWidth() / 2;
 		// roll DND
 		if (this.dnd) {
 			this.dndDragX += (halfWidth - this.lastDragX) / EXPECTED_FPS * DND_DRAG_SPEED;
@@ -216,26 +215,28 @@ public class Carousel extends StyledWidget {
 	}
 
 	@Override
-	public void hideNotify() {
-		if (this.repaintTask != null) {
-			this.repaintTask.cancel();
+	protected void onHidden() {
+		super.onHidden();
+		TimerTask repaintTask = this.repaintTask;
+		if (repaintTask != null) {
+			repaintTask.cancel();
 			this.repaintTask = null;
 		}
 	}
 
 	@Override
-	public void renderContent(GraphicsContext g, Style style, Rectangle bounds) {
+	public void renderContent(GraphicsContext g, Size size) {
 		long startTime = 0;
 		if (DEBUG) {
 			startTime = System.currentTimeMillis();
 		}
 
-		int halfWidth = bounds.getWidth() / 2;
-		int halfHeight = bounds.getHeight() / 2;
+		Style style = getStyle();
+		int halfWidth = size.getWidth() / 2;
+		int halfHeight = size.getHeight() / 2;
 
 		// set text style
 		Font font = StyleHelper.getFont(style);
-		g.setFont(font);
 		TextManager tm = style.getTextManager();
 
 		// update goto anim step
@@ -258,27 +259,27 @@ public class Carousel extends StyledWidget {
 		// draw entries
 		g.setColor(style.getForegroundColor());
 		for (int e = 0; e < topEntry; e++) {
-			drawEntry(g, bounds, tm, e, false, totalDrag, this.stopped);
+			drawEntry(g, size, font, tm, e, false, totalDrag, this.stopped);
 		}
 		for (int e = this.entries.length - 1; e > topEntry; e--) {
-			drawEntry(g, bounds, tm, e, false, totalDrag, this.stopped);
+			drawEntry(g, size, font, tm, e, false, totalDrag, this.stopped);
 		}
-		drawEntry(g, bounds, tm, topEntry, true, totalDrag, this.stopped);
+		drawEntry(g, size, font, tm, topEntry, true, totalDrag, this.stopped);
 
 		// draw DND entry
 		if (this.dnd) {
 			int offsetX = this.lastDragX - halfWidth;
 			int offsetY = this.lastDragY - halfHeight;
-			this.dndEntry.render(g, bounds, tm, this.dnd, this.stopped, true, false, 1.0f, offsetX, offsetY, true);
+			this.dndEntry.render(g, size, font, tm, this.dnd, this.stopped, true, false, 1.0f, offsetX, offsetY, true);
 		}
 
 		if (DEBUG) {
 			g.setColor(Colors.RED);
-			g.drawString(Long.toString(System.currentTimeMillis() - startTime), 10, 10, 0);
+			font.drawString(g, Long.toString(System.currentTimeMillis() - startTime), 10, 10);
 		}
 	}
 
-	private void drawEntry(GraphicsContext g, Rectangle bounds, TextManager tm, int entryIndex, boolean selected,
+	private void drawEntry(GraphicsContext g, Size size, Font font, TextManager tm, int entryIndex, boolean selected,
 			int totalDrag, boolean stopped) {
 		// calculate position and size
 		int offsetX = entryIndex * this.entryWidth + totalDrag;
@@ -287,7 +288,7 @@ public class Carousel extends StyledWidget {
 			offsetX -= dndOffset * this.dndAnimMotion.getCurrentValue() / DND_ANIM_STEPS;
 			offsetX += dndOffset;
 		}
-		float factor = Math.abs((float) offsetX / bounds.getWidth());
+		float factor = Math.abs((float) offsetX / size.getWidth());
 		float sizeRatio = 1.0f - (float) Math.pow(factor, SIZE_FACTOR);
 
 		// draw if big enough
@@ -304,14 +305,13 @@ public class Carousel extends StyledWidget {
 					clicked &= (this.lastPressX > halfWidth - this.entryWidth / 2
 							&& this.lastPressX < halfWidth + this.entryWidth / 2);
 				}
-				entry.render(g, bounds, tm, this.dnd, stopped, clicked, selected, sizeRatio, offsetX, 0, false);
+				entry.render(g, size, font, tm, this.dnd, stopped, clicked, selected, sizeRatio, offsetX, 0, false);
 			}
 		}
 	}
 
 	@Override
-	public Rectangle validateContent(Style style, Rectangle bounds) {
-		return new Rectangle(0, 0, bounds.getWidth(), bounds.getHeight());
+	public void computeContentOptimalSize(Size availableSize) {
 	}
 
 	@Override

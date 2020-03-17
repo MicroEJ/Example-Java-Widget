@@ -1,9 +1,7 @@
 /*
- * Java
- *
- * Copyright  2016-2019 MicroEJ Corp. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found with this software.
- * MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+ * Copyright 2016-2020 MicroEJ Corp. All rights reserved.
+ * This library is provided in source code for use, modification and test, subject to license terms.
+ * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
 package ej.widget.keyboard;
 
@@ -12,18 +10,17 @@ import java.util.List;
 
 import com.microej.demo.widget.style.ClassSelectors;
 
-import ej.components.dependencyinjection.ServiceLoaderFactory;
-import ej.mwt.MWT;
-import ej.style.Style;
-import ej.style.container.Rectangle;
-import ej.widget.StyledComposite;
+import ej.mwt.Container;
+import ej.mwt.Widget;
+import ej.mwt.util.Size;
+import ej.service.ServiceFactory;
 import ej.widget.listener.OnClickListener;
 import ej.widget.util.ControlCharacters;
 
 /**
  * Represents a virtual keyboard
  */
-public class Keyboard extends StyledComposite {
+public class Keyboard extends Container {
 
 	enum Mapping {
 		ABC("ABC"), NUMERIC("123"), SYMBOL("#+="); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -68,7 +65,7 @@ public class Keyboard extends StyledComposite {
 	}
 
 	private final Row[] rows;
-	private final ej.microui.event.generator.Keyboard keyboard;
+	private final ej.widget.util.Keyboard keyboard;
 	private Layout[] layouts;
 	private String specialKeyText;
 	private OnClickListener specialKeyListener;
@@ -77,10 +74,22 @@ public class Keyboard extends StyledComposite {
 	 * Constructor
 	 */
 	public Keyboard() {
-		this.keyboard = ServiceLoaderFactory.getServiceLoader().getService(ej.microui.event.generator.Keyboard.class);
+		this.keyboard = ServiceFactory.getService(ej.widget.util.Keyboard.class);
 		this.rows = new Row[4];
 		this.layouts = null;
 		createKeys();
+	}
+
+	@Override
+	protected void onShown() {
+		super.onShown();
+		this.keyboard.addToSystemPool();
+	}
+
+	@Override
+	protected void onHidden() {
+		super.onHidden();
+		this.keyboard.removeFromSystemPool();
 	}
 
 	/**
@@ -289,19 +298,19 @@ public class Keyboard extends StyledComposite {
 	}
 
 	@Override
-	public Rectangle validateContent(Style style, Rectangle bounds) {
-		int widthHint = bounds.getWidth();
-		int heightHint = bounds.getHeight();
+	public void computeContentOptimalSize(Size availableSize) {
+		int widthHint = availableSize.getWidth();
+		int heightHint = availableSize.getHeight();
 
-		int length = getWidgetsCount();
+		int length = getChildrenCount();
 		if (length != 0) {
-			boolean computeWidth = widthHint == MWT.NONE;
-			boolean computeHeight = heightHint == MWT.NONE;
+			boolean computeWidth = widthHint == Widget.NO_CONSTRAINT;
+			boolean computeHeight = heightHint == Widget.NO_CONSTRAINT;
 
 			int cellWidth;
 			int maxRowLength = 0;
 			if (computeWidth) {
-				cellWidth = MWT.NONE;
+				cellWidth = Widget.NO_CONSTRAINT;
 			} else {
 				for (Row row : this.rows) {
 					maxRowLength = Math.max(maxRowLength, row.length);
@@ -309,16 +318,16 @@ public class Keyboard extends StyledComposite {
 				cellWidth = widthHint / maxRowLength;
 			}
 
-			int cellHeight = computeHeight ? MWT.NONE : heightHint / this.rows.length;
+			int cellHeight = computeHeight ? Widget.NO_CONSTRAINT : heightHint / this.rows.length;
 
 			int maxCellWidth = 0;
 			int maxCellHeight = 0;
 
 			for (Row row : this.rows) {
 				for (Cell cell : row.cells) {
-					cell.key.validate(cellWidth * cell.colspan, cellHeight);
-					maxCellWidth = Math.max(maxCellWidth, cell.key.getPreferredWidth() / cell.colspan);
-					maxCellHeight = Math.max(maxCellHeight, cell.key.getPreferredHeight());
+					computeChildOptimalSize(cell.key, cellWidth * cell.colspan, cellHeight);
+					maxCellWidth = Math.max(maxCellWidth, cell.key.getWidth() / cell.colspan);
+					maxCellHeight = Math.max(maxCellHeight, cell.key.getHeight());
 				}
 			}
 
@@ -332,35 +341,30 @@ public class Keyboard extends StyledComposite {
 		}
 
 		// Set composite preferred size.
-		return new Rectangle(0, 0, widthHint, heightHint);
+		availableSize.setSize(widthHint, heightHint);
 	}
 
 	@Override
-	protected void setBoundsContent(Rectangle bounds) {
-		int x = bounds.getX();
-		int y = bounds.getY();
-		int width = bounds.getWidth();
-		int height = bounds.getHeight();
-
-		int length = getWidgetsCount();
+	protected void layOutChildren(int contentWidth, int contentHeight) {
+		int length = getChildrenCount();
 		if (length == 0) {
 			return;
 		}
 
-		int cellHeight = height / this.rows.length;
+		int cellHeight = contentHeight / this.rows.length;
 		int maxRowLength = 0;
 		for (Row row : this.rows) {
 			maxRowLength = Math.max(maxRowLength, row.length);
 		}
-		int cellWidth = width / maxRowLength;
+		int cellWidth = contentWidth / maxRowLength;
 
-		int rowY = y;
+		int rowY = 0;
 		for (Row row : this.rows) {
 			int rowWidth = row.length * cellWidth;
-			int rowX = x + ((width - rowWidth) >> 1);
+			int rowX = ((contentWidth - rowWidth) >> 1);
 
 			for (Cell cell : row.cells) {
-				cell.key.setBounds(rowX + cell.startColumn * cellWidth, rowY, cell.colspan * cellWidth, cellHeight);
+				layOutChild(cell.key, rowX + cell.startColumn * cellWidth, rowY, cell.colspan * cellWidth, cellHeight);
 			}
 			rowY += cellHeight;
 		}

@@ -1,9 +1,7 @@
 /*
- * Java
- *
- * Copyright  2014-2019 MicroEJ Corp. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found with this software.
- * MicroEJ Corp. PROPRIETARY. Use is subject to license terms.
+ * Copyright 2014-2020 MicroEJ Corp. All rights reserved.
+ * This library is provided in source code for use, modification and test, subject to license terms.
+ * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
 package com.microej.demo.widget;
 
@@ -11,12 +9,9 @@ import com.microej.demo.widget.page.MainPage;
 import com.microej.demo.widget.style.StylesheetPopulator;
 
 import ej.microui.MicroUI;
-import ej.microui.event.Event;
-import ej.microui.event.generator.Pointer;
 import ej.mwt.Desktop;
-import ej.mwt.MWT;
-import ej.mwt.Panel;
 import ej.mwt.Widget;
+import ej.widget.container.transition.SlideDirection;
 import ej.widget.container.transition.SlideScreenshotTransitionContainer;
 import ej.widget.container.transition.SlideTransitionContainer;
 import ej.widget.container.transition.TransitionContainer;
@@ -30,7 +25,6 @@ public class WidgetsDemo {
 	private static final boolean USE_SCREENSHOT_TRANSITION = true;
 
 	private static Desktop Desktop;
-	private static Panel Panel;
 	private static TransitionContainer TransitionContainer;
 
 	private static MainPage mainPage;
@@ -68,24 +62,9 @@ public class WidgetsDemo {
 		showMainPage();
 
 		// Show the navigator.
-		Desktop = new Desktop() {
-			@Override
-			public boolean handleEvent(int event) {
-				// set panel focus to null when we click on a blank space
-				int type = Event.getType(event);
-				if (type == Event.POINTER) {
-					int action = Pointer.getAction(event);
-					if (action == Pointer.RELEASED) {
-						getPanel().setFocus(null);
-					}
-				}
-				return super.handleEvent(event);
-			}
-		};
-		Panel = new Panel();
-		Panel.setWidget(TransitionContainer);
-		Panel.showFullScreen(Desktop);
-		Desktop.show();
+		Desktop = new Desktop();
+		Desktop.setWidget(TransitionContainer);
+		Desktop.requestShow();
 	}
 
 	/**
@@ -104,20 +83,11 @@ public class WidgetsDemo {
 		return Desktop;
 	}
 
-	/**
-	 * Gets the panel
-	 *
-	 * @return the panel
-	 */
-	public static Panel getPanel() {
-		return Panel;
-	}
-
 	private static TransitionContainer newTransitionContainer() {
 		if (USE_SCREENSHOT_TRANSITION) {
-			return new SlideScreenshotTransitionContainer(MWT.LEFT, false, false);
+			return new SlideScreenshotTransitionContainer(SlideDirection.LEFT, false, false);
 		} else {
-			return new SlideTransitionContainer(MWT.LEFT, false);
+			return new SlideTransitionContainer(SlideDirection.LEFT, false);
 		}
 	}
 

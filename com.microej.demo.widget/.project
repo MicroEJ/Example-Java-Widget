@@ -11,11 +11,6 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>com.is2t.microej.wadapps.workbench.wadappsWorkbenchChecker</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>com.is2t.microej.addonprocessor.addonProcessorBuilder</name>
 			<arguments>
 			</arguments>
@@ -24,6 +19,5 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.apache.ivyde.eclipse.ivynature</nature>
-		<nature>com.is2t.microej.wadapps.workbench.wadappsApplicationNature</nature>
 	</natures>
 </projectDescription>

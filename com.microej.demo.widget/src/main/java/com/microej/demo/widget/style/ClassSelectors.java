@@ -13,103 +13,103 @@ public interface ClassSelectors {
 	/**
 	 * The top bar selector.
 	 */
-	String TOP_BAR = "top_bar"; //$NON-NLS-1$
+	int TOP_BAR = 1;
 
 	/**
 	 * The title selector.
 	 */
-	String TITLE = "title"; //$NON-NLS-1$
+	int TITLE = 2;
 
 	/**
 	 * The list item class selector.
 	 */
-	String LIST_ITEM = "list_item"; //$NON-NLS-1$
+	int LIST_ITEM = 3;
 
 	/**
 	 * The illustrated button class selector.
 	 */
-	String ILLUSTRATED_BUTTON = "illustrated_button"; //$NON-NLS-1$
+	int ILLUSTRATED_BUTTON = 4;
 	/**
 	 * The centered class selector.
 	 */
-	String CENTERED = "centered"; //$NON-NLS-1$
+	int CENTERED = 5;
 
 	/**
 	 * The text scroll class selector.
 	 */
-	String TEXT_SCROLL = "text_scroll"; //$NON-NLS-1$
+	int TEXT_SCROLL = 6;
 
 	/**
 	 * The text title class selector.
 	 */
-	String TEXT_TITLE = "text_title"; //$NON-NLS-1$
+	int TEXT_TITLE = 7;
 
 	/**
 	 * The multiline class selector.
 	 */
-	String MULTILINE = "multiline"; //$NON-NLS-1$
+	int MULTILINE = 8;
 
 	/**
 	 * The form class selector.
 	 */
-	String FORM = "form"; //$NON-NLS-1$
+	int FORM = 9;
 
 	/**
 	 * The result label class selector.
 	 */
-	String RESULT_LABEL = "result_label"; //$NON-NLS-1$
+	int RESULT_LABEL = 10;
 
 	/**
 	 * The chart class selector.
 	 */
-	String CHART = "chart"; //$NON-NLS-1$
+	int CHART = 11;
 
 	/**
 	 * The switch button class selector.
 	 */
-	String SWITCH_BUTTON = "switch_button"; //$NON-NLS-1$
+	int SWITCH_BUTTON = 12;
 
 	/**
 	 * The date picker class selector.
 	 */
-	String DATE_PICKER = "date_picker"; //$NON-NLS-1$
+	int DATE_PICKER = 13;
 
 	/**
 	 * The selected value class selector.
 	 */
-	String SELECTED_VALUE = "selected-value"; //$NON-NLS-1$
+	int SELECTED_VALUE = 14;
 
 	/**
 	 * The space class selector.
 	 */
-	String SPACE_KEY_SELECTOR = "space_key"; //$NON-NLS-1$
+	int SPACE_KEY_SELECTOR = 15;
 	/**
 	 * The backspace class selector.
 	 */
-	String BACKSPACE_KEY_SELECTOR = "backspace_key"; //$NON-NLS-1$
+	int BACKSPACE_KEY_SELECTOR = 16;
 	/**
 	 * The shift key inactive class selector.
 	 */
-	String SHIFT_KEY_INACTIVE_SELECTOR = "shift_key_inactive"; //$NON-NLS-1$
+	int SHIFT_KEY_INACTIVE_SELECTOR = 17;
 	/**
 	 * The shift key active class selector.
 	 */
-	String SHIFT_KEY_ACTIVE_SELECTOR = "shift_key_active"; //$NON-NLS-1$
+	int SHIFT_KEY_ACTIVE_SELECTOR = 18;
 	/**
 	 * The switch mapping class selector.
 	 */
-	String SWITCH_MAPPING_KEY_SELECTOR = "switch_mapping_key"; //$NON-NLS-1$
+	int SWITCH_MAPPING_KEY_SELECTOR = 19;
 	/**
 	 * The special key class selector.
 	 */
-	String SPECIAL_KEY_SELECTOR = "special_key"; //$NON-NLS-1$
+	int SPECIAL_KEY_SELECTOR = 20;
 	/**
 	 * The selection class selector.
 	 */
-	String CLASS_SELECTOR_SELECTION = "keyboard-text-selection"; //$NON-NLS-1$
+	int CLASS_SELECTOR_SELECTION = 21;
 	/**
 	 * The clear button class selector.
 	 */
-	String CLASS_SELECTOR_CLEAR_BUTTON = "keyboard-text-clear-button"; //$NON-NLS-1$
+	int CLASS_SELECTOR_CLEAR_BUTTON = 22;
 
 }

@@ -74,7 +74,7 @@ public class Key extends Wrapper {
 	 * @param classSelector
 	 *            the class selector to set
 	 */
-	public void setStandard(final char character, String classSelector) {
+	public void setStandard(final char character, int classSelector) {
 		setStandard(character);
 		addClassSelector(classSelector);
 	}
@@ -105,7 +105,7 @@ public class Key extends Wrapper {
 	 * @param classSelector
 	 *            the class selector to set
 	 */
-	public void setSpecial(String text, OnClickListener listener, String classSelector) {
+	public void setSpecial(String text, OnClickListener listener, int classSelector) {
 		setSpecial(text, listener);
 		addClassSelector(classSelector);
 	}

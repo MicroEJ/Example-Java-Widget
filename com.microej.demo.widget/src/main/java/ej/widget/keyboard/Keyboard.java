@@ -241,7 +241,7 @@ public class Keyboard extends Container {
 		};
 
 		String text = String.valueOf(ControlCharacters.SHIFT_IN);
-		String classSelector = (active ? ClassSelectors.SHIFT_KEY_ACTIVE_SELECTOR
+		int classSelector = (active ? ClassSelectors.SHIFT_KEY_ACTIVE_SELECTOR
 				: ClassSelectors.SHIFT_KEY_INACTIVE_SELECTOR);
 
 		getKey(row, col).setSpecial(text, listener, classSelector);

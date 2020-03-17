@@ -37,7 +37,7 @@ public class Wheel extends Container {
 	/**
 	 * The class selector for the horizontal lines
 	 */
-	public static final String CLASS_SELECTOR_LINE = "wheel-line"; //$NON-NLS-1$
+	public static final int CLASS_SELECTOR_LINE = 100;
 
 	private static final int ANIMATION_PERIOD = 30;
 	private static final int STEP_TIME = ANIMATION_PERIOD * 3;

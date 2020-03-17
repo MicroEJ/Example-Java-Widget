@@ -12,9 +12,6 @@ import ej.basictool.ArrayTools;
 import ej.bon.Timer;
 import ej.bon.TimerTask;
 import ej.bon.XMath;
-import ej.giml.annotation.Element;
-import ej.giml.annotation.ElementAttribute;
-import ej.giml.annotation.ElementConstructor;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.microui.event.Event;
@@ -39,7 +36,6 @@ import ej.widget.util.Keyboard;
 /**
  * A text is a widget that holds a string that can be modified by the user.
  */
-@Element
 public class KeyboardText extends Container implements EventHandler {
 
 	private static final OnClickListener[] EMPTY_LISTENERS = new OnClickListener[0];
@@ -102,9 +98,7 @@ public class KeyboardText extends Container implements EventHandler {
 	 * @throws NullPointerException
 	 *             if one or both the given text and place holder are <code>null</code>.
 	 */
-	@ElementConstructor
-	public KeyboardText(@ElementAttribute(defaultValue = EMPTY_STRING) String text,
-			@ElementAttribute(defaultValue = EMPTY_STRING) String placeHolder) {
+	public KeyboardText(String text, String placeHolder) {
 		super();
 		this.onTextChangeListeners = EMPTY_TEXT_LISTENERS;
 		this.onClickListeners = EMPTY_LISTENERS;

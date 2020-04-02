@@ -14,6 +14,7 @@ import ej.bon.XMath;
 import ej.microui.display.Colors;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
+import ej.microui.display.Painter;
 import ej.microui.event.Event;
 import ej.microui.event.generator.Pointer;
 import ej.motion.Motion;
@@ -275,7 +276,7 @@ public class Carousel extends Widget {
 
 		if (DEBUG) {
 			g.setColor(Colors.RED);
-			font.drawString(g, Long.toString(System.currentTimeMillis() - startTime), 10, 10);
+			Painter.drawString(g, font, Long.toString(System.currentTimeMillis() - startTime), 10, 10);
 		}
 	}
 

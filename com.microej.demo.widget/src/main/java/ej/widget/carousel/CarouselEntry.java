@@ -11,7 +11,9 @@ import java.util.List;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.Image;
+import ej.microui.display.Painter;
 import ej.microui.display.transform.Scale;
+import ej.microui.display.transform.TransformPainter;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.style.text.TextManager;
 import ej.mwt.util.Size;
@@ -128,16 +130,13 @@ public class CarouselEntry {
 
 	private void drawScaled(GraphicsContext g, Image image, int x, int y, int alpha, float sizeRatio, boolean stopped) {
 		if (sizeRatio == 1.0f) {
-			image.draw(g, x, y, alpha);
+			Painter.drawImage(g, image, x, y, alpha);
 		} else {
-			Scale s = new Scale();
-			s.setAlpha(alpha);
-			s.setFactor(sizeRatio);
-
+			Scale scale = new Scale(sizeRatio, sizeRatio);
 			if (stopped) {
-				s.drawBilinear(g, image, x, y);
+				TransformPainter.drawScaledImageBilinear(g, image, x, y, scale, alpha);
 			} else {
-				s.drawNearestNeighbor(g, image, x, y);
+				TransformPainter.drawScaledImageNearestNeighbor(g, image, x, y, scale, alpha);
 			}
 		}
 	}

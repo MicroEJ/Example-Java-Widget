@@ -7,7 +7,8 @@ package ej.widget.chart;
 
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
-import ej.microui.display.shape.AntiAliasedShapes;
+import ej.microui.display.shape.ShapePainter;
+import ej.microui.display.shape.ShapePainter.Cap;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.style.util.StyleHelper;
@@ -22,17 +23,13 @@ public class BarChart extends BasicChart {
 	 * Values
 	 */
 	private static final int BAR_THICKNESS = 9;
+	private static final int BAR_FADE = 1;
+	private static final Cap BAR_CAPS = Cap.ROUNDED;
 
 	/**
 	 * Attributes
 	 */
 	private float xStep;
-
-	private final AntiAliasedShapes antiAliasedShapes;
-
-	public BarChart() {
-		this.antiAliasedShapes = new AntiAliasedShapes();
-	}
 
 	/**
 	 * Render widget
@@ -57,9 +54,6 @@ public class BarChart extends BasicChart {
 		renderScale(g, style, size, topValue);
 
 		// draw points
-		AntiAliasedShapes antiAliasedShapes = this.antiAliasedShapes;
-		antiAliasedShapes.setThickness(BAR_THICKNESS);
-
 		int pointIndex = 0;
 		for (ChartPoint chartPoint : getPoints()) {
 			int currentX = (int) (LEFT_PADDING + this.xStep / 4 + pointIndex * this.xStep);
@@ -77,17 +71,12 @@ public class BarChart extends BasicChart {
 				int finalLength = (int) ((yBarBottom - yBarTop) * value / topValue);
 				int apparitionLength = (int) (finalLength * getAnimationRatio());
 				int yTop = yBarBottom - apparitionLength;
-				antiAliasedShapes.drawLine(g, currentX, yTop, currentX, yBarBottom);
+				ShapePainter.drawThickFadedLine(g, currentX, yTop, currentX, yBarBottom, BAR_THICKNESS, BAR_FADE,
+						BAR_CAPS, BAR_CAPS);
 			}
 
 			pointIndex++;
 		}
-	}
-
-	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment) {
-		int x = Alignment.computeLeftX(font.stringWidth(string), anchorX, alignment);
-		int y = Alignment.computeTopY(font.getHeight(), anchorY, alignment);
-		font.drawString(g, string, x, y);
 	}
 
 	/**

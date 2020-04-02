@@ -10,6 +10,7 @@ import java.util.ListIterator;
 import ej.bon.Timer;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
+import ej.microui.display.Painter;
 import ej.microui.event.Event;
 import ej.microui.event.generator.Pointer;
 import ej.motion.Motion;
@@ -140,25 +141,25 @@ public class Wheel extends Container {
 		g.setColor(hLineStyle.getForegroundColor());
 
 		y = (remainingHeight >> 1) - (lineHeight >> 1);
-		g.drawHorizontalLine(0, y - 1, width);
-		g.drawHorizontalLine(0, y, width);
+		Painter.drawHorizontalLine(g, 0, y - 1, width);
+		Painter.drawHorizontalLine(g, 0, y, width);
 
 		y = (remainingHeight >> 1) + (lineHeight >> 1);
-		g.drawHorizontalLine(0, y - 1, width);
-		g.drawHorizontalLine(0, y, width);
+		Painter.drawHorizontalLine(g, 0, y - 1, width);
+		Painter.drawHorizontalLine(g, 0, y, width);
 	}
 
 	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment) {
 		int x = Alignment.computeLeftX(font.stringWidth(string), anchorX, alignment);
 		int y = Alignment.computeTopY(font.getHeight(), anchorY, alignment);
-		font.drawString(g, string, x, y);
+		Painter.drawString(g, font, string, x, y);
 	}
 
 	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment,
 			float fontRatio) {
 		int x = Alignment.computeLeftX((int) (font.stringWidth(string) * fontRatio), anchorX, alignment);
 		int y = Alignment.computeTopY((int) (font.getHeight() * fontRatio), anchorY, alignment);
-		font.drawString(g, string, x, y, fontRatio, fontRatio);
+		Painter.drawString(g, font, string, x, y, fontRatio, fontRatio);
 	}
 
 	private float computeFontRatio(int y, int height) {

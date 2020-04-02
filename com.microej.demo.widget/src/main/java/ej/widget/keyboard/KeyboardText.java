@@ -14,6 +14,7 @@ import ej.bon.TimerTask;
 import ej.bon.XMath;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
+import ej.microui.display.Painter;
 import ej.microui.event.Event;
 import ej.microui.event.EventHandler;
 import ej.microui.event.generator.Command;
@@ -516,7 +517,7 @@ public class KeyboardText extends Container implements EventHandler {
 			g.setColor(selectionStyle.getForegroundColor());
 			for (Rectangle rectangle : selection) {
 				int w = (selectionStart != selectionEnd ? rectangle.getWidth() : 1);
-				g.fillRect(rectangle.getX() + 1, rectangle.getY(), w, rectangle.getHeight());
+				Painter.fillRectangle(g, rectangle.getX() + 1, rectangle.getY(), w, rectangle.getHeight());
 			}
 		}
 		// handling placeholder case

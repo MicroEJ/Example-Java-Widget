@@ -7,7 +7,9 @@ package ej.widget.chart;
 
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
-import ej.microui.display.shape.AntiAliasedShapes;
+import ej.microui.display.Painter;
+import ej.microui.display.shape.ShapePainter;
+import ej.microui.display.shape.ShapePainter.Cap;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.style.util.StyleHelper;
@@ -21,7 +23,12 @@ public class LineChart extends BasicChart {
 	/**
 	 * Values
 	 */
+	private static final int BAR_THICKNESS = 0;
+	private static final int BAR_FADE = 1;
+	private static final Cap BAR_CAPS = Cap.ROUNDED;
 	private static final int CIRCLE_RADIUS = 2;
+	private static final int CIRCLE_THICKNESS = 2;
+	private static final int CIRCLE_FADE = 1;
 
 	/**
 	 * Attributes
@@ -29,8 +36,6 @@ public class LineChart extends BasicChart {
 	private final boolean drawArea;
 	private final boolean drawCircles;
 	private float xStep;
-
-	private final AntiAliasedShapes antiAliasedShapes;
 
 	/**
 	 * Constructor
@@ -43,7 +48,6 @@ public class LineChart extends BasicChart {
 	public LineChart(boolean drawArea, boolean drawCircles) {
 		this.drawArea = drawArea;
 		this.drawCircles = drawCircles;
-		this.antiAliasedShapes = new AntiAliasedShapes();
 	}
 
 	/**
@@ -58,7 +62,7 @@ public class LineChart extends BasicChart {
 		int yBarBottom = getBarBottom(fontHeight, size);
 		int yBarTop = getBarTop(fontHeight, size);
 
-		this.xStep = (size.getWidth() - LEFT_PADDING - fontHeight / 4) / (getPoints().size() - 1.0f);
+		this.xStep = (size.getWidth() - LEFT_PADDING - fontHeight / 4.0f) / (getPoints().size() - 1.0f);
 
 		float topValue = getScale().getTopValue();
 
@@ -66,10 +70,6 @@ public class LineChart extends BasicChart {
 		renderSelectedPointValue(g, style, size);
 
 		// draw points
-		AntiAliasedShapes antiAliasedShapes = this.antiAliasedShapes;
-		antiAliasedShapes.setThickness(0);
-		antiAliasedShapes.setFade(1);
-
 		int previousX = -1;
 		int previousY = -1;
 		int previousBackgroundColor = -1;
@@ -102,16 +102,17 @@ public class LineChart extends BasicChart {
 						int midX = (currentX + previousX) / 2;
 						g.setColor(previousBackgroundColor);
 						for (int x = previousX; x < midX; x++) {
-							g.drawLine(x, (int) (previousY + (x - previousX) * stepY), x, yBarBottom);
+							Painter.drawLine(g, x, (int) (previousY + (x - previousX) * stepY), x, yBarBottom);
 						}
 						g.setColor(backgroundColor);
 						for (int x = midX; x < currentX; x++) {
-							g.drawLine(x, (int) (previousY + (x - previousX) * stepY), x, yBarBottom);
+							Painter.drawLine(g, x, (int) (previousY + (x - previousX) * stepY), x, yBarBottom);
 						}
 					}
 
 					g.setColor(style.getForegroundColor());
-					antiAliasedShapes.drawLine(g, previousX, previousY, currentX, currentY);
+					ShapePainter.drawThickFadedLine(g, previousX, previousY, currentX, currentY, BAR_THICKNESS,
+							BAR_FADE, BAR_CAPS, BAR_CAPS);
 				}
 
 				previousX = currentX;
@@ -149,19 +150,12 @@ public class LineChart extends BasicChart {
 				int circleD = 2 * CIRCLE_RADIUS + 1;
 
 				g.setColor(foregroundColor);
-				g.fillCircle(circleX, circleY, circleD);
-				antiAliasedShapes.setThickness(2);
-				antiAliasedShapes.drawCircle(g, circleX, circleY, circleD);
+				Painter.fillCircle(g, circleX, circleY, circleD);
+				ShapePainter.drawThickFadedCircle(g, circleX, circleY, circleD, CIRCLE_THICKNESS, CIRCLE_FADE);
 
 				pointIndex++;
 			}
 		}
-	}
-
-	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment) {
-		int x = Alignment.computeLeftX(font.stringWidth(string), anchorX, alignment);
-		int y = Alignment.computeTopY(font.getHeight(), anchorY, alignment);
-		font.drawString(g, string, x, y);
 	}
 
 	/**

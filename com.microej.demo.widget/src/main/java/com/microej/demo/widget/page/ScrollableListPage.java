@@ -9,7 +9,7 @@ import com.microej.demo.widget.style.ClassSelectors;
 
 import ej.bon.Timer;
 import ej.bon.TimerTask;
-import ej.microui.display.Display;
+import ej.microui.MicroUI;
 import ej.service.ServiceFactory;
 import ej.widget.basic.Label;
 import ej.widget.container.List;
@@ -67,7 +67,7 @@ public class ScrollableListPage extends AbstractDemoPage {
 				@Override
 				public void run() {
 					if (isShown()) {
-						Display.getDisplay().callSerially(new Runnable() {
+						MicroUI.callSerially(new Runnable() {
 							@Override
 							public void run() {
 								if (!ScrollableListPage.this.complete) {

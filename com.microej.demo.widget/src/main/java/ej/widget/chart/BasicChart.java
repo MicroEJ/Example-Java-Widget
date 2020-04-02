@@ -9,6 +9,7 @@ import com.microej.demo.widget.style.ClassSelectors;
 
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
+import ej.microui.display.Painter;
 import ej.microui.event.Event;
 import ej.microui.event.generator.Pointer;
 import ej.motion.Motion;
@@ -163,17 +164,33 @@ public abstract class BasicChart extends Chart implements Animation {
 			int yScale = yBarBottom + (yBarTop - yBarBottom) * i / numScaleValues;
 
 			drawString(g, font, scaleString, xScale, yScale, Alignment.RIGHT_VCENTER);
-			g.drawLine(LEFT_PADDING, yScale, size.getWidth(), yScale);
+			Painter.drawLine(g, LEFT_PADDING, yScale, size.getWidth(), yScale);
 		}
 
 		// draw unit
 		drawString(g, font, getUnit(), xScale, 0, Alignment.RIGHT_TOP);
 	}
 
-	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment) {
+	/**
+	 * Render string considering alignment.
+	 *
+	 * @param g
+	 *            the graphics context.
+	 * @param font
+	 *            the font to use.
+	 * @param string
+	 *            the string to draw.
+	 * @param anchorX
+	 *            the x anchor.
+	 * @param anchorY
+	 *            the y anchor.
+	 * @param alignment
+	 *            the string alignment.
+	 */
+	protected void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment) {
 		int x = Alignment.computeLeftX(font.stringWidth(string), anchorX, alignment);
 		int y = Alignment.computeTopY(font.getHeight(), anchorY, alignment);
-		font.drawString(g, string, x, y);
+		Painter.drawString(g, font, string, x, y);
 	}
 
 	/**
@@ -205,7 +222,7 @@ public abstract class BasicChart extends Chart implements Animation {
 			int labelY = 0;
 
 			g.setColor(labelStyle.getForegroundColor());
-			labelFont.drawString(g, labelString, labelX + SELECTED_VALUE_PADDING, labelY);
+			Painter.drawString(g, labelFont, labelString, labelX + SELECTED_VALUE_PADDING, labelY);
 		}
 	}
 

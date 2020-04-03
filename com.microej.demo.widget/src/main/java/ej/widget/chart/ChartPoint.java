@@ -6,10 +6,10 @@
 package ej.widget.chart;
 
 import ej.mwt.Container;
-import ej.mwt.style.State;
 import ej.mwt.style.Style;
 import ej.mwt.style.util.StyleHelper;
 import ej.widget.ElementAdapter;
+import ej.widget.util.States;
 
 /**
  * Represents a point of a Chart
@@ -165,8 +165,8 @@ public class ChartPoint extends ElementAdapter {
 	 *            the state.
 	 */
 	@Override
-	public boolean isInState(State state) {
-		return (state == State.Visited && this.highlighted) || (state == State.Checked && this.selected)
+	public boolean isInState(int state) {
+		return (state == States.VISITED && this.highlighted) || (state == States.CHECKED && this.selected)
 				|| super.isInState(state);
 	}
 }

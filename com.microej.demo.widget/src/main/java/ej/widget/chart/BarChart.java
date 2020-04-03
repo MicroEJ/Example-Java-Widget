@@ -5,10 +5,10 @@
  */
 package ej.widget.chart;
 
+import ej.drawing.ShapePainter;
+import ej.drawing.ShapePainter.Cap;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
-import ej.microui.display.shape.ShapePainter;
-import ej.microui.display.shape.ShapePainter.Cap;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.style.util.StyleHelper;

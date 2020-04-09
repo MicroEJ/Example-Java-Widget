@@ -9,6 +9,7 @@ import com.microej.demo.widget.page.MainPage;
 import com.microej.demo.widget.style.StylesheetPopulator;
 
 import ej.microui.MicroUI;
+import ej.microui.display.Display;
 import ej.mwt.Desktop;
 import ej.mwt.Widget;
 import ej.widget.container.transition.SlideDirection;
@@ -64,7 +65,7 @@ public class WidgetsDemo {
 		// Show the navigator.
 		Desktop = new Desktop();
 		Desktop.setWidget(TransitionContainer);
-		Desktop.requestShow();
+		Display.getDisplay().requestShow(Desktop);
 	}
 
 	/**
@@ -85,6 +86,7 @@ public class WidgetsDemo {
 
 	private static TransitionContainer newTransitionContainer() {
 		if (USE_SCREENSHOT_TRANSITION) {
+			// return new SplashScreenshotTransitionContainer(false);
 			return new SlideScreenshotTransitionContainer(SlideDirection.LEFT, false, false);
 		} else {
 			return new SlideTransitionContainer(SlideDirection.LEFT, false);

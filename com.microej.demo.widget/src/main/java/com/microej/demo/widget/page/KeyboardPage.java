@@ -168,7 +168,7 @@ public class KeyboardPage extends AbstractDemoPage {
 				}
 			});
 		}
-		repaint();
+		requestPaint();
 		ej.widget.util.Keyboard keyboard = ServiceFactory.getService(ej.widget.util.Keyboard.class);
 		if (keyboard != null) {
 			keyboard.setEventHandler(keyboardText);

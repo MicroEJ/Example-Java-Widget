@@ -27,7 +27,7 @@
 		<dependency org="ej.api" name="edc" rev="1.3.0"/>
 		<dependency org="ej.api" name="bon" rev="1.4.0"/>
 		<dependency org="ej.api" name="microui" rev="3.0.0"/>
-		<dependency org="com.microej.api" name="drawing" rev="1.0.0"/>
+		<dependency org="ej.api" name="drawing" rev="1.0.0"/>
 
 		<dependency org="ej.library.runtime" name="service" rev="1.1.1"/>
 		<dependency org="ej.library.ui" name="mwt" rev="3.0.0"/>

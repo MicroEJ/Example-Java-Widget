@@ -8,12 +8,11 @@ package ej.widget.carousel;
 import java.util.ArrayList;
 import java.util.List;
 
+import ej.drawing.TransformPainter;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.Image;
 import ej.microui.display.Painter;
-import ej.microui.display.transform.Scale;
-import ej.microui.display.transform.TransformPainter;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.style.text.TextManager;
 import ej.mwt.util.Size;
@@ -132,11 +131,10 @@ public class CarouselEntry {
 		if (sizeRatio == 1.0f) {
 			Painter.drawImage(g, image, x, y, alpha);
 		} else {
-			Scale scale = new Scale(sizeRatio, sizeRatio);
 			if (stopped) {
-				TransformPainter.drawScaledImageBilinear(g, image, x, y, scale, alpha);
+				TransformPainter.drawScaledImageBilinear(g, image, x, y, sizeRatio, sizeRatio, alpha);
 			} else {
-				TransformPainter.drawScaledImageNearestNeighbor(g, image, x, y, scale, alpha);
+				TransformPainter.drawScaledImageNearestNeighbor(g, image, x, y, sizeRatio, sizeRatio, alpha);
 			}
 		}
 	}

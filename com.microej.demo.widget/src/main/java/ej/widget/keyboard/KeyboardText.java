@@ -20,7 +20,6 @@ import ej.microui.event.EventHandler;
 import ej.microui.event.generator.Command;
 import ej.microui.event.generator.Pointer;
 import ej.mwt.Container;
-import ej.mwt.style.State;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.style.text.TextManager;
@@ -33,6 +32,7 @@ import ej.widget.listener.OnClickListener;
 import ej.widget.listener.OnTextChangeListener;
 import ej.widget.util.ControlCharacters;
 import ej.widget.util.Keyboard;
+import ej.widget.util.States;
 
 /**
  * A text is a widget that holds a string that can be modified by the user.
@@ -491,8 +491,8 @@ public class KeyboardText extends Container implements EventHandler {
 	}
 
 	@Override
-	public boolean isInState(State state) {
-		return (state == State.Active && this.active) || (state == State.Empty && isEmpty()) || super.isInState(state);
+	public boolean isInState(int state) {
+		return (state == States.ACTIVE && this.active) || (state == States.EMPTY && isEmpty()) || super.isInState(state);
 	}
 
 	@Override

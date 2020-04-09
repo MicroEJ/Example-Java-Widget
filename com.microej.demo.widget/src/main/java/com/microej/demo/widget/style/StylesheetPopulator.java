@@ -10,7 +10,6 @@ import ej.microui.display.Font;
 import ej.microui.display.Image;
 import ej.mwt.Widget;
 import ej.mwt.style.Selector;
-import ej.mwt.style.State;
 import ej.mwt.style.background.NoBackground;
 import ej.mwt.style.background.PlainBackground;
 import ej.mwt.style.background.SimpleRoundedPlainBackground;
@@ -54,6 +53,7 @@ import ej.widget.chart.ChartPoint;
 import ej.widget.keyboard.Key;
 import ej.widget.keyboard.Keyboard;
 import ej.widget.keyboard.KeyboardText;
+import ej.widget.util.States;
 import ej.widget.wheel.Wheel;
 
 /**
@@ -154,7 +154,7 @@ public class StylesheetPopulator {
 		style.clear();
 		style.setBackgroundColor(ACTIVE_FOREGROUND);
 		style.setBorderColor(ACTIVE_FOREGROUND);
-		stylesheet.addRule(new AndCombinator(illustratedButtonSelector, new StateSelector(State.Active)), style);
+		stylesheet.addRule(new AndCombinator(illustratedButtonSelector, new StateSelector(States.ACTIVE)), style);
 
 		// Sets the text scroll style.
 		style.clear();
@@ -206,7 +206,7 @@ public class StylesheetPopulator {
 		TypeSelector circularProgressBarTypeSelector = new TypeSelector(CircularProgressBar.class);
 		TypeSelector imageSliderTypeSelector = new TypeSelector(ImageSlider.class);
 		TypeSelector sliderTypeSelector = new TypeSelector(Slider.class);
-		StateSelector stateCheckedSelector = new StateSelector(State.Checked);
+		StateSelector stateCheckedSelector = new StateSelector(States.CHECKED);
 
 		// The font to use for the most of the picto widgets.
 		FontProfile widgetPictoFontProfile = new FontProfile(FontFamilies.PICTO, FontFamilies.PICTO_SIZE,
@@ -329,7 +329,7 @@ public class StylesheetPopulator {
 		activeKeyStyle.setBackgroundColor(KEYBOARD_HIGHLIGHT_COLOR);
 		activeKeyStyle.setBorder(new SimpleRoundedBorder(KEY_CORNER_RADIUS - 1, 1));
 		activeKeyStyle.setBorderColor(KEYBOARD_HIGHLIGHT_COLOR);
-		StateSelector activeSelector = new StateSelector(State.Active);
+		StateSelector activeSelector = new StateSelector(States.ACTIVE);
 		AndCombinator activeKeySelector = new AndCombinator(keySelector, activeSelector);
 		stylesheet.addRule(activeKeySelector, activeKeyStyle);
 
@@ -363,7 +363,7 @@ public class StylesheetPopulator {
 		StyleBuilder activeSpecialKeyStyle = new StyleBuilder();
 		activeSpecialKeyStyle.setBackgroundColor(ACTIVE_FOREGROUND);
 		activeSpecialKeyStyle.setBorderColor(ACTIVE_FOREGROUND);
-		stylesheet.addRule(new AndCombinator(specialKeySelector, new StateSelector(State.Active)),
+		stylesheet.addRule(new AndCombinator(specialKeySelector, new StateSelector(States.ACTIVE)),
 				activeSpecialKeyStyle);
 	}
 
@@ -384,13 +384,13 @@ public class StylesheetPopulator {
 		focusedTextStyle.setBorderColor(CHECKED_FOREGROUND);
 		focusedTextStyle.setBorder(new ComplexRectangularBorder(0, 0, 2, 0));
 		focusedTextStyle.setPadding(new ComplexOutline(0, 1, 0, 1));
-		StateSelector activeSelector = new StateSelector(State.Active);
+		StateSelector activeSelector = new StateSelector(States.ACTIVE);
 		AndCombinator focusedTextSelector = new AndCombinator(textSelector, activeSelector);
 		stylesheet.addRule(focusedTextSelector, focusedTextStyle);
 
 		StyleBuilder placeholderTextStyle = new StyleBuilder();
 		placeholderTextStyle.setForegroundColor(TEXT_PLACEHOLDER_COLOR);
-		StateSelector emptySelector = new StateSelector(State.Empty);
+		StateSelector emptySelector = new StateSelector(States.EMPTY);
 		AndCombinator placeholderTextSelector = new AndCombinator(textSelector, emptySelector);
 		stylesheet.addRule(placeholderTextSelector, placeholderTextStyle);
 
@@ -435,7 +435,7 @@ public class StylesheetPopulator {
 		// Sets the selected chart point style.
 		StyleBuilder chartPointSelectedStyle = new StyleBuilder();
 		chartPointSelectedStyle.setForegroundColor(MicroEJColors.CORAL);
-		Selector chartPointSelectedSelector = new AndCombinator(chartPointSelector, new StateSelector(State.Checked));
+		Selector chartPointSelectedSelector = new AndCombinator(chartPointSelector, new StateSelector(States.CHECKED));
 		stylesheet.addRule(chartPointSelectedSelector, chartPointSelectedStyle);
 
 		// Sets the selected chart point value style.
@@ -465,7 +465,7 @@ public class StylesheetPopulator {
 		StyleBuilder activeSwitchButtonStyle = new StyleBuilder();
 		activeSwitchButtonStyle.setBackgroundColor(ACTIVE_FOREGROUND);
 		activeSwitchButtonStyle.setBorderColor(ACTIVE_FOREGROUND);
-		stylesheet.addRule(new AndCombinator(switchButtonSelector, new StateSelector(State.Active)),
+		stylesheet.addRule(new AndCombinator(switchButtonSelector, new StateSelector(States.ACTIVE)),
 				activeSwitchButtonStyle);
 	}
 

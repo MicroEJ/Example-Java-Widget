@@ -9,12 +9,12 @@ import ej.bon.Timer;
 import ej.bon.TimerTask;
 import ej.microui.event.Event;
 import ej.microui.event.generator.Pointer;
-import ej.mwt.style.State;
 import ej.service.ServiceFactory;
 import ej.widget.basic.Label;
 import ej.widget.composed.Wrapper;
 import ej.widget.listener.OnClickListener;
 import ej.widget.util.Keyboard;
+import ej.widget.util.States;
 
 /**
  * Represents one of the keys of a keyboard
@@ -122,8 +122,8 @@ public class Key extends Wrapper {
 	}
 
 	@Override
-	public boolean isInState(State state) {
-		return (this.pressed && state == State.Active) || super.isInState(state);
+	public boolean isInState(int state) {
+		return (this.pressed && state == States.ACTIVE) || super.isInState(state);
 	}
 
 	@Override

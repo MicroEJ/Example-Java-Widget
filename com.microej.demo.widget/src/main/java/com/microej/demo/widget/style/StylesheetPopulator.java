@@ -484,13 +484,10 @@ public class StylesheetPopulator {
 		wheelStyle.setForegroundColor(MicroEJColors.CONCRETE_BLACK_50);
 		wheelStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_25);
 		wheelStyle.setBackground(NoBackground.NO_BACKGROUND);
+		wheelStyle.setBorderColor(WHEEL_LINE_COLOR);
 		FontProfile wheelFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.LARGE, Font.STYLE_PLAIN);
 		wheelStyle.setFontProfile(wheelFont);
 		stylesheet.addRule(new TypeSelector(Wheel.class), wheelStyle);
-
-		StyleBuilder lineStyle = new StyleBuilder();
-		lineStyle.setForegroundColor(WHEEL_LINE_COLOR);
-		stylesheet.addRule(new ClassSelector(Wheel.CLASS_SELECTOR_LINE), lineStyle);
 
 		StyleBuilder datePickerStyle = new StyleBuilder();
 		datePickerStyle.setMargin(new SimpleOutline(16));

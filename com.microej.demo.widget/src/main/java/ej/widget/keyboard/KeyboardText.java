@@ -437,7 +437,7 @@ public class KeyboardText extends Container implements EventHandler {
 		Font font = StyleHelper.getFont(style);
 		style.getTextManager().computeContentSize(getTextOrPlaceHolder(), font, availableSize);
 		// Add selection thickness.
-		availableSize.incrementSize(1, 1);
+		availableSize.addOutline(1, 1, 0, 0);
 	}
 
 	/**
@@ -492,7 +492,8 @@ public class KeyboardText extends Container implements EventHandler {
 
 	@Override
 	public boolean isInState(int state) {
-		return (state == States.ACTIVE && this.active) || (state == States.EMPTY && isEmpty()) || super.isInState(state);
+		return (state == States.ACTIVE && this.active) || (state == States.EMPTY && isEmpty())
+				|| super.isInState(state);
 	}
 
 	@Override
@@ -506,7 +507,7 @@ public class KeyboardText extends Container implements EventHandler {
 		int foregroundColor = style.getForegroundColor();
 
 		// Remove selection thickness.
-		size.decrementSize(1, 1);
+		size.removeOutline(1, 1, 0, 0);
 
 		// Compute selection bounds and draw it.
 		int selectionStart = getSelectionStart();

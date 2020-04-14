@@ -265,7 +265,7 @@ public class KeyboardText extends Container implements EventHandler {
 			setCaret(newCaret);
 			updateEmptyState(wasEmpty, false);
 			notifyOnTextChangeListeners(newCaret, getText());
-			repaint();
+			requestPaint();
 		}
 	}
 
@@ -340,7 +340,7 @@ public class KeyboardText extends Container implements EventHandler {
 		end = XMath.limit(end, 0, length);
 		this.caretStart = start;
 		this.caretEnd = end;
-		repaint();
+		requestPaint();
 	}
 
 	/**
@@ -463,13 +463,13 @@ public class KeyboardText extends Container implements EventHandler {
 			@Override
 			public void run() {
 				KeyboardText.this.showCaret = !KeyboardText.this.showCaret;
-				repaint();
+				requestPaint();
 			}
 
 			@Override
 			public boolean cancel() {
 				KeyboardText.this.showCaret = false;
-				repaint();
+				requestPaint();
 				return super.cancel();
 			}
 		};

@@ -40,22 +40,22 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		Grid grid = new Grid(true, 2);
 
 		ToggleWrapper switch_ = newSwitch("Switch"); //$NON-NLS-1$
-		switch_.setAdjustedToChild(false);
+		switch_.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
 		grid.add(switch_);
 
 		ToggleGroup toggleGroup = new ToggleGroup();
 
 		ToggleWrapper radio1 = newRadioButton("Radio1"); //$NON-NLS-1$
-		radio1.setAdjustedToChild(false);
+		radio1.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
 		grid.add(radio1);
 		toggleGroup.addToggle(radio1.getToggle());
 
 		ToggleWrapper checkbox = newCheckBox("Checkbox"); //$NON-NLS-1$
-		checkbox.setAdjustedToChild(false);
+		checkbox.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
 		grid.add(checkbox);
 
 		ToggleWrapper radio2 = newRadioButton("Radio2"); //$NON-NLS-1$
-		radio2.setAdjustedToChild(false);
+		radio2.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
 		toggleGroup.addToggle(radio2.getToggle());
 		grid.add(radio2);
 
@@ -63,7 +63,7 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		grid.add(slider);
 
 		Wrapper buttonWrapper = new Wrapper();
-		buttonWrapper.setAdjustedToChild(false);
+		buttonWrapper.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
 		Button button = new Button("Button"); //$NON-NLS-1$
 		button.addClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
 		buttonWrapper.setWidget(button);

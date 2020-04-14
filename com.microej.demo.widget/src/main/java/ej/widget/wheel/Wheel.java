@@ -18,33 +18,23 @@ import ej.motion.MotionManager;
 import ej.motion.quad.QuadMotionManager;
 import ej.motion.util.MotionAnimator;
 import ej.motion.util.MotionListener;
-import ej.mwt.Container;
 import ej.mwt.Widget;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.style.util.StyleHelper;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
-import ej.widget.ElementAdapter;
 import ej.widget.util.color.GradientHelper;
 
 /**
  * Represents a wheel from which the user can choose among a set of choices
  */
-public class Wheel extends Container {
+public class Wheel extends Widget {
 
 	private static final int RELEASE_WITH_NO_MOVE_DELAY = 150;
-
-	/**
-	 * The class selector for the horizontal lines
-	 */
-	public static final int CLASS_SELECTOR_LINE = 100;
-
 	private static final int ANIMATION_PERIOD = 30;
 	private static final int STEP_TIME = ANIMATION_PERIOD * 3;
 	private static final int MAX_DURATION = 400;
-
-	private final ElementAdapter lineElement;
 
 	private final WheelGroup wheelGroup;
 	private Choice model;
@@ -66,8 +56,6 @@ public class Wheel extends Container {
 	 *            the wheel group
 	 */
 	public Wheel(WheelGroup wheelGroup) {
-		this.lineElement = new ElementAdapter(this);
-		this.lineElement.addClassSelector(CLASS_SELECTOR_LINE);
 		this.wheelGroup = wheelGroup;
 		this.motionManager = new QuadMotionManager();
 	}
@@ -137,8 +125,7 @@ public class Wheel extends Container {
 		}
 
 		// Draws the horizontal lines.
-		Style hLineStyle = this.lineElement.getStyle();
-		g.setColor(hLineStyle.getForegroundColor());
+		g.setColor(style.getBorderColor());
 
 		y = (remainingHeight >> 1) - (lineHeight >> 1);
 		Painter.drawHorizontalLine(g, 0, y - 1, width);
@@ -177,16 +164,13 @@ public class Wheel extends Container {
 	}
 
 	@Override
-	public void computeContentOptimalSize(Size availableSize) {
-		this.lineElement.initializeStyle();
-		int availableWidth = availableSize.getWidth();
-		int availableHeight = availableSize.getHeight();
-		int preferredWidth = availableWidth;
-		int width = availableWidth == Widget.NO_CONSTRAINT ? preferredWidth : Math.min(availableWidth, preferredWidth);
-		int preferredHeight = availableHeight;
-		int height = availableHeight == Widget.NO_CONSTRAINT ? preferredHeight
-				: Math.min(availableHeight, preferredHeight);
-		availableSize.setSize(width, height);
+	public void computeContentOptimalSize(Size size) {
+		int currentVisibleIndex = this.model.getCurrentIndex() + this.currentIndexDiff;
+		String string = this.model.getValueAsString(currentVisibleIndex);
+
+		Style style = getStyle();
+		Font font = StyleHelper.getFont(style);
+		style.getTextManager().computeContentSize(string, font, size);
 	}
 
 	private void stopAnimation() {
@@ -350,10 +334,4 @@ public class Wheel extends Container {
 		Timer timer = ServiceFactory.getRequiredService(Timer.class);
 		this.motionAnimator.start(timer, ANIMATION_PERIOD);
 	}
-
-	@Override
-	protected void layOutChildren(int contentWidth, int contentHeight) {
-		// Nothing to to.
-	}
-
 }

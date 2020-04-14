@@ -20,7 +20,7 @@ import ej.mwt.animation.Animator;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.style.util.StyleHelper;
-import ej.mwt.util.Rectangle;
+import ej.mwt.util.OutlineThickness;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
 import ej.widget.ElementAdapter;
@@ -102,12 +102,12 @@ public abstract class BasicChart extends Chart implements Animation {
 	@Override
 	public boolean handleEvent(int event) {
 		if (Event.getType(event) == Event.POINTER) {
-			Rectangle margin = new Rectangle(0, 0, 0, 0);
-			getStyle().getMargin().unwrap(margin);
+			OutlineThickness margin = new OutlineThickness();
+			getStyle().getMargin().wrap(margin);
 
 			Pointer pointer = (Pointer) Event.getGenerator(event);
-			int pointerX = pointer.getX() - getAbsoluteX() - margin.getX();
-			int pointerY = pointer.getY() - getAbsoluteY() - margin.getY();
+			int pointerX = pointer.getX() - getAbsoluteX() - margin.getLeft();
+			int pointerY = pointer.getY() - getAbsoluteY() - margin.getTop();
 
 			int action = Pointer.getAction(event);
 			switch (action) {

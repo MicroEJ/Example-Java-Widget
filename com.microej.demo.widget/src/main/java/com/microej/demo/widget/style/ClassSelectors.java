@@ -11,6 +11,11 @@ package com.microej.demo.widget.style;
 public interface ClassSelectors {
 
 	/**
+	 * Optimal size selector.
+	 */
+	int OPTIMAL_SIZE = 0;
+
+	/**
 	 * The top bar selector.
 	 */
 	int TOP_BAR = 1;

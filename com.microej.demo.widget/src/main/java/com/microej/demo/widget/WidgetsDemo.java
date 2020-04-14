@@ -86,7 +86,6 @@ public class WidgetsDemo {
 
 	private static TransitionContainer newTransitionContainer() {
 		if (USE_SCREENSHOT_TRANSITION) {
-			// return new SplashScreenshotTransitionContainer(false);
 			return new SlideScreenshotTransitionContainer(SlideDirection.LEFT, false, false);
 		} else {
 			return new SlideTransitionContainer(SlideDirection.LEFT, false);

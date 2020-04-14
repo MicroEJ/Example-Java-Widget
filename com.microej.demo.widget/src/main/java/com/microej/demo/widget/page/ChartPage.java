@@ -16,6 +16,7 @@ import ej.widget.chart.LineChart;
 import ej.widget.chart.format.DecimalsChartFormat;
 import ej.widget.chart.scale.AdaptiveChartScale;
 import ej.widget.container.Split;
+import ej.widget.container.util.LayoutOrientation;
 import ej.widget.listener.OnClickListener;
 
 /**
@@ -41,7 +42,7 @@ public class ChartPage extends AbstractDemoPage {
 		Chart chart = new BarChart();
 		loadChart(chart);
 
-		final Split split = new Split(false, SPLIT_RATIO);
+		final Split split = new Split(LayoutOrientation.VERTICAL, SPLIT_RATIO);
 
 		final Button switchButton = new Button(SWITCH_TO_LINE);
 		switchButton.addClassSelector(ClassSelectors.SWITCH_BUTTON);

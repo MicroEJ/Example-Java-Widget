@@ -12,6 +12,7 @@ import ej.widget.basic.Button;
 import ej.widget.composed.ToggleWrapper;
 import ej.widget.composed.Wrapper;
 import ej.widget.container.Grid;
+import ej.widget.container.util.LayoutOrientation;
 import ej.widget.toggle.ToggleGroup;
 
 /**
@@ -37,7 +38,7 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		// | check box | radio 2 |
 		// | slider | button |
 
-		Grid grid = new Grid(true, 2);
+		Grid grid = new Grid(LayoutOrientation.HORIZONTAL, 2);
 
 		ToggleWrapper switch_ = newSwitch("Switch"); //$NON-NLS-1$
 		switch_.addClassSelector(ClassSelectors.OPTIMAL_SIZE);

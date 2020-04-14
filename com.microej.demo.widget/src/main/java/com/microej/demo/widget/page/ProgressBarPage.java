@@ -9,6 +9,7 @@ import ej.widget.basic.drawing.CircularProgressBar;
 import ej.widget.basic.drawing.ProgressBar;
 import ej.widget.basic.picto.PictoProgress;
 import ej.widget.container.Grid;
+import ej.widget.container.util.LayoutOrientation;
 
 /**
  * This page illustrates different implementations of a progress bar.
@@ -29,13 +30,13 @@ public class ProgressBarPage extends AbstractDemoPage {
 		// | progress bar |
 		// | circular progress bar - picto progress bar |
 
-		Grid grid = new Grid(true, 1);
+		Grid grid = new Grid(LayoutOrientation.HORIZONTAL, 1);
 
 		ProgressBar progressBar = new ProgressBar(MIN, MAX, INITIAL);
 		progressBar.setIndeterminate(true);
 		grid.add(progressBar);
 
-		Grid splitComposite = new Grid(false, 1);
+		Grid splitComposite = new Grid(LayoutOrientation.VERTICAL, 1);
 		grid.add(splitComposite);
 
 		PictoProgress pictoProgressBar = new PictoProgress(MIN, MAX, INITIAL);

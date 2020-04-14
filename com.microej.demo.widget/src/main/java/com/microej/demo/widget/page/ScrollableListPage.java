@@ -14,6 +14,7 @@ import ej.service.ServiceFactory;
 import ej.widget.basic.Label;
 import ej.widget.container.List;
 import ej.widget.container.Scroll;
+import ej.widget.container.util.LayoutOrientation;
 
 /**
  * This page illustrates the scrollable list.
@@ -40,7 +41,7 @@ public class ScrollableListPage extends AbstractDemoPage {
 		// ...
 		// Item n-1
 		// Item n
-		this.listComposite = new List(false);
+		this.listComposite = new List(LayoutOrientation.VERTICAL);
 
 		addItems(1, FIRST_SHOT_COUNT);
 

@@ -20,7 +20,6 @@ import ej.mwt.animation.Animator;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.style.util.StyleHelper;
-import ej.mwt.util.OutlineThickness;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
 import ej.widget.ElementAdapter;
@@ -102,12 +101,9 @@ public abstract class BasicChart extends Chart implements Animation {
 	@Override
 	public boolean handleEvent(int event) {
 		if (Event.getType(event) == Event.POINTER) {
-			OutlineThickness margin = new OutlineThickness();
-			getStyle().getMargin().wrap(margin);
-
 			Pointer pointer = (Pointer) Event.getGenerator(event);
-			int pointerX = pointer.getX() - getAbsoluteX() - margin.getLeft();
-			int pointerY = pointer.getY() - getAbsoluteY() - margin.getTop();
+			int pointerX = pointer.getX() - getAbsoluteX() - getContentX();
+			int pointerY = pointer.getY() - getAbsoluteY() - getContentY();
 
 			int action = Pointer.getAction(event);
 			switch (action) {
@@ -124,8 +120,8 @@ public abstract class BasicChart extends Chart implements Animation {
 	 * Handles pointer pressed events
 	 */
 	private void onPointerPressed(int pointerX, int pointerY) {
-		int xStart = getContentX();
-		int xEnd = xStart + getContentWidth();
+		int xStart = getChartX();
+		int xEnd = xStart + getChartWidth();
 		if (pointerX >= xStart && pointerX < xEnd) {
 			int selectedPoint = getPoints().size() * (pointerX - xStart) / (xEnd - xStart);
 			selectPoint(new Integer(selectedPoint));
@@ -280,14 +276,12 @@ public abstract class BasicChart extends Chart implements Animation {
 	 *
 	 * @return the content x coordinate.
 	 */
-	@Override
-	protected abstract int getContentX();
+	protected abstract int getChartX();
 
 	/**
 	 * Gets the content width.
 	 *
 	 * @return the content width.
 	 */
-	@Override
-	protected abstract int getContentWidth();
+	protected abstract int getChartWidth();
 }

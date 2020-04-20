@@ -158,19 +158,13 @@ public class LineChart extends BasicChart {
 		}
 	}
 
-	/**
-	 * Gets content X
-	 */
 	@Override
-	public int getContentX() {
+	public int getChartX() {
 		return LEFT_PADDING - (int) (this.xStep / 2);
 	}
 
-	/**
-	 * Gets content width
-	 */
 	@Override
-	public int getContentWidth() {
+	public int getChartWidth() {
 		return (int) (getPoints().size() * this.xStep);
 	}
 }

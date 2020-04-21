@@ -22,7 +22,7 @@ import ej.microui.event.generator.Pointer;
 import ej.mwt.Container;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
-import ej.mwt.style.text.TextManager;
+import ej.mwt.style.text.TextStyle;
 import ej.mwt.style.util.StyleHelper;
 import ej.mwt.util.Rectangle;
 import ej.mwt.util.Size;
@@ -435,7 +435,7 @@ public class KeyboardText extends Container implements EventHandler {
 		this.clearButtonElement.initializeStyle();
 		Style style = getStyle();
 		Font font = StyleHelper.getFont(style);
-		style.getTextManager().computeContentSize(getTextOrPlaceHolder(), font, availableSize);
+		style.getTextStyle().computeContentSize(getTextOrPlaceHolder(), font, availableSize);
 		// Add selection thickness.
 		availableSize.addOutline(1, 1, 0, 0);
 	}
@@ -500,7 +500,7 @@ public class KeyboardText extends Container implements EventHandler {
 	public void renderContent(GraphicsContext g, Size size) {
 		Style style = getStyle();
 		Font font = StyleHelper.getFont(style);
-		TextManager textManager = style.getTextManager();
+		TextStyle textManager = style.getTextStyle();
 		// Keep call to getText() for subclasses (such as Password).
 		String text = getText();
 		int alignment = style.getAlignment();
@@ -625,7 +625,7 @@ public class KeyboardText extends Container implements EventHandler {
 		int y = getRelativeY(pointerY);
 		Style style = getStyle();
 		Rectangle remainingBounds = new Rectangle(getContentX(), getContentY(), getContentWidth(), getContentHeight());
-		return style.getTextManager().getIndex(x, y, getText(), StyleHelper.getFont(style), remainingBounds,
+		return style.getTextStyle().getIndex(x, y, getText(), StyleHelper.getFont(style), remainingBounds,
 				style.getAlignment());
 	}
 

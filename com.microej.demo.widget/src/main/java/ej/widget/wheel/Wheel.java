@@ -170,7 +170,7 @@ public class Wheel extends Widget {
 
 		Style style = getStyle();
 		Font font = StyleHelper.getFont(style);
-		style.getTextManager().computeContentSize(string, font, size);
+		style.getTextStyle().computeContentSize(string, font, size);
 	}
 
 	private void stopAnimation() {

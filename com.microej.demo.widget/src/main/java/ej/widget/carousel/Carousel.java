@@ -22,7 +22,7 @@ import ej.motion.linear.LinearMotion;
 import ej.motion.quad.QuadEaseOutMotion;
 import ej.mwt.Widget;
 import ej.mwt.style.Style;
-import ej.mwt.style.text.TextManager;
+import ej.mwt.style.text.TextStyle;
 import ej.mwt.style.util.StyleHelper;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
@@ -238,7 +238,7 @@ public class Carousel extends Widget {
 
 		// set text style
 		Font font = StyleHelper.getFont(style);
-		TextManager tm = style.getTextManager();
+		TextStyle tm = style.getTextStyle();
 
 		// update goto anim step
 		if (this.gotoAnimDistance != 0) {
@@ -280,7 +280,7 @@ public class Carousel extends Widget {
 		}
 	}
 
-	private void drawEntry(GraphicsContext g, Size size, Font font, TextManager tm, int entryIndex, boolean selected,
+	private void drawEntry(GraphicsContext g, Size size, Font font, TextStyle tm, int entryIndex, boolean selected,
 			int totalDrag, boolean stopped) {
 		// calculate position and size
 		int offsetX = entryIndex * this.entryWidth + totalDrag;

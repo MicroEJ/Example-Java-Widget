@@ -14,7 +14,7 @@ import ej.microui.display.GraphicsContext;
 import ej.microui.display.Image;
 import ej.microui.display.Painter;
 import ej.mwt.style.container.Alignment;
-import ej.mwt.style.text.TextManager;
+import ej.mwt.style.text.TextStyle;
 import ej.mwt.util.Size;
 import ej.widget.listener.OnClickListener;
 
@@ -105,7 +105,7 @@ public class CarouselEntry {
 	 * @param isDND
 	 *            whether the entry is being dragged
 	 */
-	public void render(GraphicsContext g, Size size, Font font, TextManager tm, boolean inDND, boolean stopped,
+	public void render(GraphicsContext g, Size size, Font font, TextStyle tm, boolean inDND, boolean stopped,
 			boolean clicked, boolean selected, float sizeRatio, int offsetX, int offsetY, boolean isDND) {
 		// draw background
 		int imageWidth = Math.round(this.image.getWidth() * sizeRatio);

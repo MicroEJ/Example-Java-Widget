@@ -30,8 +30,8 @@ import ej.mwt.style.selector.OddChildSelector;
 import ej.mwt.style.selector.StateSelector;
 import ej.mwt.style.selector.TypeSelector;
 import ej.mwt.style.selector.combinator.AndCombinator;
-import ej.mwt.style.text.ComplexTextManager;
-import ej.mwt.style.text.SimpleTextManager;
+import ej.mwt.style.text.LineWrapTextStyle;
+import ej.mwt.style.text.SingleLineTextStyle;
 import ej.mwt.style.util.StyleHelper;
 import ej.widget.basic.Label;
 import ej.widget.basic.drawing.CheckBox;
@@ -173,7 +173,7 @@ public class StylesheetPopulator {
 
 		// Sets the multiline style.
 		style.clear();
-		style.setTextManager(new ComplexTextManager(25));
+		style.setTextStyle(new LineWrapTextStyle(25));
 		style.setPadding(new FlexibleOutline(0, 0, 20, 0));
 		stylesheet.addRule(new ClassSelector(ClassSelectors.MULTILINE), style);
 
@@ -376,7 +376,7 @@ public class StylesheetPopulator {
 		textStyle.setBackground(NoBackground.NO_BACKGROUND);
 		textStyle.setBorder(new FlexibleRectangularBorder(FOREGROUND, 0, 0, 1, 0));
 		textStyle.setAlignment(Alignment.LEFT | Alignment.VCENTER);
-		textStyle.setTextManager(SimpleTextManager.SIMPLE_TEXT_MANAGER);
+		textStyle.setTextStyle(SingleLineTextStyle.SINGLE_LINE_TEXT_STYLE);
 		textStyle.setMargin(new UniformOutline(5));
 		textStyle.setPadding(new FlexibleOutline(0, 1, 1, 1));
 		TypeSelector textSelector = new TypeSelector(KeyboardText.class);

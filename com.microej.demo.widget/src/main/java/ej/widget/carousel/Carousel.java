@@ -210,7 +210,7 @@ public class Carousel extends Widget {
 		// Repaint one more time for an optimized rendering.
 		if (!this.stopped || !stopped) {
 			this.stopped = stopped;
-			requestPaint();
+			requestRender();
 		}
 		this.stopped = stopped;
 	}

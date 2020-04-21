@@ -104,7 +104,7 @@ public abstract class Chart extends Container {
 			}
 
 			// repaint the chart
-			requestPaint();
+			requestRender();
 		}
 	}
 
@@ -159,7 +159,7 @@ public abstract class Chart extends Container {
 			maxValue = Math.max(maxValue, point.getValue());
 		}
 		this.scale.setMaxPointValue(maxValue);
-		requestPaint();
+		requestRender();
 	}
 
 	/**
@@ -170,7 +170,7 @@ public abstract class Chart extends Container {
 	 */
 	public void setUnit(String unit) {
 		this.unit = unit;
-		requestPaint();
+		requestRender();
 	}
 
 	/**
@@ -190,7 +190,7 @@ public abstract class Chart extends Container {
 	 */
 	public void setFormat(ChartFormat format) {
 		this.format = format;
-		requestPaint();
+		requestRender();
 	}
 
 	/**

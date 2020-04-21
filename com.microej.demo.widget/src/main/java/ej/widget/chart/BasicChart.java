@@ -83,7 +83,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	@Override
 	public boolean tick(long currentTimeMillis) {
 		this.currentApparitionStep = this.motion.getCurrentValue();
-		requestPaint();
+		requestRender();
 		return !this.motion.isFinished();
 	}
 

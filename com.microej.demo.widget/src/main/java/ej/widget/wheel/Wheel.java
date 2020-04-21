@@ -218,7 +218,7 @@ public class Wheel extends Widget {
 			this.spinOffset = computeSpinOffset(distanceDragged, this.spinOffset);
 			this.currentIndexDiff = computeIndexDiff(this.pressPointerCoordinate - pointerCoordinate);
 			this.lastPointerCoordinate = pointerCoordinate;
-			requestPaint();
+			requestRender();
 		}
 		return true;
 	}
@@ -309,7 +309,7 @@ public class Wheel extends Widget {
 				wheel.currentIndexDiff = 0;
 				int newCurrentIndex = wheel.model.getCurrentIndex() + currentIndexDiffToBe;
 				wheel.model.setCurrentIndex(newCurrentIndex);
-				requestPaint();
+				requestRender();
 			}
 
 			@Override
@@ -318,7 +318,7 @@ public class Wheel extends Widget {
 				wheel.getGroup().setWheelActive(wheel, true);
 				wheel.spinOffset = computeSpinOffset(value, 0);
 				wheel.currentIndexDiff = computeIndexDiff(-value);
-				requestPaint();
+				requestRender();
 			}
 
 			@Override

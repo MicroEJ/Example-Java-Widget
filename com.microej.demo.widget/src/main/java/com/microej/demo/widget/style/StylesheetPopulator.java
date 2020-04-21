@@ -10,6 +10,7 @@ import ej.microui.display.Font;
 import ej.microui.display.Image;
 import ej.mwt.Widget;
 import ej.mwt.style.Selector;
+import ej.mwt.style.Stylesheet;
 import ej.mwt.style.background.NoBackground;
 import ej.mwt.style.background.PlainBackground;
 import ej.mwt.style.background.SimpleRoundedPlainBackground;
@@ -32,7 +33,6 @@ import ej.mwt.style.selector.TypeSelector;
 import ej.mwt.style.selector.combinator.AndCombinator;
 import ej.mwt.style.text.ComplexTextManager;
 import ej.mwt.style.text.SimpleTextManager;
-import ej.mwt.style.util.StyleHelper;
 import ej.widget.basic.Label;
 import ej.widget.basic.drawing.CheckBox;
 import ej.widget.basic.drawing.CircularProgressBar;
@@ -85,11 +85,12 @@ public class StylesheetPopulator {
 	}
 
 	/**
-	 * Populates the stylesheet.
+	 * Creates the stylesheet.
+	 *
+	 * @return the stylesheet.
 	 */
-	public static void initialize() {
+	public static Stylesheet createStylesheet() {
 		CascadingStylesheet stylesheet = new CascadingStylesheet();
-		StyleHelper.setStylesheet(stylesheet);
 
 		// Sets the default style.
 		StyleBuilder defaultStyle = new StyleBuilder();
@@ -191,6 +192,8 @@ public class StylesheetPopulator {
 		initializeChartStyle(stylesheet);
 
 		initializeDateStyle(stylesheet);
+
+		return stylesheet;
 	}
 
 	private static void initializeWidgetsStyle(CascadingStylesheet stylesheet) {

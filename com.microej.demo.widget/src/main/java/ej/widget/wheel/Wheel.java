@@ -21,7 +21,6 @@ import ej.motion.util.MotionListener;
 import ej.mwt.Widget;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
-import ej.mwt.style.util.StyleHelper;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
 import ej.widget.util.color.GradientHelper;
@@ -100,7 +99,7 @@ public class Wheel extends Widget {
 		int foregroundColor = style.getForegroundColor();
 		int backgroundColor = style.getBackgroundColor();
 		g.setColor(foregroundColor);
-		Font font = StyleHelper.getFont(style);
+		Font font = getDesktop().getFont(style);
 		drawString(g, font, this.model.getValueAsString(currentVisibleIndex), x, y, Alignment.HCENTER_VCENTER);
 
 		// Draws the previous values.
@@ -169,7 +168,7 @@ public class Wheel extends Widget {
 		String string = this.model.getValueAsString(currentVisibleIndex);
 
 		Style style = getStyle();
-		Font font = StyleHelper.getFont(style);
+		Font font = getDesktop().getFont(style);
 		style.getTextManager().computeContentSize(string, font, size);
 	}
 

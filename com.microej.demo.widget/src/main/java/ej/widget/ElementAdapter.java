@@ -7,6 +7,7 @@ package ej.widget;
 
 import ej.microui.display.GraphicsContext;
 import ej.mwt.Container;
+import ej.mwt.Desktop;
 import ej.mwt.Widget;
 import ej.mwt.util.Size;
 
@@ -15,10 +16,7 @@ import ej.mwt.util.Size;
  */
 public class ElementAdapter extends Widget {
 
-	private Container parent;
-
-	public ElementAdapter() {
-	}
+	private final Container parent;
 
 	public ElementAdapter(Container parent) {
 		this.parent = parent;
@@ -27,6 +25,11 @@ public class ElementAdapter extends Widget {
 	@Override
 	public Container getParent() {
 		return this.parent;
+	}
+
+	@Override
+	public Desktop getDesktop() {
+		return this.parent.getDesktop();
 	}
 
 	@Override

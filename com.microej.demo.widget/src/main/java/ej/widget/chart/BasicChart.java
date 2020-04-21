@@ -19,7 +19,6 @@ import ej.mwt.animation.Animation;
 import ej.mwt.animation.Animator;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
-import ej.mwt.style.util.StyleHelper;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
 import ej.widget.ElementAdapter;
@@ -52,7 +51,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	 */
 	public BasicChart() {
 		super();
-		this.selectedValueElement = new ElementAdapter();
+		this.selectedValueElement = new ElementAdapter(this);
 		this.selectedValueElement.addClassSelector(ClassSelectors.SELECTED_VALUE);
 	}
 
@@ -143,7 +142,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	 *            the value on the top of the chart.
 	 */
 	protected void renderScale(GraphicsContext g, Style style, Size size, float topValue) {
-		Font font = StyleHelper.getFont(style);
+		Font font = getDesktop().getFont(style);
 		int fontHeight = font.getHeight();
 
 		int yBarBottom = getBarBottom(fontHeight, size);
@@ -211,7 +210,7 @@ public abstract class BasicChart extends Chart implements Animation {
 			}
 
 			Style labelStyle = this.selectedValueElement.getStyle();
-			Font labelFont = StyleHelper.getFont(labelStyle);
+			Font labelFont = getDesktop().getFont(labelStyle);
 
 			int labelW = labelFont.stringWidth(labelString) + 2 * SELECTED_VALUE_PADDING;
 			int labelX = (size.getWidth() - labelW) / 2;
@@ -226,11 +225,11 @@ public abstract class BasicChart extends Chart implements Animation {
 	protected void computeContentOptimalSize(Size availableSize) {
 		Style style = getStyle();
 		initializePointsStyle();
-		this.selectedValueElement.initializeStyle();
+		this.selectedValueElement.updateStyle();
 
 		int height = availableSize.getHeight();
 		int width = availableSize.getWidth();
-		int fontHeight = StyleHelper.getFont(style).getHeight();
+		int fontHeight = getDesktop().getFont(style).getHeight();
 		if (height == Widget.NO_CONSTRAINT) {
 			height = 4 * fontHeight;
 		}

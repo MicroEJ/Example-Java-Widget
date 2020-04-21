@@ -134,7 +134,7 @@ public class Key extends Wrapper {
 			switch (action) {
 			case Pointer.PRESSED:
 				this.pressed = true;
-				updateStyle();
+				updateStyleRecursiveAndRepaint();
 				this.onClickListener.onClick();
 				startRepeatTask();
 				break;
@@ -142,7 +142,7 @@ public class Key extends Wrapper {
 				if (this.pressed) {
 					// Update button state & style before external handling.
 					this.pressed = false;
-					updateStyle();
+					updateStyleRecursiveAndRepaint();
 					stopRepeatTask();
 					return true;
 				}
@@ -151,7 +151,7 @@ public class Key extends Wrapper {
 			case Pointer.EXITED:
 				if (this.pressed) {
 					this.pressed = false;
-					updateStyle();
+					updateStyleRecursiveAndRepaint();
 					stopRepeatTask();
 				}
 				break;

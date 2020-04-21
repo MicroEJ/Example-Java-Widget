@@ -6,8 +6,6 @@
 package ej.widget.chart;
 
 import ej.mwt.Container;
-import ej.mwt.style.Style;
-import ej.mwt.style.util.StyleHelper;
 import ej.widget.ElementAdapter;
 import ej.widget.util.States;
 
@@ -22,13 +20,14 @@ public class ChartPoint extends ElementAdapter {
 	private String name;
 	private String fullName;
 	private float value;
-	private Container parentElement;
 	private boolean highlighted;
 	private boolean selected;
 
 	/**
 	 * Constructor
-	 *
+	 * 
+	 * @param parent
+	 *            the parent.
 	 * @param name
 	 *            the name.
 	 * @param fullName
@@ -36,12 +35,11 @@ public class ChartPoint extends ElementAdapter {
 	 * @param value
 	 *            the value.
 	 */
-	public ChartPoint(String name, String fullName, float value) {
-		super();
+	public ChartPoint(Container parent, String name, String fullName, float value) {
+		super(parent);
 		this.name = name;
 		this.fullName = fullName;
 		this.value = value;
-		this.parentElement = null;
 		this.highlighted = false;
 		this.selected = false;
 	}
@@ -103,37 +101,10 @@ public class ChartPoint extends ElementAdapter {
 		this.value = value;
 	}
 
-	/**
-	 * Gets the parentElement.
-	 *
-	 * @return parentElement the parentElement.
-	 */
 	@Override
-	public Container getParent() {
-		return this.parentElement;
-	}
-
-	/**
-	 * Sets the parentElement.
-	 *
-	 * @param parentElement
-	 *            the parentElement to set.
-	 */
-	public void setParentElement(Container parentElement) {
-		this.parentElement = parentElement;
-	}
-
-	@Override
-	public boolean updateStyleOnly() {
-		if (this.parentElement != null) {
-			Style newStyle = StyleHelper.getStylesheet().getStyle(this);
-
-			if (!newStyle.equals(getStyle())) {
-				setStyle(newStyle);
-				return true;
-			}
-		}
-		return false;
+	public void updateStyleRecursive() {
+		// don't check if this "widget" is shown
+		updateStyle();
 	}
 
 	/**
@@ -144,7 +115,7 @@ public class ChartPoint extends ElementAdapter {
 	 */
 	public void setHighlighted(boolean highlighted) {
 		this.highlighted = highlighted;
-		this.updateStyle();
+		this.updateStyleRecursiveAndRepaint();
 	}
 
 	/**
@@ -155,7 +126,7 @@ public class ChartPoint extends ElementAdapter {
 	 */
 	public void setSelected(boolean selected) {
 		this.selected = selected;
-		this.updateStyleOnly();
+		this.updateStyleRecursive();
 	}
 
 	/**

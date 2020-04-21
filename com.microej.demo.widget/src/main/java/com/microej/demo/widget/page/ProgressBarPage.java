@@ -34,18 +34,18 @@ public class ProgressBarPage extends AbstractDemoPage {
 
 		ProgressBar progressBar = new ProgressBar(MIN, MAX, INITIAL);
 		progressBar.setIndeterminate(true);
-		grid.add(progressBar);
+		grid.addChild(progressBar);
 
 		Grid splitComposite = new Grid(LayoutOrientation.VERTICAL, 1);
-		grid.add(splitComposite);
+		grid.addChild(splitComposite);
 
 		PictoProgress pictoProgressBar = new PictoProgress(MIN, MAX, INITIAL);
 		pictoProgressBar.setIndeterminate(true);
-		splitComposite.add(pictoProgressBar);
+		splitComposite.addChild(pictoProgressBar);
 
 		CircularProgressBar circularProgressBar = new CircularProgressBar(MIN, MAX, INITIAL);
 		circularProgressBar.setIndeterminate(true);
-		splitComposite.add(circularProgressBar);
+		splitComposite.addChild(circularProgressBar);
 
 		setCenter(grid);
 	}

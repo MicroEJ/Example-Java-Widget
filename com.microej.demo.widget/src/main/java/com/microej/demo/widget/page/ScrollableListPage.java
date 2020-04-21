@@ -54,7 +54,7 @@ public class ScrollableListPage extends AbstractDemoPage {
 		for (int i = start; i <= end; i++) {
 			Label item = new Label(ITEM_PREFIX + i);
 			item.addClassSelector(ClassSelectors.LIST_ITEM);
-			this.listComposite.add(item);
+			this.listComposite.addChild(item);
 		}
 	}
 

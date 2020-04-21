@@ -27,16 +27,16 @@ public class MainPage extends AbstractDemoPage {
 		super(true, "MicroEJ Widgets"); //$NON-NLS-1$
 
 		List listComposite = new List(LayoutOrientation.VERTICAL);
-		listComposite.add(newSelectableItem("Basic widgets - Picto", PictoWidgetPage.class)); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Basic widgets - Image", ImageWidgetPage.class)); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Basic widgets - Drawing", VectorWidgetPage.class)); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Progress bar", ProgressBarPage.class)); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Scrollable list", ScrollableListPage.class)); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Scrollable text", ScrollableTextPage.class)); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Keyboard", KeyboardPage.class)); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Chart", ChartPage.class)); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Wheel", DatePage.class)); //$NON-NLS-1$
-		listComposite.add(newSelectableItem("Carousel", CarouselPage.class)); //$NON-NLS-1$
+		listComposite.addChild(newSelectableItem("Basic widgets - Picto", PictoWidgetPage.class)); //$NON-NLS-1$
+		listComposite.addChild(newSelectableItem("Basic widgets - Image", ImageWidgetPage.class)); //$NON-NLS-1$
+		listComposite.addChild(newSelectableItem("Basic widgets - Drawing", VectorWidgetPage.class)); //$NON-NLS-1$
+		listComposite.addChild(newSelectableItem("Progress bar", ProgressBarPage.class)); //$NON-NLS-1$
+		listComposite.addChild(newSelectableItem("Scrollable list", ScrollableListPage.class)); //$NON-NLS-1$
+		listComposite.addChild(newSelectableItem("Scrollable text", ScrollableTextPage.class)); //$NON-NLS-1$
+		listComposite.addChild(newSelectableItem("Keyboard", KeyboardPage.class)); //$NON-NLS-1$
+		listComposite.addChild(newSelectableItem("Chart", ChartPage.class)); //$NON-NLS-1$
+		listComposite.addChild(newSelectableItem("Wheel", DatePage.class)); //$NON-NLS-1$
+		listComposite.addChild(newSelectableItem("Carousel", CarouselPage.class)); //$NON-NLS-1$
 		Scroll scroll = new Scroll(false, true);
 		scroll.setWidget(listComposite);
 		setCenter(scroll);

@@ -49,8 +49,8 @@ public class ScrollableTextPage extends AbstractDemoPage {
 		descriptionLabel.addClassSelector(ClassSelectors.MULTILINE);
 		descriptionLabel.setText(description);
 
-		listComposite.add(titleLabel);
-		listComposite.add(descriptionLabel);
+		listComposite.addChild(titleLabel);
+		listComposite.addChild(descriptionLabel);
 	}
 
 	private String read(String filename) {

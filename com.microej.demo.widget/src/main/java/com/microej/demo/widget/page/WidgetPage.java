@@ -42,26 +42,26 @@ public abstract class WidgetPage extends AbstractDemoPage {
 
 		ToggleWrapper switch_ = newSwitch("Switch"); //$NON-NLS-1$
 		switch_.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
-		grid.add(switch_);
+		grid.addChild(switch_);
 
 		ToggleGroup toggleGroup = new ToggleGroup();
 
 		ToggleWrapper radio1 = newRadioButton("Radio1"); //$NON-NLS-1$
 		radio1.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
-		grid.add(radio1);
+		grid.addChild(radio1);
 		toggleGroup.addToggle(radio1.getToggle());
 
 		ToggleWrapper checkbox = newCheckBox("Checkbox"); //$NON-NLS-1$
 		checkbox.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
-		grid.add(checkbox);
+		grid.addChild(checkbox);
 
 		ToggleWrapper radio2 = newRadioButton("Radio2"); //$NON-NLS-1$
 		radio2.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
 		toggleGroup.addToggle(radio2.getToggle());
-		grid.add(radio2);
+		grid.addChild(radio2);
 
 		AbstractSlider slider = newSlider(MIN_VALUE, MAX_VALUE, INITIAL_VALUE);
-		grid.add(slider);
+		grid.addChild(slider);
 
 		Wrapper buttonWrapper = new Wrapper();
 		buttonWrapper.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
@@ -69,7 +69,7 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		button.addClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
 		buttonWrapper.setWidget(button);
 		buttonWrapper.addClassSelector(ClassSelectors.CENTERED);
-		grid.add(buttonWrapper);
+		grid.addChild(buttonWrapper);
 
 		setCenter(grid);
 	}

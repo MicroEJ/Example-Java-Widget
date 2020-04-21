@@ -97,8 +97,8 @@ public class WheelGroup extends List {
 	}
 
 	@Override
-	public void add(Widget widget) {
-		super.add(widget);
+	public void addChild(Widget widget) {
+		super.addChild(widget);
 
 		if (widget instanceof Wheel) {
 			this.activeWheels.put((Wheel) widget, Boolean.valueOf(false));
@@ -106,8 +106,8 @@ public class WheelGroup extends List {
 	}
 
 	@Override
-	public void remove(Widget widget) {
-		super.remove(widget);
+	public void removeChild(Widget widget) {
+		super.removeChild(widget);
 
 		if (widget instanceof Wheel) {
 			this.activeWheels.remove(widget);
@@ -115,8 +115,8 @@ public class WheelGroup extends List {
 	}
 
 	@Override
-	public void removeAllWidgets() {
-		super.removeAllWidgets();
+	public void removeAllChildren() {
+		super.removeAllChildren();
 
 		this.activeWheels.clear();
 	}

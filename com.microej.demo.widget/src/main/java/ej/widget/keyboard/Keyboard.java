@@ -294,7 +294,7 @@ public class Keyboard extends Container {
 
 	private void add(Key key, Row row, int colIndex, int colspan) {
 		row.cells.add(new Cell(key, colIndex, colspan));
-		super.add(key);
+		super.addChild(key);
 	}
 
 	@Override

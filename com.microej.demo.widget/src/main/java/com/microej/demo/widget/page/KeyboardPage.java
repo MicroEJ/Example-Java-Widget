@@ -100,9 +100,9 @@ public class KeyboardPage extends AbstractDemoPage {
 
 		// list
 		List list = new List(LayoutOrientation.VERTICAL);
-		list.add(this.firstName);
-		list.add(this.lastName);
-		list.add(this.resultLabel);
+		list.addChild(this.firstName);
+		list.addChild(this.lastName);
+		list.addChild(this.resultLabel);
 		list.addClassSelector(ClassSelectors.FORM);
 
 		// scroll
@@ -145,7 +145,7 @@ public class KeyboardPage extends AbstractDemoPage {
 	 * Hides the keyboard
 	 */
 	protected void hideKeyboard() {
-		remove(this.keyboard);
+		removeChild(this.keyboard);
 		requestLayOut();
 	}
 

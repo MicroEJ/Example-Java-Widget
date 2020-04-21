@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 
 import ej.mwt.Widget;
 import ej.widget.container.List;
+import ej.widget.container.util.LayoutOrientation;
 
 /**
  * Represents a group of wheels
@@ -31,7 +32,7 @@ public class WheelGroup extends List {
 	 *            The maximum number of active wheels
 	 */
 	public WheelGroup(int numSideValues, int maxActiveWheels) {
-		super(true);
+		super(LayoutOrientation.HORIZONTAL);
 		this.numSideValues = numSideValues;
 		this.maxActiveWheels = maxActiveWheels;
 		this.activeWheels = new HashMap<>();

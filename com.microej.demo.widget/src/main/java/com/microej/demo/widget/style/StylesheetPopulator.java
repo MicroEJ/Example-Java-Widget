@@ -29,9 +29,7 @@ import ej.mwt.style.selector.ClassSelector;
 import ej.mwt.style.selector.OddChildSelector;
 import ej.mwt.style.selector.StateSelector;
 import ej.mwt.style.selector.TypeSelector;
-import ej.mwt.style.selector.UniversalSelector;
 import ej.mwt.style.selector.combinator.AndCombinator;
-import ej.mwt.style.selector.combinator.ChildCombinator;
 import ej.mwt.style.text.ComplexTextManager;
 import ej.mwt.style.text.SimpleTextManager;
 import ej.mwt.style.util.StyleHelper;
@@ -118,8 +116,6 @@ public class StylesheetPopulator {
 		// Sets the optimal size style.
 		style.clear();
 		style.setDimension(OptimalDimension.OPTIMAL_DIMENSION_XY);
-		stylesheet.addRule(new ChildCombinator(new ClassSelector(ClassSelectors.OPTIMAL_SIZE),
-				UniversalSelector.UNIVERSAL_SELECTOR), style);
 		stylesheet.addRule(new ClassSelector(ClassSelectors.OPTIMAL_SIZE), style);
 
 		// Sets the top bar style.

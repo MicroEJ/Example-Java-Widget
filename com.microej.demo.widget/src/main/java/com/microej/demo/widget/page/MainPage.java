@@ -12,6 +12,7 @@ import ej.mwt.Widget;
 import ej.widget.basic.Button;
 import ej.widget.container.List;
 import ej.widget.container.Scroll;
+import ej.widget.container.util.LayoutOrientation;
 import ej.widget.listener.OnClickListener;
 
 /**
@@ -25,7 +26,7 @@ public class MainPage extends AbstractDemoPage {
 	public MainPage() {
 		super(true, "MicroEJ Widgets"); //$NON-NLS-1$
 
-		List listComposite = new List(false);
+		List listComposite = new List(LayoutOrientation.VERTICAL);
 		listComposite.add(newSelectableItem("Basic widgets - Picto", PictoWidgetPage.class)); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Basic widgets - Image", ImageWidgetPage.class)); //$NON-NLS-1$
 		listComposite.add(newSelectableItem("Basic widgets - Drawing", VectorWidgetPage.class)); //$NON-NLS-1$

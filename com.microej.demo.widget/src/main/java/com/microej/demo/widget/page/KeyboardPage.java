@@ -17,6 +17,7 @@ import ej.service.ServiceFactory;
 import ej.widget.basic.Label;
 import ej.widget.container.List;
 import ej.widget.container.Scroll;
+import ej.widget.container.util.LayoutOrientation;
 import ej.widget.keyboard.Keyboard;
 import ej.widget.keyboard.KeyboardText;
 import ej.widget.keyboard.Layout;
@@ -98,7 +99,7 @@ public class KeyboardPage extends AbstractDemoPage {
 		this.resultLabel.addClassSelector(ClassSelectors.RESULT_LABEL);
 
 		// list
-		List list = new List(false);
+		List list = new List(LayoutOrientation.VERTICAL);
 		list.add(this.firstName);
 		list.add(this.lastName);
 		list.add(this.resultLabel);

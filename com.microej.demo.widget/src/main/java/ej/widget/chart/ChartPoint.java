@@ -25,7 +25,7 @@ public class ChartPoint extends ElementAdapter {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param parent
 	 *            the parent.
 	 * @param name
@@ -101,12 +101,6 @@ public class ChartPoint extends ElementAdapter {
 		this.value = value;
 	}
 
-	@Override
-	public void updateStyleRecursive() {
-		// don't check if this "widget" is shown
-		updateStyle();
-	}
-
 	/**
 	 * Sets the highlight state.
 	 *
@@ -115,7 +109,8 @@ public class ChartPoint extends ElementAdapter {
 	 */
 	public void setHighlighted(boolean highlighted) {
 		this.highlighted = highlighted;
-		this.updateStyleRecursiveAndRepaint();
+		updateStyle();
+		requestPaint();
 	}
 
 	/**

@@ -23,6 +23,12 @@ public class ElementAdapter extends Widget {
 	}
 
 	@Override
+	public void updateStyleRecursive() {
+		// don't check if this "widget" is shown
+		updateStyle();
+	}
+
+	@Override
 	public Container getParent() {
 		return this.parent;
 	}

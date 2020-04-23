@@ -54,15 +54,15 @@ public class ChartPage extends AbstractDemoPage {
 				this.isBar = !this.isBar;
 				BasicChart newChart = (this.isBar ? new BarChart() : new LineChart(false, true));
 				loadChart(newChart);
-				split.setFirst(newChart);
+				split.setFirstChild(newChart);
 				split.requestLayOut();
 				switchButton.setText(this.isBar ? SWITCH_TO_LINE : SWITCH_TO_BAR);
 			}
 		});
 
-		split.setFirst(chart);
-		split.setLast(switchButton);
-		setCenter(split);
+		split.setFirstChild(chart);
+		split.setLastChild(switchButton);
+		setCenterChild(split);
 	}
 
 	private void loadChart(Chart chart) {

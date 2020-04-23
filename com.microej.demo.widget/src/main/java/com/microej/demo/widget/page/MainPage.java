@@ -38,8 +38,8 @@ public class MainPage extends AbstractDemoPage {
 		listComposite.addChild(newSelectableItem("Wheel", DatePage.class)); //$NON-NLS-1$
 		listComposite.addChild(newSelectableItem("Carousel", CarouselPage.class)); //$NON-NLS-1$
 		Scroll scroll = new Scroll(false, true);
-		scroll.setWidget(listComposite);
-		setCenter(scroll);
+		scroll.setChild(listComposite);
+		setCenterChild(scroll);
 	}
 
 	// A button that leads to the given page.

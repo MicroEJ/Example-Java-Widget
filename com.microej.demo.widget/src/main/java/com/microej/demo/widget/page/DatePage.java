@@ -49,7 +49,7 @@ public class DatePage extends AbstractDemoPage {
 		yearWheel.setModel(yearChoice);
 		wheelGroup.addChild(yearWheel);
 
-		setCenter(wheelGroup);
+		setCenterChild(wheelGroup);
 	}
 
 }

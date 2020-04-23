@@ -49,11 +49,11 @@ public abstract class AbstractDemoPage extends SimpleDock {
 
 		SimpleDock topBar = new SimpleDock(LayoutOrientation.HORIZONTAL);
 		topBar.addClassSelector(ClassSelectors.TOP_BAR);
-		topBar.setCenter(titleLabel);
+		topBar.setCenterChild(titleLabel);
 
 		if (mainPage) {
 			ImagePath exitIcon = new ImagePath(Images.STORE_ICON);
-			topBar.setFirst(exitIcon);
+			topBar.setFirstChild(exitIcon);
 		} else {
 			// Add a back button.
 			ButtonImagePath backButton = new ButtonImagePath("/images/back.png"); //$NON-NLS-1$
@@ -64,9 +64,9 @@ public abstract class AbstractDemoPage extends SimpleDock {
 					WidgetsDemo.showMainPage();
 				}
 			});
-			topBar.setFirst(backButton);
+			topBar.setFirstChild(backButton);
 		}
-		setFirst(topBar);
+		setFirstChild(topBar);
 	}
 
 }

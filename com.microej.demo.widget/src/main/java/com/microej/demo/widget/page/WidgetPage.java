@@ -67,11 +67,11 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		buttonWrapper.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
 		Button button = new Button("Button"); //$NON-NLS-1$
 		button.addClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
-		buttonWrapper.setWidget(button);
+		buttonWrapper.setChild(button);
 		buttonWrapper.addClassSelector(ClassSelectors.CENTERED);
 		grid.addChild(buttonWrapper);
 
-		setCenter(grid);
+		setCenterChild(grid);
 	}
 
 	/**

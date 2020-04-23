@@ -43,7 +43,7 @@ public class Key extends Wrapper {
 		this.onClickListener = null;
 		this.repeatable = false;
 		this.repeatTask = null;
-		setWidget(this.label);
+		setChild(this.label);
 		setEnabled(false);
 	}
 

@@ -58,7 +58,7 @@ public class KeyboardPage extends AbstractDemoPage {
 		setKeyboardLayouts(layouts);
 
 		Widget editionContent = createForm();
-		setCenter(editionContent);
+		setCenterChild(editionContent);
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class KeyboardPage extends AbstractDemoPage {
 
 		// scroll
 		final Scroll scroll = new Scroll(false, false);
-		scroll.setWidget(list);
+		scroll.setChild(list);
 		return scroll;
 	}
 
@@ -136,7 +136,7 @@ public class KeyboardPage extends AbstractDemoPage {
 	protected void showKeyboard() {
 		// show keyboard dialog
 		if (this.keyboard.getParent() != this) {
-			setLast(this.keyboard);
+			setLastChild(this.keyboard);
 			requestLayOut();
 		}
 	}

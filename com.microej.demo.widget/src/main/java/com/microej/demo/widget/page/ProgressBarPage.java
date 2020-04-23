@@ -47,7 +47,7 @@ public class ProgressBarPage extends AbstractDemoPage {
 		circularProgressBar.setIndeterminate(true);
 		splitComposite.addChild(circularProgressBar);
 
-		setCenter(grid);
+		setCenterChild(grid);
 	}
 
 }

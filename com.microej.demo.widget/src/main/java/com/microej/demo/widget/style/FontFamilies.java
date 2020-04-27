@@ -19,9 +19,4 @@ public interface FontFamilies {
 	 * The source sans pro font family.
 	 */
 	String SOURCE_SANS_PRO = "source_sans_pro"; //$NON-NLS-1$
-
-	/**
-	 * The picto font size.
-	 */
-	int PICTO_SIZE = 30;
 }

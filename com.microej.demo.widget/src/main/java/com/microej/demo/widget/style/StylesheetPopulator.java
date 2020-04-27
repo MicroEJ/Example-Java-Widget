@@ -23,7 +23,6 @@ import ej.mwt.style.container.Alignment;
 import ej.mwt.style.dimension.FixedDimension;
 import ej.mwt.style.dimension.OptimalDimension;
 import ej.mwt.style.font.FontProfile;
-import ej.mwt.style.font.FontProfile.FontSize;
 import ej.mwt.style.outline.FlexibleOutline;
 import ej.mwt.style.outline.UniformOutline;
 import ej.mwt.style.selector.ClassSelector;
@@ -96,7 +95,7 @@ public class StylesheetPopulator {
 		StyleBuilder defaultStyle = new StyleBuilder();
 		defaultStyle.setForegroundColor(FOREGROUND);
 		defaultStyle.setBackgroundColor(BACKGROUND);
-		FontProfile defaultFontProfile = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM,
+		FontProfile defaultFontProfile = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM,
 				Font.STYLE_PLAIN);
 		defaultStyle.setFontProfile(defaultFontProfile);
 		defaultStyle.setAlignment(Alignment.LEFT | Alignment.VCENTER);
@@ -122,7 +121,7 @@ public class StylesheetPopulator {
 		// Sets the top bar style.
 		style.clear();
 		style.setPadding(new UniformOutline(7));
-		style.setFontProfile(new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.LARGE, Font.STYLE_PLAIN));
+		style.setFontProfile(new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE, Font.STYLE_PLAIN));
 		style.setForegroundColor(TITLE_FOREGROUND);
 		style.setBorder(new FlexibleRectangularBorder(TITLE_BORDER, 0, 0, 2, 0));
 		style.setDimension(new FixedDimension(Widget.NO_CONSTRAINT, 32));
@@ -215,7 +214,7 @@ public class StylesheetPopulator {
 		StateSelector stateCheckedSelector = new StateSelector(States.CHECKED);
 
 		// The font to use for the most of the picto widgets.
-		FontProfile widgetPictoFontProfile = new FontProfile(FontFamilies.PICTO, FontFamilies.PICTO_SIZE,
+		FontProfile widgetPictoFontProfile = new FontProfile(FontFamilies.PICTO, WidgetsFontLoader.PICTO,
 				Font.STYLE_PLAIN);
 
 		// Sets the picto style.
@@ -361,7 +360,8 @@ public class StylesheetPopulator {
 		specialKeyStyle.setBackgroundColor(MicroEJColors.CORAL);
 		specialKeyStyle.setBackground(new UniformPlainRoundedBackground(KEY_CORNER_RADIUS));
 		specialKeyStyle.setBorder(new UniformRoundedBorder(MicroEJColors.CORAL, KEY_CORNER_RADIUS - 1, 1));
-		FontProfile specialKeyFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM, Font.STYLE_PLAIN);
+		FontProfile specialKeyFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM,
+				Font.STYLE_PLAIN);
 		specialKeyStyle.setFontProfile(specialKeyFont);
 		ClassSelector specialKeySelector = new ClassSelector(ClassSelectors.SPECIAL_KEY_SELECTOR);
 		stylesheet.addRule(specialKeySelector, specialKeyStyle);
@@ -405,7 +405,8 @@ public class StylesheetPopulator {
 		StyleBuilder clearButtonStyle = new StyleBuilder();
 		clearButtonStyle.setAlignment(Alignment.RIGHT | Alignment.VCENTER);
 		clearButtonStyle.setForegroundColor(FOREGROUND);
-		FontProfile clearButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.LARGE, Font.STYLE_PLAIN);
+		FontProfile clearButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE,
+				Font.STYLE_PLAIN);
 		clearButtonStyle.setFontProfile(clearButtonFont);
 		stylesheet.addRule(new ClassSelector(ClassSelectors.CLASS_SELECTOR_CLEAR_BUTTON), clearButtonStyle);
 
@@ -425,7 +426,8 @@ public class StylesheetPopulator {
 		StyleBuilder chartStyle = new StyleBuilder();
 		chartStyle.setForegroundColor(MicroEJColors.CONCRETE_WHITE_25);
 		chartStyle.setBackground(NoBackground.NO_BACKGROUND);
-		FontProfile chartFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.SMALL, Font.STYLE_PLAIN);
+		FontProfile chartFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.SMALL,
+				Font.STYLE_PLAIN);
 		chartStyle.setFontProfile(chartFont);
 		chartStyle.setMargin(new FlexibleOutline(10, 40, 10, 40));
 		stylesheet.addRule(new ClassSelector(ClassSelectors.CHART), chartStyle);
@@ -445,7 +447,7 @@ public class StylesheetPopulator {
 		// Sets the selected chart point value style.
 		StyleBuilder chartPointValueStyle = new StyleBuilder();
 		chartPointValueStyle.setForegroundColor(MicroEJColors.CORAL);
-		FontProfile chartPointValueFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.SMALL,
+		FontProfile chartPointValueFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.SMALL,
 				Font.STYLE_PLAIN);
 		chartPointValueStyle.setFontProfile(chartPointValueFont);
 		Selector chartPointValueSelector = new ClassSelector(ClassSelectors.SELECTED_VALUE);
@@ -458,7 +460,8 @@ public class StylesheetPopulator {
 		switchButtonStyle.setBackgroundColor(MicroEJColors.CORAL);
 		switchButtonStyle.setBackground(new UniformPlainRoundedBackground(BUTTON_CORNER_RADIUS - 1));
 		switchButtonStyle.setBorder(new UniformRoundedBorder(MicroEJColors.CORAL, BUTTON_CORNER_RADIUS, 1));
-		FontProfile switchButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.MEDIUM, Font.STYLE_PLAIN);
+		FontProfile switchButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM,
+				Font.STYLE_PLAIN);
 		switchButtonStyle.setFontProfile(switchButtonFont);
 		switchButtonStyle.setAlignment(Alignment.HCENTER_VCENTER);
 		Selector switchButtonSelector = new ClassSelector(ClassSelectors.SWITCH_BUTTON);
@@ -478,7 +481,8 @@ public class StylesheetPopulator {
 		wheelStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_25);
 		wheelStyle.setBackground(NoBackground.NO_BACKGROUND);
 		// wheelStyle.setBorderColor(WHEEL_LINE_COLOR);
-		FontProfile wheelFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, FontSize.LARGE, Font.STYLE_PLAIN);
+		FontProfile wheelFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE,
+				Font.STYLE_PLAIN);
 		wheelStyle.setFontProfile(wheelFont);
 		stylesheet.addRule(new TypeSelector(Wheel.class), wheelStyle);
 

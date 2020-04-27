@@ -133,16 +133,14 @@ public class Key extends Wrapper {
 			int action = Pointer.getAction(event);
 			switch (action) {
 			case Pointer.PRESSED:
-				this.pressed = true;
-				updateStyle();
+				setPressed(true);
 				this.onClickListener.onClick();
 				startRepeatTask();
 				break;
 			case Pointer.RELEASED:
 				if (this.pressed) {
 					// Update button state & style before external handling.
-					this.pressed = false;
-					updateStyle();
+					setPressed(false);
 					stopRepeatTask();
 					return true;
 				}
@@ -150,8 +148,7 @@ public class Key extends Wrapper {
 				// case Pointer.DRAGGED:
 			case Pointer.EXITED:
 				if (this.pressed) {
-					this.pressed = false;
-					updateStyle();
+					setPressed(false);
 					stopRepeatTask();
 				}
 				break;
@@ -159,6 +156,12 @@ public class Key extends Wrapper {
 			return false;
 		}
 		return super.handleEvent(event);
+	}
+
+	private void setPressed(boolean pressed) {
+		this.pressed = pressed;
+		updateStyleRecursive();
+		requestRender();
 	}
 
 	private void startRepeatTask() {

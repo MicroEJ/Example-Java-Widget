@@ -17,8 +17,6 @@ com.microej.demo.widget.page.CarouselPage
 ej.bon.Timer
 ej.mwt.animation.Animator
 
-ej.mwt.style.font.loader.FontLoader
-com.microej.demo.widget.style.WidgetsFontLoader
 ej.widget.basic.image.ImageTheme
 com.microej.demo.widget.style.WidgetsImageTheme
 

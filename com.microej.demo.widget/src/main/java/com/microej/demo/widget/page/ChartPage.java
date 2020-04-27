@@ -74,7 +74,7 @@ public class ChartPage extends AbstractDemoPage {
 			String name = MONTHS[i].substring(0, 1);
 			String fullName = MONTHS[i];
 			float value = genRandomValue();
-			ChartPoint chartPoint = new ChartPoint(name, fullName, value);
+			ChartPoint chartPoint = new ChartPoint(chart, name, fullName, value);
 			chart.addPoint(chartPoint);
 		}
 

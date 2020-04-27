@@ -59,7 +59,6 @@ public abstract class Chart extends Container {
 	 */
 	public void addPoint(ChartPoint chartPoint) {
 		this.points.add(chartPoint);
-		chartPoint.setParentElement(this);
 	}
 
 	/**
@@ -207,7 +206,7 @@ public abstract class Chart extends Container {
 	 */
 	protected void initializePointsStyle() {
 		for (ChartPoint point : getPoints()) {
-			point.initializeStyle();
+			point.updateStyle();
 		}
 	}
 

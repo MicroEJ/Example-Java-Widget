@@ -23,7 +23,6 @@ import ej.mwt.Container;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.style.text.TextStyle;
-import ej.mwt.style.util.StyleHelper;
 import ej.mwt.util.Rectangle;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
@@ -271,7 +270,8 @@ public class KeyboardText extends Container implements EventHandler {
 
 	private void updateEmptyState(boolean wasEmpty, boolean isEmpty) {
 		if (wasEmpty != isEmpty) {
-			updateStyle();
+			updateStyleRecursive();
+			requestRender();
 		}
 	}
 
@@ -431,10 +431,10 @@ public class KeyboardText extends Container implements EventHandler {
 
 	@Override
 	public void computeContentOptimalSize(Size availableSize) {
-		this.selectionElement.initializeStyle();
-		this.clearButtonElement.initializeStyle();
+		this.selectionElement.updateStyle();
+		this.clearButtonElement.updateStyle();
 		Style style = getStyle();
-		Font font = StyleHelper.getFont(style);
+		Font font = getDesktop().getFont(style);
 		style.getTextStyle().computeContentSize(getTextOrPlaceHolder(), font, availableSize);
 		// Add selection thickness.
 		availableSize.addOutline(1, 1, 0, 0);
@@ -455,7 +455,8 @@ public class KeyboardText extends Container implements EventHandler {
 		if (active) {
 			startBlink();
 		}
-		updateStyle();
+		updateStyleRecursive();
+		requestRender();
 	}
 
 	private void startBlink() {
@@ -499,7 +500,7 @@ public class KeyboardText extends Container implements EventHandler {
 	@Override
 	public void renderContent(GraphicsContext g, Size size) {
 		Style style = getStyle();
-		Font font = StyleHelper.getFont(style);
+		Font font = getDesktop().getFont(style);
 		TextStyle textManager = style.getTextStyle();
 		// Keep call to getText() for subclasses (such as Password).
 		String text = getText();
@@ -534,7 +535,7 @@ public class KeyboardText extends Container implements EventHandler {
 
 		// Draw clear button.
 		Style clearButtonStyle = this.clearButtonElement.getStyle();
-		Font clearButtonFont = StyleHelper.getFont(clearButtonStyle);
+		Font clearButtonFont = getDesktop().getFont(clearButtonStyle);
 		textManager.drawText(g, CLEAR_BUTTON_STRING, clearButtonFont, clearButtonStyle.getForegroundColor(), size,
 				clearButtonStyle.getAlignment());
 	}
@@ -592,13 +593,12 @@ public class KeyboardText extends Container implements EventHandler {
 
 		// check clear button event
 		Style style = this.clearButtonElement.getStyle();
-		int clearButtonWidth = StyleHelper.getFont(style).stringWidth(CLEAR_BUTTON_STRING);
+		int clearButtonWidth = getDesktop().getFont(style).stringWidth(CLEAR_BUTTON_STRING);
 		int clearButtonX = Alignment.computeLeftX(clearButtonWidth, getContentX(), getContentWidth(),
 				style.getAlignment());
 		int pX = getRelativeX(pointerX);
 		if (pX >= clearButtonX && pX < clearButtonX + clearButtonWidth) {
 			setText(EMPTY_STRING);
-			return;
 		}
 	}
 
@@ -624,9 +624,9 @@ public class KeyboardText extends Container implements EventHandler {
 		int x = getRelativeX(pointerX);
 		int y = getRelativeY(pointerY);
 		Style style = getStyle();
-		Rectangle remainingBounds = new Rectangle(getContentX(), getContentY(), getContentWidth(), getContentHeight());
-		return style.getTextStyle().getIndex(x, y, getText(), StyleHelper.getFont(style), remainingBounds,
-				style.getAlignment());
+		Font font = getDesktop().getFont(style);
+		Rectangle contentBounds = getContentBounds();
+		return style.getTextStyle().getIndex(x, y, getText(), font, contentBounds, style.getAlignment());
 	}
 
 	private void onPointerReleased() {

@@ -19,8 +19,6 @@ import ej.mwt.animation.Animation;
 import ej.mwt.animation.Animator;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
-import ej.mwt.style.util.StyleHelper;
-import ej.mwt.util.Rectangle;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
 import ej.widget.ElementAdapter;
@@ -53,7 +51,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	 */
 	public BasicChart() {
 		super();
-		this.selectedValueElement = new ElementAdapter();
+		this.selectedValueElement = new ElementAdapter(this);
 		this.selectedValueElement.addClassSelector(ClassSelectors.SELECTED_VALUE);
 	}
 
@@ -83,7 +81,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	@Override
 	public boolean tick(long currentTimeMillis) {
 		this.currentApparitionStep = this.motion.getCurrentValue();
-		repaint();
+		requestRender();
 		return !this.motion.isFinished();
 	}
 
@@ -102,12 +100,9 @@ public abstract class BasicChart extends Chart implements Animation {
 	@Override
 	public boolean handleEvent(int event) {
 		if (Event.getType(event) == Event.POINTER) {
-			Rectangle margin = new Rectangle(0, 0, 0, 0);
-			getStyle().getMargin().unwrap(margin);
-
 			Pointer pointer = (Pointer) Event.getGenerator(event);
-			int pointerX = pointer.getX() - getAbsoluteX() - margin.getX();
-			int pointerY = pointer.getY() - getAbsoluteY() - margin.getY();
+			int pointerX = pointer.getX() - getAbsoluteX() - getContentX();
+			int pointerY = pointer.getY() - getAbsoluteY() - getContentY();
 
 			int action = Pointer.getAction(event);
 			switch (action) {
@@ -124,8 +119,8 @@ public abstract class BasicChart extends Chart implements Animation {
 	 * Handles pointer pressed events
 	 */
 	private void onPointerPressed(int pointerX, int pointerY) {
-		int xStart = getContentX();
-		int xEnd = xStart + getContentWidth();
+		int xStart = getChartX();
+		int xEnd = xStart + getChartWidth();
 		if (pointerX >= xStart && pointerX < xEnd) {
 			int selectedPoint = getPoints().size() * (pointerX - xStart) / (xEnd - xStart);
 			selectPoint(new Integer(selectedPoint));
@@ -147,7 +142,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	 *            the value on the top of the chart.
 	 */
 	protected void renderScale(GraphicsContext g, Style style, Size size, float topValue) {
-		Font font = StyleHelper.getFont(style);
+		Font font = getDesktop().getFont(style);
 		int fontHeight = font.getHeight();
 
 		int yBarBottom = getBarBottom(fontHeight, size);
@@ -215,7 +210,7 @@ public abstract class BasicChart extends Chart implements Animation {
 			}
 
 			Style labelStyle = this.selectedValueElement.getStyle();
-			Font labelFont = StyleHelper.getFont(labelStyle);
+			Font labelFont = getDesktop().getFont(labelStyle);
 
 			int labelW = labelFont.stringWidth(labelString) + 2 * SELECTED_VALUE_PADDING;
 			int labelX = (size.getWidth() - labelW) / 2;
@@ -230,11 +225,11 @@ public abstract class BasicChart extends Chart implements Animation {
 	protected void computeContentOptimalSize(Size availableSize) {
 		Style style = getStyle();
 		initializePointsStyle();
-		this.selectedValueElement.initializeStyle();
+		this.selectedValueElement.updateStyle();
 
 		int height = availableSize.getHeight();
 		int width = availableSize.getWidth();
-		int fontHeight = StyleHelper.getFont(style).getHeight();
+		int fontHeight = getDesktop().getFont(style).getHeight();
 		if (height == Widget.NO_CONSTRAINT) {
 			height = 4 * fontHeight;
 		}
@@ -280,14 +275,12 @@ public abstract class BasicChart extends Chart implements Animation {
 	 *
 	 * @return the content x coordinate.
 	 */
-	@Override
-	protected abstract int getContentX();
+	protected abstract int getChartX();
 
 	/**
 	 * Gets the content width.
 	 *
 	 * @return the content width.
 	 */
-	@Override
-	protected abstract int getContentWidth();
+	protected abstract int getChartWidth();
 }

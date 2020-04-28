@@ -54,7 +54,7 @@ public class CarouselPage extends AbstractDemoPage {
 			});
 			carouselEntries[e] = entry;
 		}
-		setCenter(new Carousel(carouselEntries, INITIAL_ENTRY, entryWidth));
+		setCenterChild(new Carousel(carouselEntries, INITIAL_ENTRY, entryWidth));
 	}
 
 	private Image loadImage(String string) {

@@ -37,19 +37,19 @@ public class DatePage extends AbstractDemoPage {
 		Choice monthChoice = new EndlessStringChoice(MONTHS, 11);
 		Wheel monthWheel = new Wheel(wheelGroup);
 		monthWheel.setModel(monthChoice);
-		wheelGroup.add(monthWheel);
+		wheelGroup.addChild(monthWheel);
 
 		Choice dayChoice = new EndlessIntegerChoice(1, 31, 25);
 		Wheel dayWheel = new Wheel(wheelGroup);
 		dayWheel.setModel(dayChoice);
-		wheelGroup.add(dayWheel);
+		wheelGroup.addChild(dayWheel);
 
 		Choice yearChoice = new EndlessIntegerChoice(2000, 2025, 2017);
 		Wheel yearWheel = new Wheel(wheelGroup);
 		yearWheel.setModel(yearChoice);
-		wheelGroup.add(yearWheel);
+		wheelGroup.addChild(yearWheel);
 
-		setCenter(wheelGroup);
+		setCenterChild(wheelGroup);
 	}
 
 }

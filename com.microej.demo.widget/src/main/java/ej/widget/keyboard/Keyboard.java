@@ -294,7 +294,7 @@ public class Keyboard extends Container {
 
 	private void add(Key key, Row row, int colIndex, int colspan) {
 		row.cells.add(new Cell(key, colIndex, colspan));
-		super.add(key);
+		super.addChild(key);
 	}
 
 	@Override
@@ -304,21 +304,21 @@ public class Keyboard extends Container {
 
 		int length = getChildrenCount();
 		if (length != 0) {
-			boolean computeWidth = widthHint == Widget.NO_CONSTRAINT;
-			boolean computeHeight = heightHint == Widget.NO_CONSTRAINT;
+			boolean widthConstraint = widthHint != Widget.NO_CONSTRAINT;
+			boolean heightConstraint = heightHint != Widget.NO_CONSTRAINT;
 
 			int cellWidth;
 			int maxRowLength = 0;
-			if (computeWidth) {
-				cellWidth = Widget.NO_CONSTRAINT;
-			} else {
+			if (widthConstraint) {
 				for (Row row : this.rows) {
 					maxRowLength = Math.max(maxRowLength, row.length);
 				}
 				cellWidth = widthHint / maxRowLength;
+			} else {
+				cellWidth = Widget.NO_CONSTRAINT;
 			}
 
-			int cellHeight = computeHeight ? Widget.NO_CONSTRAINT : heightHint / this.rows.length;
+			int cellHeight = heightConstraint ? heightHint / this.rows.length : Widget.NO_CONSTRAINT;
 
 			int maxCellWidth = 0;
 			int maxCellHeight = 0;
@@ -331,17 +331,11 @@ public class Keyboard extends Container {
 				}
 			}
 
-			// Compute composite preferred size if necessary.
-			if (computeWidth) {
-				widthHint = maxCellWidth * maxRowLength;
-			}
-			if (computeHeight) {
-				heightHint = maxCellHeight * this.rows.length;
-			}
+			// Compute composite preferred size.
+			widthHint = maxCellWidth * maxRowLength;
+			heightHint = maxCellHeight * this.rows.length;
+			availableSize.setSize(widthHint, heightHint);
 		}
-
-		// Set composite preferred size.
-		availableSize.setSize(widthHint, heightHint);
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import ej.widget.basic.Button;
 import ej.widget.composed.ToggleWrapper;
 import ej.widget.composed.Wrapper;
 import ej.widget.container.Grid;
+import ej.widget.container.util.LayoutOrientation;
 import ej.widget.toggle.ToggleGroup;
 
 /**
@@ -37,40 +38,40 @@ public abstract class WidgetPage extends AbstractDemoPage {
 		// | check box | radio 2 |
 		// | slider | button |
 
-		Grid grid = new Grid(true, 2);
+		Grid grid = new Grid(LayoutOrientation.HORIZONTAL, 2);
 
 		ToggleWrapper switch_ = newSwitch("Switch"); //$NON-NLS-1$
-		switch_.setAdjustedToChild(false);
-		grid.add(switch_);
+		switch_.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
+		grid.addChild(switch_);
 
 		ToggleGroup toggleGroup = new ToggleGroup();
 
 		ToggleWrapper radio1 = newRadioButton("Radio1"); //$NON-NLS-1$
-		radio1.setAdjustedToChild(false);
-		grid.add(radio1);
+		radio1.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
+		grid.addChild(radio1);
 		toggleGroup.addToggle(radio1.getToggle());
 
 		ToggleWrapper checkbox = newCheckBox("Checkbox"); //$NON-NLS-1$
-		checkbox.setAdjustedToChild(false);
-		grid.add(checkbox);
+		checkbox.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
+		grid.addChild(checkbox);
 
 		ToggleWrapper radio2 = newRadioButton("Radio2"); //$NON-NLS-1$
-		radio2.setAdjustedToChild(false);
+		radio2.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
 		toggleGroup.addToggle(radio2.getToggle());
-		grid.add(radio2);
+		grid.addChild(radio2);
 
 		AbstractSlider slider = newSlider(MIN_VALUE, MAX_VALUE, INITIAL_VALUE);
-		grid.add(slider);
+		grid.addChild(slider);
 
 		Wrapper buttonWrapper = new Wrapper();
-		buttonWrapper.setAdjustedToChild(false);
+		buttonWrapper.addClassSelector(ClassSelectors.OPTIMAL_SIZE);
 		Button button = new Button("Button"); //$NON-NLS-1$
 		button.addClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
-		buttonWrapper.setWidget(button);
+		buttonWrapper.setChild(button);
 		buttonWrapper.addClassSelector(ClassSelectors.CENTERED);
-		grid.add(buttonWrapper);
+		grid.addChild(buttonWrapper);
 
-		setCenter(grid);
+		setCenterChild(grid);
 	}
 
 	/**

@@ -12,7 +12,6 @@ import ej.microui.display.GraphicsContext;
 import ej.microui.display.Painter;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
-import ej.mwt.style.util.StyleHelper;
 import ej.mwt.util.Size;
 
 /**
@@ -56,7 +55,7 @@ public class LineChart extends BasicChart {
 	@Override
 	public void renderContent(GraphicsContext g, Size size) {
 		Style style = getStyle();
-		Font font = StyleHelper.getFont(style);
+		Font font = getDesktop().getFont(style);
 		int fontHeight = font.getHeight();
 
 		int yBarBottom = getBarBottom(fontHeight, size);
@@ -158,19 +157,13 @@ public class LineChart extends BasicChart {
 		}
 	}
 
-	/**
-	 * Gets content X
-	 */
 	@Override
-	public int getContentX() {
+	public int getChartX() {
 		return LEFT_PADDING - (int) (this.xStep / 2);
 	}
 
-	/**
-	 * Gets content width
-	 */
 	@Override
-	public int getContentWidth() {
+	public int getChartWidth() {
 		return (int) (getPoints().size() * this.xStep);
 	}
 }

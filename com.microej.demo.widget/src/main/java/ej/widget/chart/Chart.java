@@ -59,7 +59,6 @@ public abstract class Chart extends Container {
 	 */
 	public void addPoint(ChartPoint chartPoint) {
 		this.points.add(chartPoint);
-		chartPoint.setParentElement(this);
 	}
 
 	/**
@@ -104,7 +103,7 @@ public abstract class Chart extends Container {
 			}
 
 			// repaint the chart
-			repaint();
+			requestRender();
 		}
 	}
 
@@ -159,7 +158,7 @@ public abstract class Chart extends Container {
 			maxValue = Math.max(maxValue, point.getValue());
 		}
 		this.scale.setMaxPointValue(maxValue);
-		repaint();
+		requestRender();
 	}
 
 	/**
@@ -170,7 +169,7 @@ public abstract class Chart extends Container {
 	 */
 	public void setUnit(String unit) {
 		this.unit = unit;
-		repaint();
+		requestRender();
 	}
 
 	/**
@@ -190,7 +189,7 @@ public abstract class Chart extends Container {
 	 */
 	public void setFormat(ChartFormat format) {
 		this.format = format;
-		repaint();
+		requestRender();
 	}
 
 	/**
@@ -207,7 +206,7 @@ public abstract class Chart extends Container {
 	 */
 	protected void initializePointsStyle() {
 		for (ChartPoint point : getPoints()) {
-			point.initializeStyle();
+			point.updateStyle();
 		}
 	}
 

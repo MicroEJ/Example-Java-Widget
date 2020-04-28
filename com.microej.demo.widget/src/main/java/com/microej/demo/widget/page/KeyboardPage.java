@@ -17,6 +17,7 @@ import ej.service.ServiceFactory;
 import ej.widget.basic.Label;
 import ej.widget.container.List;
 import ej.widget.container.Scroll;
+import ej.widget.container.util.LayoutOrientation;
 import ej.widget.keyboard.Keyboard;
 import ej.widget.keyboard.KeyboardText;
 import ej.widget.keyboard.Layout;
@@ -57,7 +58,7 @@ public class KeyboardPage extends AbstractDemoPage {
 		setKeyboardLayouts(layouts);
 
 		Widget editionContent = createForm();
-		setCenter(editionContent);
+		setCenterChild(editionContent);
 	}
 
 	/**
@@ -98,15 +99,15 @@ public class KeyboardPage extends AbstractDemoPage {
 		this.resultLabel.addClassSelector(ClassSelectors.RESULT_LABEL);
 
 		// list
-		List list = new List(false);
-		list.add(this.firstName);
-		list.add(this.lastName);
-		list.add(this.resultLabel);
+		List list = new List(LayoutOrientation.VERTICAL);
+		list.addChild(this.firstName);
+		list.addChild(this.lastName);
+		list.addChild(this.resultLabel);
 		list.addClassSelector(ClassSelectors.FORM);
 
 		// scroll
 		final Scroll scroll = new Scroll(false, false);
-		scroll.setWidget(list);
+		scroll.setChild(list);
 		return scroll;
 	}
 
@@ -135,7 +136,7 @@ public class KeyboardPage extends AbstractDemoPage {
 	protected void showKeyboard() {
 		// show keyboard dialog
 		if (this.keyboard.getParent() != this) {
-			setLast(this.keyboard);
+			setLastChild(this.keyboard);
 			requestLayOut();
 		}
 	}
@@ -144,7 +145,7 @@ public class KeyboardPage extends AbstractDemoPage {
 	 * Hides the keyboard
 	 */
 	protected void hideKeyboard() {
-		remove(this.keyboard);
+		removeChild(this.keyboard);
 		requestLayOut();
 	}
 
@@ -168,7 +169,7 @@ public class KeyboardPage extends AbstractDemoPage {
 				}
 			});
 		}
-		repaint();
+		requestRender();
 		ej.widget.util.Keyboard keyboard = ServiceFactory.getService(ej.widget.util.Keyboard.class);
 		if (keyboard != null) {
 			keyboard.setEventHandler(keyboardText);

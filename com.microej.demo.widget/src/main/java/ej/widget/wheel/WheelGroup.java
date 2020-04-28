@@ -10,12 +10,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import ej.mwt.Widget;
-import ej.widget.container.Grid;
+import ej.widget.container.List;
+import ej.widget.container.util.LayoutOrientation;
 
 /**
  * Represents a group of wheels
  */
-public class WheelGroup extends Grid {
+public class WheelGroup extends List {
 
 	private final int numSideValues;
 	private final int maxActiveWheels;
@@ -31,7 +32,7 @@ public class WheelGroup extends Grid {
 	 *            The maximum number of active wheels
 	 */
 	public WheelGroup(int numSideValues, int maxActiveWheels) {
-		super(true, 0);
+		super(LayoutOrientation.HORIZONTAL);
 		this.numSideValues = numSideValues;
 		this.maxActiveWheels = maxActiveWheels;
 		this.activeWheels = new HashMap<>();
@@ -76,7 +77,7 @@ public class WheelGroup extends Grid {
 	 */
 	public void setWheelActive(Wheel wheel, boolean active) {
 		if (this.activeWheels.containsKey(wheel)) {
-			this.activeWheels.put(wheel, new Boolean(active));
+			this.activeWheels.put(wheel, Boolean.valueOf(active));
 		}
 	}
 
@@ -96,12 +97,27 @@ public class WheelGroup extends Grid {
 	}
 
 	@Override
-	public void add(Widget widget) throws NullPointerException, IllegalArgumentException {
-		super.add(widget);
+	public void addChild(Widget widget) {
+		super.addChild(widget);
 
 		if (widget instanceof Wheel) {
-			setCount(this.activeWheels.size() + 1);
-			this.activeWheels.put((Wheel) widget, new Boolean(false));
+			this.activeWheels.put((Wheel) widget, Boolean.valueOf(false));
 		}
+	}
+
+	@Override
+	public void removeChild(Widget widget) {
+		super.removeChild(widget);
+
+		if (widget instanceof Wheel) {
+			this.activeWheels.remove(widget);
+		}
+	}
+
+	@Override
+	public void removeAllChildren() {
+		super.removeAllChildren();
+
+		this.activeWheels.clear();
 	}
 }

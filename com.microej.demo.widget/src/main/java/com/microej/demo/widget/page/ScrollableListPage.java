@@ -14,6 +14,7 @@ import ej.service.ServiceFactory;
 import ej.widget.basic.Label;
 import ej.widget.container.List;
 import ej.widget.container.Scroll;
+import ej.widget.container.util.LayoutOrientation;
 
 /**
  * This page illustrates the scrollable list.
@@ -40,20 +41,20 @@ public class ScrollableListPage extends AbstractDemoPage {
 		// ...
 		// Item n-1
 		// Item n
-		this.listComposite = new List(false);
+		this.listComposite = new List(LayoutOrientation.VERTICAL);
 
 		addItems(1, FIRST_SHOT_COUNT);
 
 		Scroll scroll = new Scroll(false, true);
-		scroll.setWidget(this.listComposite);
-		setCenter(scroll);
+		scroll.setChild(this.listComposite);
+		setCenterChild(scroll);
 	}
 
 	private void addItems(int start, int end) {
 		for (int i = start; i <= end; i++) {
 			Label item = new Label(ITEM_PREFIX + i);
 			item.addClassSelector(ClassSelectors.LIST_ITEM);
-			this.listComposite.add(item);
+			this.listComposite.addChild(item);
 		}
 	}
 

@@ -16,6 +16,7 @@ import ej.widget.chart.LineChart;
 import ej.widget.chart.format.DecimalsChartFormat;
 import ej.widget.chart.scale.AdaptiveChartScale;
 import ej.widget.container.Split;
+import ej.widget.container.util.LayoutOrientation;
 import ej.widget.listener.OnClickListener;
 
 /**
@@ -41,7 +42,7 @@ public class ChartPage extends AbstractDemoPage {
 		Chart chart = new BarChart();
 		loadChart(chart);
 
-		final Split split = new Split(false, SPLIT_RATIO);
+		final Split split = new Split(LayoutOrientation.VERTICAL, SPLIT_RATIO);
 
 		final Button switchButton = new Button(SWITCH_TO_LINE);
 		switchButton.addClassSelector(ClassSelectors.SWITCH_BUTTON);
@@ -53,15 +54,15 @@ public class ChartPage extends AbstractDemoPage {
 				this.isBar = !this.isBar;
 				BasicChart newChart = (this.isBar ? new BarChart() : new LineChart(false, true));
 				loadChart(newChart);
-				split.setFirst(newChart);
+				split.setFirstChild(newChart);
 				split.requestLayOut();
 				switchButton.setText(this.isBar ? SWITCH_TO_LINE : SWITCH_TO_BAR);
 			}
 		});
 
-		split.setFirst(chart);
-		split.setLast(switchButton);
-		setCenter(split);
+		split.setFirstChild(chart);
+		split.setLastChild(switchButton);
+		setCenterChild(split);
 	}
 
 	private void loadChart(Chart chart) {
@@ -73,7 +74,7 @@ public class ChartPage extends AbstractDemoPage {
 			String name = MONTHS[i].substring(0, 1);
 			String fullName = MONTHS[i];
 			float value = genRandomValue();
-			ChartPoint chartPoint = new ChartPoint(name, fullName, value);
+			ChartPoint chartPoint = new ChartPoint(chart, name, fullName, value);
 			chart.addPoint(chartPoint);
 		}
 

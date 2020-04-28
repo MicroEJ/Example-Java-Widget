@@ -7,10 +7,13 @@ package com.microej.demo.widget;
 
 import com.microej.demo.widget.page.MainPage;
 import com.microej.demo.widget.style.StylesheetPopulator;
+import com.microej.demo.widget.style.WidgetsFontLoader;
 
 import ej.microui.MicroUI;
 import ej.mwt.Desktop;
 import ej.mwt.Widget;
+import ej.mwt.style.Stylesheet;
+import ej.mwt.style.image.DefaultImageLoader;
 import ej.widget.container.transition.SlideDirection;
 import ej.widget.container.transition.SlideScreenshotTransitionContainer;
 import ej.widget.container.transition.SlideTransitionContainer;
@@ -51,7 +54,7 @@ public class WidgetsDemo {
 		MicroUI.start();
 
 		// Initialize stylesheet rules.
-		StylesheetPopulator.initialize();
+		Stylesheet stylesheet = StylesheetPopulator.createStylesheet();
 
 		// Create the navigator.
 		TransitionContainer = newTransitionContainer();
@@ -63,6 +66,9 @@ public class WidgetsDemo {
 
 		// Show the navigator.
 		Desktop = new Desktop();
+		Desktop.setImageLoader(new DefaultImageLoader());
+		Desktop.setFontLoader(new WidgetsFontLoader());
+		Desktop.setStylesheet(stylesheet);
 		Desktop.setWidget(TransitionContainer);
 		Desktop.requestShow();
 	}

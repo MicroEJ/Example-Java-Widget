@@ -13,6 +13,7 @@ import ej.widget.basic.ButtonImagePath;
 import ej.widget.basic.ImagePath;
 import ej.widget.basic.Label;
 import ej.widget.container.SimpleDock;
+import ej.widget.container.util.LayoutOrientation;
 import ej.widget.listener.OnClickListener;
 
 /**
@@ -29,7 +30,7 @@ public abstract class AbstractDemoPage extends SimpleDock {
 	 *            the page title.
 	 */
 	public AbstractDemoPage(boolean mainPage, String title) {
-		super(false);
+		super(LayoutOrientation.VERTICAL);
 		createTopBar(mainPage, title);
 	}
 
@@ -46,13 +47,13 @@ public abstract class AbstractDemoPage extends SimpleDock {
 		Label titleLabel = new Label(title);
 		titleLabel.addClassSelector(ClassSelectors.TITLE);
 
-		SimpleDock topBar = new SimpleDock();
+		SimpleDock topBar = new SimpleDock(LayoutOrientation.HORIZONTAL);
 		topBar.addClassSelector(ClassSelectors.TOP_BAR);
-		topBar.setCenter(titleLabel);
+		topBar.setCenterChild(titleLabel);
 
 		if (mainPage) {
 			ImagePath exitIcon = new ImagePath(Images.STORE_ICON);
-			topBar.setFirst(exitIcon);
+			topBar.setFirstChild(exitIcon);
 		} else {
 			// Add a back button.
 			ButtonImagePath backButton = new ButtonImagePath("/images/back.png"); //$NON-NLS-1$
@@ -63,9 +64,9 @@ public abstract class AbstractDemoPage extends SimpleDock {
 					WidgetsDemo.showMainPage();
 				}
 			});
-			topBar.setFirst(backButton);
+			topBar.setFirstChild(backButton);
 		}
-		setFirst(topBar);
+		setFirstChild(topBar);
 	}
 
 }

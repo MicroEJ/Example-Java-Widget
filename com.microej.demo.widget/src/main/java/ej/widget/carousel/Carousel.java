@@ -22,7 +22,7 @@ import ej.motion.linear.LinearMotion;
 import ej.motion.quad.QuadEaseOutMotion;
 import ej.mwt.Widget;
 import ej.mwt.style.Style;
-import ej.mwt.style.text.TextManager;
+import ej.mwt.style.text.TextStyle;
 import ej.mwt.style.util.StyleHelper;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
@@ -186,7 +186,7 @@ public class Carousel extends Widget {
 
 	private void tick() {
 		Size size = new Size(getWidth(), getHeight());
-		StyleHelper.unwrapOutlines(getWidth(), getHeight(), size, getStyle());
+		StyleHelper.removeOutlines(size, getStyle());
 		int halfWidth = size.getWidth() / 2;
 		// roll DND
 		if (this.dnd) {
@@ -210,7 +210,7 @@ public class Carousel extends Widget {
 		// Repaint one more time for an optimized rendering.
 		if (!this.stopped || !stopped) {
 			this.stopped = stopped;
-			repaint();
+			requestRender();
 		}
 		this.stopped = stopped;
 	}
@@ -237,8 +237,8 @@ public class Carousel extends Widget {
 		int halfHeight = size.getHeight() / 2;
 
 		// set text style
-		Font font = StyleHelper.getFont(style);
-		TextManager tm = style.getTextManager();
+		Font font = getDesktop().getFont(style);
+		TextStyle tm = style.getTextStyle();
 
 		// update goto anim step
 		if (this.gotoAnimDistance != 0) {
@@ -280,7 +280,7 @@ public class Carousel extends Widget {
 		}
 	}
 
-	private void drawEntry(GraphicsContext g, Size size, Font font, TextManager tm, int entryIndex, boolean selected,
+	private void drawEntry(GraphicsContext g, Size size, Font font, TextStyle tm, int entryIndex, boolean selected,
 			int totalDrag, boolean stopped) {
 		// calculate position and size
 		int offsetX = entryIndex * this.entryWidth + totalDrag;

@@ -11,7 +11,6 @@ import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
-import ej.mwt.style.util.StyleHelper;
 import ej.mwt.util.Size;
 
 /**
@@ -37,7 +36,7 @@ public class BarChart extends BasicChart {
 	@Override
 	public void renderContent(GraphicsContext g, Size size) {
 		Style style = getStyle();
-		Font font = StyleHelper.getFont(style);
+		Font font = getDesktop().getFont(style);
 		int fontHeight = font.getHeight();
 
 		this.xStep = (size.getWidth() - LEFT_PADDING) / (getPoints().size() - 0.5f);
@@ -79,19 +78,13 @@ public class BarChart extends BasicChart {
 		}
 	}
 
-	/**
-	 * Gets content X
-	 */
 	@Override
-	public int getContentX() {
+	public int getChartX() {
 		return LEFT_PADDING - (int) (this.xStep / 4);
 	}
 
-	/**
-	 * Gets content width
-	 */
 	@Override
-	public int getContentWidth() {
+	public int getChartWidth() {
 		return (int) (getPoints().size() * this.xStep);
 	}
 }

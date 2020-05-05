@@ -119,10 +119,11 @@ public class CarouselEntry {
 			int marginX = 20 - (this.image.getWidth() - imageWidth) / 2;
 			int stringX = imageX + marginX;
 			int stringY = imageY + imageHeight + 10;
+			int stringWidth = imageWidth - 2 * marginX;
+			int stringHeight = 2 * font.getHeight();
 			int stringAlignment = Alignment.HCENTER | Alignment.TOP;
-			Size stringSize = new Size(imageWidth - 2 * marginX, 2 * font.getHeight());
 			g.translate(stringX, stringY);
-			tm.drawText(g, this.string, font, g.getColor(), stringSize, stringAlignment);
+			tm.drawText(g, this.string, font, g.getColor(), stringWidth, stringHeight, stringAlignment);
 			g.translate(-stringX, -stringY);
 		}
 	}

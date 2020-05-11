@@ -361,7 +361,7 @@ public class Carousel extends Widget {
 				this.endDragX = capDrag(pointerX, -this.startDragX + this.currentDrag, false);
 			}
 			this.noDrag = false;
-		} else if (action == Pointer.RELEASED) {
+		} else if (action == Pointer.RELEASED || action == Pointer.EXITED) {
 			if (this.dnd) {
 				// stop DND
 				stopDND();

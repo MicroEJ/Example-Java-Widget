@@ -189,6 +189,7 @@ public class Wheel extends Widget {
 			case Pointer.PRESSED:
 				return onPointerPressed(pointerX, pointerY);
 			case Pointer.RELEASED:
+			case Pointer.EXITED:
 				return onPointerReleased(pointerX, pointerY);
 			case Pointer.DRAGGED:
 				return onPointerDragged(pointerX, pointerY);

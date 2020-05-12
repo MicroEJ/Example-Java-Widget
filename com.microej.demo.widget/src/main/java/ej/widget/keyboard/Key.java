@@ -44,7 +44,6 @@ public class Key extends Wrapper {
 		this.repeatable = false;
 		this.repeatTask = null;
 		setChild(this.label);
-		setEnabled(false);
 	}
 
 	/**

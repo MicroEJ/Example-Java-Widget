@@ -57,6 +57,7 @@ public class Wheel extends Widget {
 	public Wheel(WheelGroup wheelGroup) {
 		this.wheelGroup = wheelGroup;
 		this.motionManager = new QuadMotionManager();
+		setEnabled(true);
 	}
 
 	/**

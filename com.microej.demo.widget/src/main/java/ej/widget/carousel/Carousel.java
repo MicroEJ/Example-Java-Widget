@@ -120,6 +120,8 @@ public class Carousel extends Widget {
 		// init repaint task
 		this.repaintTask = null;
 		this.stopped = false;
+
+		setEnabled(true);
 	}
 
 	/**

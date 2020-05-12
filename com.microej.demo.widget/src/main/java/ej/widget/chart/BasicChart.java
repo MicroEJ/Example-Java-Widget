@@ -53,6 +53,7 @@ public abstract class BasicChart extends Chart implements Animation {
 		super();
 		this.selectedValueElement = new ElementAdapter(this);
 		this.selectedValueElement.addClassSelector(ClassSelectors.SELECTED_VALUE);
+		setEnabled(true);
 	}
 
 	/**

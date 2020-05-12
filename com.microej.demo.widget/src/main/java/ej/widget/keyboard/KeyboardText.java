@@ -508,14 +508,16 @@ public class KeyboardText extends Container implements EventHandler {
 		int foregroundColor = style.getForegroundColor();
 
 		// Remove selection thickness.
-		size.removeOutline(1, 1, 0, 0);
+		int width = size.getWidth() - 1;
+		int height = size.getHeight() - 1;
 
 		// Compute selection bounds and draw it.
 		int selectionStart = getSelectionStart();
 		int selectionEnd = getSelectionEnd();
 		if (selectionStart != selectionEnd || isShownCaret()) {
 			Style selectionStyle = this.selectionElement.getStyle();
-			Rectangle[] selection = textManager.getBounds(selectionStart, selectionEnd, text, font, size, alignment);
+			Rectangle[] selection = textManager.getBounds(selectionStart, selectionEnd, text, font, width, height,
+					alignment);
 			g.setColor(selectionStyle.getForegroundColor());
 			for (Rectangle rectangle : selection) {
 				int w = (selectionStart != selectionEnd ? rectangle.getWidth() : 1);
@@ -529,15 +531,14 @@ public class KeyboardText extends Container implements EventHandler {
 
 		// Shift selection thickness.
 		g.translate(1, 1);
-		textManager.drawText(g, text, font, foregroundColor, size, alignment);
+		textManager.drawText(g, text, font, foregroundColor, width, height, alignment);
 		g.translate(-1, -1);
-		// super.renderContent(g, style, bounds);
 
 		// Draw clear button.
 		Style clearButtonStyle = this.clearButtonElement.getStyle();
 		Font clearButtonFont = getDesktop().getFont(clearButtonStyle);
-		textManager.drawText(g, CLEAR_BUTTON_STRING, clearButtonFont, clearButtonStyle.getForegroundColor(), size,
-				clearButtonStyle.getAlignment());
+		textManager.drawText(g, CLEAR_BUTTON_STRING, clearButtonFont, clearButtonStyle.getForegroundColor(), width,
+				height, clearButtonStyle.getAlignment());
 	}
 
 	@Override
@@ -626,7 +627,8 @@ public class KeyboardText extends Container implements EventHandler {
 		Style style = getStyle();
 		Font font = getDesktop().getFont(style);
 		Rectangle contentBounds = getContentBounds();
-		return style.getTextStyle().getIndex(x, y, getText(), font, contentBounds, style.getAlignment());
+		return style.getTextStyle().getIndex(x - contentBounds.getX(), y - contentBounds.getY(), getText(), font,
+				contentBounds.getWidth(), contentBounds.getHeight(), style.getAlignment());
 	}
 
 	private void onPointerReleased() {

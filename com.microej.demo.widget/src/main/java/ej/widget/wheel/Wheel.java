@@ -8,6 +8,7 @@ package ej.widget.wheel;
 import java.util.ListIterator;
 
 import ej.bon.Timer;
+import ej.microui.display.Colors;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.Painter;
@@ -31,6 +32,11 @@ import ej.widget.util.color.GradientHelper;
  * Represents a wheel from which the user can choose among a set of choices
  */
 public class Wheel extends Widget {
+
+	/**
+	 * The extra field ID for the color of the horizontal lines.
+	 */
+	public static final int LINE_COLOR_FIELD = 0;
 
 	private static final int RELEASE_WITH_NO_MOVE_DELAY = 150;
 	private static final int ANIMATION_PERIOD = 30;
@@ -127,7 +133,7 @@ public class Wheel extends Widget {
 		}
 
 		// Draws the horizontal lines.
-		g.setColor(GradientHelper.blendColors(foregroundColor, backgroundColor, 0.9f));
+		g.setColor(style.getExtraField(LINE_COLOR_FIELD, Colors.BLACK));
 
 		y = (remainingHeight >> 1) - (lineHeight >> 1);
 		Painter.drawHorizontalLine(g, 0, y - 1, width);

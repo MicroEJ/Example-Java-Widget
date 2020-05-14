@@ -480,7 +480,7 @@ public class StylesheetPopulator {
 		wheelStyle.setForegroundColor(MicroEJColors.CONCRETE_BLACK_50);
 		wheelStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_25);
 		wheelStyle.setBackground(NoBackground.NO_BACKGROUND);
-		// wheelStyle.setBorderColor(WHEEL_LINE_COLOR);
+		wheelStyle.setExtraField(Wheel.LINE_COLOR_FIELD, WHEEL_LINE_COLOR);
 		FontProfile wheelFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE,
 				Font.STYLE_PLAIN);
 		wheelStyle.setFontProfile(wheelFont);

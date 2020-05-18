@@ -9,6 +9,8 @@ import ej.bon.Timer;
 import ej.bon.TimerTask;
 import ej.microui.event.Event;
 import ej.microui.event.generator.Pointer;
+import ej.mwt.event.DesktopEventGenerator;
+import ej.mwt.event.PointerEventDispatcher;
 import ej.service.ServiceFactory;
 import ej.widget.basic.Label;
 import ej.widget.composed.Wrapper;
@@ -44,7 +46,6 @@ public class Key extends Wrapper {
 		this.repeatable = false;
 		this.repeatTask = null;
 		setChild(this.label);
-		setEnabled(false);
 	}
 
 	/**
@@ -146,14 +147,17 @@ public class Key extends Wrapper {
 				}
 				// Don't exit when the button is dragged, because the user can drag inside the button.
 				// case Pointer.DRAGGED:
-			case Pointer.EXITED:
+			}
+			break;
+		case DesktopEventGenerator.EVENT_TYPE:
+			action = DesktopEventGenerator.getAction(event);
+			if (action == PointerEventDispatcher.EXITED) {
 				if (this.pressed) {
 					setPressed(false);
 					stopRepeatTask();
 				}
-				break;
 			}
-			return false;
+			break;
 		}
 		return super.handleEvent(event);
 	}

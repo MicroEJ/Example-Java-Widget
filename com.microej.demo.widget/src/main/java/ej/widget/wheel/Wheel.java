@@ -19,6 +19,8 @@ import ej.motion.quad.QuadMotionManager;
 import ej.motion.util.MotionAnimator;
 import ej.motion.util.MotionListener;
 import ej.mwt.Widget;
+import ej.mwt.event.DesktopEventGenerator;
+import ej.mwt.event.PointerEventDispatcher;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.util.Size;
@@ -57,6 +59,7 @@ public class Wheel extends Widget {
 	public Wheel(WheelGroup wheelGroup) {
 		this.wheelGroup = wheelGroup;
 		this.motionManager = new QuadMotionManager();
+		setEnabled(true);
 	}
 
 	/**
@@ -180,36 +183,40 @@ public class Wheel extends Widget {
 
 	@Override
 	public boolean handleEvent(int event) {
-		if (Event.getType(event) == Event.POINTER) {
+		int type = Event.getType(event);
+		if (type == Event.POINTER) {
 			Pointer pointer = (Pointer) Event.getGenerator(event);
-			int pointerX = getRelativeX(pointer.getX());
 			int pointerY = getRelativeY(pointer.getY());
 			int action = Pointer.getAction(event);
 			switch (action) {
 			case Pointer.PRESSED:
-				return onPointerPressed(pointerX, pointerY);
+				return onPointerPressed(pointerY);
 			case Pointer.RELEASED:
-				return onPointerReleased(pointerX, pointerY);
+				return onPointerReleased(pointerY);
 			case Pointer.DRAGGED:
-				return onPointerDragged(pointerX, pointerY);
+				return onPointerDragged(pointerY);
+			}
+		} else if (type == DesktopEventGenerator.EVENT_TYPE) {
+			int action = DesktopEventGenerator.getAction(event);
+			if (action == PointerEventDispatcher.EXITED) {
+				return onPointerReleased(this.lastPointerCoordinate);
 			}
 		}
 		return super.handleEvent(event);
 	}
 
-	private boolean onPointerPressed(int pointerX, int pointerY) {
+	private boolean onPointerPressed(int pointerCoordinate) {
 		stopAnimation();
 		this.dragged = false;
-		this.pressPointerCoordinate = pointerY;
-		this.lastPointerCoordinate = pointerY;
+		this.pressPointerCoordinate = pointerCoordinate;
+		this.lastPointerCoordinate = pointerCoordinate;
 		this.pressTime = System.currentTimeMillis();
 		this.lastPointerTime = this.pressTime;
 		return false;
 	}
 
-	private boolean onPointerDragged(int pointerX, int pointerY) {
+	private boolean onPointerDragged(int pointerCoordinate) {
 		this.dragged = true;
-		int pointerCoordinate = pointerY;
 		int distanceDragged = pointerCoordinate - this.lastPointerCoordinate;
 
 		if (distanceDragged != 0) {
@@ -247,8 +254,7 @@ public class Wheel extends Widget {
 		return newSpinOffset;
 	}
 
-	private boolean onPointerReleased(int pointerX, int pointerY) {
-		int pointerCoordinate = pointerY;
+	private boolean onPointerReleased(int pointerCoordinate) {
 		int start;
 		int stop;
 		int currentIndexDiffToBe;

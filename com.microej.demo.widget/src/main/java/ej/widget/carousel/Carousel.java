@@ -21,6 +21,8 @@ import ej.motion.Motion;
 import ej.motion.linear.LinearMotion;
 import ej.motion.quad.QuadEaseOutMotion;
 import ej.mwt.Widget;
+import ej.mwt.event.DesktopEventGenerator;
+import ej.mwt.event.PointerEventDispatcher;
 import ej.mwt.style.Style;
 import ej.mwt.style.text.TextStyle;
 import ej.mwt.style.util.StyleHelper;
@@ -120,6 +122,8 @@ public class Carousel extends Widget {
 		// init repaint task
 		this.repaintTask = null;
 		this.stopped = false;
+
+		setEnabled(true);
 	}
 
 	/**
@@ -317,7 +321,8 @@ public class Carousel extends Widget {
 
 	@Override
 	public boolean handleEvent(int event) {
-		if (Event.getType(event) == Event.POINTER) {
+		int type = Event.getType(event);
+		if (type == Event.POINTER) {
 			Pointer pointer = (Pointer) Event.getGenerator(event);
 			int pointerX = getRelativeX(pointer.getX());
 			int pointerY = getRelativeY(pointer.getY());
@@ -339,6 +344,11 @@ public class Carousel extends Widget {
 			// handle drag
 			handleDrag(action, pointerX);
 			return true;
+		} else if (type == DesktopEventGenerator.EVENT_TYPE) {
+			int action = DesktopEventGenerator.getAction(event);
+			if (action == PointerEventDispatcher.EXITED) {
+				handleRelease(this.lastDragX);
+			}
 		}
 
 		return super.handleEvent(event);
@@ -362,43 +372,47 @@ public class Carousel extends Widget {
 			}
 			this.noDrag = false;
 		} else if (action == Pointer.RELEASED) {
-			if (this.dnd) {
-				// stop DND
-				stopDND();
-			} else if (this.noDrag) {
-				// this is just a click
-				int halfWidth = getWidth() / 2;
-				if (this.lastPressX > halfWidth - this.entryWidth / 2
-						&& this.lastPressX < halfWidth + this.entryWidth / 2) {
-					// clicked on top entry: notify its click listeners
-					int totalDrag = getTotalDrag();
-					int topEntry = getEntryAtDrag(totalDrag);
-					this.entries[topEntry].notifyOnClickListeners();
-				} else {
-					// clicked on side entry: go to the target entry
-					int distance = getWidth() / 2 - pointerX;
-					handleGoto(distance);
-				}
-			} else {
-				// end drag
-				this.currentDrag += capDrag(this.endDragX - this.startDragX, this.currentDrag, false);
-				long currentTime = System.currentTimeMillis();
-				if (currentTime - this.lastDragTime < RELEASE_WITH_NO_MOVE_DELAY) {
-					// throw the carousel!
-					float speed = (float) (pointerX - this.lastPressX) / (currentTime - this.lastPressTime);
-					int distance = (int) (speed * GOTO_ANIM_DURATION * GOTO_ANIM_SPEED);
-					handleGoto(distance);
-				} else {
-					// just stop the carousel
-					handleGoto(0);
-				}
-			}
-
-			// reset drag
-			this.startDragX = 0;
-			this.endDragX = 0;
-			this.noDrag = false;
+			handleRelease(pointerX);
 		}
+	}
+
+	private void handleRelease(int pointerX) {
+		if (this.dnd) {
+			// stop DND
+			stopDND();
+		} else if (this.noDrag) {
+			// this is just a click
+			int halfWidth = getWidth() / 2;
+			if (this.lastPressX > halfWidth - this.entryWidth / 2
+					&& this.lastPressX < halfWidth + this.entryWidth / 2) {
+				// clicked on top entry: notify its click listeners
+				int totalDrag = getTotalDrag();
+				int topEntry = getEntryAtDrag(totalDrag);
+				this.entries[topEntry].notifyOnClickListeners();
+			} else {
+				// clicked on side entry: go to the target entry
+				int distance = getWidth() / 2 - pointerX;
+				handleGoto(distance);
+			}
+		} else {
+			// end drag
+			this.currentDrag += capDrag(this.endDragX - this.startDragX, this.currentDrag, false);
+			long currentTime = System.currentTimeMillis();
+			if (currentTime - this.lastDragTime < RELEASE_WITH_NO_MOVE_DELAY) {
+				// throw the carousel!
+				float speed = (float) (pointerX - this.lastPressX) / (currentTime - this.lastPressTime);
+				int distance = (int) (speed * GOTO_ANIM_DURATION * GOTO_ANIM_SPEED);
+				handleGoto(distance);
+			} else {
+				// just stop the carousel
+				handleGoto(0);
+			}
+		}
+
+		// reset drag
+		this.startDragX = 0;
+		this.endDragX = 0;
+		this.noDrag = false;
 	}
 
 	private void handleGoto(int distance) {

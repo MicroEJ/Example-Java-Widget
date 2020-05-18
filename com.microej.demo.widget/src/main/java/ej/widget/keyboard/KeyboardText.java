@@ -108,6 +108,7 @@ public class KeyboardText extends Container implements EventHandler {
 		this.selectionElement.addClassSelector(ClassSelectors.CLASS_SELECTOR_SELECTION);
 		this.clearButtonElement = new ElementAdapter(this);
 		this.clearButtonElement.addClassSelector(ClassSelectors.CLASS_SELECTOR_CLEAR_BUTTON);
+		setEnabled(true);
 		setMaxTextLength(DEFAULT_MAX_TEXT_LENGTH);
 	}
 

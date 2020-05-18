@@ -14,9 +14,9 @@ import ej.microui.display.GraphicsContext;
 import ej.microui.display.Image;
 import ej.microui.display.Painter;
 import ej.mwt.style.container.Alignment;
-import ej.mwt.style.text.TextStyle;
 import ej.mwt.util.Size;
 import ej.widget.listener.OnClickListener;
+import ej.widget.util.TextRenderingHelper;
 
 /**
  * Represents one of the entries of a carousel
@@ -105,8 +105,8 @@ public class CarouselEntry {
 	 * @param isDND
 	 *            whether the entry is being dragged
 	 */
-	public void render(GraphicsContext g, Size size, Font font, TextStyle tm, boolean inDND, boolean stopped,
-			boolean clicked, boolean selected, float sizeRatio, int offsetX, int offsetY, boolean isDND) {
+	public void render(GraphicsContext g, Size size, Font font, boolean inDND, boolean stopped, boolean clicked,
+			boolean selected, float sizeRatio, int offsetX, int offsetY, boolean isDND) {
 		// draw background
 		int imageWidth = Math.round(this.image.getWidth() * sizeRatio);
 		int imageHeight = Math.round(this.image.getHeight() * sizeRatio);
@@ -123,9 +123,16 @@ public class CarouselEntry {
 			int stringHeight = 2 * font.getHeight();
 			int stringAlignment = Alignment.HCENTER | Alignment.TOP;
 			g.translate(stringX, stringY);
-			tm.drawText(g, this.string, font, g.getColor(), stringWidth, stringHeight, stringAlignment);
+			drawText(g, this.string, font, g.getColor(), stringWidth, stringHeight, stringAlignment);
 			g.translate(-stringX, -stringY);
 		}
+	}
+
+	private void drawText(GraphicsContext g, String string, Font font, int color, int stringWidth, int stringHeight,
+			int stringAlignment) {
+		g.resetEllipsis();
+		g.setColor(color);
+		TextRenderingHelper.drawStringInBox(g, font, string, stringWidth, stringHeight, stringAlignment);
 	}
 
 	private void drawScaled(GraphicsContext g, Image image, int x, int y, int alpha, float sizeRatio, boolean stopped) {

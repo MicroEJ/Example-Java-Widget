@@ -26,6 +26,7 @@ import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
+import ej.widget.util.TextRenderingHelper;
 import ej.widget.util.color.GradientHelper;
 
 /**
@@ -109,7 +110,8 @@ public class Wheel extends Widget {
 		int backgroundColor = style.getBackgroundColor();
 		g.setColor(foregroundColor);
 		Font font = getDesktop().getFont(style);
-		drawString(g, font, this.model.getValueAsString(currentVisibleIndex), x, y, Alignment.HCENTER_VCENTER);
+		TextRenderingHelper.drawStringOnPoint(g, font, this.model.getValueAsString(currentVisibleIndex), x, y,
+				Alignment.HCENTER_VCENTER);
 
 		// Draws the previous values.
 		ListIterator<String> valueIterator = this.model.listIterator(currentVisibleIndex);
@@ -144,12 +146,6 @@ public class Wheel extends Widget {
 		Painter.drawHorizontalLine(g, 0, y, width);
 	}
 
-	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment) {
-		int x = Alignment.computeLeftX(font.stringWidth(string), anchorX, alignment);
-		int y = Alignment.computeTopY(font.getHeight(), anchorY, alignment);
-		Painter.drawString(g, font, string, x, y);
-	}
-
 	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment,
 			float fontRatio) {
 		int x = Alignment.computeLeftX((int) (font.stringWidth(string) * fontRatio), anchorX, alignment);
@@ -178,7 +174,9 @@ public class Wheel extends Widget {
 
 		Style style = getStyle();
 		Font font = getDesktop().getFont(style);
-		style.getTextStyle().computeContentSize(string, font, size);
+		int textWidth = font.stringWidth(string);
+		int textHeight = font.getHeight();
+		size.setSize(textWidth, textHeight);
 	}
 
 	private void stopAnimation() {

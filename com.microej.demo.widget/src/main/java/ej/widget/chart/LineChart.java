@@ -13,6 +13,7 @@ import ej.microui.display.Painter;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.util.Size;
+import ej.widget.util.TextRenderingHelper;
 
 /**
  * Represents a line chart with several ordered points.
@@ -82,7 +83,8 @@ public class LineChart extends BasicChart {
 
 			String name = chartPoint.getName();
 			if (name != null) {
-				drawString(g, font, name, currentX, size.getHeight(), Alignment.HCENTER_BOTTOM);
+				TextRenderingHelper.drawStringOnPoint(g, font, name, currentX, size.getHeight(),
+						Alignment.HCENTER_BOTTOM);
 			}
 
 			if (value < 0.0f) {

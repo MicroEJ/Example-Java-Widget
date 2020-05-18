@@ -22,6 +22,7 @@ import ej.mwt.style.container.Alignment;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
 import ej.widget.ElementAdapter;
+import ej.widget.util.TextRenderingHelper;
 
 /**
  * Represents a chart with basic functionality.
@@ -159,34 +160,12 @@ public abstract class BasicChart extends Chart implements Animation {
 			String scaleString = getFormat().formatShort(scaleValue);
 			int yScale = yBarBottom + (yBarTop - yBarBottom) * i / numScaleValues;
 
-			drawString(g, font, scaleString, xScale, yScale, Alignment.RIGHT_VCENTER);
+			TextRenderingHelper.drawStringOnPoint(g, font, scaleString, xScale, yScale, Alignment.RIGHT_VCENTER);
 			Painter.drawLine(g, LEFT_PADDING, yScale, size.getWidth(), yScale);
 		}
 
 		// draw unit
-		drawString(g, font, getUnit(), xScale, 0, Alignment.RIGHT_TOP);
-	}
-
-	/**
-	 * Render string considering alignment.
-	 *
-	 * @param g
-	 *            the graphics context.
-	 * @param font
-	 *            the font to use.
-	 * @param string
-	 *            the string to draw.
-	 * @param anchorX
-	 *            the x anchor.
-	 * @param anchorY
-	 *            the y anchor.
-	 * @param alignment
-	 *            the string alignment.
-	 */
-	protected void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment) {
-		int x = Alignment.computeLeftX(font.stringWidth(string), anchorX, alignment);
-		int y = Alignment.computeTopY(font.getHeight(), anchorY, alignment);
-		Painter.drawString(g, font, string, x, y);
+		TextRenderingHelper.drawStringOnPoint(g, font, getUnit(), xScale, 0, Alignment.RIGHT_TOP);
 	}
 
 	/**

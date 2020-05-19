@@ -26,7 +26,7 @@ import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
-import ej.widget.util.TextRenderingHelper;
+import ej.widget.util.StringPainter;
 import ej.widget.util.color.GradientHelper;
 
 /**
@@ -110,7 +110,7 @@ public class Wheel extends Widget {
 		int backgroundColor = style.getBackgroundColor();
 		g.setColor(foregroundColor);
 		Font font = getDesktop().getFont(style);
-		TextRenderingHelper.drawStringOnPoint(g, font, this.model.getValueAsString(currentVisibleIndex), x, y,
+		StringPainter.drawTextOnPoint(g, font, this.model.getValueAsString(currentVisibleIndex), x, y,
 				Alignment.HCENTER_VCENTER);
 
 		// Draws the previous values.

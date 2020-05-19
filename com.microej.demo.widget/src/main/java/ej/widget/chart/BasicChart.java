@@ -22,7 +22,7 @@ import ej.mwt.style.container.Alignment;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
 import ej.widget.ElementAdapter;
-import ej.widget.util.TextRenderingHelper;
+import ej.widget.util.StringPainter;
 
 /**
  * Represents a chart with basic functionality.
@@ -160,12 +160,12 @@ public abstract class BasicChart extends Chart implements Animation {
 			String scaleString = getFormat().formatShort(scaleValue);
 			int yScale = yBarBottom + (yBarTop - yBarBottom) * i / numScaleValues;
 
-			TextRenderingHelper.drawStringOnPoint(g, font, scaleString, xScale, yScale, Alignment.RIGHT_VCENTER);
+			StringPainter.drawTextOnPoint(g, font, scaleString, xScale, yScale, Alignment.RIGHT_VCENTER);
 			Painter.drawLine(g, LEFT_PADDING, yScale, size.getWidth(), yScale);
 		}
 
 		// draw unit
-		TextRenderingHelper.drawStringOnPoint(g, font, getUnit(), xScale, 0, Alignment.RIGHT_TOP);
+		StringPainter.drawTextOnPoint(g, font, getUnit(), xScale, 0, Alignment.RIGHT_TOP);
 	}
 
 	/**

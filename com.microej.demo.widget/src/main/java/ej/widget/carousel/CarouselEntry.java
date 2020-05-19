@@ -16,7 +16,7 @@ import ej.microui.display.Painter;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.util.Size;
 import ej.widget.listener.OnClickListener;
-import ej.widget.util.TextRenderingHelper;
+import ej.widget.util.StringPainter;
 
 /**
  * Represents one of the entries of a carousel
@@ -122,17 +122,15 @@ public class CarouselEntry {
 			int stringWidth = imageWidth - 2 * marginX;
 			int stringHeight = 2 * font.getHeight();
 			int stringAlignment = Alignment.HCENTER | Alignment.TOP;
-			g.translate(stringX, stringY);
-			drawText(g, this.string, font, g.getColor(), stringWidth, stringHeight, stringAlignment);
-			g.translate(-stringX, -stringY);
+			drawText(g, this.string, font, g.getColor(), stringX, stringY, stringWidth, stringHeight, stringAlignment);
 		}
 	}
 
-	private void drawText(GraphicsContext g, String string, Font font, int color, int stringWidth, int stringHeight,
-			int stringAlignment) {
+	private void drawText(GraphicsContext g, String string, Font font, int color, int stringX, int stringY,
+			int stringWidth, int stringHeight, int stringAlignment) {
 		g.resetEllipsis();
 		g.setColor(color);
-		TextRenderingHelper.drawStringInBox(g, font, string, stringWidth, stringHeight, stringAlignment);
+		StringPainter.drawStringInArea(g, font, string, stringX, stringY, stringWidth, stringHeight, stringAlignment);
 	}
 
 	private void drawScaled(GraphicsContext g, Image image, int x, int y, int alpha, float sizeRatio, boolean stopped) {

@@ -31,7 +31,7 @@ import ej.widget.listener.OnTextChangeListener;
 import ej.widget.util.ControlCharacters;
 import ej.widget.util.Keyboard;
 import ej.widget.util.States;
-import ej.widget.util.TextRenderingHelper;
+import ej.widget.util.StringPainter;
 
 /**
  * A text is a widget that holds a string that can be modified by the user.
@@ -546,7 +546,7 @@ public class KeyboardText extends Container implements EventHandler {
 			int stringAlignment) {
 		g.resetEllipsis();
 		g.setColor(color);
-		TextRenderingHelper.drawStringInBox(g, font, string, stringWidth, stringHeight, stringAlignment);
+		StringPainter.drawStringInArea(g, font, string, 0, 0, stringWidth, stringHeight, stringAlignment);
 	}
 
 	private Rectangle[] getBounds(int startIndex, int endIndex, String text, Font font, int areaWidth, int areaHeight,

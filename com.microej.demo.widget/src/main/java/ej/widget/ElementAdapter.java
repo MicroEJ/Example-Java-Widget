@@ -9,6 +9,7 @@ import ej.microui.display.GraphicsContext;
 import ej.mwt.Container;
 import ej.mwt.Desktop;
 import ej.mwt.Widget;
+import ej.mwt.style.Style;
 import ej.mwt.util.Size;
 
 /**
@@ -23,9 +24,12 @@ public class ElementAdapter extends Widget {
 	}
 
 	@Override
-	public void updateStyleRecursive() {
-		// don't check if this "widget" is shown
-		updateStyle();
+	public void updateStyle() {
+		Desktop desktop = getDesktop();
+		if (desktop != null) {
+			Style newStyle = desktop.getStylesheet().getStyle(this);
+			setStyle(newStyle);
+		}
 	}
 
 	@Override

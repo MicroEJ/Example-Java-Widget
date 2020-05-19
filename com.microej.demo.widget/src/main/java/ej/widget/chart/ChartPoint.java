@@ -121,7 +121,7 @@ public class ChartPoint extends ElementAdapter {
 	 */
 	public void setSelected(boolean selected) {
 		this.selected = selected;
-		this.updateStyleRecursive();
+		this.updateStyle();
 	}
 
 	/**

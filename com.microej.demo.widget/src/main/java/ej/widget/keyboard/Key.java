@@ -164,7 +164,7 @@ public class Key extends Wrapper {
 
 	private void setPressed(boolean pressed) {
 		this.pressed = pressed;
-		updateStyleRecursive();
+		updateStyle();
 		requestRender();
 	}
 

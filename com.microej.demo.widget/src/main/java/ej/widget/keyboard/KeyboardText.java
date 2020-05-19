@@ -271,7 +271,7 @@ public class KeyboardText extends Container implements EventHandler {
 
 	private void updateEmptyState(boolean wasEmpty, boolean isEmpty) {
 		if (wasEmpty != isEmpty) {
-			updateStyleRecursive();
+			updateStyle();
 			requestRender();
 		}
 	}
@@ -458,7 +458,7 @@ public class KeyboardText extends Container implements EventHandler {
 		if (active) {
 			startBlink();
 		}
-		updateStyleRecursive();
+		updateStyle();
 		requestRender();
 	}
 

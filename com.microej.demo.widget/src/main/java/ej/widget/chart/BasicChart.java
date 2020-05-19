@@ -100,7 +100,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	 */
 	@Override
 	public boolean handleEvent(int event) {
-		if (Event.getType(event) == Event.POINTER) {
+		if (Event.getType(event) == Pointer.EVENT_TYPE) {
 			Pointer pointer = (Pointer) Event.getGenerator(event);
 			int pointerX = pointer.getX() - getAbsoluteX() - getContentX();
 			int pointerY = pointer.getY() - getAbsoluteY() - getContentY();

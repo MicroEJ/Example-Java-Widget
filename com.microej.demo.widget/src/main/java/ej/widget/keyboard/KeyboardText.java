@@ -546,7 +546,7 @@ public class KeyboardText extends Container implements EventHandler {
 	public boolean handleEvent(int event) {
 		int type = Event.getType(event);
 		switch (type) {
-		case Event.COMMAND:
+		case Command.EVENT_TYPE:
 			int data = Event.getData(event);
 			if (onCommand(data)) {
 				return true;
@@ -555,7 +555,7 @@ public class KeyboardText extends Container implements EventHandler {
 		case Keyboard.EVENTGENERATOR_ID:
 			handleKeyboard(event);
 			return true;
-		case Event.POINTER:
+		case Pointer.EVENT_TYPE:
 			Pointer pointer = (Pointer) Event.getGenerator(event);
 			int pointerX = pointer.getX();
 			int pointerY = pointer.getY();

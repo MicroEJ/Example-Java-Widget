@@ -188,7 +188,7 @@ public class Wheel extends Widget {
 	@Override
 	public boolean handleEvent(int event) {
 		int type = Event.getType(event);
-		if (type == Event.POINTER) {
+		if (type == Pointer.EVENT_TYPE) {
 			Pointer pointer = (Pointer) Event.getGenerator(event);
 			int pointerY = getRelativeY(pointer.getY());
 			int action = Pointer.getAction(event);

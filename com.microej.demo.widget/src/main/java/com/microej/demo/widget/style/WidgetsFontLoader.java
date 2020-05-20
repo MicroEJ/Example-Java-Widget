@@ -5,8 +5,7 @@
  */
 package com.microej.demo.widget.style;
 
-import ej.mwt.style.font.FontProfile;
-import ej.mwt.style.font.loader.StrictFontLoader;
+import ej.widget.font.StrictFontLoader;
 
 /**
  * The font loader used in the application.
@@ -24,8 +23,8 @@ public class WidgetsFontLoader extends StrictFontLoader {
 	private static final int PICTO_HEIGHT = 30;
 
 	@Override
-	public int getFontHeight(FontProfile fontProfile) {
-		switch (fontProfile.getSize()) {
+	public int getFontHeight(int size) {
+		switch (size) {
 		case LARGE:
 			return LARGE_HEIGHT;
 		case SMALL:

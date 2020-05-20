@@ -144,7 +144,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	 *            the value on the top of the chart.
 	 */
 	protected void renderScale(GraphicsContext g, Style style, Size size, float topValue) {
-		Font font = getDesktop().getFont(style);
+		Font font = style.getFont();
 		int fontHeight = font.getHeight();
 
 		int yBarBottom = getBarBottom(fontHeight, size);
@@ -190,7 +190,7 @@ public abstract class BasicChart extends Chart implements Animation {
 			}
 
 			Style labelStyle = this.selectedValueElement.getStyle();
-			Font labelFont = getDesktop().getFont(labelStyle);
+			Font labelFont = labelStyle.getFont();
 
 			int labelW = labelFont.stringWidth(labelString) + 2 * SELECTED_VALUE_PADDING;
 			int labelX = (size.getWidth() - labelW) / 2;
@@ -209,7 +209,7 @@ public abstract class BasicChart extends Chart implements Animation {
 
 		int height = availableSize.getHeight();
 		int width = availableSize.getWidth();
-		int fontHeight = getDesktop().getFont(style).getHeight();
+		int fontHeight = style.getFont().getHeight();
 		if (height == Widget.NO_CONSTRAINT) {
 			height = 4 * fontHeight;
 		}

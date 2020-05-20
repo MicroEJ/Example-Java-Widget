@@ -54,7 +54,7 @@ public class WidgetsDemo {
 		MicroUI.start();
 
 		// Initialize stylesheet rules.
-		Stylesheet stylesheet = StylesheetPopulator.createStylesheet();
+		Stylesheet stylesheet = StylesheetPopulator.createStylesheet(new WidgetsFontLoader());
 
 		// Create the navigator.
 		TransitionContainer = newTransitionContainer();
@@ -67,7 +67,6 @@ public class WidgetsDemo {
 		// Show the navigator.
 		Desktop = new Desktop();
 		Desktop.setImageLoader(new DefaultImageLoader());
-		Desktop.setFontLoader(new WidgetsFontLoader());
 		Desktop.setStylesheet(stylesheet);
 		Desktop.setWidget(TransitionContainer);
 		Desktop.requestShow();

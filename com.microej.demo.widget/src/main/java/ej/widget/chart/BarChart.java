@@ -37,7 +37,7 @@ public class BarChart extends BasicChart {
 	@Override
 	public void renderContent(GraphicsContext g, Size size) {
 		Style style = getStyle();
-		Font font = getDesktop().getFont(style);
+		Font font = style.getFont();
 		int fontHeight = font.getHeight();
 
 		this.xStep = (size.getWidth() - LEFT_PADDING) / (getPoints().size() - 0.5f);
@@ -64,8 +64,7 @@ public class BarChart extends BasicChart {
 
 			String name = chartPoint.getName();
 			if (name != null) {
-				StringPainter.drawStringAtPoint(g, font, name, currentX, size.getHeight(),
-						Alignment.HCENTER_BOTTOM);
+				StringPainter.drawStringAtPoint(g, font, name, currentX, size.getHeight(), Alignment.HCENTER_BOTTOM);
 			}
 
 			if (value >= 0.0f) {

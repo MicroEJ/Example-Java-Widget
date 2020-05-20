@@ -109,7 +109,7 @@ public class Wheel extends Widget {
 		int foregroundColor = style.getForegroundColor();
 		int backgroundColor = style.getBackgroundColor();
 		g.setColor(foregroundColor);
-		Font font = getDesktop().getFont(style);
+		Font font = style.getFont();
 		StringPainter.drawStringAtPoint(g, font, this.model.getValueAsString(currentVisibleIndex), x, y,
 				Alignment.HCENTER_VCENTER);
 
@@ -173,7 +173,7 @@ public class Wheel extends Widget {
 		String string = this.model.getValueAsString(currentVisibleIndex);
 
 		Style style = getStyle();
-		Font font = getDesktop().getFont(style);
+		Font font = style.getFont();
 		int textWidth = font.stringWidth(string);
 		int textHeight = font.getHeight();
 		size.setSize(textWidth, textHeight);

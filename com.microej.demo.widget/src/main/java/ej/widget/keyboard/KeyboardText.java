@@ -435,7 +435,7 @@ public class KeyboardText extends Container implements EventHandler {
 		this.selectionElement.updateStyle();
 		this.clearButtonElement.updateStyle();
 		Style style = getStyle();
-		Font font = getDesktop().getFont(style);
+		Font font = style.getFont();
 		int textWidth = font.stringWidth(getTextOrPlaceHolder());
 		int textHeight = font.getHeight();
 		availableSize.setSize(textWidth, textHeight);
@@ -503,7 +503,7 @@ public class KeyboardText extends Container implements EventHandler {
 	@Override
 	public void renderContent(GraphicsContext g, Size size) {
 		Style style = getStyle();
-		Font font = getDesktop().getFont(style);
+		Font font = style.getFont();
 		// Keep call to getText() for subclasses (such as Password).
 		String text = getText();
 		int alignment = style.getAlignment();
@@ -537,7 +537,7 @@ public class KeyboardText extends Container implements EventHandler {
 
 		// Draw clear button.
 		Style clearButtonStyle = this.clearButtonElement.getStyle();
-		Font clearButtonFont = getDesktop().getFont(clearButtonStyle);
+		Font clearButtonFont = clearButtonStyle.getFont();
 		drawText(g, CLEAR_BUTTON_STRING, clearButtonFont, clearButtonStyle.getForegroundColor(), width, height,
 				clearButtonStyle.getAlignment());
 	}
@@ -624,7 +624,7 @@ public class KeyboardText extends Container implements EventHandler {
 
 		// check clear button event
 		Style style = this.clearButtonElement.getStyle();
-		int clearButtonWidth = getDesktop().getFont(style).stringWidth(CLEAR_BUTTON_STRING);
+		int clearButtonWidth = style.getFont().stringWidth(CLEAR_BUTTON_STRING);
 		int clearButtonX = Alignment.computeLeftX(clearButtonWidth, getContentX(), getContentWidth(),
 				style.getAlignment());
 		int pX = getRelativeX(pointerX);
@@ -655,7 +655,7 @@ public class KeyboardText extends Container implements EventHandler {
 		int x = getRelativeX(pointerX);
 		int y = getRelativeY(pointerY);
 		Style style = getStyle();
-		Font font = getDesktop().getFont(style);
+		Font font = style.getFont();
 		Rectangle contentBounds = getContentBounds();
 		return getIndex(x - contentBounds.getX(), y - contentBounds.getY(), getText(), font, contentBounds.getWidth(),
 				contentBounds.getHeight(), style.getAlignment());

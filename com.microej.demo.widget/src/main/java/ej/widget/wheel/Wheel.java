@@ -110,7 +110,7 @@ public class Wheel extends Widget {
 		int backgroundColor = style.getBackgroundColor();
 		g.setColor(foregroundColor);
 		Font font = getDesktop().getFont(style);
-		StringPainter.drawTextOnPoint(g, font, this.model.getValueAsString(currentVisibleIndex), x, y,
+		StringPainter.drawStringAtPoint(g, font, this.model.getValueAsString(currentVisibleIndex), x, y,
 				Alignment.HCENTER_VCENTER);
 
 		// Draws the previous values.

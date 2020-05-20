@@ -160,12 +160,12 @@ public abstract class BasicChart extends Chart implements Animation {
 			String scaleString = getFormat().formatShort(scaleValue);
 			int yScale = yBarBottom + (yBarTop - yBarBottom) * i / numScaleValues;
 
-			StringPainter.drawTextOnPoint(g, font, scaleString, xScale, yScale, Alignment.RIGHT_VCENTER);
+			StringPainter.drawStringAtPoint(g, font, scaleString, xScale, yScale, Alignment.RIGHT_VCENTER);
 			Painter.drawLine(g, LEFT_PADDING, yScale, size.getWidth(), yScale);
 		}
 
 		// draw unit
-		StringPainter.drawTextOnPoint(g, font, getUnit(), xScale, 0, Alignment.RIGHT_TOP);
+		StringPainter.drawStringAtPoint(g, font, getUnit(), xScale, 0, Alignment.RIGHT_TOP);
 	}
 
 	/**

@@ -30,8 +30,6 @@ import ej.mwt.style.selector.OddChildSelector;
 import ej.mwt.style.selector.StateSelector;
 import ej.mwt.style.selector.TypeSelector;
 import ej.mwt.style.selector.combinator.AndCombinator;
-import ej.mwt.style.text.LineWrapTextStyle;
-import ej.mwt.style.text.SingleLineTextStyle;
 import ej.widget.basic.Label;
 import ej.widget.basic.drawing.CheckBox;
 import ej.widget.basic.drawing.CircularProgressBar;
@@ -53,6 +51,7 @@ import ej.widget.chart.ChartPoint;
 import ej.widget.keyboard.Key;
 import ej.widget.keyboard.Keyboard;
 import ej.widget.keyboard.KeyboardText;
+import ej.widget.style.text.LineWrapTextStyle;
 import ej.widget.util.States;
 import ej.widget.wheel.Wheel;
 
@@ -173,7 +172,7 @@ public class StylesheetPopulator {
 
 		// Sets the multiline style.
 		style.clear();
-		style.setTextStyle(new LineWrapTextStyle(25));
+		style.setExtraField(Label.TEXT_STYLE, new LineWrapTextStyle(25));
 		style.setPadding(new FlexibleOutline(0, 0, 20, 0));
 		stylesheet.addRule(new ClassSelector(ClassSelectors.MULTILINE), style);
 
@@ -379,7 +378,6 @@ public class StylesheetPopulator {
 		textStyle.setBackground(NoBackground.NO_BACKGROUND);
 		textStyle.setBorder(new FlexibleRectangularBorder(FOREGROUND, 0, 0, 1, 0));
 		textStyle.setAlignment(Alignment.LEFT | Alignment.VCENTER);
-		textStyle.setTextStyle(SingleLineTextStyle.SINGLE_LINE_TEXT_STYLE);
 		textStyle.setMargin(new UniformOutline(5));
 		textStyle.setPadding(new FlexibleOutline(0, 1, 1, 1));
 		TypeSelector textSelector = new TypeSelector(KeyboardText.class);
@@ -480,7 +478,7 @@ public class StylesheetPopulator {
 		wheelStyle.setForegroundColor(MicroEJColors.CONCRETE_BLACK_50);
 		wheelStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_25);
 		wheelStyle.setBackground(NoBackground.NO_BACKGROUND);
-		// wheelStyle.setBorderColor(WHEEL_LINE_COLOR);
+		wheelStyle.setExtraField(Wheel.LINE_COLOR_FIELD, WHEEL_LINE_COLOR);
 		FontProfile wheelFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE,
 				Font.STYLE_PLAIN);
 		wheelStyle.setFontProfile(wheelFont);

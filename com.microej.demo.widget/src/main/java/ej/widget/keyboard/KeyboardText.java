@@ -22,7 +22,6 @@ import ej.microui.event.generator.Pointer;
 import ej.mwt.Container;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
-import ej.mwt.style.text.TextStyle;
 import ej.mwt.util.Rectangle;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
@@ -32,6 +31,7 @@ import ej.widget.listener.OnTextChangeListener;
 import ej.widget.util.ControlCharacters;
 import ej.widget.util.Keyboard;
 import ej.widget.util.States;
+import ej.widget.util.StringPainter;
 
 /**
  * A text is a widget that holds a string that can be modified by the user.
@@ -271,7 +271,7 @@ public class KeyboardText extends Container implements EventHandler {
 
 	private void updateEmptyState(boolean wasEmpty, boolean isEmpty) {
 		if (wasEmpty != isEmpty) {
-			updateStyleRecursive();
+			updateStyle();
 			requestRender();
 		}
 	}
@@ -436,7 +436,9 @@ public class KeyboardText extends Container implements EventHandler {
 		this.clearButtonElement.updateStyle();
 		Style style = getStyle();
 		Font font = getDesktop().getFont(style);
-		style.getTextStyle().computeContentSize(getTextOrPlaceHolder(), font, availableSize);
+		int textWidth = font.stringWidth(getTextOrPlaceHolder());
+		int textHeight = font.getHeight();
+		availableSize.setSize(textWidth, textHeight);
 		// Add selection thickness.
 		availableSize.addOutline(1, 1, 0, 0);
 	}
@@ -456,7 +458,7 @@ public class KeyboardText extends Container implements EventHandler {
 		if (active) {
 			startBlink();
 		}
-		updateStyleRecursive();
+		updateStyle();
 		requestRender();
 	}
 
@@ -502,7 +504,6 @@ public class KeyboardText extends Container implements EventHandler {
 	public void renderContent(GraphicsContext g, Size size) {
 		Style style = getStyle();
 		Font font = getDesktop().getFont(style);
-		TextStyle textManager = style.getTextStyle();
 		// Keep call to getText() for subclasses (such as Password).
 		String text = getText();
 		int alignment = style.getAlignment();
@@ -517,8 +518,7 @@ public class KeyboardText extends Container implements EventHandler {
 		int selectionEnd = getSelectionEnd();
 		if (selectionStart != selectionEnd || isShownCaret()) {
 			Style selectionStyle = this.selectionElement.getStyle();
-			Rectangle[] selection = textManager.getBounds(selectionStart, selectionEnd, text, font, width, height,
-					alignment);
+			Rectangle[] selection = getBounds(selectionStart, selectionEnd, text, font, width, height, alignment);
 			g.setColor(selectionStyle.getForegroundColor());
 			for (Rectangle rectangle : selection) {
 				int w = (selectionStart != selectionEnd ? rectangle.getWidth() : 1);
@@ -532,21 +532,50 @@ public class KeyboardText extends Container implements EventHandler {
 
 		// Shift selection thickness.
 		g.translate(1, 1);
-		textManager.drawText(g, text, font, foregroundColor, width, height, alignment);
+		drawText(g, text, font, foregroundColor, width, height, alignment);
 		g.translate(-1, -1);
 
 		// Draw clear button.
 		Style clearButtonStyle = this.clearButtonElement.getStyle();
 		Font clearButtonFont = getDesktop().getFont(clearButtonStyle);
-		textManager.drawText(g, CLEAR_BUTTON_STRING, clearButtonFont, clearButtonStyle.getForegroundColor(), width,
-				height, clearButtonStyle.getAlignment());
+		drawText(g, CLEAR_BUTTON_STRING, clearButtonFont, clearButtonStyle.getForegroundColor(), width, height,
+				clearButtonStyle.getAlignment());
+	}
+
+	private void drawText(GraphicsContext g, String string, Font font, int color, int stringWidth, int stringHeight,
+			int stringAlignment) {
+		g.resetEllipsis();
+		g.setColor(color);
+		StringPainter.drawStringInArea(g, font, string, 0, 0, stringWidth, stringHeight, stringAlignment);
+	}
+
+	private Rectangle[] getBounds(int startIndex, int endIndex, String text, Font font, int areaWidth, int areaHeight,
+			int alignment) {
+		// Shift to beginning of the text.
+		int xLeft = Alignment.computeLeftX(font.stringWidth(text), 0, areaWidth, alignment);
+		int yTop = Alignment.computeTopY(font.getHeight(), 0, areaHeight, alignment);
+		int startY = yTop;
+		int startX = xLeft + getX(startIndex, 0, font, text);
+		int endX = xLeft + getX(endIndex, 0, font, text);
+
+		Rectangle rectangle = new Rectangle(startX, startY, endX - startX, font.getHeight());
+
+		return new Rectangle[] { rectangle };
+	}
+
+	private static int getX(int index, int currentIndex, Font font, String line) {
+		if (index < currentIndex) {
+			return font.stringWidth(line);
+		} else {
+			return font.substringWidth(line, 0, index - currentIndex);
+		}
 	}
 
 	@Override
 	public boolean handleEvent(int event) {
 		int type = Event.getType(event);
 		switch (type) {
-		case Event.COMMAND:
+		case Command.EVENT_TYPE:
 			int data = Event.getData(event);
 			if (onCommand(data)) {
 				return true;
@@ -555,7 +584,7 @@ public class KeyboardText extends Container implements EventHandler {
 		case Keyboard.EVENTGENERATOR_ID:
 			handleKeyboard(event);
 			return true;
-		case Event.POINTER:
+		case Pointer.EVENT_TYPE:
 			Pointer pointer = (Pointer) Event.getGenerator(event);
 			int pointerX = pointer.getX();
 			int pointerY = pointer.getY();
@@ -628,8 +657,44 @@ public class KeyboardText extends Container implements EventHandler {
 		Style style = getStyle();
 		Font font = getDesktop().getFont(style);
 		Rectangle contentBounds = getContentBounds();
-		return style.getTextStyle().getIndex(x - contentBounds.getX(), y - contentBounds.getY(), getText(), font,
-				contentBounds.getWidth(), contentBounds.getHeight(), style.getAlignment());
+		return getIndex(x - contentBounds.getX(), y - contentBounds.getY(), getText(), font, contentBounds.getWidth(),
+				contentBounds.getHeight(), style.getAlignment());
+	}
+
+	private int getIndex(int x, int y, String text, Font font, int areaWidth, int areaHeight, int alignment) {
+		int textLength = text.length();
+		if (textLength == 0) {
+			return 0;
+		}
+
+		// Shift to beginning of the text.
+		int xLeft = Alignment.computeLeftX(font.stringWidth(text), 0, areaWidth, alignment);
+		x -= xLeft;
+
+		int min = 0;
+		int max = textLength;
+		int startX = 0;
+
+		// Search the character under the given position.
+		// Use dichotomy.
+		while (max - min > 1) {
+			int half = (max - min) >> 1;
+			int halfWidth = font.substringWidth(text, min, half);
+			if (startX + halfWidth > x) {
+				// Select first part.
+				max = min + half;
+			} else {
+				// Select second part.
+				min += half;
+				startX += halfWidth;
+			}
+		}
+
+		// Select the right side of the selected character.
+		if ((startX + font.charWidth(text.charAt(min)) / 2) < x) {
+			min++;
+		}
+		return min;
 	}
 
 	private void onPointerReleased() {

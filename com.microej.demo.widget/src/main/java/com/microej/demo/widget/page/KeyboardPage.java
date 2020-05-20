@@ -12,6 +12,7 @@ import com.microej.demo.widget.keyboard.UpperCaseLayout;
 import com.microej.demo.widget.style.ClassSelectors;
 
 import ej.microui.event.Event;
+import ej.microui.event.generator.Pointer;
 import ej.mwt.Widget;
 import ej.service.ServiceFactory;
 import ej.widget.basic.Label;
@@ -74,7 +75,7 @@ public class KeyboardPage extends AbstractDemoPage {
 		this.firstName = new KeyboardText(EMPTY_STRING, FIRST_NAME) {
 			@Override
 			public boolean handleEvent(int event) {
-				if (Event.getType(event) == Event.POINTER) {
+				if (Event.getType(event) == Pointer.EVENT_TYPE) {
 					showKeyboard(KeyboardPage.this.firstName);
 				}
 				return super.handleEvent(event);
@@ -86,7 +87,7 @@ public class KeyboardPage extends AbstractDemoPage {
 		this.lastName = new KeyboardText(EMPTY_STRING, LAST_NAME) {
 			@Override
 			public boolean handleEvent(int event) {
-				if (Event.getType(event) == Event.POINTER) {
+				if (Event.getType(event) == Pointer.EVENT_TYPE) {
 					showKeyboard(KeyboardPage.this.lastName);
 				}
 				return super.handleEvent(event);

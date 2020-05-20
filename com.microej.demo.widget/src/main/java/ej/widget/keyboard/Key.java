@@ -130,7 +130,7 @@ public class Key extends Wrapper {
 	@Override
 	public boolean handleEvent(int event) {
 		switch (Event.getType(event)) {
-		case Event.POINTER:
+		case Pointer.EVENT_TYPE:
 			int action = Pointer.getAction(event);
 			switch (action) {
 			case Pointer.PRESSED:
@@ -164,7 +164,7 @@ public class Key extends Wrapper {
 
 	private void setPressed(boolean pressed) {
 		this.pressed = pressed;
-		updateStyleRecursive();
+		updateStyle();
 		requestRender();
 	}
 

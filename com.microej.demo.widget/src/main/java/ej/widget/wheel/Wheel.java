@@ -8,6 +8,7 @@ package ej.widget.wheel;
 import java.util.ListIterator;
 
 import ej.bon.Timer;
+import ej.microui.display.Colors;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.Painter;
@@ -25,12 +26,18 @@ import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
+import ej.widget.util.StringPainter;
 import ej.widget.util.color.GradientHelper;
 
 /**
  * Represents a wheel from which the user can choose among a set of choices
  */
 public class Wheel extends Widget {
+
+	/**
+	 * The extra field ID for the color of the horizontal lines.
+	 */
+	public static final int LINE_COLOR_FIELD = 0;
 
 	private static final int RELEASE_WITH_NO_MOVE_DELAY = 150;
 	private static final int ANIMATION_PERIOD = 30;
@@ -103,7 +110,8 @@ public class Wheel extends Widget {
 		int backgroundColor = style.getBackgroundColor();
 		g.setColor(foregroundColor);
 		Font font = getDesktop().getFont(style);
-		drawString(g, font, this.model.getValueAsString(currentVisibleIndex), x, y, Alignment.HCENTER_VCENTER);
+		StringPainter.drawStringAtPoint(g, font, this.model.getValueAsString(currentVisibleIndex), x, y,
+				Alignment.HCENTER_VCENTER);
 
 		// Draws the previous values.
 		ListIterator<String> valueIterator = this.model.listIterator(currentVisibleIndex);
@@ -127,7 +135,7 @@ public class Wheel extends Widget {
 		}
 
 		// Draws the horizontal lines.
-		g.setColor(GradientHelper.blendColors(foregroundColor, backgroundColor, 0.9f));
+		g.setColor(style.getExtraField(LINE_COLOR_FIELD, Colors.BLACK));
 
 		y = (remainingHeight >> 1) - (lineHeight >> 1);
 		Painter.drawHorizontalLine(g, 0, y - 1, width);
@@ -136,12 +144,6 @@ public class Wheel extends Widget {
 		y = (remainingHeight >> 1) + (lineHeight >> 1);
 		Painter.drawHorizontalLine(g, 0, y - 1, width);
 		Painter.drawHorizontalLine(g, 0, y, width);
-	}
-
-	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment) {
-		int x = Alignment.computeLeftX(font.stringWidth(string), anchorX, alignment);
-		int y = Alignment.computeTopY(font.getHeight(), anchorY, alignment);
-		Painter.drawString(g, font, string, x, y);
 	}
 
 	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment,
@@ -172,7 +174,9 @@ public class Wheel extends Widget {
 
 		Style style = getStyle();
 		Font font = getDesktop().getFont(style);
-		style.getTextStyle().computeContentSize(string, font, size);
+		int textWidth = font.stringWidth(string);
+		int textHeight = font.getHeight();
+		size.setSize(textWidth, textHeight);
 	}
 
 	private void stopAnimation() {
@@ -184,7 +188,7 @@ public class Wheel extends Widget {
 	@Override
 	public boolean handleEvent(int event) {
 		int type = Event.getType(event);
-		if (type == Event.POINTER) {
+		if (type == Pointer.EVENT_TYPE) {
 			Pointer pointer = (Pointer) Event.getGenerator(event);
 			int pointerY = getRelativeY(pointer.getY());
 			int action = Pointer.getAction(event);

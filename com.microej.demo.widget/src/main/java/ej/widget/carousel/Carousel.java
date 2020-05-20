@@ -24,7 +24,6 @@ import ej.mwt.Widget;
 import ej.mwt.event.DesktopEventGenerator;
 import ej.mwt.event.PointerEventDispatcher;
 import ej.mwt.style.Style;
-import ej.mwt.style.text.TextStyle;
 import ej.mwt.style.util.StyleHelper;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
@@ -242,7 +241,6 @@ public class Carousel extends Widget {
 
 		// set text style
 		Font font = getDesktop().getFont(style);
-		TextStyle tm = style.getTextStyle();
 
 		// update goto anim step
 		if (this.gotoAnimDistance != 0) {
@@ -264,18 +262,18 @@ public class Carousel extends Widget {
 		// draw entries
 		g.setColor(style.getForegroundColor());
 		for (int e = 0; e < topEntry; e++) {
-			drawEntry(g, size, font, tm, e, false, totalDrag, this.stopped);
+			drawEntry(g, size, font, e, false, totalDrag, this.stopped);
 		}
 		for (int e = this.entries.length - 1; e > topEntry; e--) {
-			drawEntry(g, size, font, tm, e, false, totalDrag, this.stopped);
+			drawEntry(g, size, font, e, false, totalDrag, this.stopped);
 		}
-		drawEntry(g, size, font, tm, topEntry, true, totalDrag, this.stopped);
+		drawEntry(g, size, font, topEntry, true, totalDrag, this.stopped);
 
 		// draw DND entry
 		if (this.dnd) {
 			int offsetX = this.lastDragX - halfWidth;
 			int offsetY = this.lastDragY - halfHeight;
-			this.dndEntry.render(g, size, font, tm, this.dnd, this.stopped, true, false, 1.0f, offsetX, offsetY, true);
+			this.dndEntry.render(g, size, font, this.dnd, this.stopped, true, false, 1.0f, offsetX, offsetY, true);
 		}
 
 		if (DEBUG) {
@@ -284,8 +282,8 @@ public class Carousel extends Widget {
 		}
 	}
 
-	private void drawEntry(GraphicsContext g, Size size, Font font, TextStyle tm, int entryIndex, boolean selected,
-			int totalDrag, boolean stopped) {
+	private void drawEntry(GraphicsContext g, Size size, Font font, int entryIndex, boolean selected, int totalDrag,
+			boolean stopped) {
 		// calculate position and size
 		int offsetX = entryIndex * this.entryWidth + totalDrag;
 		if (this.dnd && this.dndAnimDir != 0 && entryIndex == this.dndIndex - this.dndAnimDir) {
@@ -310,7 +308,7 @@ public class Carousel extends Widget {
 					clicked &= (this.lastPressX > halfWidth - this.entryWidth / 2
 							&& this.lastPressX < halfWidth + this.entryWidth / 2);
 				}
-				entry.render(g, size, font, tm, this.dnd, stopped, clicked, selected, sizeRatio, offsetX, 0, false);
+				entry.render(g, size, font, this.dnd, stopped, clicked, selected, sizeRatio, offsetX, 0, false);
 			}
 		}
 	}
@@ -322,7 +320,7 @@ public class Carousel extends Widget {
 	@Override
 	public boolean handleEvent(int event) {
 		int type = Event.getType(event);
-		if (type == Event.POINTER) {
+		if (type == Pointer.EVENT_TYPE) {
 			Pointer pointer = (Pointer) Event.getGenerator(event);
 			int pointerX = getRelativeX(pointer.getX());
 			int pointerY = getRelativeY(pointer.getY());

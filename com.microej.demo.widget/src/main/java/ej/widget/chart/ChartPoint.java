@@ -5,14 +5,10 @@
  */
 package ej.widget.chart;
 
-import ej.mwt.Container;
-import ej.widget.ElementAdapter;
-import ej.widget.util.States;
-
 /**
  * Represents a point of a Chart
  */
-public class ChartPoint extends ElementAdapter {
+public class ChartPoint {
 
 	/**
 	 * Attributes
@@ -20,14 +16,11 @@ public class ChartPoint extends ElementAdapter {
 	private String name;
 	private String fullName;
 	private float value;
-	private boolean highlighted;
 	private boolean selected;
 
 	/**
 	 * Constructor
 	 *
-	 * @param parent
-	 *            the parent.
 	 * @param name
 	 *            the name.
 	 * @param fullName
@@ -35,12 +28,10 @@ public class ChartPoint extends ElementAdapter {
 	 * @param value
 	 *            the value.
 	 */
-	public ChartPoint(Container parent, String name, String fullName, float value) {
-		super(parent);
+	public ChartPoint(String name, String fullName, float value) {
 		this.name = name;
 		this.fullName = fullName;
 		this.value = value;
-		this.highlighted = false;
 		this.selected = false;
 	}
 
@@ -102,18 +93,6 @@ public class ChartPoint extends ElementAdapter {
 	}
 
 	/**
-	 * Sets the highlight state.
-	 *
-	 * @param highlighted
-	 *            the highlight state to set.
-	 */
-	public void setHighlighted(boolean highlighted) {
-		this.highlighted = highlighted;
-		updateStyle();
-		requestRender();
-	}
-
-	/**
 	 * Sets the selection state.
 	 *
 	 * @param selected
@@ -121,18 +100,14 @@ public class ChartPoint extends ElementAdapter {
 	 */
 	public void setSelected(boolean selected) {
 		this.selected = selected;
-		this.updateStyle();
 	}
 
 	/**
-	 * Checks whether the point is in a given state.
+	 * Gets the selection state.
 	 *
-	 * @param state
-	 *            the state.
+	 * @return the selection state.
 	 */
-	@Override
-	public boolean isInState(int state) {
-		return (state == States.VISITED && this.highlighted) || (state == States.CHECKED && this.selected)
-				|| super.isInState(state);
+	public boolean isSelected() {
+		return this.selected;
 	}
 }

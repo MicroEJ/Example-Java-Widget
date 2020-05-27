@@ -52,7 +52,7 @@ public class ChartPage extends AbstractDemoPage {
 			@Override
 			public void onClick() {
 				this.isBar = !this.isBar;
-				BasicChart newChart = (this.isBar ? new BarChart() : new LineChart(false, true));
+				BasicChart newChart = (this.isBar ? new BarChart() : new LineChart(true, true));
 				loadChart(newChart);
 				split.setFirstChild(newChart);
 				split.requestLayOut();
@@ -74,7 +74,7 @@ public class ChartPage extends AbstractDemoPage {
 			String name = MONTHS[i].substring(0, 1);
 			String fullName = MONTHS[i];
 			float value = genRandomValue();
-			ChartPoint chartPoint = new ChartPoint(chart, name, fullName, value);
+			ChartPoint chartPoint = new ChartPoint(name, fullName, value);
 			chart.addPoint(chartPoint);
 		}
 

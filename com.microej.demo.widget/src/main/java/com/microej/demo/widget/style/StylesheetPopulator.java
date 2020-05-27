@@ -44,7 +44,7 @@ import ej.widget.basic.picto.PictoProgress;
 import ej.widget.basic.picto.PictoRadio;
 import ej.widget.basic.picto.PictoSlider;
 import ej.widget.basic.picto.PictoSwitch;
-import ej.widget.chart.ChartPoint;
+import ej.widget.chart.BasicChart;
 import ej.widget.font.StrictFontLoader;
 import ej.widget.keyboard.Key;
 import ej.widget.keyboard.Keyboard;
@@ -408,26 +408,8 @@ public class StylesheetPopulator {
 		chartStyle.setBackground(NoBackground.NO_BACKGROUND);
 		chartStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.SMALL));
 		chartStyle.setMargin(new FlexibleOutline(10, 40, 10, 40));
+		chartStyle.setExtraField(BasicChart.SELECTED_COLOR, MicroEJColors.CORAL);
 		stylesheet.addRule(new ClassSelector(ClassSelectors.CHART), chartStyle);
-
-		// Sets the chart point style.
-		StyleBuilder chartPointStyle = new StyleBuilder();
-		chartPointStyle.setForegroundColor(MicroEJColors.CONCRETE_WHITE_25);
-		Selector chartPointSelector = new TypeSelector(ChartPoint.class);
-		stylesheet.addRule(chartPointSelector, chartPointStyle);
-
-		// Sets the selected chart point style.
-		StyleBuilder chartPointSelectedStyle = new StyleBuilder();
-		chartPointSelectedStyle.setForegroundColor(MicroEJColors.CORAL);
-		Selector chartPointSelectedSelector = new AndCombinator(chartPointSelector, new StateSelector(States.CHECKED));
-		stylesheet.addRule(chartPointSelectedSelector, chartPointSelectedStyle);
-
-		// Sets the selected chart point value style.
-		StyleBuilder chartPointValueStyle = new StyleBuilder();
-		chartPointValueStyle.setForegroundColor(MicroEJColors.CORAL);
-		chartPointValueStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.SMALL));
-		Selector chartPointValueSelector = new ClassSelector(ClassSelectors.SELECTED_VALUE);
-		stylesheet.addRule(chartPointValueSelector, chartPointValueStyle);
 
 		// Sets the switch button style.
 		StyleBuilder switchButtonStyle = new StyleBuilder();

@@ -14,6 +14,7 @@ import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.util.Size;
 import ej.widget.util.StringPainter;
+import ej.widget.util.color.LightHelper;
 
 /**
  * Represents a line chart with several ordered points.
@@ -72,14 +73,13 @@ public class LineChart extends BasicChart {
 		// draw points
 		int previousX = -1;
 		int previousY = -1;
-		int previousBackgroundColor = -1;
+		boolean previousSelected = false;
 		int pointIndex = 0;
 		for (ChartPoint chartPoint : getPoints()) {
 			int currentX = (int) (LEFT_PADDING + pointIndex * this.xStep);
 			float value = chartPoint.getValue();
 
-			int foregroundColor = chartPoint.getStyle().getForegroundColor();
-			g.setColor(foregroundColor);
+			g.setColor(chartPoint.isSelected() ? getSelectedColor(style) : style.getForegroundColor());
 
 			String name = chartPoint.getName();
 			if (name != null) {
@@ -95,18 +95,22 @@ public class LineChart extends BasicChart {
 				int yTop = yBarBottom - apparitionLength;
 				int currentY = yTop;
 
-				int backgroundColor = chartPoint.getStyle().getBackgroundColor();
 				if (previousY != -1) {
-					if (this.drawArea) {
+					if (this.drawArea && (chartPoint.isSelected() || previousSelected)) {
 						float stepY = (float) (currentY - previousY) / (currentX - previousX);
 						int midX = (currentX + previousX) / 2;
-						g.setColor(previousBackgroundColor);
-						for (int x = previousX; x < midX; x++) {
-							Painter.drawLine(g, x, (int) (previousY + (x - previousX) * stepY), x, yBarBottom);
+						int areaColor = LightHelper.lightenColor(style.getForegroundColor(), 3);
+						if (previousSelected) {
+							g.setColor(areaColor);
+							for (int x = previousX; x < midX; x++) {
+								Painter.drawLine(g, x, (int) (previousY + (x - previousX) * stepY) + 1, x, yBarBottom);
+							}
 						}
-						g.setColor(backgroundColor);
-						for (int x = midX; x < currentX; x++) {
-							Painter.drawLine(g, x, (int) (previousY + (x - previousX) * stepY), x, yBarBottom);
+						if (chartPoint.isSelected()) {
+							g.setColor(areaColor);
+							for (int x = midX; x < currentX; x++) {
+								Painter.drawLine(g, x, (int) (previousY + (x - previousX) * stepY) + 1, x, yBarBottom);
+							}
 						}
 					}
 
@@ -117,7 +121,7 @@ public class LineChart extends BasicChart {
 
 				previousX = currentX;
 				previousY = currentY;
-				previousBackgroundColor = backgroundColor;
+				previousSelected = chartPoint.isSelected();
 			}
 
 			pointIndex++;
@@ -137,9 +141,6 @@ public class LineChart extends BasicChart {
 					continue;
 				}
 
-				int foregroundColor = chartPoint.getStyle().getForegroundColor();
-				g.setColor(foregroundColor);
-
 				int finalLength = (int) ((yBarBottom - yBarTop) * value / topValue);
 				int apparitionLength = (int) (finalLength * getAnimationRatio());
 				int yTop = yBarBottom - apparitionLength;
@@ -149,7 +150,7 @@ public class LineChart extends BasicChart {
 				int circleY = currentY - CIRCLE_RADIUS;
 				int circleD = 2 * CIRCLE_RADIUS + 1;
 
-				g.setColor(foregroundColor);
+				g.setColor(chartPoint.isSelected() ? getSelectedColor(style) : style.getForegroundColor());
 				Painter.fillCircle(g, circleX, circleY, circleD);
 				ShapePainter.drawThickFadedCircle(g, circleX, circleY, circleD, CIRCLE_THICKNESS, CIRCLE_FADE);
 

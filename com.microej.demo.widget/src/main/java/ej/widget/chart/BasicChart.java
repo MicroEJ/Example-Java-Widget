@@ -5,8 +5,6 @@
  */
 package ej.widget.chart;
 
-import com.microej.demo.widget.style.ClassSelectors;
-
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.Painter;
@@ -19,9 +17,9 @@ import ej.mwt.animation.Animation;
 import ej.mwt.animation.Animator;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
+import ej.mwt.util.Rectangle;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
-import ej.widget.ElementAdapter;
 import ej.widget.util.StringPainter;
 
 /**
@@ -29,17 +27,17 @@ import ej.widget.util.StringPainter;
  */
 public abstract class BasicChart extends Chart implements Animation {
 
-	static final int LEFT_PADDING = 30;
+	/**
+	 * The extra field ID for the selected color.
+	 */
+	public static final int SELECTED_COLOR = 0;
+
+	/* package */ static final int LEFT_PADDING = 30;
 
 	private static final int APPARITION_DURATION = 300;
 	private static final int APPARITION_STEPS = 100;
 
 	private static final int SELECTED_VALUE_PADDING = 5;
-
-	/**
-	 * Elements
-	 */
-	private final ElementAdapter selectedValueElement;
 
 	/**
 	 * Animation
@@ -52,8 +50,6 @@ public abstract class BasicChart extends Chart implements Animation {
 	 */
 	public BasicChart() {
 		super();
-		this.selectedValueElement = new ElementAdapter(this);
-		this.selectedValueElement.addClassSelector(ClassSelectors.SELECTED_VALUE);
 		setEnabled(true);
 	}
 
@@ -103,8 +99,9 @@ public abstract class BasicChart extends Chart implements Animation {
 	public boolean handleEvent(int event) {
 		if (Event.getType(event) == Pointer.EVENT_TYPE) {
 			Pointer pointer = (Pointer) Event.getGenerator(event);
-			int pointerX = pointer.getX() - getAbsoluteX() - getContentX();
-			int pointerY = pointer.getY() - getAbsoluteY() - getContentY();
+			Rectangle contentBounds = getContentBounds();
+			int pointerX = pointer.getX() - getAbsoluteX() - contentBounds.getX();
+			int pointerY = pointer.getY() - getAbsoluteY() - contentBounds.getY();
 
 			int action = Pointer.getAction(event);
 			switch (action) {
@@ -189,14 +186,12 @@ public abstract class BasicChart extends Chart implements Animation {
 				labelString += " " + getUnit(); //$NON-NLS-1$
 			}
 
-			Style labelStyle = this.selectedValueElement.getStyle();
-			Font labelFont = labelStyle.getFont();
-
+			Font labelFont = style.getFont();
 			int labelW = labelFont.stringWidth(labelString) + 2 * SELECTED_VALUE_PADDING;
 			int labelX = (size.getWidth() - labelW) / 2;
 			int labelY = 0;
 
-			g.setColor(labelStyle.getForegroundColor());
+			g.setColor(getSelectedColor(style));
 			Painter.drawString(g, labelFont, labelString, labelX + SELECTED_VALUE_PADDING, labelY);
 		}
 	}
@@ -204,8 +199,6 @@ public abstract class BasicChart extends Chart implements Animation {
 	@Override
 	protected void computeContentOptimalSize(Size availableSize) {
 		Style style = getStyle();
-		initializePointsStyle();
-		this.selectedValueElement.updateStyle();
 
 		int height = availableSize.getHeight();
 		int width = availableSize.getWidth();
@@ -217,11 +210,6 @@ public abstract class BasicChart extends Chart implements Animation {
 			width = LEFT_PADDING;
 		}
 		availableSize.setSize(width, height);
-	}
-
-	@Override
-	protected void layOutChildren(int contentWidth, int contentHeight) {
-		// do nothing
 	}
 
 	/**
@@ -248,6 +236,17 @@ public abstract class BasicChart extends Chart implements Animation {
 	 */
 	protected int getBarBottom(int fontHeight, Size size) {
 		return size.getHeight() - fontHeight - fontHeight / 5;
+	}
+
+	/**
+	 * Gets the selected color.
+	 *
+	 * @param style
+	 *            the chart style.
+	 * @return the selected color.
+	 */
+	protected int getSelectedColor(Style style) {
+		return style.getExtraField(SELECTED_COLOR, style.getForegroundColor());
 	}
 
 	/**

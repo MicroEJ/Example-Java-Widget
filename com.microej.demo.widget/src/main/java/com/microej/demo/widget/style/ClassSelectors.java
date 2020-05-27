@@ -80,9 +80,9 @@ public interface ClassSelectors {
 	int DATE_PICKER = 13;
 
 	/**
-	 * The selected value class selector.
+	 * The store image class selector.
 	 */
-	int SELECTED_VALUE = 14;
+	int STORE_IMAGE = 14;
 
 	/**
 	 * The space class selector.

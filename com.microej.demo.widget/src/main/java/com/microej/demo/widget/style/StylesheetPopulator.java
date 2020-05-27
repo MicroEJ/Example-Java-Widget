@@ -6,7 +6,6 @@
 package com.microej.demo.widget.style;
 
 import ej.microui.display.Colors;
-import ej.microui.display.Image;
 import ej.mwt.Widget;
 import ej.mwt.style.Selector;
 import ej.mwt.style.Stylesheet;
@@ -135,11 +134,10 @@ public class StylesheetPopulator {
 		style.setAlignment(Alignment.HCENTER_VCENTER);
 		stylesheet.addRule(new ClassSelector(ClassSelectors.CENTERED), style);
 
-		// Sets the image style.
+		// Sets the store image style.
 		style.clear();
-		// Align with back button size.
-		style.setPadding(new FlexibleOutline(0, 0, 0, 5));
-		stylesheet.addRule(new TypeSelector(Image.class), style);
+		style.setPadding(new FlexibleOutline(0, 0, 0, 5)); // Align with back button size.
+		stylesheet.addRule(new ClassSelector(ClassSelectors.STORE_IMAGE), style);
 
 		// Sets the illustrated button style.
 		style.clear();

@@ -107,7 +107,7 @@ public class Wheel extends Widget {
 		int y = currentValueY;
 
 		int foregroundColor = style.getForegroundColor();
-		int backgroundColor = style.getBackgroundColor();
+		int backgroundColor = (g.hasBackgroundColor() ? g.getBackgroundColor() : Colors.WHITE);
 		g.setColor(foregroundColor);
 		Font font = style.getFont();
 		StringPainter.drawStringAtPoint(g, font, this.model.getValueAsString(currentVisibleIndex), x, y,

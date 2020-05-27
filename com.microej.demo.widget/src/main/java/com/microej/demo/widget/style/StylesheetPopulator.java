@@ -371,6 +371,9 @@ public class StylesheetPopulator {
 		textStyle.setAlignment(Alignment.LEFT | Alignment.VCENTER);
 		textStyle.setMargin(new UniformOutline(5));
 		textStyle.setPadding(new FlexibleOutline(0, 1, 1, 1));
+		textStyle.setExtraField(KeyboardText.SELECTION_COLOR, TEXT_SELECTION_COLOR);
+		textStyle.setExtraField(KeyboardText.CLEAR_BUTTON_FONT,
+				fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE));
 		TypeSelector textSelector = new TypeSelector(KeyboardText.class);
 		stylesheet.addRule(textSelector, textStyle);
 
@@ -386,16 +389,6 @@ public class StylesheetPopulator {
 		StateSelector emptySelector = new StateSelector(States.EMPTY);
 		AndCombinator placeholderTextSelector = new AndCombinator(textSelector, emptySelector);
 		stylesheet.addRule(placeholderTextSelector, placeholderTextStyle);
-
-		StyleBuilder selectionStyle = new StyleBuilder();
-		selectionStyle.setForegroundColor(TEXT_SELECTION_COLOR);
-		stylesheet.addRule(new ClassSelector(ClassSelectors.CLASS_SELECTOR_SELECTION), selectionStyle);
-
-		StyleBuilder clearButtonStyle = new StyleBuilder();
-		clearButtonStyle.setAlignment(Alignment.RIGHT | Alignment.VCENTER);
-		clearButtonStyle.setForegroundColor(FOREGROUND);
-		clearButtonStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE));
-		stylesheet.addRule(new ClassSelector(ClassSelectors.CLASS_SELECTOR_CLEAR_BUTTON), clearButtonStyle);
 
 		StyleBuilder formStyle = new StyleBuilder();
 		formStyle.setMargin(new FlexibleOutline(5, 10, 5, 10));

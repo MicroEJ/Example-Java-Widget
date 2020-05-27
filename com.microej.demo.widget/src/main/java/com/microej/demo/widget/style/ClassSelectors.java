@@ -108,13 +108,4 @@ public interface ClassSelectors {
 	 * The special key class selector.
 	 */
 	int SPECIAL_KEY_SELECTOR = 20;
-	/**
-	 * The selection class selector.
-	 */
-	int CLASS_SELECTOR_SELECTION = 21;
-	/**
-	 * The clear button class selector.
-	 */
-	int CLASS_SELECTOR_CLEAR_BUTTON = 22;
-
 }

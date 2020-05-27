@@ -185,8 +185,7 @@ public class KeyboardPage extends AbstractDemoPage {
 		} else {
 			this.resultLabel.setText(RESULT_EMPTY);
 			if (firstNameText.length() == 0) {
-				this.firstName.setActive(true);
-				this.lastName.setActive(false);
+				showKeyboard(KeyboardPage.this.firstName);
 			}
 		}
 	}

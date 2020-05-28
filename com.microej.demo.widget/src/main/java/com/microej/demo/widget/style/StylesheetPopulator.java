@@ -6,8 +6,6 @@
 package com.microej.demo.widget.style;
 
 import ej.microui.display.Colors;
-import ej.microui.display.Font;
-import ej.microui.display.Image;
 import ej.mwt.Widget;
 import ej.mwt.style.Selector;
 import ej.mwt.style.Stylesheet;
@@ -22,7 +20,6 @@ import ej.mwt.style.cascading.StyleBuilder;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.style.dimension.FixedDimension;
 import ej.mwt.style.dimension.OptimalDimension;
-import ej.mwt.style.font.FontProfile;
 import ej.mwt.style.outline.FlexibleOutline;
 import ej.mwt.style.outline.UniformOutline;
 import ej.mwt.style.selector.ClassSelector;
@@ -47,7 +44,8 @@ import ej.widget.basic.picto.PictoProgress;
 import ej.widget.basic.picto.PictoRadio;
 import ej.widget.basic.picto.PictoSlider;
 import ej.widget.basic.picto.PictoSwitch;
-import ej.widget.chart.ChartPoint;
+import ej.widget.chart.BasicChart;
+import ej.widget.font.StrictFontLoader;
 import ej.widget.keyboard.Key;
 import ej.widget.keyboard.Keyboard;
 import ej.widget.keyboard.KeyboardText;
@@ -85,18 +83,18 @@ public class StylesheetPopulator {
 	/**
 	 * Creates the stylesheet.
 	 *
+	 * @param fontLoader
+	 *            the font loader.
 	 * @return the stylesheet.
 	 */
-	public static Stylesheet createStylesheet() {
+	public static Stylesheet createStylesheet(StrictFontLoader fontLoader) {
 		CascadingStylesheet stylesheet = new CascadingStylesheet();
 
 		// Sets the default style.
 		StyleBuilder defaultStyle = new StyleBuilder();
 		defaultStyle.setForegroundColor(FOREGROUND);
 		defaultStyle.setBackgroundColor(BACKGROUND);
-		FontProfile defaultFontProfile = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM,
-				Font.STYLE_PLAIN);
-		defaultStyle.setFontProfile(defaultFontProfile);
+		defaultStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM));
 		defaultStyle.setAlignment(Alignment.LEFT | Alignment.VCENTER);
 		stylesheet.setDefaultStyle(defaultStyle);
 
@@ -120,7 +118,7 @@ public class StylesheetPopulator {
 		// Sets the top bar style.
 		style.clear();
 		style.setPadding(new UniformOutline(7));
-		style.setFontProfile(new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE, Font.STYLE_PLAIN));
+		style.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE));
 		style.setForegroundColor(TITLE_FOREGROUND);
 		style.setBorder(new FlexibleRectangularBorder(TITLE_BORDER, 0, 0, 2, 0));
 		style.setDimension(new FixedDimension(Widget.NO_CONSTRAINT, 32));
@@ -136,11 +134,10 @@ public class StylesheetPopulator {
 		style.setAlignment(Alignment.HCENTER_VCENTER);
 		stylesheet.addRule(new ClassSelector(ClassSelectors.CENTERED), style);
 
-		// Sets the image style.
+		// Sets the store image style.
 		style.clear();
-		// Align with back button size.
-		style.setPadding(new FlexibleOutline(0, 0, 0, 5));
-		stylesheet.addRule(new TypeSelector(Image.class), style);
+		style.setPadding(new FlexibleOutline(0, 0, 0, 5)); // Align with back button size.
+		stylesheet.addRule(new ClassSelector(ClassSelectors.STORE_IMAGE), style);
 
 		// Sets the illustrated button style.
 		style.clear();
@@ -176,22 +173,22 @@ public class StylesheetPopulator {
 		style.setPadding(new FlexibleOutline(0, 0, 20, 0));
 		stylesheet.addRule(new ClassSelector(ClassSelectors.MULTILINE), style);
 
-		initializeWidgetsStyle(stylesheet);
+		initializeWidgetsStyle(stylesheet, fontLoader);
 
 		initializeListStyle(stylesheet);
 
-		initializeKeyboardStyle(stylesheet);
+		initializeKeyboardStyle(stylesheet, fontLoader);
 
-		initializeEditionStyle(stylesheet);
+		initializeEditionStyle(stylesheet, fontLoader);
 
-		initializeChartStyle(stylesheet);
+		initializeChartStyle(stylesheet, fontLoader);
 
-		initializeDateStyle(stylesheet);
+		initializeDateStyle(stylesheet, fontLoader);
 
 		return stylesheet;
 	}
 
-	private static void initializeWidgetsStyle(CascadingStylesheet stylesheet) {
+	private static void initializeWidgetsStyle(CascadingStylesheet stylesheet, StrictFontLoader fontLoader) {
 		// Default margin not added in the default style because it also applies for the composites.
 		UniformOutline defaultMargin = new UniformOutline(6);
 
@@ -212,13 +209,9 @@ public class StylesheetPopulator {
 		TypeSelector sliderTypeSelector = new TypeSelector(Slider.class);
 		StateSelector stateCheckedSelector = new StateSelector(States.CHECKED);
 
-		// The font to use for the most of the picto widgets.
-		FontProfile widgetPictoFontProfile = new FontProfile(FontFamilies.PICTO, WidgetsFontLoader.PICTO,
-				Font.STYLE_PLAIN);
-
 		// Sets the picto style.
 		StyleBuilder style = new StyleBuilder();
-		style.setFontProfile(widgetPictoFontProfile);
+		style.setFont(fontLoader.getFont(FontFamilies.PICTO, WidgetsFontLoader.PICTO));
 		stylesheet.addRule(pictoProgressTypeSelector, style);
 		stylesheet.addRule(pictoSliderTypeSelector, style);
 		stylesheet.addRule(pictoCheckTypeSelector, style);
@@ -315,7 +308,7 @@ public class StylesheetPopulator {
 		stylesheet.addRule(new AndCombinator(listItemSelector, OddChildSelector.ODD_CHILD_SELECTOR), style);
 	}
 
-	private static void initializeKeyboardStyle(CascadingStylesheet stylesheet) {
+	private static void initializeKeyboardStyle(CascadingStylesheet stylesheet, StrictFontLoader fontLoader) {
 		StyleBuilder keyboardStyle = new StyleBuilder();
 		keyboardStyle.setBackground(PlainRectangularBackground.PLAIN_RECTANGULAR_BACKGROUND);
 		keyboardStyle.setBackgroundColor(KEYBOARD_BACKGROUND_COLOR);
@@ -359,9 +352,7 @@ public class StylesheetPopulator {
 		specialKeyStyle.setBackgroundColor(MicroEJColors.CORAL);
 		specialKeyStyle.setBackground(new UniformPlainRoundedBackground(KEY_CORNER_RADIUS));
 		specialKeyStyle.setBorder(new UniformRoundedBorder(MicroEJColors.CORAL, KEY_CORNER_RADIUS - 1, 1));
-		FontProfile specialKeyFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM,
-				Font.STYLE_PLAIN);
-		specialKeyStyle.setFontProfile(specialKeyFont);
+		specialKeyStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM));
 		ClassSelector specialKeySelector = new ClassSelector(ClassSelectors.SPECIAL_KEY_SELECTOR);
 		stylesheet.addRule(specialKeySelector, specialKeyStyle);
 
@@ -372,7 +363,7 @@ public class StylesheetPopulator {
 				activeSpecialKeyStyle);
 	}
 
-	private static void initializeEditionStyle(CascadingStylesheet stylesheet) {
+	private static void initializeEditionStyle(CascadingStylesheet stylesheet, StrictFontLoader fontLoader) {
 		StyleBuilder textStyle = new StyleBuilder();
 		textStyle.setForegroundColor(FOREGROUND);
 		textStyle.setBackground(NoBackground.NO_BACKGROUND);
@@ -380,6 +371,9 @@ public class StylesheetPopulator {
 		textStyle.setAlignment(Alignment.LEFT | Alignment.VCENTER);
 		textStyle.setMargin(new UniformOutline(5));
 		textStyle.setPadding(new FlexibleOutline(0, 1, 1, 1));
+		textStyle.setExtraField(KeyboardText.SELECTION_COLOR, TEXT_SELECTION_COLOR);
+		textStyle.setExtraField(KeyboardText.CLEAR_BUTTON_FONT,
+				fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE));
 		TypeSelector textSelector = new TypeSelector(KeyboardText.class);
 		stylesheet.addRule(textSelector, textStyle);
 
@@ -396,18 +390,6 @@ public class StylesheetPopulator {
 		AndCombinator placeholderTextSelector = new AndCombinator(textSelector, emptySelector);
 		stylesheet.addRule(placeholderTextSelector, placeholderTextStyle);
 
-		StyleBuilder selectionStyle = new StyleBuilder();
-		selectionStyle.setForegroundColor(TEXT_SELECTION_COLOR);
-		stylesheet.addRule(new ClassSelector(ClassSelectors.CLASS_SELECTOR_SELECTION), selectionStyle);
-
-		StyleBuilder clearButtonStyle = new StyleBuilder();
-		clearButtonStyle.setAlignment(Alignment.RIGHT | Alignment.VCENTER);
-		clearButtonStyle.setForegroundColor(FOREGROUND);
-		FontProfile clearButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE,
-				Font.STYLE_PLAIN);
-		clearButtonStyle.setFontProfile(clearButtonFont);
-		stylesheet.addRule(new ClassSelector(ClassSelectors.CLASS_SELECTOR_CLEAR_BUTTON), clearButtonStyle);
-
 		StyleBuilder formStyle = new StyleBuilder();
 		formStyle.setMargin(new FlexibleOutline(5, 10, 5, 10));
 		ClassSelector formSelector = new ClassSelector(ClassSelectors.FORM);
@@ -419,37 +401,15 @@ public class StylesheetPopulator {
 		stylesheet.addRule(resultLabelSelector, resultLabelStyle);
 	}
 
-	private static void initializeChartStyle(CascadingStylesheet stylesheet) {
+	private static void initializeChartStyle(CascadingStylesheet stylesheet, StrictFontLoader fontLoader) {
 		// Sets the chart style.
 		StyleBuilder chartStyle = new StyleBuilder();
 		chartStyle.setForegroundColor(MicroEJColors.CONCRETE_WHITE_25);
 		chartStyle.setBackground(NoBackground.NO_BACKGROUND);
-		FontProfile chartFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.SMALL,
-				Font.STYLE_PLAIN);
-		chartStyle.setFontProfile(chartFont);
+		chartStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.SMALL));
 		chartStyle.setMargin(new FlexibleOutline(10, 40, 10, 40));
+		chartStyle.setExtraField(BasicChart.SELECTED_COLOR, MicroEJColors.CORAL);
 		stylesheet.addRule(new ClassSelector(ClassSelectors.CHART), chartStyle);
-
-		// Sets the chart point style.
-		StyleBuilder chartPointStyle = new StyleBuilder();
-		chartPointStyle.setForegroundColor(MicroEJColors.CONCRETE_WHITE_25);
-		Selector chartPointSelector = new TypeSelector(ChartPoint.class);
-		stylesheet.addRule(chartPointSelector, chartPointStyle);
-
-		// Sets the selected chart point style.
-		StyleBuilder chartPointSelectedStyle = new StyleBuilder();
-		chartPointSelectedStyle.setForegroundColor(MicroEJColors.CORAL);
-		Selector chartPointSelectedSelector = new AndCombinator(chartPointSelector, new StateSelector(States.CHECKED));
-		stylesheet.addRule(chartPointSelectedSelector, chartPointSelectedStyle);
-
-		// Sets the selected chart point value style.
-		StyleBuilder chartPointValueStyle = new StyleBuilder();
-		chartPointValueStyle.setForegroundColor(MicroEJColors.CORAL);
-		FontProfile chartPointValueFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.SMALL,
-				Font.STYLE_PLAIN);
-		chartPointValueStyle.setFontProfile(chartPointValueFont);
-		Selector chartPointValueSelector = new ClassSelector(ClassSelectors.SELECTED_VALUE);
-		stylesheet.addRule(chartPointValueSelector, chartPointValueStyle);
 
 		// Sets the switch button style.
 		StyleBuilder switchButtonStyle = new StyleBuilder();
@@ -458,9 +418,7 @@ public class StylesheetPopulator {
 		switchButtonStyle.setBackgroundColor(MicroEJColors.CORAL);
 		switchButtonStyle.setBackground(new UniformPlainRoundedBackground(BUTTON_CORNER_RADIUS - 1));
 		switchButtonStyle.setBorder(new UniformRoundedBorder(MicroEJColors.CORAL, BUTTON_CORNER_RADIUS, 1));
-		FontProfile switchButtonFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM,
-				Font.STYLE_PLAIN);
-		switchButtonStyle.setFontProfile(switchButtonFont);
+		switchButtonStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM));
 		switchButtonStyle.setAlignment(Alignment.HCENTER_VCENTER);
 		Selector switchButtonSelector = new ClassSelector(ClassSelectors.SWITCH_BUTTON);
 		stylesheet.addRule(switchButtonSelector, switchButtonStyle);
@@ -473,15 +431,13 @@ public class StylesheetPopulator {
 				activeSwitchButtonStyle);
 	}
 
-	private static void initializeDateStyle(CascadingStylesheet stylesheet) {
+	private static void initializeDateStyle(CascadingStylesheet stylesheet, StrictFontLoader fontLoader) {
 		StyleBuilder wheelStyle = new StyleBuilder();
 		wheelStyle.setForegroundColor(MicroEJColors.CONCRETE_BLACK_50);
 		wheelStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_25);
 		wheelStyle.setBackground(NoBackground.NO_BACKGROUND);
 		wheelStyle.setExtraField(Wheel.LINE_COLOR_FIELD, WHEEL_LINE_COLOR);
-		FontProfile wheelFont = new FontProfile(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE,
-				Font.STYLE_PLAIN);
-		wheelStyle.setFontProfile(wheelFont);
+		wheelStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE));
 		stylesheet.addRule(new TypeSelector(Wheel.class), wheelStyle);
 
 		StyleBuilder datePickerStyle = new StyleBuilder();

@@ -8,7 +8,7 @@ package ej.widget.chart;
 import java.util.ArrayList;
 import java.util.List;
 
-import ej.mwt.Container;
+import ej.mwt.Widget;
 import ej.widget.chart.format.ChartFormat;
 import ej.widget.chart.format.DefaultChartFormat;
 import ej.widget.chart.scale.AdaptiveChartScale;
@@ -17,7 +17,7 @@ import ej.widget.chart.scale.ChartScale;
 /**
  * Represents a chart with several ordered points.
  */
-public abstract class Chart extends Container {
+public abstract class Chart extends Widget {
 
 	/**
 	 * Points
@@ -200,14 +200,4 @@ public abstract class Chart extends Container {
 	public ChartFormat getFormat() {
 		return this.format;
 	}
-
-	/**
-	 * Initializes the style of the points.
-	 */
-	protected void initializePointsStyle() {
-		for (ChartPoint point : getPoints()) {
-			point.updateStyle();
-		}
-	}
-
 }

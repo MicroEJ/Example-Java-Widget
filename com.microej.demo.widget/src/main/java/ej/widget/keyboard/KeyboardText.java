@@ -5,8 +5,6 @@
  */
 package ej.widget.keyboard;
 
-import com.microej.demo.widget.style.ClassSelectors;
-
 import ej.annotation.Nullable;
 import ej.basictool.ArrayTools;
 import ej.bon.Timer;
@@ -19,13 +17,12 @@ import ej.microui.event.Event;
 import ej.microui.event.EventHandler;
 import ej.microui.event.generator.Command;
 import ej.microui.event.generator.Pointer;
-import ej.mwt.Container;
+import ej.mwt.Widget;
 import ej.mwt.style.Style;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.util.Rectangle;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
-import ej.widget.ElementAdapter;
 import ej.widget.listener.OnClickListener;
 import ej.widget.listener.OnTextChangeListener;
 import ej.widget.util.ControlCharacters;
@@ -36,7 +33,17 @@ import ej.widget.util.StringPainter;
 /**
  * A text is a widget that holds a string that can be modified by the user.
  */
-public class KeyboardText extends Container implements EventHandler {
+public class KeyboardText extends Widget implements EventHandler {
+
+	/**
+	 * The extra field ID for the selection color.
+	 */
+	public static final int SELECTION_COLOR = 0;
+
+	/**
+	 * The extra field ID for the clear button font.
+	 */
+	public static final int CLEAR_BUTTON_FONT = 1;
 
 	private static final OnClickListener[] EMPTY_LISTENERS = new OnClickListener[0];
 	private static final OnTextChangeListener[] EMPTY_TEXT_LISTENERS = new OnTextChangeListener[0];
@@ -46,6 +53,7 @@ public class KeyboardText extends Container implements EventHandler {
 	private static final long BLINK_PERIOD = 500;
 
 	private static final String CLEAR_BUTTON_STRING = "\u00D7"; //$NON-NLS-1$
+	private static final int CLEAR_BUTTON_ALIGNMENT = Alignment.RIGHT | Alignment.VCENTER;
 
 	private static final int DEFAULT_MAX_TEXT_LENGTH = 25;
 
@@ -61,9 +69,6 @@ public class KeyboardText extends Container implements EventHandler {
 	@Nullable
 	private TimerTask blinkTask;
 	private boolean showCaret;
-
-	private final ElementAdapter selectionElement;
-	private final ElementAdapter clearButtonElement;
 
 	private int maxTextLength;
 
@@ -104,10 +109,6 @@ public class KeyboardText extends Container implements EventHandler {
 		this.onClickListeners = EMPTY_LISTENERS;
 		this.buffer = new StringBuilder(text);
 		this.placeHolder = placeHolder;
-		this.selectionElement = new ElementAdapter(this);
-		this.selectionElement.addClassSelector(ClassSelectors.CLASS_SELECTOR_SELECTION);
-		this.clearButtonElement = new ElementAdapter(this);
-		this.clearButtonElement.addClassSelector(ClassSelectors.CLASS_SELECTOR_CLEAR_BUTTON);
 		setEnabled(true);
 		setMaxTextLength(DEFAULT_MAX_TEXT_LENGTH);
 	}
@@ -432,10 +433,8 @@ public class KeyboardText extends Container implements EventHandler {
 
 	@Override
 	public void computeContentOptimalSize(Size availableSize) {
-		this.selectionElement.updateStyle();
-		this.clearButtonElement.updateStyle();
 		Style style = getStyle();
-		Font font = getDesktop().getFont(style);
+		Font font = style.getFont();
 		int textWidth = font.stringWidth(getTextOrPlaceHolder());
 		int textHeight = font.getHeight();
 		availableSize.setSize(textWidth, textHeight);
@@ -503,7 +502,7 @@ public class KeyboardText extends Container implements EventHandler {
 	@Override
 	public void renderContent(GraphicsContext g, Size size) {
 		Style style = getStyle();
-		Font font = getDesktop().getFont(style);
+		Font font = style.getFont();
 		// Keep call to getText() for subclasses (such as Password).
 		String text = getText();
 		int alignment = style.getAlignment();
@@ -517,9 +516,9 @@ public class KeyboardText extends Container implements EventHandler {
 		int selectionStart = getSelectionStart();
 		int selectionEnd = getSelectionEnd();
 		if (selectionStart != selectionEnd || isShownCaret()) {
-			Style selectionStyle = this.selectionElement.getStyle();
+			int selectionColor = style.getExtraField(SELECTION_COLOR, foregroundColor);
+			g.setColor(selectionColor);
 			Rectangle[] selection = getBounds(selectionStart, selectionEnd, text, font, width, height, alignment);
-			g.setColor(selectionStyle.getForegroundColor());
 			for (Rectangle rectangle : selection) {
 				int w = (selectionStart != selectionEnd ? rectangle.getWidth() : 1);
 				Painter.fillRectangle(g, rectangle.getX() + 1, rectangle.getY(), w, rectangle.getHeight());
@@ -536,10 +535,8 @@ public class KeyboardText extends Container implements EventHandler {
 		g.translate(-1, -1);
 
 		// Draw clear button.
-		Style clearButtonStyle = this.clearButtonElement.getStyle();
-		Font clearButtonFont = getDesktop().getFont(clearButtonStyle);
-		drawText(g, CLEAR_BUTTON_STRING, clearButtonFont, clearButtonStyle.getForegroundColor(), width, height,
-				clearButtonStyle.getAlignment());
+		Font clearButtonFont = style.getExtraField(CLEAR_BUTTON_FONT, Font.class, font);
+		drawText(g, CLEAR_BUTTON_STRING, clearButtonFont, foregroundColor, width, height, CLEAR_BUTTON_ALIGNMENT);
 	}
 
 	private void drawText(GraphicsContext g, String string, Font font, int color, int stringWidth, int stringHeight,
@@ -623,10 +620,12 @@ public class KeyboardText extends Container implements EventHandler {
 		setCaret(newCaret); // reset selection and caret to current position
 
 		// check clear button event
-		Style style = this.clearButtonElement.getStyle();
-		int clearButtonWidth = getDesktop().getFont(style).stringWidth(CLEAR_BUTTON_STRING);
-		int clearButtonX = Alignment.computeLeftX(clearButtonWidth, getContentX(), getContentWidth(),
-				style.getAlignment());
+		Style style = getStyle();
+		Rectangle contentBounds = getContentBounds();
+		Font clearButtonFont = style.getExtraField(CLEAR_BUTTON_FONT, Font.class, style.getFont());
+		int clearButtonWidth = clearButtonFont.stringWidth(CLEAR_BUTTON_STRING);
+		int clearButtonX = Alignment.computeLeftX(clearButtonWidth, contentBounds.getX(), contentBounds.getWidth(),
+				CLEAR_BUTTON_ALIGNMENT);
 		int pX = getRelativeX(pointerX);
 		if (pX >= clearButtonX && pX < clearButtonX + clearButtonWidth) {
 			setText(EMPTY_STRING);
@@ -655,7 +654,7 @@ public class KeyboardText extends Container implements EventHandler {
 		int x = getRelativeX(pointerX);
 		int y = getRelativeY(pointerY);
 		Style style = getStyle();
-		Font font = getDesktop().getFont(style);
+		Font font = style.getFont();
 		Rectangle contentBounds = getContentBounds();
 		return getIndex(x - contentBounds.getX(), y - contentBounds.getY(), getText(), font, contentBounds.getWidth(),
 				contentBounds.getHeight(), style.getAlignment());
@@ -721,9 +720,4 @@ public class KeyboardText extends Container implements EventHandler {
 
 		return false;
 	}
-
-	@Override
-	protected void layOutChildren(int contentWidth, int contentHeight) {
-	}
-
 }

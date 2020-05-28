@@ -53,6 +53,7 @@ public abstract class AbstractDemoPage extends SimpleDock {
 
 		if (mainPage) {
 			ImagePath exitIcon = new ImagePath(Images.STORE_ICON);
+			exitIcon.addClassSelector(ClassSelectors.STORE_IMAGE);
 			topBar.setFirstChild(exitIcon);
 		} else {
 			// Add a back button.

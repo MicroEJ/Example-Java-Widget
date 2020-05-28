@@ -240,7 +240,7 @@ public class Carousel extends Widget {
 		int halfHeight = size.getHeight() / 2;
 
 		// set text style
-		Font font = getDesktop().getFont(style);
+		Font font = style.getFont();
 
 		// update goto anim step
 		if (this.gotoAnimDistance != 0) {

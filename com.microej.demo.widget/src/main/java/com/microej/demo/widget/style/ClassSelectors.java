@@ -80,9 +80,9 @@ public interface ClassSelectors {
 	int DATE_PICKER = 13;
 
 	/**
-	 * The selected value class selector.
+	 * The store image class selector.
 	 */
-	int SELECTED_VALUE = 14;
+	int STORE_IMAGE = 14;
 
 	/**
 	 * The space class selector.
@@ -108,13 +108,4 @@ public interface ClassSelectors {
 	 * The special key class selector.
 	 */
 	int SPECIAL_KEY_SELECTOR = 20;
-	/**
-	 * The selection class selector.
-	 */
-	int CLASS_SELECTOR_SELECTION = 21;
-	/**
-	 * The clear button class selector.
-	 */
-	int CLASS_SELECTOR_CLEAR_BUTTON = 22;
-
 }

@@ -260,7 +260,7 @@ public class Carousel extends Widget {
 		}
 
 		// draw entries
-		g.setColor(style.getForegroundColor());
+		g.setColor(style.getColor());
 		for (int e = 0; e < topEntry; e++) {
 			drawEntry(g, size, font, e, false, totalDrag, this.stopped);
 		}

@@ -79,7 +79,7 @@ public class LineChart extends BasicChart {
 			int currentX = (int) (LEFT_PADDING + pointIndex * this.xStep);
 			float value = chartPoint.getValue();
 
-			g.setColor(chartPoint.isSelected() ? getSelectedColor(style) : style.getForegroundColor());
+			g.setColor(chartPoint.isSelected() ? getSelectedColor(style) : style.getColor());
 
 			String name = chartPoint.getName();
 			if (name != null) {
@@ -99,7 +99,7 @@ public class LineChart extends BasicChart {
 					if (this.drawArea && (chartPoint.isSelected() || previousSelected)) {
 						float stepY = (float) (currentY - previousY) / (currentX - previousX);
 						int midX = (currentX + previousX) / 2;
-						int areaColor = LightHelper.lightenColor(style.getForegroundColor(), 3);
+						int areaColor = LightHelper.lightenColor(style.getColor(), 3);
 						if (previousSelected) {
 							g.setColor(areaColor);
 							for (int x = previousX; x < midX; x++) {
@@ -114,7 +114,7 @@ public class LineChart extends BasicChart {
 						}
 					}
 
-					g.setColor(style.getForegroundColor());
+					g.setColor(style.getColor());
 					ShapePainter.drawThickFadedLine(g, previousX, previousY, currentX, currentY, BAR_THICKNESS,
 							BAR_FADE, BAR_CAPS, BAR_CAPS);
 				}
@@ -150,7 +150,7 @@ public class LineChart extends BasicChart {
 				int circleY = currentY - CIRCLE_RADIUS;
 				int circleD = 2 * CIRCLE_RADIUS + 1;
 
-				g.setColor(chartPoint.isSelected() ? getSelectedColor(style) : style.getForegroundColor());
+				g.setColor(chartPoint.isSelected() ? getSelectedColor(style) : style.getColor());
 				Painter.fillCircle(g, circleX, circleY, circleD);
 				ShapePainter.drawThickFadedCircle(g, circleX, circleY, circleD, CIRCLE_THICKNESS, CIRCLE_FADE);
 

@@ -59,7 +59,7 @@ public class BarChart extends BasicChart {
 			int currentX = (int) (LEFT_PADDING + this.xStep / 4 + pointIndex * this.xStep);
 			float value = chartPoint.getValue();
 
-			g.setColor(chartPoint.isSelected() ? getSelectedColor(style) : style.getForegroundColor());
+			g.setColor(chartPoint.isSelected() ? getSelectedColor(style) : style.getColor());
 
 			String name = chartPoint.getName();
 			if (name != null) {

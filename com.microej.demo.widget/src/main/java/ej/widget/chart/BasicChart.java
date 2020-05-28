@@ -148,7 +148,7 @@ public abstract class BasicChart extends Chart implements Animation {
 		int yBarTop = getBarTop(fontHeight, size);
 		int xScale = LEFT_PADDING - fontHeight / 2;
 
-		g.setColor(style.getForegroundColor());
+		g.setColor(style.getColor());
 
 		// draw values and lines
 		int numScaleValues = getScale().getNumValues();
@@ -246,7 +246,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	 * @return the selected color.
 	 */
 	protected int getSelectedColor(Style style) {
-		return style.getExtraField(SELECTED_COLOR, style.getForegroundColor());
+		return style.getExtraField(SELECTED_COLOR, style.getColor());
 	}
 
 	/**

@@ -506,7 +506,6 @@ public class KeyboardText extends Widget implements EventHandler {
 		// Keep call to getText() for subclasses (such as Password).
 		String text = getText();
 		int alignment = style.getAlignment();
-		int foregroundColor = style.getForegroundColor();
 
 		// Remove selection thickness.
 		int width = size.getWidth() - 1;
@@ -516,7 +515,7 @@ public class KeyboardText extends Widget implements EventHandler {
 		int selectionStart = getSelectionStart();
 		int selectionEnd = getSelectionEnd();
 		if (selectionStart != selectionEnd || isShownCaret()) {
-			int selectionColor = style.getExtraField(SELECTION_COLOR, foregroundColor);
+			int selectionColor = style.getExtraField(SELECTION_COLOR, style.getColor());
 			g.setColor(selectionColor);
 			Rectangle[] selection = getBounds(selectionStart, selectionEnd, text, font, width, height, alignment);
 			for (Rectangle rectangle : selection) {
@@ -531,19 +530,15 @@ public class KeyboardText extends Widget implements EventHandler {
 
 		// Shift selection thickness.
 		g.translate(1, 1);
-		drawText(g, text, font, foregroundColor, width, height, alignment);
+		g.resetEllipsis();
+		g.setColor(style.getColor());
+		StringPainter.drawStringInArea(g, font, text, 0, 0, width, height, alignment);
 		g.translate(-1, -1);
 
 		// Draw clear button.
 		Font clearButtonFont = style.getExtraField(CLEAR_BUTTON_FONT, Font.class, font);
-		drawText(g, CLEAR_BUTTON_STRING, clearButtonFont, foregroundColor, width, height, CLEAR_BUTTON_ALIGNMENT);
-	}
-
-	private void drawText(GraphicsContext g, String string, Font font, int color, int stringWidth, int stringHeight,
-			int stringAlignment) {
-		g.resetEllipsis();
-		g.setColor(color);
-		StringPainter.drawStringInArea(g, font, string, 0, 0, stringWidth, stringHeight, stringAlignment);
+		StringPainter.drawStringInArea(g, clearButtonFont, CLEAR_BUTTON_STRING, 0, 0, width, height,
+				CLEAR_BUTTON_ALIGNMENT);
 	}
 
 	private Rectangle[] getBounds(int startIndex, int endIndex, String text, Font font, int areaWidth, int areaHeight,

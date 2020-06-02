@@ -106,9 +106,9 @@ public class Wheel extends Widget {
 		int x = width >> 1;
 		int y = currentValueY;
 
-		int foregroundColor = style.getForegroundColor();
+		int color = style.getColor();
 		int backgroundColor = (g.hasBackgroundColor() ? g.getBackgroundColor() : Colors.WHITE);
-		g.setColor(foregroundColor);
+		g.setColor(color);
 		Font font = style.getFont();
 		StringPainter.drawStringAtPoint(g, font, this.model.getValueAsString(currentVisibleIndex), x, y,
 				Alignment.HCENTER_VCENTER);
@@ -119,7 +119,7 @@ public class Wheel extends Widget {
 		while (previousValueCount-- > 0 && valueIterator.hasPrevious()) {
 			y -= lineHeight;
 			float fontRatio = computeFontRatio(y, remainingHeight);
-			g.setColor(computeFontColor(y, remainingHeight, foregroundColor, backgroundColor));
+			g.setColor(computeFontColor(y, remainingHeight, color, backgroundColor));
 			drawString(g, font, valueIterator.previous(), x, y, Alignment.HCENTER_VCENTER, fontRatio);
 		}
 
@@ -130,7 +130,7 @@ public class Wheel extends Widget {
 		while (nextValueCount-- > 0 && valueIterator.hasNext()) {
 			y += lineHeight;
 			float fontRatio = computeFontRatio(y, remainingHeight);
-			g.setColor(computeFontColor(y, remainingHeight, foregroundColor, backgroundColor));
+			g.setColor(computeFontColor(y, remainingHeight, color, backgroundColor));
 			drawString(g, font, valueIterator.next(), x, y, Alignment.HCENTER_VCENTER, fontRatio);
 		}
 

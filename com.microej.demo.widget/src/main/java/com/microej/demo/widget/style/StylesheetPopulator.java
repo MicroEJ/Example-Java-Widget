@@ -92,8 +92,8 @@ public class StylesheetPopulator {
 
 		// Sets the default style.
 		StyleBuilder defaultStyle = new StyleBuilder();
-		defaultStyle.setForegroundColor(FOREGROUND);
-		defaultStyle.setBackgroundColor(BACKGROUND);
+		defaultStyle.setColor(FOREGROUND);
+		defaultStyle.setBackground(new PlainRectangularBackground(BACKGROUND));
 		defaultStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM));
 		defaultStyle.setAlignment(Alignment.LEFT | Alignment.VCENTER);
 		stylesheet.setDefaultStyle(defaultStyle);
@@ -119,7 +119,7 @@ public class StylesheetPopulator {
 		style.clear();
 		style.setPadding(new UniformOutline(7));
 		style.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE));
-		style.setForegroundColor(TITLE_FOREGROUND);
+		style.setColor(TITLE_FOREGROUND);
 		style.setBorder(new FlexibleRectangularBorder(TITLE_BORDER, 0, 0, 2, 0));
 		style.setDimension(new FixedDimension(Widget.NO_CONSTRAINT, 32));
 		stylesheet.addRule(new ClassSelector(ClassSelectors.TOP_BAR), style);
@@ -143,16 +143,15 @@ public class StylesheetPopulator {
 		style.clear();
 		style.setPadding(new FlexibleOutline(BUTTON_CORNER_RADIUS / 2, BUTTON_CORNER_RADIUS * 2,
 				BUTTON_CORNER_RADIUS / 2, BUTTON_CORNER_RADIUS * 2));
-		style.setForegroundColor(MicroEJColors.WHITE);
-		style.setBackgroundColor(MicroEJColors.CORAL);
-		style.setBackground(new UniformPlainRoundedBackground(BUTTON_CORNER_RADIUS));
+		style.setColor(MicroEJColors.WHITE);
+		style.setBackground(new UniformPlainRoundedBackground(MicroEJColors.CORAL, BUTTON_CORNER_RADIUS));
 		style.setBorder(new UniformRoundedBorder(MicroEJColors.CORAL, BUTTON_CORNER_RADIUS - 1, 1));
 		Selector illustratedButtonSelector = new ClassSelector(ClassSelectors.ILLUSTRATED_BUTTON);
 		stylesheet.addRule(illustratedButtonSelector, style);
 
 		// Sets the illustrated active button style.
 		style.clear();
-		style.setBackgroundColor(ACTIVE_FOREGROUND);
+		style.setBackground(new UniformPlainRoundedBackground(ACTIVE_FOREGROUND, BUTTON_CORNER_RADIUS));
 		style.setBorder(new UniformRoundedBorder(ACTIVE_FOREGROUND, BUTTON_CORNER_RADIUS - 1, 1));
 		stylesheet.addRule(new AndCombinator(illustratedButtonSelector, new StateSelector(States.ACTIVE)), style);
 
@@ -220,7 +219,7 @@ public class StylesheetPopulator {
 
 		// Sets the unchecked toggle style.
 		style.clear();
-		style.setForegroundColor(FOREGROUND);
+		style.setColor(FOREGROUND);
 		style.setMargin(defaultMargin);
 		style.setAlignment(Alignment.HCENTER_VCENTER);
 		stylesheet.addRule(checkBoxTypeSelector, style);
@@ -250,8 +249,7 @@ public class StylesheetPopulator {
 
 		style.clear();
 		style.setDimension(new FixedDimension(Widget.NO_CONSTRAINT, 10));
-		style.setBackground(PlainRectangularBackground.PLAIN_RECTANGULAR_BACKGROUND);
-		style.setBackgroundColor(ACTIVE_FOREGROUND);
+		style.setBackground(new PlainRectangularBackground(ACTIVE_FOREGROUND));
 		stylesheet.addRule(progressBarTypeSelector, style);
 
 		// Sets the image widgets style.
@@ -272,7 +270,7 @@ public class StylesheetPopulator {
 
 		// Sets the checked toggles style.
 		style.clear();
-		style.setForegroundColor(CHECKED_FOREGROUND);
+		style.setColor(CHECKED_FOREGROUND);
 		stylesheet.addRule(new AndCombinator(pictoCheckTypeSelector, stateCheckedSelector), style);
 		stylesheet.addRule(new AndCombinator(pictoRadioTypeSelector, stateCheckedSelector), style);
 		stylesheet.addRule(new AndCombinator(pictoSwitchTypeSelector, stateCheckedSelector), style);
@@ -286,7 +284,7 @@ public class StylesheetPopulator {
 		stylesheet.addRule(sliderTypeSelector, style);
 
 		style.clear();
-		style.setForegroundColor(CHECKED_FOREGROUND);
+		style.setColor(CHECKED_FOREGROUND);
 		style.setBorder(new UniformRectangularBorder(CHECKED_FOREGROUND, 3));
 		stylesheet.addRule(new AndCombinator(checkBoxTypeSelector, stateCheckedSelector), style);
 		style.setBorder(new UniformRoundedBorder(CHECKED_FOREGROUND, 1000, 2));
@@ -303,20 +301,18 @@ public class StylesheetPopulator {
 
 		// Sets the odd list item style.
 		style.clear();
-		style.setBackground(PlainRectangularBackground.PLAIN_RECTANGULAR_BACKGROUND);
-		style.setBackgroundColor(LIST_ODD_BACKGROUND);
+		style.setBackground(new PlainRectangularBackground(LIST_ODD_BACKGROUND));
 		stylesheet.addRule(new AndCombinator(listItemSelector, OddChildSelector.ODD_CHILD_SELECTOR), style);
 	}
 
 	private static void initializeKeyboardStyle(CascadingStylesheet stylesheet, StrictFontLoader fontLoader) {
 		StyleBuilder keyboardStyle = new StyleBuilder();
-		keyboardStyle.setBackground(PlainRectangularBackground.PLAIN_RECTANGULAR_BACKGROUND);
-		keyboardStyle.setBackgroundColor(KEYBOARD_BACKGROUND_COLOR);
+		keyboardStyle.setBackground(new PlainRectangularBackground(KEYBOARD_BACKGROUND_COLOR));
 		TypeSelector keyboardSelector = new TypeSelector(Keyboard.class);
 		stylesheet.addRule(keyboardSelector, keyboardStyle);
 
 		StyleBuilder keyStyle = new StyleBuilder();
-		keyStyle.setForegroundColor(KEYBOARD_KEY_COLOR);
+		keyStyle.setColor(KEYBOARD_KEY_COLOR);
 		keyStyle.setBackground(NoBackground.NO_BACKGROUND);
 		keyStyle.setAlignment(Alignment.HCENTER_VCENTER);
 		keyStyle.setMargin(new FlexibleOutline(4, 2, 4, 2));
@@ -324,40 +320,37 @@ public class StylesheetPopulator {
 		stylesheet.addRule(keySelector, keyStyle);
 
 		StyleBuilder activeKeyStyle = new StyleBuilder();
-		activeKeyStyle.setForegroundColor(Colors.WHITE);
-		activeKeyStyle.setBackground(new UniformPlainRoundedBackground(KEY_CORNER_RADIUS));
-		activeKeyStyle.setBackgroundColor(KEYBOARD_HIGHLIGHT_COLOR);
+		activeKeyStyle.setColor(Colors.WHITE);
+		activeKeyStyle.setBackground(new UniformPlainRoundedBackground(KEYBOARD_HIGHLIGHT_COLOR, KEY_CORNER_RADIUS));
 		activeKeyStyle.setBorder(new UniformRoundedBorder(KEYBOARD_HIGHLIGHT_COLOR, KEY_CORNER_RADIUS - 1, 1));
 		StateSelector activeSelector = new StateSelector(States.ACTIVE);
 		AndCombinator activeKeySelector = new AndCombinator(keySelector, activeSelector);
 		stylesheet.addRule(activeKeySelector, activeKeyStyle);
 
 		StyleBuilder spaceKeyStyle = new StyleBuilder();
-		spaceKeyStyle.setBackground(new UniformPlainRoundedBackground(KEY_CORNER_RADIUS));
-		spaceKeyStyle.setBackgroundColor(KEYBOARD_KEY_COLOR);
+		spaceKeyStyle.setBackground(new UniformPlainRoundedBackground(KEYBOARD_KEY_COLOR, KEY_CORNER_RADIUS));
 		spaceKeyStyle.setBorder(new UniformRoundedBorder(KEYBOARD_KEY_COLOR, KEY_CORNER_RADIUS - 1, 1));
 		ClassSelector spaceKeySelector = new ClassSelector(ClassSelectors.SPACE_KEY_SELECTOR);
 		stylesheet.addRule(spaceKeySelector, spaceKeyStyle);
 
 		StyleBuilder activeShiftKeyStyle = new StyleBuilder();
-		activeShiftKeyStyle.setBackground(new UniformPlainRoundedBackground(KEY_CORNER_RADIUS));
-		activeShiftKeyStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_50);
+		activeShiftKeyStyle
+				.setBackground(new UniformPlainRoundedBackground(MicroEJColors.CONCRETE_WHITE_50, KEY_CORNER_RADIUS));
 		activeShiftKeyStyle
 				.setBorder(new UniformRoundedBorder(MicroEJColors.CONCRETE_WHITE_50, KEY_CORNER_RADIUS - 1, 1));
 		ClassSelector activeShiftKeySelector = new ClassSelector(ClassSelectors.SHIFT_KEY_ACTIVE_SELECTOR);
 		stylesheet.addRule(activeShiftKeySelector, activeShiftKeyStyle);
 
 		StyleBuilder specialKeyStyle = new StyleBuilder();
-		specialKeyStyle.setForegroundColor(MicroEJColors.WHITE);
-		specialKeyStyle.setBackgroundColor(MicroEJColors.CORAL);
-		specialKeyStyle.setBackground(new UniformPlainRoundedBackground(KEY_CORNER_RADIUS));
+		specialKeyStyle.setColor(MicroEJColors.WHITE);
+		specialKeyStyle.setBackground(new UniformPlainRoundedBackground(MicroEJColors.CORAL, KEY_CORNER_RADIUS));
 		specialKeyStyle.setBorder(new UniformRoundedBorder(MicroEJColors.CORAL, KEY_CORNER_RADIUS - 1, 1));
 		specialKeyStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM));
 		ClassSelector specialKeySelector = new ClassSelector(ClassSelectors.SPECIAL_KEY_SELECTOR);
 		stylesheet.addRule(specialKeySelector, specialKeyStyle);
 
 		StyleBuilder activeSpecialKeyStyle = new StyleBuilder();
-		activeSpecialKeyStyle.setBackgroundColor(ACTIVE_FOREGROUND);
+		specialKeyStyle.setBackground(new UniformPlainRoundedBackground(ACTIVE_FOREGROUND, KEY_CORNER_RADIUS));
 		specialKeyStyle.setBorder(new UniformRoundedBorder(ACTIVE_FOREGROUND, KEY_CORNER_RADIUS - 1, 1));
 		stylesheet.addRule(new AndCombinator(specialKeySelector, new StateSelector(States.ACTIVE)),
 				activeSpecialKeyStyle);
@@ -365,7 +358,7 @@ public class StylesheetPopulator {
 
 	private static void initializeEditionStyle(CascadingStylesheet stylesheet, StrictFontLoader fontLoader) {
 		StyleBuilder textStyle = new StyleBuilder();
-		textStyle.setForegroundColor(FOREGROUND);
+		textStyle.setColor(FOREGROUND);
 		textStyle.setBackground(NoBackground.NO_BACKGROUND);
 		textStyle.setBorder(new FlexibleRectangularBorder(FOREGROUND, 0, 0, 1, 0));
 		textStyle.setAlignment(Alignment.LEFT | Alignment.VCENTER);
@@ -385,7 +378,7 @@ public class StylesheetPopulator {
 		stylesheet.addRule(focusedTextSelector, focusedTextStyle);
 
 		StyleBuilder placeholderTextStyle = new StyleBuilder();
-		placeholderTextStyle.setForegroundColor(TEXT_PLACEHOLDER_COLOR);
+		placeholderTextStyle.setColor(TEXT_PLACEHOLDER_COLOR);
 		StateSelector emptySelector = new StateSelector(States.EMPTY);
 		AndCombinator placeholderTextSelector = new AndCombinator(textSelector, emptySelector);
 		stylesheet.addRule(placeholderTextSelector, placeholderTextStyle);
@@ -404,7 +397,7 @@ public class StylesheetPopulator {
 	private static void initializeChartStyle(CascadingStylesheet stylesheet, StrictFontLoader fontLoader) {
 		// Sets the chart style.
 		StyleBuilder chartStyle = new StyleBuilder();
-		chartStyle.setForegroundColor(MicroEJColors.CONCRETE_WHITE_25);
+		chartStyle.setColor(MicroEJColors.CONCRETE_WHITE_25);
 		chartStyle.setBackground(NoBackground.NO_BACKGROUND);
 		chartStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.SMALL));
 		chartStyle.setMargin(new FlexibleOutline(10, 40, 10, 40));
@@ -414,9 +407,9 @@ public class StylesheetPopulator {
 		// Sets the switch button style.
 		StyleBuilder switchButtonStyle = new StyleBuilder();
 		switchButtonStyle.setMargin(new FlexibleOutline(4, 140, 13, 140));
-		switchButtonStyle.setForegroundColor(MicroEJColors.WHITE);
-		switchButtonStyle.setBackgroundColor(MicroEJColors.CORAL);
-		switchButtonStyle.setBackground(new UniformPlainRoundedBackground(BUTTON_CORNER_RADIUS - 1));
+		switchButtonStyle.setColor(MicroEJColors.WHITE);
+		switchButtonStyle
+				.setBackground(new UniformPlainRoundedBackground(MicroEJColors.CORAL, BUTTON_CORNER_RADIUS - 1));
 		switchButtonStyle.setBorder(new UniformRoundedBorder(MicroEJColors.CORAL, BUTTON_CORNER_RADIUS, 1));
 		switchButtonStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM));
 		switchButtonStyle.setAlignment(Alignment.HCENTER_VCENTER);
@@ -425,7 +418,7 @@ public class StylesheetPopulator {
 
 		// Sets the switch active button style.
 		StyleBuilder activeSwitchButtonStyle = new StyleBuilder();
-		activeSwitchButtonStyle.setBackgroundColor(ACTIVE_FOREGROUND);
+		switchButtonStyle.setBackground(new UniformPlainRoundedBackground(ACTIVE_FOREGROUND, BUTTON_CORNER_RADIUS - 1));
 		switchButtonStyle.setBorder(new UniformRoundedBorder(ACTIVE_FOREGROUND, BUTTON_CORNER_RADIUS, 1));
 		stylesheet.addRule(new AndCombinator(switchButtonSelector, new StateSelector(States.ACTIVE)),
 				activeSwitchButtonStyle);
@@ -433,8 +426,7 @@ public class StylesheetPopulator {
 
 	private static void initializeDateStyle(CascadingStylesheet stylesheet, StrictFontLoader fontLoader) {
 		StyleBuilder wheelStyle = new StyleBuilder();
-		wheelStyle.setForegroundColor(MicroEJColors.CONCRETE_BLACK_50);
-		wheelStyle.setBackgroundColor(MicroEJColors.CONCRETE_WHITE_25);
+		wheelStyle.setColor(MicroEJColors.CONCRETE_BLACK_50);
 		wheelStyle.setBackground(NoBackground.NO_BACKGROUND);
 		wheelStyle.setExtraField(Wheel.LINE_COLOR_FIELD, WHEEL_LINE_COLOR);
 		wheelStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE));

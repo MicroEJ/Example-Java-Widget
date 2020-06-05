@@ -189,7 +189,7 @@ public class Carousel extends Widget {
 
 	private void tick() {
 		Size size = new Size(getWidth(), getHeight());
-		StyleHelper.removeOutlines(size, getStyle());
+		StyleHelper.applyOutlines(size, getStyle());
 		int halfWidth = size.getWidth() / 2;
 		// roll DND
 		if (this.dnd) {

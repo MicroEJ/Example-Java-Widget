@@ -23,7 +23,7 @@ import ej.mwt.Widget;
 import ej.mwt.event.DesktopEventGenerator;
 import ej.mwt.event.PointerEventDispatcher;
 import ej.mwt.style.Style;
-import ej.mwt.style.container.Alignment;
+import ej.mwt.util.Alignment;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
 import ej.widget.util.StringPainter;

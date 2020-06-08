@@ -24,8 +24,8 @@ import ej.mwt.Widget;
 import ej.mwt.event.DesktopEventGenerator;
 import ej.mwt.event.PointerEventDispatcher;
 import ej.mwt.style.Style;
-import ej.mwt.style.util.StyleHelper;
 import ej.mwt.util.Size;
+import ej.mwt.util.OutlineHelper;
 import ej.service.ServiceFactory;
 
 /**
@@ -189,7 +189,7 @@ public class Carousel extends Widget {
 
 	private void tick() {
 		Size size = new Size(getWidth(), getHeight());
-		StyleHelper.applyOutlines(size, getStyle());
+		OutlineHelper.applyOutlines(size, getStyle());
 		int halfWidth = size.getWidth() / 2;
 		// roll DND
 		if (this.dnd) {

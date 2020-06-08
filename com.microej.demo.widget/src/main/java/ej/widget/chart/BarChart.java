@@ -10,7 +10,7 @@ import ej.drawing.ShapePainter.Cap;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.mwt.style.Style;
-import ej.mwt.style.container.Alignment;
+import ej.mwt.util.Alignment;
 import ej.mwt.util.Size;
 import ej.widget.util.StringPainter;
 

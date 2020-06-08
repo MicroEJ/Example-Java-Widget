@@ -16,7 +16,7 @@ import ej.mwt.Widget;
 import ej.mwt.animation.Animation;
 import ej.mwt.animation.Animator;
 import ej.mwt.style.Style;
-import ej.mwt.style.container.Alignment;
+import ej.mwt.util.Alignment;
 import ej.mwt.util.Rectangle;
 import ej.mwt.util.Size;
 import ej.service.ServiceFactory;

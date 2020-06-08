@@ -16,11 +16,11 @@ import ej.microui.event.generator.Pointer;
 import ej.mwt.Widget;
 import ej.service.ServiceFactory;
 import ej.widget.basic.Label;
+import ej.widget.basic.TextField;
 import ej.widget.container.List;
 import ej.widget.container.Scroll;
 import ej.widget.container.util.LayoutOrientation;
 import ej.widget.keyboard.Keyboard;
-import ej.widget.keyboard.KeyboardText;
 import ej.widget.keyboard.Layout;
 import ej.widget.listener.OnClickListener;
 
@@ -41,8 +41,8 @@ public class KeyboardPage extends AbstractDemoPage {
 
 	private final Keyboard keyboard;
 
-	private KeyboardText firstName;
-	private KeyboardText lastName;
+	private TextField firstName;
+	private TextField lastName;
 	private Label resultLabel;
 
 	/**
@@ -72,10 +72,10 @@ public class KeyboardPage extends AbstractDemoPage {
 	 */
 	private Widget createForm() {
 		// first name
-		this.firstName = new KeyboardText(EMPTY_STRING, FIRST_NAME) {
+		this.firstName = new TextField(EMPTY_STRING, FIRST_NAME) {
 			@Override
 			public boolean handleEvent(int event) {
-				if (Event.getType(event) == Pointer.EVENT_TYPE) {
+				if (Event.getType(event) == Pointer.EVENT_TYPE && Pointer.isPressed(event)) {
 					showKeyboard(KeyboardPage.this.firstName);
 				}
 				return super.handleEvent(event);
@@ -84,10 +84,10 @@ public class KeyboardPage extends AbstractDemoPage {
 		this.firstName.setMaxTextLength(MAX_TEXT_LENGTH);
 
 		// last name
-		this.lastName = new KeyboardText(EMPTY_STRING, LAST_NAME) {
+		this.lastName = new TextField(EMPTY_STRING, LAST_NAME) {
 			@Override
 			public boolean handleEvent(int event) {
-				if (Event.getType(event) == Pointer.EVENT_TYPE) {
+				if (Event.getType(event) == Pointer.EVENT_TYPE && Pointer.isPressed(event)) {
 					showKeyboard(KeyboardPage.this.lastName);
 				}
 				return super.handleEvent(event);
@@ -150,8 +150,9 @@ public class KeyboardPage extends AbstractDemoPage {
 		requestLayOut();
 	}
 
-	private void showKeyboard(KeyboardText keyboardText) {
+	private void showKeyboard(TextField keyboardText) {
 		showKeyboard();
+
 		keyboardText.setActive(true);
 		if (keyboardText == this.firstName) {
 			this.lastName.setActive(false);
@@ -171,6 +172,7 @@ public class KeyboardPage extends AbstractDemoPage {
 			});
 		}
 		requestRender();
+
 		ej.widget.util.Keyboard keyboard = ServiceFactory.getService(ej.widget.util.Keyboard.class);
 		if (keyboard != null) {
 			keyboard.setEventHandler(keyboardText);

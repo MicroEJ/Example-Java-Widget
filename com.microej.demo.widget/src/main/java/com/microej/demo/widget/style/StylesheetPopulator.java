@@ -13,7 +13,6 @@ import ej.mwt.style.background.NoBackground;
 import ej.mwt.style.background.PlainRectangularBackground;
 import ej.mwt.style.background.UniformPlainRoundedBackground;
 import ej.mwt.style.cascading.CascadingStylesheet;
-import ej.mwt.style.util.EditableStyle;
 import ej.mwt.style.container.Alignment;
 import ej.mwt.style.dimension.FixedDimension;
 import ej.mwt.style.dimension.OptimalDimension;
@@ -27,7 +26,9 @@ import ej.mwt.style.selector.OddChildSelector;
 import ej.mwt.style.selector.StateSelector;
 import ej.mwt.style.selector.TypeSelector;
 import ej.mwt.style.selector.combinator.AndCombinator;
+import ej.mwt.style.util.EditableStyle;
 import ej.widget.basic.Label;
+import ej.widget.basic.TextField;
 import ej.widget.basic.drawing.CheckBox;
 import ej.widget.basic.drawing.CircularProgressBar;
 import ej.widget.basic.drawing.ProgressBar;
@@ -48,7 +49,6 @@ import ej.widget.chart.BasicChart;
 import ej.widget.font.StrictFontLoader;
 import ej.widget.keyboard.Key;
 import ej.widget.keyboard.Keyboard;
-import ej.widget.keyboard.KeyboardText;
 import ej.widget.style.text.LineWrapTextStyle;
 import ej.widget.util.States;
 import ej.widget.wheel.Wheel;
@@ -364,7 +364,7 @@ public class StylesheetPopulator {
 	}
 
 	private static void initializeEditionStyle(CascadingStylesheet stylesheet, StrictFontLoader fontLoader) {
-		TypeSelector textSelector = new TypeSelector(KeyboardText.class);
+		TypeSelector textSelector = new TypeSelector(TextField.class);
 		EditableStyle textStyle = stylesheet.getSelectorStyle(textSelector);
 		textStyle.setColor(FOREGROUND);
 		textStyle.setBackground(NoBackground.NO_BACKGROUND);
@@ -372,8 +372,8 @@ public class StylesheetPopulator {
 		textStyle.setAlignment(Alignment.LEFT | Alignment.VCENTER);
 		textStyle.setMargin(new UniformOutline(5));
 		textStyle.setPadding(new FlexibleOutline(0, 1, 1, 1));
-		textStyle.setExtraField(KeyboardText.SELECTION_COLOR, TEXT_SELECTION_COLOR);
-		textStyle.setExtraField(KeyboardText.CLEAR_BUTTON_FONT,
+		textStyle.setExtraField(TextField.SELECTION_COLOR, TEXT_SELECTION_COLOR);
+		textStyle.setExtraField(TextField.CLEAR_BUTTON_FONT,
 				fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE));
 
 		StateSelector activeSelector = new StateSelector(States.ACTIVE);

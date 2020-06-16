@@ -246,7 +246,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	 * @return the selected color.
 	 */
 	protected int getSelectedColor(Style style) {
-		return style.getExtraField(SELECTED_COLOR, style.getColor());
+		return style.getExtraInt(SELECTED_COLOR, style.getColor());
 	}
 
 	/**

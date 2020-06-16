@@ -135,7 +135,7 @@ public class Wheel extends Widget {
 		}
 
 		// Draws the horizontal lines.
-		g.setColor(style.getExtraField(LINE_COLOR_FIELD, Colors.BLACK));
+		g.setColor(style.getExtraInt(LINE_COLOR_FIELD, Colors.BLACK));
 
 		y = (remainingHeight >> 1) - (lineHeight >> 1);
 		Painter.drawHorizontalLine(g, 0, y - 1, width);

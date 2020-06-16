@@ -137,13 +137,14 @@ public class StylesheetPopulator {
 		style.setPadding(new FlexibleOutline(BUTTON_CORNER_RADIUS / 2, BUTTON_CORNER_RADIUS * 2,
 				BUTTON_CORNER_RADIUS / 2, BUTTON_CORNER_RADIUS * 2));
 		style.setColor(MicroEJColors.WHITE);
-		RoundedBackground illustratedButtonBackground = new RoundedBackground(
-				MicroEJColors.CORAL, BUTTON_CORNER_RADIUS);
+		RoundedBackground illustratedButtonBackground = new RoundedBackground(MicroEJColors.CORAL,
+				BUTTON_CORNER_RADIUS);
 		style.setBackground(illustratedButtonBackground);
 		style.setBorder(new RoundedBorder(MicroEJColors.CORAL, BUTTON_CORNER_RADIUS - 1, 1));
 
 		// Sets the illustrated active button style.
-		style = stylesheet.getSelectorStyle(new AndCombinator(illustratedButtonSelector, new StateSelector(States.ACTIVE)));
+		style = stylesheet
+				.getSelectorStyle(new AndCombinator(illustratedButtonSelector, new StateSelector(States.ACTIVE)));
 		style.setBackground(new RoundedBackground(ACTIVE_FOREGROUND, BUTTON_CORNER_RADIUS));
 		style.setBorder(new RoundedBorder(ACTIVE_FOREGROUND, BUTTON_CORNER_RADIUS - 1, 1));
 
@@ -158,7 +159,7 @@ public class StylesheetPopulator {
 
 		// Sets the multiline style.
 		style = stylesheet.getSelectorStyle(new ClassSelector(ClassSelectors.MULTILINE));
-		style.setExtraField(Label.TEXT_STYLE, new LineWrapTextStyle(25));
+		style.setExtraObject(Label.TEXT_STYLE, new LineWrapTextStyle(25));
 		style.setPadding(new FlexibleOutline(0, 0, 20, 0));
 
 		initializeWidgetsStyle(stylesheet, fontLoader);
@@ -345,10 +346,8 @@ public class StylesheetPopulator {
 
 		ClassSelector activeShiftKeySelector = new ClassSelector(ClassSelectors.SHIFT_KEY_ACTIVE_SELECTOR);
 		EditableStyle activeShiftKeyStyle = stylesheet.getSelectorStyle(activeShiftKeySelector);
-		activeShiftKeyStyle
-				.setBackground(new RoundedBackground(MicroEJColors.CONCRETE_WHITE_50, KEY_CORNER_RADIUS));
-		activeShiftKeyStyle
-				.setBorder(new RoundedBorder(MicroEJColors.CONCRETE_WHITE_50, KEY_CORNER_RADIUS - 1, 1));
+		activeShiftKeyStyle.setBackground(new RoundedBackground(MicroEJColors.CONCRETE_WHITE_50, KEY_CORNER_RADIUS));
+		activeShiftKeyStyle.setBorder(new RoundedBorder(MicroEJColors.CONCRETE_WHITE_50, KEY_CORNER_RADIUS - 1, 1));
 
 		ClassSelector specialKeySelector = new ClassSelector(ClassSelectors.SPECIAL_KEY_SELECTOR);
 		EditableStyle specialKeyStyle = stylesheet.getSelectorStyle(specialKeySelector);
@@ -372,8 +371,8 @@ public class StylesheetPopulator {
 		textStyle.setAlignment(Alignment.LEFT | Alignment.VCENTER);
 		textStyle.setMargin(new UniformOutline(5));
 		textStyle.setPadding(new FlexibleOutline(0, 1, 1, 1));
-		textStyle.setExtraField(TextField.SELECTION_COLOR, TEXT_SELECTION_COLOR);
-		textStyle.setExtraField(TextField.CLEAR_BUTTON_FONT,
+		textStyle.setExtraInt(TextField.SELECTION_COLOR, TEXT_SELECTION_COLOR);
+		textStyle.setExtraObject(TextField.CLEAR_BUTTON_FONT,
 				fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE));
 
 		StateSelector activeSelector = new StateSelector(States.ACTIVE);
@@ -403,15 +402,14 @@ public class StylesheetPopulator {
 		chartStyle.setBackground(NoBackground.NO_BACKGROUND);
 		chartStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.SMALL));
 		chartStyle.setMargin(new FlexibleOutline(10, 40, 10, 40));
-		chartStyle.setExtraField(BasicChart.SELECTED_COLOR, MicroEJColors.CORAL);
+		chartStyle.setExtraInt(BasicChart.SELECTED_COLOR, MicroEJColors.CORAL);
 
 		// Sets the switch button style.
 		Selector switchButtonSelector = new ClassSelector(ClassSelectors.SWITCH_BUTTON);
 		EditableStyle switchButtonStyle = stylesheet.getSelectorStyle(switchButtonSelector);
 		switchButtonStyle.setMargin(new FlexibleOutline(4, 140, 13, 140));
 		switchButtonStyle.setColor(MicroEJColors.WHITE);
-		switchButtonStyle
-				.setBackground(new RoundedBackground(MicroEJColors.CORAL, BUTTON_CORNER_RADIUS - 1));
+		switchButtonStyle.setBackground(new RoundedBackground(MicroEJColors.CORAL, BUTTON_CORNER_RADIUS - 1));
 		switchButtonStyle.setBorder(new RoundedBorder(MicroEJColors.CORAL, BUTTON_CORNER_RADIUS, 1));
 		switchButtonStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM));
 		switchButtonStyle.setAlignment(Alignment.HCENTER_VCENTER);
@@ -419,8 +417,7 @@ public class StylesheetPopulator {
 		// Sets the switch active button style.
 		EditableStyle activeSwitchButtonStyle = stylesheet
 				.getSelectorStyle(new AndCombinator(switchButtonSelector, new StateSelector(States.ACTIVE)));
-		activeSwitchButtonStyle
-				.setBackground(new RoundedBackground(ACTIVE_FOREGROUND, BUTTON_CORNER_RADIUS - 1));
+		activeSwitchButtonStyle.setBackground(new RoundedBackground(ACTIVE_FOREGROUND, BUTTON_CORNER_RADIUS - 1));
 		switchButtonStyle.setBorder(new RoundedBorder(ACTIVE_FOREGROUND, BUTTON_CORNER_RADIUS, 1));
 	}
 
@@ -428,7 +425,7 @@ public class StylesheetPopulator {
 		EditableStyle wheelStyle = stylesheet.getSelectorStyle(new TypeSelector(Wheel.class));
 		wheelStyle.setColor(MicroEJColors.CONCRETE_BLACK_50);
 		wheelStyle.setBackground(NoBackground.NO_BACKGROUND);
-		wheelStyle.setExtraField(Wheel.LINE_COLOR_FIELD, WHEEL_LINE_COLOR);
+		wheelStyle.setExtraInt(Wheel.LINE_COLOR_FIELD, WHEEL_LINE_COLOR);
 		wheelStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.LARGE));
 
 		EditableStyle datePickerStyle = stylesheet.getSelectorStyle(new ClassSelector(ClassSelectors.DATE_PICKER));

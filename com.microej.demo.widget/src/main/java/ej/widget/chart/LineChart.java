@@ -11,7 +11,7 @@ import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.Painter;
 import ej.mwt.style.Style;
-import ej.mwt.style.container.Alignment;
+import ej.mwt.util.Alignment;
 import ej.mwt.util.Size;
 import ej.widget.util.StringPainter;
 import ej.widget.util.color.LightHelper;

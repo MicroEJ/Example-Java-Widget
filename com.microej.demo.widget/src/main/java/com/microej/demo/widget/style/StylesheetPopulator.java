@@ -95,7 +95,8 @@ public class StylesheetPopulator {
 		defaultStyle.setColor(FOREGROUND);
 		defaultStyle.setBackground(new RectangularBackground(BACKGROUND));
 		defaultStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM));
-		defaultStyle.setAlignment(Alignment.LEFT | Alignment.VCENTER);
+		defaultStyle.setHorizontalAlignment(Alignment.LEFT);
+		defaultStyle.setVerticalAlignment(Alignment.VCENTER);
 
 		TypeSelector labelTypeSelector = new TypeSelector(Label.class);
 
@@ -125,7 +126,8 @@ public class StylesheetPopulator {
 
 		// Sets the centered style.
 		style = stylesheet.getSelectorStyle(new ClassSelector(ClassSelectors.CENTERED));
-		style.setAlignment(Alignment.HCENTER_VCENTER);
+		style.setHorizontalAlignment(Alignment.HCENTER);
+		style.setVerticalAlignment(Alignment.VCENTER);
 
 		// Sets the store image style.
 		style = stylesheet.getSelectorStyle(new ClassSelector(ClassSelectors.STORE_IMAGE));
@@ -214,15 +216,18 @@ public class StylesheetPopulator {
 		style = stylesheet.getSelectorStyle(checkBoxTypeSelector);
 		style.setColor(FOREGROUND);
 		style.setMargin(defaultMargin);
-		style.setAlignment(Alignment.HCENTER_VCENTER);
+		style.setHorizontalAlignment(Alignment.HCENTER);
+		style.setVerticalAlignment(Alignment.VCENTER);
 		style = stylesheet.getSelectorStyle(radioBoxTypeSelector);
 		style.setColor(FOREGROUND);
 		style.setMargin(defaultMargin);
-		style.setAlignment(Alignment.HCENTER_VCENTER);
+		style.setHorizontalAlignment(Alignment.HCENTER);
+		style.setVerticalAlignment(Alignment.VCENTER);
 		style = stylesheet.getSelectorStyle(switchBoxTypeSelector);
 		style.setColor(FOREGROUND);
 		style.setMargin(defaultMargin);
-		style.setAlignment(Alignment.HCENTER_VCENTER);
+		style.setHorizontalAlignment(Alignment.HCENTER);
+		style.setVerticalAlignment(Alignment.VCENTER);
 
 		style = stylesheet.getSelectorStyle(checkBoxTypeSelector);
 		style.setBorder(new RectangularBorder(FOREGROUND, 3));
@@ -235,11 +240,13 @@ public class StylesheetPopulator {
 		style = stylesheet.getSelectorStyle(switchBoxTypeSelector);
 		style.setBorder(new RoundedBorder(FOREGROUND, 1000, 2));
 		style.setPadding(new FlexibleOutline(4, 20, 4, 4));
-		style.setAlignment(Alignment.LEFT | Alignment.VCENTER);
+		style.setHorizontalAlignment(Alignment.LEFT);
+		style.setVerticalAlignment(Alignment.VCENTER);
 
 		style = stylesheet.getSelectorStyle(new AndCombinator(switchBoxTypeSelector, stateCheckedSelector));
 		style.setPadding(new FlexibleOutline(4, 4, 4, 20));
-		style.setAlignment(Alignment.RIGHT | Alignment.VCENTER);
+		style.setHorizontalAlignment(Alignment.RIGHT);
+		style.setVerticalAlignment(Alignment.VCENTER);
 
 		style = stylesheet.getSelectorStyle(progressBarTypeSelector);
 		style.setDimension(new FixedDimension(Widget.NO_CONSTRAINT, 10));
@@ -329,7 +336,8 @@ public class StylesheetPopulator {
 		EditableStyle keyStyle = stylesheet.getSelectorStyle(keySelector);
 		keyStyle.setColor(KEYBOARD_KEY_COLOR);
 		keyStyle.setBackground(NoBackground.NO_BACKGROUND);
-		keyStyle.setAlignment(Alignment.HCENTER_VCENTER);
+		keyStyle.setHorizontalAlignment(Alignment.HCENTER);
+		keyStyle.setVerticalAlignment(Alignment.VCENTER);
 		keyStyle.setMargin(new FlexibleOutline(4, 2, 4, 2));
 
 		StateSelector activeSelector = new StateSelector(States.ACTIVE);
@@ -368,7 +376,8 @@ public class StylesheetPopulator {
 		textStyle.setColor(FOREGROUND);
 		textStyle.setBackground(NoBackground.NO_BACKGROUND);
 		textStyle.setBorder(new FlexibleRectangularBorder(FOREGROUND, 0, 0, 1, 0));
-		textStyle.setAlignment(Alignment.LEFT | Alignment.VCENTER);
+		textStyle.setHorizontalAlignment(Alignment.LEFT);
+		textStyle.setVerticalAlignment(Alignment.VCENTER);
 		textStyle.setMargin(new UniformOutline(5));
 		textStyle.setPadding(new FlexibleOutline(0, 1, 1, 1));
 		textStyle.setExtraInt(TextField.SELECTION_COLOR, TEXT_SELECTION_COLOR);
@@ -412,7 +421,8 @@ public class StylesheetPopulator {
 		switchButtonStyle.setBackground(new RoundedBackground(MicroEJColors.CORAL, BUTTON_CORNER_RADIUS - 1));
 		switchButtonStyle.setBorder(new RoundedBorder(MicroEJColors.CORAL, BUTTON_CORNER_RADIUS, 1));
 		switchButtonStyle.setFont(fontLoader.getFont(FontFamilies.SOURCE_SANS_PRO, WidgetsFontLoader.MEDIUM));
-		switchButtonStyle.setAlignment(Alignment.HCENTER_VCENTER);
+		switchButtonStyle.setHorizontalAlignment(Alignment.HCENTER);
+		switchButtonStyle.setVerticalAlignment(Alignment.VCENTER);
 
 		// Sets the switch active button style.
 		EditableStyle activeSwitchButtonStyle = stylesheet

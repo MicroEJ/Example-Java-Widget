@@ -83,7 +83,8 @@ public class LineChart extends BasicChart {
 
 			String name = chartPoint.getName();
 			if (name != null) {
-				StringPainter.drawStringAtPoint(g, font, name, currentX, size.getHeight(), Alignment.HCENTER_BOTTOM);
+				StringPainter.drawStringAtPoint(g, font, name, currentX, size.getHeight(), Alignment.HCENTER,
+						Alignment.BOTTOM);
 			}
 
 			if (value < 0.0f) {

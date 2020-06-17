@@ -111,7 +111,7 @@ public class Wheel extends Widget {
 		g.setColor(color);
 		Font font = style.getFont();
 		StringPainter.drawStringAtPoint(g, font, this.model.getValueAsString(currentVisibleIndex), x, y,
-				Alignment.HCENTER_VCENTER);
+				Alignment.HCENTER, Alignment.VCENTER);
 
 		// Draws the previous values.
 		ListIterator<String> valueIterator = this.model.listIterator(currentVisibleIndex);
@@ -120,7 +120,7 @@ public class Wheel extends Widget {
 			y -= lineHeight;
 			float fontRatio = computeFontRatio(y, remainingHeight);
 			g.setColor(computeFontColor(y, remainingHeight, color, backgroundColor));
-			drawString(g, font, valueIterator.previous(), x, y, Alignment.HCENTER_VCENTER, fontRatio);
+			drawString(g, font, valueIterator.previous(), x, y, Alignment.HCENTER, Alignment.VCENTER, fontRatio);
 		}
 
 		// Draws the next values.
@@ -131,7 +131,7 @@ public class Wheel extends Widget {
 			y += lineHeight;
 			float fontRatio = computeFontRatio(y, remainingHeight);
 			g.setColor(computeFontColor(y, remainingHeight, color, backgroundColor));
-			drawString(g, font, valueIterator.next(), x, y, Alignment.HCENTER_VCENTER, fontRatio);
+			drawString(g, font, valueIterator.next(), x, y, Alignment.HCENTER, Alignment.VCENTER, fontRatio);
 		}
 
 		// Draws the horizontal lines.
@@ -146,10 +146,10 @@ public class Wheel extends Widget {
 		Painter.drawHorizontalLine(g, 0, y, width);
 	}
 
-	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, int alignment,
-			float fontRatio) {
-		int x = Alignment.computeLeftX((int) (font.stringWidth(string) * fontRatio), anchorX, alignment);
-		int y = Alignment.computeTopY((int) (font.getHeight() * fontRatio), anchorY, alignment);
+	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY,
+			int horizontalAlignment, int verticalAlignment, float fontRatio) {
+		int x = Alignment.computeLeftX((int) (font.stringWidth(string) * fontRatio), anchorX, horizontalAlignment);
+		int y = Alignment.computeTopY((int) (font.getHeight() * fontRatio), anchorY, verticalAlignment);
 		Painter.drawString(g, font, string, x, y, fontRatio, fontRatio);
 	}
 

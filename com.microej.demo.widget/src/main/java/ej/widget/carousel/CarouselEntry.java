@@ -121,16 +121,9 @@ public class CarouselEntry {
 			int stringY = imageY + imageHeight + 10;
 			int stringWidth = imageWidth - 2 * marginX;
 			int stringHeight = 2 * font.getHeight();
-			int stringAlignment = Alignment.HCENTER | Alignment.TOP;
-			drawText(g, this.string, font, g.getColor(), stringX, stringY, stringWidth, stringHeight, stringAlignment);
+			StringPainter.drawStringInArea(g, font, this.string, stringX, stringY, stringWidth, stringHeight,
+					Alignment.HCENTER, Alignment.TOP);
 		}
-	}
-
-	private void drawText(GraphicsContext g, String string, Font font, int color, int stringX, int stringY,
-			int stringWidth, int stringHeight, int stringAlignment) {
-		g.resetEllipsis();
-		g.setColor(color);
-		StringPainter.drawStringInArea(g, font, string, stringX, stringY, stringWidth, stringHeight, stringAlignment);
 	}
 
 	private void drawScaled(GraphicsContext g, Image image, int x, int y, int alpha, float sizeRatio, boolean stopped) {

@@ -359,7 +359,7 @@ public class StylesheetPopulator {
 		EditableStyle activeSpecialKeyStyle = stylesheet
 				.getSelectorStyle(new AndCombinator(specialKeySelector, new StateSelector(States.ACTIVE)));
 		activeSpecialKeyStyle.setBackground(new RoundedBackground(ACTIVE_FOREGROUND, KEY_CORNER_RADIUS));
-		specialKeyStyle.setBorder(new RoundedBorder(ACTIVE_FOREGROUND, KEY_CORNER_RADIUS - 1, 1));
+		activeSpecialKeyStyle.setBorder(new RoundedBorder(ACTIVE_FOREGROUND, KEY_CORNER_RADIUS - 1, 1));
 	}
 
 	private static void initializeEditionStyle(CascadingStylesheet stylesheet, StrictFontLoader fontLoader) {
@@ -418,7 +418,7 @@ public class StylesheetPopulator {
 		EditableStyle activeSwitchButtonStyle = stylesheet
 				.getSelectorStyle(new AndCombinator(switchButtonSelector, new StateSelector(States.ACTIVE)));
 		activeSwitchButtonStyle.setBackground(new RoundedBackground(ACTIVE_FOREGROUND, BUTTON_CORNER_RADIUS - 1));
-		switchButtonStyle.setBorder(new RoundedBorder(ACTIVE_FOREGROUND, BUTTON_CORNER_RADIUS, 1));
+		activeSwitchButtonStyle.setBorder(new RoundedBorder(ACTIVE_FOREGROUND, BUTTON_CORNER_RADIUS, 1));
 	}
 
 	private static void initializeDateStyle(CascadingStylesheet stylesheet, StrictFontLoader fontLoader) {

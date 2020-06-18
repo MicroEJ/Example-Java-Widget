@@ -305,14 +305,11 @@ public class StylesheetPopulator {
 		style = stylesheet.getSelectorStyle(new AndCombinator(checkBoxTypeSelector, stateCheckedSelector));
 		style.setColor(CHECKED_FOREGROUND);
 		style.setBorder(new RectangularBorder(CHECKED_FOREGROUND, 3));
-		style.setBorder(new RoundedBorder(CHECKED_FOREGROUND, 1000, 2));
 		style = stylesheet.getSelectorStyle(new AndCombinator(radioBoxTypeSelector, stateCheckedSelector));
 		style.setColor(CHECKED_FOREGROUND);
-		style.setBorder(new RectangularBorder(CHECKED_FOREGROUND, 3));
 		style.setBorder(new RoundedBorder(CHECKED_FOREGROUND, 1000, 2));
 		style = stylesheet.getSelectorStyle(new AndCombinator(switchBoxTypeSelector, stateCheckedSelector));
 		style.setColor(CHECKED_FOREGROUND);
-		style.setBorder(new RectangularBorder(CHECKED_FOREGROUND, 3));
 		style.setBorder(new RoundedBorder(CHECKED_FOREGROUND, 1000, 2));
 	}
 

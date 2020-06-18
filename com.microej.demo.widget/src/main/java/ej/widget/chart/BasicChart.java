@@ -157,12 +157,12 @@ public abstract class BasicChart extends Chart implements Animation {
 			String scaleString = getFormat().formatShort(scaleValue);
 			int yScale = yBarBottom + (yBarTop - yBarBottom) * i / numScaleValues;
 
-			StringPainter.drawStringAtPoint(g, font, scaleString, xScale, yScale, Alignment.RIGHT_VCENTER);
+			StringPainter.drawStringAtPoint(g, font, scaleString, xScale, yScale, Alignment.RIGHT, Alignment.VCENTER);
 			Painter.drawLine(g, LEFT_PADDING, yScale, size.getWidth(), yScale);
 		}
 
 		// draw unit
-		StringPainter.drawStringAtPoint(g, font, getUnit(), xScale, 0, Alignment.RIGHT_TOP);
+		StringPainter.drawStringAtPoint(g, font, getUnit(), xScale, 0, Alignment.RIGHT, Alignment.TOP);
 	}
 
 	/**
@@ -246,7 +246,7 @@ public abstract class BasicChart extends Chart implements Animation {
 	 * @return the selected color.
 	 */
 	protected int getSelectedColor(Style style) {
-		return style.getExtraField(SELECTED_COLOR, style.getColor());
+		return style.getExtraInt(SELECTED_COLOR, style.getColor());
 	}
 
 	/**

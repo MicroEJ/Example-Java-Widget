@@ -12,7 +12,6 @@ import com.microej.demo.widget.style.WidgetsFontLoader;
 import ej.microui.MicroUI;
 import ej.mwt.Desktop;
 import ej.mwt.Widget;
-import ej.mwt.image.DefaultImageLoader;
 import ej.mwt.stylesheet.Stylesheet;
 import ej.widget.container.transition.SlideDirection;
 import ej.widget.container.transition.SlideScreenshotTransitionContainer;
@@ -66,7 +65,6 @@ public class WidgetsDemo {
 
 		// Show the navigator.
 		Desktop = new Desktop();
-		Desktop.setImageLoader(new DefaultImageLoader());
 		Desktop.setStylesheet(stylesheet);
 		Desktop.setWidget(TransitionContainer);
 		Desktop.requestShow();

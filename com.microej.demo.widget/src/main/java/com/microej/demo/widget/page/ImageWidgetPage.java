@@ -5,6 +5,8 @@
  */
 package com.microej.demo.widget.page;
 
+import com.microej.demo.widget.style.Images;
+
 import ej.widget.basic.AbstractSlider;
 import ej.widget.basic.image.ImageCheck;
 import ej.widget.basic.image.ImageRadio;
@@ -28,21 +30,21 @@ public class ImageWidgetPage extends WidgetPage {
 
 	@Override
 	protected ToggleWrapper newCheckBox(String string) {
-		return new Toggle(new ImageCheck(), string);
+		return new Toggle(new ImageCheck(Images.IMAGE_LOADER), string);
 	}
 
 	@Override
 	protected ToggleWrapper newRadioButton(String string) {
-		return new Toggle(new RadioModel(), new ImageRadio(), string);
+		return new Toggle(new RadioModel(), new ImageRadio(Images.IMAGE_LOADER), string);
 	}
 
 	@Override
 	protected ToggleWrapper newSwitch(String string) {
-		return new Toggle(new ImageSwitch(), string);
+		return new Toggle(new ImageSwitch(Images.IMAGE_LOADER), string);
 	}
 
 	@Override
 	protected AbstractSlider newSlider(int min, int max, int initial) {
-		return new ImageSlider(min, max, initial);
+		return new ImageSlider(Images.IMAGE_LOADER, min, max, initial);
 	}
 }

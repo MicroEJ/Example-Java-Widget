@@ -5,18 +5,10 @@
  */
 package com.microej.demo.widget.style;
 
-import ej.widget.image.DefaultImageLoader;
-import ej.widget.image.ImageLoader;
-
 /**
  * The images used in the application.
  */
 public interface Images {
-
-	/**
-	 * The image loader to use to load the images of the application.
-	 */
-	ImageLoader IMAGE_LOADER = new DefaultImageLoader();
 
 	/**
 	 * The store icon.

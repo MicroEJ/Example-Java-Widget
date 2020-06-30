@@ -52,12 +52,12 @@ public abstract class AbstractDemoPage extends SimpleDock {
 		topBar.setCenterChild(titleLabel);
 
 		if (mainPage) {
-			ImagePath exitIcon = new ImagePath(Images.IMAGE_LOADER, Images.STORE_ICON);
+			ImagePath exitIcon = new ImagePath(Images.STORE_ICON);
 			exitIcon.addClassSelector(ClassSelectors.STORE_IMAGE);
 			topBar.setFirstChild(exitIcon);
 		} else {
 			// Add a back button.
-			ButtonImagePath backButton = new ButtonImagePath(Images.IMAGE_LOADER, "/images/back.png"); //$NON-NLS-1$
+			ButtonImagePath backButton = new ButtonImagePath("/images/back.png"); //$NON-NLS-1$
 			backButton.addOnClickListener(new OnClickListener() {
 
 				@Override

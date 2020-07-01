@@ -13,6 +13,7 @@ import com.microej.demo.widget.style.ClassSelectors;
 import ej.widget.basic.Label;
 import ej.widget.container.List;
 import ej.widget.container.Scroll;
+import ej.widget.container.ScrollableList;
 import ej.widget.container.util.LayoutOrientation;
 
 /**
@@ -26,7 +27,7 @@ public class ScrollableTextPage extends AbstractDemoPage {
 	public ScrollableTextPage() {
 		super(false, "Scrollable text"); //$NON-NLS-1$
 
-		List listComposite = new List(LayoutOrientation.VERTICAL);
+		List listComposite = new ScrollableList(LayoutOrientation.VERTICAL);
 		listComposite.addClassSelector(ClassSelectors.TEXT_SCROLL);
 
 		add("MicroEJ SDK", "sdk.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$

@@ -22,7 +22,6 @@ import ej.mwt.stylesheet.selector.TypeSelector;
 import ej.mwt.stylesheet.selector.combinator.AndCombinator;
 import ej.mwt.util.Alignment;
 import ej.widget.basic.Button;
-import ej.widget.basic.Label;
 import ej.widget.basic.PagingIndicator;
 import ej.widget.basic.drawing.BulletPagingIndicator;
 import ej.widget.container.AbstractCarousel;
@@ -30,7 +29,6 @@ import ej.widget.container.FillCarousel;
 import ej.widget.container.ListCarousel;
 import ej.widget.container.util.LayoutOrientation;
 import ej.widget.listener.OnClickListener;
-import ej.widget.style.text.LineWrapTextStyle;
 
 /**
  *
@@ -97,13 +95,11 @@ public class TestCarouselNoAuto {
 		style.setBackground(new RectangularBackground(Colors.WHITE));
 
 		style = stylesheet.getSelectorStyle(new TypeSelector(SelectableLabel.class));
-		style.setExtraObject(Label.TEXT_STYLE, new LineWrapTextStyle());
 		style.setBackground(new RectangularBackground(Colors.WHITE));
 		style.setPadding(new UniformOutline(10));
 
 		style = stylesheet.getSelectorStyle(
 				new AndCombinator(new TypeSelector(SelectableLabel.class), new CarouselFocusSelector()));
-		style.setExtraObject(Label.TEXT_STYLE, new LineWrapTextStyle());
 		style.setBackground(new RectangularBackground(Colors.MAGENTA));
 
 		style = stylesheet.getSelectorStyle(new TypeSelector(PagingIndicator.class));

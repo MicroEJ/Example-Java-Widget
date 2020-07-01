@@ -28,6 +28,7 @@ import ej.mwt.stylesheet.selector.TypeSelector;
 import ej.mwt.stylesheet.selector.combinator.AndCombinator;
 import ej.mwt.util.Alignment;
 import ej.widget.basic.Label;
+import ej.widget.basic.RenderableLabel;
 import ej.widget.basic.TextField;
 import ej.widget.basic.drawing.CheckBox;
 import ej.widget.basic.drawing.CircularProgressBar;
@@ -161,7 +162,7 @@ public class StylesheetPopulator {
 
 		// Sets the multiline style.
 		style = stylesheet.getSelectorStyle(new ClassSelector(ClassSelectors.MULTILINE));
-		style.setExtraObject(Label.TEXT_STYLE, new LineWrapTextStyle(25));
+		style.setExtraObject(RenderableLabel.TEXT_STYLE, new LineWrapTextStyle(25));
 		style.setPadding(new FlexibleOutline(0, 0, 20, 0));
 
 		initializeWidgetsStyle(stylesheet, fontLoader);

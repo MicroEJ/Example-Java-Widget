@@ -47,7 +47,7 @@ public class MainPage extends AbstractDemoPage {
 	private Button newSelectableItem(String name, final Class<? extends Widget> clazz) {
 		Button button = new Button(name);
 		button.addClassSelector(ClassSelectors.LIST_ITEM);
-		button.addOnClickListener(new OnClickListener() {
+		button.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick() {

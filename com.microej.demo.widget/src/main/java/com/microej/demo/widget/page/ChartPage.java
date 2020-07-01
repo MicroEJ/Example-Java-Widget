@@ -46,7 +46,7 @@ public class ChartPage extends AbstractDemoPage {
 
 		final Button switchButton = new Button(SWITCH_TO_LINE);
 		switchButton.addClassSelector(ClassSelectors.SWITCH_BUTTON);
-		switchButton.addOnClickListener(new OnClickListener() {
+		switchButton.setOnClickListener(new OnClickListener() {
 			private boolean isBar = true;
 
 			@Override

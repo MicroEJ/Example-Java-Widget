@@ -37,6 +37,7 @@ import ej.widget.test.toggle.ToggleHelperTest;
 import ej.widget.test.toggle.ToggleLayoutTest;
 import ej.widget.test.toggle.ToggleTest;
 import ej.widget.test.update.UpdateTest2;
+import ej.widget.test.util.ButtonHelperTest;
 
 public class TestAll extends Test {
 
@@ -102,6 +103,7 @@ public class TestAll extends Test {
 		launchTest(display, new UpdateTest2());
 
 		// util
+		launchTest(display, new ButtonHelperTest());
 		launchTest(display, new ToggleHelperTest());
 
 		if (this.globalState) {

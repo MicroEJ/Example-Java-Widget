@@ -7,8 +7,10 @@ package ej.widget.basic;
 
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.Image;
+import ej.mwt.Widget;
 import ej.mwt.style.Style;
 import ej.mwt.util.Size;
+import ej.widget.util.ImagePainter;
 
 /**
  * A widget that displays an image.
@@ -17,7 +19,7 @@ import ej.mwt.util.Size;
  *
  * @see Image
  */
-public class ImageView extends AbstractImage {
+public class ImageView extends Widget {
 
 	private Image source;
 
@@ -55,15 +57,14 @@ public class ImageView extends AbstractImage {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size availableBounds) {
+	protected void renderContent(GraphicsContext g, Size size) {
 		Style style = getStyle();
-		renderImage(g, style, availableBounds, this.source);
+		ImagePainter.drawImageInArea(g, this.source, 0, 0, size.getWidth(), size.getHeight(),
+				style.getHorizontalAlignment(), style.getVerticalAlignment());
 	}
 
 	@Override
 	protected void computeContentOptimalSize(Size size) {
-		Style style = getStyle();
-		computeImageSize(style, size, this.source);
+		ImagePainter.computeOptimalSize(this.source, size);
 	}
-
 }

@@ -8,8 +8,10 @@ package ej.widget.basic;
 import ej.annotation.Nullable;
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.ResourceImage;
+import ej.mwt.Widget;
 import ej.mwt.style.Style;
 import ej.mwt.util.Size;
+import ej.widget.util.ImagePainter;
 
 /**
  * A widget that displays an image.
@@ -21,7 +23,7 @@ import ej.mwt.util.Size;
  * @see #onAttached()
  * @see #onDetached()
  */
-public class ImagePath extends AbstractImage {
+public class ImagePath extends Widget {
 
 	private String sourcePath;
 	@Nullable
@@ -81,7 +83,8 @@ public class ImagePath extends AbstractImage {
 		ResourceImage source = this.source;
 		if (source != null) {
 			Style style = getStyle();
-			renderImage(g, style, size, source);
+			ImagePainter.drawImageInArea(g, source, 0, 0, size.getWidth(), size.getHeight(),
+					style.getHorizontalAlignment(), style.getVerticalAlignment());
 		}
 	}
 
@@ -89,11 +92,9 @@ public class ImagePath extends AbstractImage {
 	protected void computeContentOptimalSize(Size size) {
 		ResourceImage source = this.source;
 		if (source != null) {
-			Style style = getStyle();
-			computeImageSize(style, size, source);
+			ImagePainter.computeOptimalSize(source, size);
 		} else {
 			size.setSize(0, 0);
 		}
 	}
-
 }

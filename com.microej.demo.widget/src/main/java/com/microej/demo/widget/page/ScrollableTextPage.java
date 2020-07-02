@@ -12,8 +12,8 @@ import com.microej.demo.widget.style.ClassSelectors;
 
 import ej.widget.basic.Label;
 import ej.widget.basic.RenderableLabel;
+import ej.widget.container.BufferedScroll;
 import ej.widget.container.List;
-import ej.widget.container.Scroll;
 import ej.widget.container.ScrollableList;
 import ej.widget.container.util.LayoutOrientation;
 
@@ -36,7 +36,7 @@ public class ScrollableTextPage extends AbstractDemoPage {
 		add("MicroEJ Application Store", "store.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
 		add("MicroEJ OS", "os.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
 
-		Scroll scroll = new Scroll(false, true);
+		BufferedScroll scroll = new BufferedScroll(false, true);
 		scroll.setChild(listComposite);
 		setCenterChild(scroll);
 	}

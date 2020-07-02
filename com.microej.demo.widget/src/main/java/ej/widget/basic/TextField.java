@@ -435,21 +435,18 @@ public class TextField extends Widget implements EventHandler {
 		// Draw text.
 		g.resetEllipsis();
 		g.setColor(style.getColor());
-		StringPainter.drawStringInArea(g, font, text, 0, 0, width, height, horizontalAlignment, verticalAlignment);
+		StringPainter.drawStringInArea(g, text, font, 0, 0, width, height, horizontalAlignment, verticalAlignment);
 
 		// Draw clear button.
 		Font clearButtonFont = style.getExtraObject(CLEAR_BUTTON_FONT, Font.class, font);
-		StringPainter.drawStringInArea(g, clearButtonFont, CLEAR_BUTTON_STRING, 0, 0, width, height, Alignment.RIGHT,
+		StringPainter.drawStringInArea(g, CLEAR_BUTTON_STRING, clearButtonFont, 0, 0, width, height, Alignment.RIGHT,
 				Alignment.VCENTER);
 	}
 
 	@Override
 	protected void computeContentOptimalSize(Size size) {
-		Style style = getStyle();
-		Font font = style.getFont();
-		int textWidth = font.stringWidth(getTextOrPlaceHolder());
-		int textHeight = font.getHeight();
-		size.setSize(textWidth, textHeight);
+		Font font = getStyle().getFont();
+		StringPainter.computeOptimalSize(getTextOrPlaceHolder(), font, size);
 	}
 
 	private Rectangle getBounds(int startIndex, int endIndex, String text, Font font, int areaWidth, int areaHeight,

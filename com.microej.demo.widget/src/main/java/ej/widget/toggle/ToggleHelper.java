@@ -15,8 +15,8 @@ import ej.microui.event.generator.Pointer;
 import ej.mwt.event.DesktopEventGenerator;
 import ej.mwt.event.PointerEventDispatcher;
 import ej.util.map.WeakValueHashMap;
+import ej.widget.listener.GenericListener;
 import ej.widget.listener.OnStateChangeListener;
-import ej.widget.util.GenericListener;
 
 /**
  * A toggle helper manages the behavior of a toggle: it handles pointer events, changes the state of the toggle and

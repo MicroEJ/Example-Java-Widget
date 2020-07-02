@@ -12,11 +12,11 @@ import ej.microui.event.EventHandler;
 import ej.microui.event.generator.Pointer;
 import ej.mwt.event.DesktopEventGenerator;
 import ej.mwt.event.PointerEventDispatcher;
+import ej.widget.listener.GenericListener;
 import ej.widget.listener.OnClickListener;
 import ej.widget.test.framework.TestEvent;
 import ej.widget.test.framework.TestHelper;
 import ej.widget.util.ButtonHelper;
-import ej.widget.util.GenericListener;
 
 public class ButtonHelperTest extends TestEvent {
 

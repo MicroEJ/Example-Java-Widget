@@ -6,9 +6,9 @@
 package ej.widget.basic;
 
 import ej.microui.display.Image;
+import ej.widget.listener.GenericListener;
 import ej.widget.listener.OnClickListener;
 import ej.widget.util.ButtonHelper;
-import ej.widget.util.GenericListener;
 import ej.widget.util.States;
 
 /**

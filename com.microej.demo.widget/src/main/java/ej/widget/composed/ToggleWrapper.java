@@ -6,10 +6,10 @@
 package ej.widget.composed;
 
 import ej.annotation.Nullable;
+import ej.widget.listener.GenericListener;
 import ej.widget.listener.OnStateChangeListener;
 import ej.widget.toggle.ToggleHelper;
 import ej.widget.toggle.ToggleModel;
-import ej.widget.util.GenericListener;
 import ej.widget.util.States;
 
 /**

@@ -12,6 +12,7 @@ import ej.microui.event.generator.Command;
 import ej.microui.event.generator.Pointer;
 import ej.mwt.event.DesktopEventGenerator;
 import ej.mwt.event.PointerEventDispatcher;
+import ej.widget.listener.GenericListener;
 import ej.widget.listener.OnClickListener;
 
 /**

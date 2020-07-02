@@ -38,6 +38,8 @@ import ej.widget.test.lifecycle.TestShownFillCarousel;
 import ej.widget.test.lifecycle.TestShownListCarousel;
 import ej.widget.test.lifecycle.TestShownTransitionContainer;
 import ej.widget.test.model.TestDefaultBoundedRangeModel;
+import ej.widget.test.style.text.LineWrapTextStyleTest;
+import ej.widget.test.style.text.SingleLineTextStyleTest;
 import ej.widget.test.toggle.RadioTest;
 import ej.widget.test.toggle.ToggleHelperTest;
 import ej.widget.test.toggle.ToggleLayoutTest;
@@ -106,6 +108,10 @@ public class TestAll extends Test {
 
 		// model
 		launchTest(display, new TestDefaultBoundedRangeModel());
+
+		// style.text
+		launchTest(display, new LineWrapTextStyleTest());
+		launchTest(display, new SingleLineTextStyleTest());
 
 		// toggle
 		launchTest(display, new RadioTest());

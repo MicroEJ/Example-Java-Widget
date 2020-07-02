@@ -10,7 +10,7 @@ import com.microej.demo.widget.style.ClassSelectors;
 import com.microej.demo.widget.style.Images;
 
 import ej.widget.basic.ButtonImagePath;
-import ej.widget.basic.ImagePath;
+import ej.widget.basic.ImageWidget;
 import ej.widget.basic.Label;
 import ej.widget.container.SimpleDock;
 import ej.widget.container.util.LayoutOrientation;
@@ -52,7 +52,7 @@ public abstract class AbstractDemoPage extends SimpleDock {
 		topBar.setCenterChild(titleLabel);
 
 		if (mainPage) {
-			ImagePath exitIcon = new ImagePath(Images.STORE_ICON);
+			ImageWidget exitIcon = new ImageWidget(Images.STORE_ICON);
 			exitIcon.addClassSelector(ClassSelectors.STORE_IMAGE);
 			topBar.setFirstChild(exitIcon);
 		} else {

@@ -13,7 +13,7 @@ import ej.microui.display.GraphicsContext;
 import ej.microui.display.ResourceImage;
 import ej.mwt.Desktop;
 import ej.mwt.Widget;
-import ej.widget.basic.ImagePath;
+import ej.widget.basic.ImageWidget;
 import ej.widget.test.framework.ContainerValidateHelper;
 import ej.widget.test.framework.Test;
 import ej.widget.test.framework.TestHelper;
@@ -21,12 +21,12 @@ import ej.widget.test.framework.TestHelper;
 /**
  *
  */
-public class ImagePathTest extends Test {
+public class ImageWidgetTest extends Test {
 
 	private static final String IMAGE_PATH = "/images/cowboy.png";
 
 	public static void main(String[] args) {
-		TestHelper.launchTest(new ImagePathTest());
+		TestHelper.launchTest(new ImageWidgetTest());
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class ImagePathTest extends Test {
 			int displayImageWidth = displayImage.getWidth();
 			int displayImageHeight = displayImage.getHeight();
 
-			ImagePath image = new ImagePath(path);
+			ImageWidget image = new ImageWidget(path);
 			ContainerValidateHelper container = new ContainerValidateHelper(image);
 
 			Desktop desktop = new Desktop();
@@ -68,7 +68,7 @@ public class ImagePathTest extends Test {
 			Display display = Display.getDisplay();
 			GraphicsContext g = display.getGraphicsContext();
 
-			ImagePath image = new ImagePath(path);
+			ImageWidget image = new ImageWidget(path);
 
 			Desktop desktop = new Desktop();
 			desktop.setWidget(image);

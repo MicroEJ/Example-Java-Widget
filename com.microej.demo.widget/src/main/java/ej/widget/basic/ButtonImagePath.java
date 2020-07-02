@@ -13,9 +13,9 @@ import ej.widget.util.States;
 /**
  * A button image is a widget that displays an image and reacts to click events.
  *
- * @see ImagePath
+ * @see ImageWidget
  */
-public class ButtonImagePath extends ImagePath implements GenericListener {
+public class ButtonImagePath extends ImageWidget implements GenericListener {
 
 	private final ButtonHelper buttonHelper;
 

@@ -26,6 +26,12 @@ import ej.widget.test.composed.TestWrapperEncapsulation;
 import ej.widget.test.container.menu.TestCarousel;
 import ej.widget.test.container.scroll.TestScrollContainerSimple;
 import ej.widget.test.container.scroll.TestScrollInList;
+import ej.widget.test.container.split.TestSplitContainerAlone;
+import ej.widget.test.container.split.TestSplitContainerConsistency;
+import ej.widget.test.container.split.TestSplitContainerConsistency2;
+import ej.widget.test.container.split.TestSplitContainerHierarchy;
+import ej.widget.test.container.split.TestSplitContainerNone;
+import ej.widget.test.container.split.TestSplitContainerSimple;
 import ej.widget.test.framework.Test;
 import ej.widget.test.framework.TestHelper;
 import ej.widget.test.lifecycle.TestShownFillCarousel;
@@ -66,6 +72,13 @@ public class TestAll extends Test {
 
 		launchTest(display, new TestScrollContainerSimple());
 		launchTest(display, new TestScrollInList());
+
+		launchTest(display, new TestSplitContainerAlone());
+		launchTest(display, new TestSplitContainerConsistency());
+		launchTest(display, new TestSplitContainerConsistency2());
+		launchTest(display, new TestSplitContainerHierarchy());
+		launchTest(display, new TestSplitContainerNone());
+		launchTest(display, new TestSplitContainerSimple());
 
 		//// Widgets ////
 

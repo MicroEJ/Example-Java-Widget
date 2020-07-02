@@ -12,7 +12,6 @@ import ej.widget.test.basic.AnimatedImageTest;
 import ej.widget.test.basic.BoxTest;
 import ej.widget.test.basic.ButtonImagePathTest;
 import ej.widget.test.basic.ButtonImageViewTest;
-import ej.widget.test.basic.ImageWidgetTest;
 import ej.widget.test.basic.ImageViewTest;
 import ej.widget.test.basic.PasswordFieldTest;
 import ej.widget.test.basic.RenderableLabelTest;
@@ -75,7 +74,6 @@ public class TestAll extends Test {
 		launchTest(display, new BoxTest());
 		launchTest(display, new ButtonImagePathTest());
 		launchTest(display, new ButtonImageViewTest());
-		launchTest(display, new ImageWidgetTest());
 		launchTest(display, new ImageViewTest());
 		launchTest(display, new PasswordFieldTest());
 		launchTest(display, new RenderableLabelTest());

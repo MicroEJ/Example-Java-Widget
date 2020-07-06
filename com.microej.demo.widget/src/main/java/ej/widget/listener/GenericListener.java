@@ -6,17 +6,13 @@
 package ej.widget.listener;
 
 /**
- * Defines an object which listens to focus events.
+ * A listener is notified when the model it is associated with changed.
  */
-public interface OnFocusListener {
+public interface GenericListener {
 
 	/**
-	 * Invoked when the target of the listener has gained focus.
+	 * Something has changed.
 	 */
-	abstract public void onGainFocus();
+	void update();
 
-	/**
-	 * Invoked when the target of the listener has lost focus.
-	 */
-	abstract public void onLostFocus();
 }

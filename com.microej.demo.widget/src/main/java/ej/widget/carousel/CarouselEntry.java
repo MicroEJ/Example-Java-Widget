@@ -121,7 +121,7 @@ public class CarouselEntry {
 			int stringY = imageY + imageHeight + 10;
 			int stringWidth = imageWidth - 2 * marginX;
 			int stringHeight = 2 * font.getHeight();
-			StringPainter.drawStringInArea(g, font, this.string, stringX, stringY, stringWidth, stringHeight,
+			StringPainter.drawStringInArea(g, this.string, font, stringX, stringY, stringWidth, stringHeight,
 					Alignment.HCENTER, Alignment.TOP);
 		}
 	}

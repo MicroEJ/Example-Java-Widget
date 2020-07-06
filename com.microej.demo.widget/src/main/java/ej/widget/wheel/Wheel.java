@@ -110,7 +110,7 @@ public class Wheel extends Widget {
 		int backgroundColor = (g.hasBackgroundColor() ? g.getBackgroundColor() : Colors.WHITE);
 		g.setColor(color);
 		Font font = style.getFont();
-		StringPainter.drawStringAtPoint(g, font, this.model.getValueAsString(currentVisibleIndex), x, y,
+		StringPainter.drawStringAtPoint(g, this.model.getValueAsString(currentVisibleIndex), font, x, y,
 				Alignment.HCENTER, Alignment.VCENTER);
 
 		// Draws the previous values.
@@ -172,11 +172,8 @@ public class Wheel extends Widget {
 		int currentVisibleIndex = this.model.getCurrentIndex() + this.currentIndexDiff;
 		String string = this.model.getValueAsString(currentVisibleIndex);
 
-		Style style = getStyle();
-		Font font = style.getFont();
-		int textWidth = font.stringWidth(string);
-		int textHeight = font.getHeight();
-		size.setSize(textWidth, textHeight);
+		Font font = getStyle().getFont();
+		StringPainter.computeOptimalSize(string, font, size);
 	}
 
 	private void stopAnimation() {

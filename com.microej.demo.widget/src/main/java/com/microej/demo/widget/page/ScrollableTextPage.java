@@ -11,8 +11,10 @@ import java.io.InputStream;
 import com.microej.demo.widget.style.ClassSelectors;
 
 import ej.widget.basic.Label;
+import ej.widget.basic.RenderableLabel;
+import ej.widget.container.BufferedScroll;
 import ej.widget.container.List;
-import ej.widget.container.Scroll;
+import ej.widget.container.ScrollableList;
 import ej.widget.container.util.LayoutOrientation;
 
 /**
@@ -26,7 +28,7 @@ public class ScrollableTextPage extends AbstractDemoPage {
 	public ScrollableTextPage() {
 		super(false, "Scrollable text"); //$NON-NLS-1$
 
-		List listComposite = new List(LayoutOrientation.VERTICAL);
+		List listComposite = new ScrollableList(LayoutOrientation.VERTICAL);
 		listComposite.addClassSelector(ClassSelectors.TEXT_SCROLL);
 
 		add("MicroEJ SDK", "sdk.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
@@ -34,7 +36,7 @@ public class ScrollableTextPage extends AbstractDemoPage {
 		add("MicroEJ Application Store", "store.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
 		add("MicroEJ OS", "os.txt", listComposite); //$NON-NLS-1$ //$NON-NLS-2$
 
-		Scroll scroll = new Scroll(false, true);
+		BufferedScroll scroll = new BufferedScroll(false, true);
 		scroll.setChild(listComposite);
 		setCenterChild(scroll);
 	}
@@ -45,7 +47,7 @@ public class ScrollableTextPage extends AbstractDemoPage {
 		titleLabel.setText(title);
 
 		String description = read(filename);
-		Label descriptionLabel = new Label();
+		RenderableLabel descriptionLabel = new RenderableLabel();
 		descriptionLabel.addClassSelector(ClassSelectors.MULTILINE);
 		descriptionLabel.setText(description);
 

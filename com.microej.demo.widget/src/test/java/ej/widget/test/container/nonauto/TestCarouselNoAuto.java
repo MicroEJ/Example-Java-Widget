@@ -154,7 +154,7 @@ public class TestCarouselNoAuto {
 		public void onClick() {
 			AbstractCarousel carousel = TestCarouselNoAuto.carousel;
 			assert carousel != null;
-			TestCarouselNoAuto.selectedIndex = carousel.getIndexOf(this);
+			TestCarouselNoAuto.selectedIndex = carousel.getChildIndex(this);
 			fillCarousel(carousel);
 			carousel.requestLayOut();
 		}

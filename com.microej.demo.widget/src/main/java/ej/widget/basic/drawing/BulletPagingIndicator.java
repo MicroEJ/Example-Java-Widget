@@ -90,10 +90,8 @@ public class BulletPagingIndicator extends PagingIndicator implements Animation 
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
-		int boundsWidth = size.getWidth();
-		int boundsHeight = size.getHeight();
 
 		g.setColor(style.getColor());
 
@@ -112,13 +110,13 @@ public class BulletPagingIndicator extends PagingIndicator implements Animation 
 		int x;
 		int y;
 		if (horizontal) {
-			bigSize = boundsHeight - 1; // Minus 1 for antialiasing.
-			x = (boundsWidth - bigSize * itemsCount) / 2;
-			y = boundsHeight / 2 + this.bulletsPosition;
+			bigSize = contentHeight - 1; // Minus 1 for antialiasing.
+			x = (contentWidth - bigSize * itemsCount) / 2;
+			y = contentHeight / 2 + this.bulletsPosition;
 		} else {
-			bigSize = boundsWidth - 1; // Minus 1 for antialiasing.
-			x = boundsWidth / 2 + this.bulletsPosition;
-			y = (boundsHeight - bigSize * itemsCount) / 2;
+			bigSize = contentWidth - 1; // Minus 1 for antialiasing.
+			x = contentWidth / 2 + this.bulletsPosition;
+			y = (contentHeight - bigSize * itemsCount) / 2;
 		}
 		int smallSize = bigSize / 2;
 		int percentSize = (int) (smallSize * getPercent());

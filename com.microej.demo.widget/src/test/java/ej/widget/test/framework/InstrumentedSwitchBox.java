@@ -75,9 +75,9 @@ public class InstrumentedSwitchBox extends SwitchBox implements Instrumented {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		this.renderStyle = getStyle();
-		super.renderContent(g, size);
+		super.renderContent(g, contentWidth, contentHeight);
 	}
 
 	@Override

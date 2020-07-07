@@ -104,10 +104,8 @@ public class Slider extends AbstractSlider {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
-		int width = size.getWidth();
-		int height = size.getHeight();
 
 		int sliderSize = getSize(style);
 		int barSize = Math.max(sliderSize >> 2, 1);
@@ -121,25 +119,25 @@ public class Slider extends AbstractSlider {
 		int cursorY;
 		if (this.horizontal) {
 			int verticalAlignment = style.getVerticalAlignment();
-			int yTop = Alignment.computeTopY(sliderSize, 0, height, verticalAlignment);
+			int yTop = Alignment.computeTopY(sliderSize, 0, contentHeight, verticalAlignment);
 			int centerY = yTop + (sliderSize >> 1);
 			barStartX = sliderSize >> 1;
-			barEndX = width - (sliderSize >> 1);
+			barEndX = contentWidth - (sliderSize >> 1);
 			barStartY = centerY;
 			barEndY = centerY;
-			int barWidth = width - sliderSize;
+			int barWidth = contentWidth - sliderSize;
 			int completeBarWidth = (int) (getPercentComplete() * barWidth);
 			cursorX = barStartX + completeBarWidth;
 			cursorY = centerY;
 		} else {
 			int horizontalAlignment = style.getHorizontalAlignment();
-			int xLeft = Alignment.computeLeftX(sliderSize, 0, width, horizontalAlignment);
+			int xLeft = Alignment.computeLeftX(sliderSize, 0, contentWidth, horizontalAlignment);
 			int centerX = xLeft + (sliderSize >> 1);
 			barStartY = sliderSize >> 1;
-			barEndY = height - (sliderSize >> 1);
+			barEndY = contentHeight - (sliderSize >> 1);
 			barStartX = centerX;
 			barEndX = centerX;
-			int barHeight = height - sliderSize;
+			int barHeight = contentHeight - sliderSize;
 			int completeBarHeight = (int) (getPercentComplete() * barHeight);
 			cursorX = centerX;
 			cursorY = barStartY + completeBarHeight;

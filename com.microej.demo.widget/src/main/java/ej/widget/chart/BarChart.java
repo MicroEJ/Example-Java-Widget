@@ -11,7 +11,6 @@ import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.mwt.style.Style;
 import ej.mwt.util.Alignment;
-import ej.mwt.util.Size;
 import ej.widget.util.StringPainter;
 
 /**
@@ -35,23 +34,23 @@ public class BarChart extends BasicChart {
 	 * Render widget
 	 */
 	@Override
-	public void renderContent(GraphicsContext g, Size size) {
+	public void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
 		Font font = style.getFont();
 		int fontHeight = font.getHeight();
 
-		this.xStep = (size.getWidth() - LEFT_PADDING) / (getPoints().size() - 0.5f);
+		this.xStep = (contentWidth - LEFT_PADDING) / (getPoints().size() - 0.5f);
 
-		int yBarBottom = getBarBottom(fontHeight, size) - BAR_THICKNESS / 2 - 1;
-		int yBarTop = getBarTop(fontHeight, size) + BAR_THICKNESS / 2;
+		int yBarBottom = getBarBottom(fontHeight, contentWidth, contentHeight) - BAR_THICKNESS / 2 - 1;
+		int yBarTop = getBarTop(fontHeight, contentWidth, contentHeight) + BAR_THICKNESS / 2;
 
 		float topValue = getScale().getTopValue();
 
 		// draw selected point value
-		renderSelectedPointValue(g, style, size);
+		renderSelectedPointValue(g, style, contentWidth, contentHeight);
 
 		// draw scale
-		renderScale(g, style, size, topValue);
+		renderScale(g, style, contentWidth, contentHeight, topValue);
 
 		// draw points
 		int pointIndex = 0;
@@ -63,7 +62,7 @@ public class BarChart extends BasicChart {
 
 			String name = chartPoint.getName();
 			if (name != null) {
-				StringPainter.drawStringAtPoint(g, name, font, currentX, size.getHeight(), Alignment.HCENTER,
+				StringPainter.drawStringAtPoint(g, name, font, currentX, contentHeight, Alignment.HCENTER,
 						Alignment.BOTTOM);
 			}
 

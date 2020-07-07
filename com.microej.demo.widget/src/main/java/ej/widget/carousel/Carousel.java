@@ -229,15 +229,15 @@ public class Carousel extends Widget {
 	}
 
 	@Override
-	public void renderContent(GraphicsContext g, Size size) {
+	public void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		long startTime = 0;
 		if (DEBUG) {
 			startTime = System.currentTimeMillis();
 		}
 
 		Style style = getStyle();
-		int halfWidth = size.getWidth() / 2;
-		int halfHeight = size.getHeight() / 2;
+		int halfWidth = contentWidth / 2;
+		int halfHeight = contentHeight / 2;
 
 		// set text style
 		Font font = style.getFont();
@@ -262,18 +262,19 @@ public class Carousel extends Widget {
 		// draw entries
 		g.setColor(style.getColor());
 		for (int e = 0; e < topEntry; e++) {
-			drawEntry(g, size, font, e, false, totalDrag, this.stopped);
+			drawEntry(g, contentWidth, contentHeight, font, e, false, totalDrag, this.stopped);
 		}
 		for (int e = this.entries.length - 1; e > topEntry; e--) {
-			drawEntry(g, size, font, e, false, totalDrag, this.stopped);
+			drawEntry(g, contentWidth, contentHeight, font, e, false, totalDrag, this.stopped);
 		}
-		drawEntry(g, size, font, topEntry, true, totalDrag, this.stopped);
+		drawEntry(g, contentWidth, contentHeight, font, topEntry, true, totalDrag, this.stopped);
 
 		// draw DND entry
 		if (this.dnd) {
 			int offsetX = this.lastDragX - halfWidth;
 			int offsetY = this.lastDragY - halfHeight;
-			this.dndEntry.render(g, size, font, this.dnd, this.stopped, true, false, 1.0f, offsetX, offsetY, true);
+			this.dndEntry.render(g, contentWidth, contentHeight, font, this.dnd, this.stopped, true, false, 1.0f,
+					offsetX, offsetY, true);
 		}
 
 		if (DEBUG) {
@@ -282,8 +283,8 @@ public class Carousel extends Widget {
 		}
 	}
 
-	private void drawEntry(GraphicsContext g, Size size, Font font, int entryIndex, boolean selected, int totalDrag,
-			boolean stopped) {
+	private void drawEntry(GraphicsContext g, int contentWidth, int contentHeight, Font font, int entryIndex,
+			boolean selected, int totalDrag, boolean stopped) {
 		// calculate position and size
 		int offsetX = entryIndex * this.entryWidth + totalDrag;
 		if (this.dnd && this.dndAnimDir != 0 && entryIndex == this.dndIndex - this.dndAnimDir) {
@@ -291,7 +292,7 @@ public class Carousel extends Widget {
 			offsetX -= dndOffset * this.dndAnimMotion.getCurrentValue() / DND_ANIM_STEPS;
 			offsetX += dndOffset;
 		}
-		float factor = Math.abs((float) offsetX / size.getWidth());
+		float factor = Math.abs((float) offsetX / contentWidth);
 		float sizeRatio = 1.0f - (float) Math.pow(factor, SIZE_FACTOR);
 
 		// draw if big enough
@@ -308,7 +309,8 @@ public class Carousel extends Widget {
 					clicked &= (this.lastPressX > halfWidth - this.entryWidth / 2
 							&& this.lastPressX < halfWidth + this.entryWidth / 2);
 				}
-				entry.render(g, size, font, this.dnd, stopped, clicked, selected, sizeRatio, offsetX, 0, false);
+				entry.render(g, contentWidth, contentHeight, font, this.dnd, stopped, clicked, selected, sizeRatio,
+						offsetX, 0, false);
 			}
 		}
 	}

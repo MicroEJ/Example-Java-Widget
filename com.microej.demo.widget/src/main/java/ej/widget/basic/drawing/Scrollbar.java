@@ -103,7 +103,7 @@ public class Scrollbar extends Widget {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		if (this.visibilityLevel == GraphicsContext.TRANSPARENT) {
 			// nothing to paint
 			return;
@@ -111,8 +111,8 @@ public class Scrollbar extends Widget {
 
 		Style style = getStyle();
 		// Remove 1 for the fade.
-		int width = size.getWidth() - 1;
-		int height = size.getHeight() - 1;
+		int width = contentWidth - 1;
+		int height = contentHeight - 1;
 
 		int barSize = getSize(style);
 

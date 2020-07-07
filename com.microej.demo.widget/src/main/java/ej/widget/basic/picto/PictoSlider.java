@@ -46,10 +46,8 @@ public class PictoSlider extends AbstractSlider {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
-		int width = size.getWidth();
-		int height = size.getHeight();
 
 		g.setColor(style.getColor());
 
@@ -60,15 +58,15 @@ public class PictoSlider extends AbstractSlider {
 		int barWidth = font.charWidth(bar);
 
 		// Draw the bar.
-		int barX = Alignment.computeLeftX(barWidth, 0, width, Alignment.HCENTER);
-		int barY = Alignment.computeTopY(fontHeight, 0, height, Alignment.VCENTER);
+		int barX = Alignment.computeLeftX(barWidth, 0, contentWidth, Alignment.HCENTER);
+		int barY = Alignment.computeTopY(fontHeight, 0, contentHeight, Alignment.VCENTER);
 		Painter.drawChar(g, font, bar, barX, barY);
 
 		// Draw the cursor.
 		char cursor = getCursor();
 		int cursorX = barX + (int) (barWidth * getPercentComplete());
 		cursorX = Alignment.computeLeftX(font.charWidth(cursor), cursorX, Alignment.HCENTER);
-		int cursorY = Alignment.computeTopY(font.getHeight(), 0, height, Alignment.VCENTER);
+		int cursorY = Alignment.computeTopY(font.getHeight(), 0, contentHeight, Alignment.VCENTER);
 		Painter.drawChar(g, font, cursor, cursorX, cursorY);
 	}
 

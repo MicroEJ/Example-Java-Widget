@@ -58,10 +58,8 @@ public class ImageProgress extends AbstractProgress {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
-		int width = size.getWidth();
-		int height = size.getHeight();
 		g.setColor(style.getColor());
 
 		float percentComplete = getPercentComplete();
@@ -70,18 +68,18 @@ public class ImageProgress extends AbstractProgress {
 			Image bar = loadBarImage(true);
 			int barWidth = bar.getWidth();
 			int barHeight = bar.getHeight();
-			int barX = (width - barWidth) >> 1;
+			int barX = (contentWidth - barWidth) >> 1;
 			int regionWidth = (int) (percentComplete * barWidth);
 			int y = -barHeight >> 1;
-			Painter.drawImageRegion(g, bar, 0, y, regionWidth, barHeight, barX, height >> 1);
+			Painter.drawImageRegion(g, bar, 0, y, regionWidth, barHeight, barX, contentHeight >> 1);
 		} else {
 			Image bar = loadBarImage(false);
 			int barWidth = bar.getWidth();
 			int barHeight = bar.getHeight();
-			int barY = (height - barHeight) >> 1;
+			int barY = (contentHeight - barHeight) >> 1;
 			int regionHeight = (int) (percentComplete * barHeight);
 			int x = -barWidth >> 1;
-			Painter.drawImageRegion(g, bar, x, 0, bar.getWidth(), regionHeight, width >> 1, barY);
+			Painter.drawImageRegion(g, bar, x, 0, bar.getWidth(), regionHeight, contentWidth >> 1, barY);
 		}
 	}
 

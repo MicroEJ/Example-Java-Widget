@@ -14,7 +14,6 @@ import ej.microui.display.GraphicsContext;
 import ej.microui.display.Image;
 import ej.microui.display.Painter;
 import ej.mwt.util.Alignment;
-import ej.mwt.util.Size;
 import ej.widget.listener.OnClickListener;
 import ej.widget.util.StringPainter;
 
@@ -82,12 +81,12 @@ public class CarouselEntry {
 	 *
 	 * @param g
 	 *            the graphics context to draw on
-	 * @param size
-	 *            the size of the container
+	 * @param contentWidth
+	 *            the content width of the carousel
+	 * @param contentHeight
+	 *            the content height of the carousel
 	 * @param font
 	 *            the font to render with.
-	 * @param tm
-	 *            the text manager to use
 	 * @param inDND
 	 *            whether an entry is being dragged
 	 * @param stopped
@@ -105,13 +104,14 @@ public class CarouselEntry {
 	 * @param isDND
 	 *            whether the entry is being dragged
 	 */
-	public void render(GraphicsContext g, Size size, Font font, boolean inDND, boolean stopped, boolean clicked,
-			boolean selected, float sizeRatio, int offsetX, int offsetY, boolean isDND) {
+	public void render(GraphicsContext g, int contentWidth, int contentHeight, Font font, boolean inDND,
+			boolean stopped, boolean clicked, boolean selected, float sizeRatio, int offsetX, int offsetY,
+			boolean isDND) {
 		// draw background
 		int imageWidth = Math.round(this.image.getWidth() * sizeRatio);
 		int imageHeight = Math.round(this.image.getHeight() * sizeRatio);
-		int imageX = Alignment.computeLeftX(imageWidth, offsetX, size.getWidth(), Alignment.HCENTER);
-		int imageY = Alignment.computeTopY(imageHeight + 30, offsetY, size.getHeight(), Alignment.VCENTER);
+		int imageX = Alignment.computeLeftX(imageWidth, offsetX, contentWidth, Alignment.HCENTER);
+		int imageY = Alignment.computeTopY(imageHeight + 30, offsetY, contentHeight, Alignment.VCENTER);
 		drawScaled(g, this.image, imageX, imageY, 255, sizeRatio, stopped);
 
 		// draw string

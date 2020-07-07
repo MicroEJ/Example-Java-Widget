@@ -48,10 +48,10 @@ public class ToggleLayoutTest extends Test {
 			}
 
 			@Override
-			protected void renderContent(GraphicsContext g, Size size) {
+			protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 				Style style = getStyle();
 				g.setColor(style.getColor());
-				Painter.fillRectangle(g, 0, 0, size.getWidth(), size.getHeight());
+				Painter.fillRectangle(g, 0, 0, contentWidth, contentHeight);
 			}
 		}, "toggle"));
 		testToggle(new Check("toggle"));

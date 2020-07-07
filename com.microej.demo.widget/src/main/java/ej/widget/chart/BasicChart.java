@@ -135,17 +135,19 @@ public abstract class BasicChart extends Chart implements Animation {
 	 *            the graphics context.
 	 * @param style
 	 *            the chart style.
-	 * @param size
-	 *            the chart bounds.
+	 * @param contentWidth
+	 *            the content width of the chart.
+	 * @param contentHeight
+	 *            the content height of the chart.
 	 * @param topValue
 	 *            the value on the top of the chart.
 	 */
-	protected void renderScale(GraphicsContext g, Style style, Size size, float topValue) {
+	protected void renderScale(GraphicsContext g, Style style, int contentWidth, int contentHeight, float topValue) {
 		Font font = style.getFont();
 		int fontHeight = font.getHeight();
 
-		int yBarBottom = getBarBottom(fontHeight, size);
-		int yBarTop = getBarTop(fontHeight, size);
+		int yBarBottom = getBarBottom(fontHeight, contentWidth, contentHeight);
+		int yBarTop = getBarTop(fontHeight, contentWidth, contentHeight);
 		int xScale = LEFT_PADDING - fontHeight / 2;
 
 		g.setColor(style.getColor());
@@ -158,7 +160,7 @@ public abstract class BasicChart extends Chart implements Animation {
 			int yScale = yBarBottom + (yBarTop - yBarBottom) * i / numScaleValues;
 
 			StringPainter.drawStringAtPoint(g, scaleString, font, xScale, yScale, Alignment.RIGHT, Alignment.VCENTER);
-			Painter.drawLine(g, LEFT_PADDING, yScale, size.getWidth(), yScale);
+			Painter.drawLine(g, LEFT_PADDING, yScale, contentWidth, yScale);
 		}
 
 		// draw unit
@@ -172,10 +174,12 @@ public abstract class BasicChart extends Chart implements Animation {
 	 *            the graphics context.
 	 * @param style
 	 *            the chart style.
-	 * @param size
-	 *            the chart size.
+	 * @param contentWidth
+	 *            the content width of the chart.
+	 * @param contentHeight
+	 *            the content height of the chart.
 	 */
-	protected void renderSelectedPointValue(GraphicsContext g, Style style, Size size) {
+	protected void renderSelectedPointValue(GraphicsContext g, Style style, int contentWidth, int contentHeight) {
 		ChartPoint selectedPoint = getSelectedPoint();
 		if (selectedPoint != null) {
 			String labelInfoString = selectedPoint.getFullName();
@@ -188,7 +192,7 @@ public abstract class BasicChart extends Chart implements Animation {
 
 			Font labelFont = style.getFont();
 			int labelW = labelFont.stringWidth(labelString) + 2 * SELECTED_VALUE_PADDING;
-			int labelX = (size.getWidth() - labelW) / 2;
+			int labelX = (contentWidth - labelW) / 2;
 			int labelY = 0;
 
 			g.setColor(getSelectedColor(style));
@@ -217,11 +221,13 @@ public abstract class BasicChart extends Chart implements Animation {
 	 *
 	 * @param fontHeight
 	 *            the font height.
-	 * @param size
-	 *            the chart bounds.
+	 * @param contentWidth
+	 *            the content width of the chart.
+	 * @param contentHeight
+	 *            the content height of the chart.
 	 * @return the top position of the chart content.
 	 */
-	protected int getBarTop(int fontHeight, Size size) {
+	protected int getBarTop(int fontHeight, int contentWidth, int contentHeight) {
 		return fontHeight + 5;
 	}
 
@@ -230,12 +236,14 @@ public abstract class BasicChart extends Chart implements Animation {
 	 *
 	 * @param fontHeight
 	 *            the font height.
-	 * @param size
-	 *            the chart size.
+	 * @param contentWidth
+	 *            the content width of the chart.
+	 * @param contentHeight
+	 *            the content height of the chart.
 	 * @return the bottom position of the chart content.
 	 */
-	protected int getBarBottom(int fontHeight, Size size) {
-		return size.getHeight() - fontHeight - fontHeight / 5;
+	protected int getBarBottom(int fontHeight, int contentWidth, int contentHeight) {
+		return contentHeight - fontHeight - fontHeight / 5;
 	}
 
 	/**

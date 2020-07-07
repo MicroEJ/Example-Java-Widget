@@ -46,10 +46,8 @@ public class ImageSlider extends AbstractSlider {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
-		int width = size.getWidth();
-		int height = size.getHeight();
 
 		g.setColor(style.getColor());
 
@@ -57,15 +55,15 @@ public class ImageSlider extends AbstractSlider {
 		int barWidth = bar.getWidth();
 
 		// Draws the bar.
-		int barX = Alignment.computeLeftX(barWidth, 0, width, Alignment.HCENTER);
-		int barY = Alignment.computeTopY(bar.getHeight(), 0, height, Alignment.VCENTER);
+		int barX = Alignment.computeLeftX(barWidth, 0, contentWidth, Alignment.HCENTER);
+		int barY = Alignment.computeTopY(bar.getHeight(), 0, contentHeight, Alignment.VCENTER);
 		Painter.drawImage(g, bar, barX, barY);
 
 		// Draws the cursor.
 		Image cursorImage = getCursorImage();
 		int cursorX = barX + (int) (barWidth * getPercentComplete());
 		cursorX = Alignment.computeLeftX(cursorImage.getWidth(), cursorX, Alignment.HCENTER);
-		int cursorY = Alignment.computeTopY(cursorImage.getHeight(), 0, height, Alignment.VCENTER);
+		int cursorY = Alignment.computeTopY(cursorImage.getHeight(), 0, contentHeight, Alignment.VCENTER);
 		Painter.drawImage(g, cursorImage, cursorX, cursorY);
 	}
 

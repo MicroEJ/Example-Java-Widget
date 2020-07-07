@@ -19,10 +19,8 @@ import ej.widget.basic.Box;
 public abstract class ImageToggle extends Box {
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
-		int width = size.getWidth();
-		int height = size.getHeight();
 
 		g.setColor(style.getColor());
 
@@ -32,8 +30,8 @@ public abstract class ImageToggle extends Box {
 		} else {
 			image = getUncheckedImage();
 		}
-		int x = Alignment.computeLeftX(image.getWidth(), 0, width, Alignment.HCENTER);
-		int y = Alignment.computeTopY(image.getHeight(), 0, height, Alignment.VCENTER);
+		int x = Alignment.computeLeftX(image.getWidth(), 0, contentWidth, Alignment.HCENTER);
+		int y = Alignment.computeTopY(image.getHeight(), 0, contentHeight, Alignment.VCENTER);
 		Painter.drawImage(g, image, x, y);
 	}
 

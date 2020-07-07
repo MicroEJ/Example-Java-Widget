@@ -57,10 +57,10 @@ public class ImageView extends Widget {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
-		ImagePainter.drawImageInArea(g, this.source, 0, 0, size.getWidth(), size.getHeight(),
-				style.getHorizontalAlignment(), style.getVerticalAlignment());
+		ImagePainter.drawImageInArea(g, this.source, 0, 0, contentWidth, contentHeight, style.getHorizontalAlignment(),
+				style.getVerticalAlignment());
 	}
 
 	@Override

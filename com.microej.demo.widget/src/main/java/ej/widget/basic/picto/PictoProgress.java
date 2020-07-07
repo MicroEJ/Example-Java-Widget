@@ -55,13 +55,13 @@ public class PictoProgress extends AbstractProgress {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
 		g.setColor(style.getColor());
 		Font font = style.getFont();
 		char character = getPicto();
-		int x = Alignment.computeLeftX(font.charWidth(character), 0, size.getWidth(), Alignment.HCENTER);
-		int y = Alignment.computeTopY(font.getHeight(), 0, size.getHeight(), Alignment.VCENTER);
+		int x = Alignment.computeLeftX(font.charWidth(character), 0, contentWidth, Alignment.HCENTER);
+		int y = Alignment.computeTopY(font.getHeight(), 0, contentHeight, Alignment.VCENTER);
 		Painter.drawChar(g, font, character, x, y);
 	}
 

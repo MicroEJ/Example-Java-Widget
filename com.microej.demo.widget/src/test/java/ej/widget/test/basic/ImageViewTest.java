@@ -71,7 +71,7 @@ public class ImageViewTest extends Test {
 		checkOptimalSize("Validate image double", image, displayImageWidth, displayImageHeight);
 
 		container.computeChildOptimalSize(image, displayImageWidth / 2, displayImageHeight / 2);
-		checkOptimalSize("Validate image half", image, displayImageWidth / 2, displayImageHeight / 2);
+		checkOptimalSize("Validate image half", image, displayImageWidth, displayImageHeight);
 
 	}
 

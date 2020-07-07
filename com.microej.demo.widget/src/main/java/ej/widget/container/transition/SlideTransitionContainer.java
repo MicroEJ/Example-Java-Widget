@@ -118,12 +118,13 @@ public class SlideTransitionContainer extends TransitionContainer {
 			public void run() {
 				SlideTransitionContainer.this.forward = forward;
 				final Widget previousWidget = getChild(0);
-				addChild(widget);
+				if (newIsBelow) {
+					insertChild(widget, 0);
+				} else {
+					addChild(widget);
+				}
 				computeChildOptimalSize(widget, contentWidth, contentHeight);
 				layOutChild(widget, contentX, contentY, contentWidth, contentHeight);
-				if (newIsBelow) {
-					bringChildBackward(widget);
-				}
 				setShownChild(widget);
 				startAnimation(widget, previousWidget, forward, 0, distance);
 			}

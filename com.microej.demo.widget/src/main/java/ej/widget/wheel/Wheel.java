@@ -187,7 +187,7 @@ public class Wheel extends Widget {
 		int type = Event.getType(event);
 		if (type == Pointer.EVENT_TYPE) {
 			Pointer pointer = (Pointer) Event.getGenerator(event);
-			int pointerY = getRelativeY(pointer.getY());
+			int pointerY = pointer.getY() - getAbsoluteY();
 			int action = Pointer.getAction(event);
 			switch (action) {
 			case Pointer.PRESSED:

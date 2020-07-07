@@ -95,10 +95,10 @@ public class Slider extends AbstractSlider {
 		int size = getSize(getStyle());
 		// The size of the bar considers the size of the cursor (room left on both sides).
 		if (this.horizontal) {
-			return (float) (getRelativeX(pointerX) - contentBounds.getX() - (size >> 1))
+			return (float) (pointerX - getAbsoluteX() - contentBounds.getX() - (size >> 1))
 					/ (contentBounds.getWidth() - size);
 		} else {
-			return (float) (getRelativeY(pointerY) - contentBounds.getY() - (size >> 1))
+			return (float) (pointerY - getAbsoluteY() - contentBounds.getY() - (size >> 1))
 					/ (contentBounds.getHeight() - size);
 		}
 	}

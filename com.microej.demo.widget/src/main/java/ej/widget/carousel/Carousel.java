@@ -24,8 +24,8 @@ import ej.mwt.Widget;
 import ej.mwt.event.DesktopEventGenerator;
 import ej.mwt.event.PointerEventDispatcher;
 import ej.mwt.style.Style;
-import ej.mwt.util.Size;
 import ej.mwt.util.OutlineHelper;
+import ej.mwt.util.Size;
 import ej.service.ServiceFactory;
 
 /**
@@ -322,8 +322,8 @@ public class Carousel extends Widget {
 		int type = Event.getType(event);
 		if (type == Pointer.EVENT_TYPE) {
 			Pointer pointer = (Pointer) Event.getGenerator(event);
-			int pointerX = getRelativeX(pointer.getX());
-			int pointerY = getRelativeY(pointer.getY());
+			int pointerX = pointer.getX() - getAbsoluteX();
+			int pointerY = pointer.getY() - getAbsoluteY();
 			int action = Pointer.getAction(event);
 
 			long currentTime = System.currentTimeMillis();

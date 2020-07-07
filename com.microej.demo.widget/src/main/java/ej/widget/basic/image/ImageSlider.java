@@ -74,7 +74,7 @@ public class ImageSlider extends AbstractSlider {
 		Rectangle contentBounds = getContentBounds();
 		// The size of the bar consider the size of the cursor (room left on both sides).
 		int barWidth = getBarImage().getWidth();
-		return (float) (getRelativeX(pointerX) - contentBounds.getX() - ((contentBounds.getWidth() - barWidth) >> 1))
+		return (float) (pointerX - getAbsoluteX() - contentBounds.getX() - ((contentBounds.getWidth() - barWidth) >> 1))
 				/ barWidth;
 	}
 

@@ -77,7 +77,7 @@ public class PictoSlider extends AbstractSlider {
 		Rectangle contentBounds = getContentBounds();
 		Font font = getStyle().getFont();
 		int barWidth = font.charWidth(getBar());
-		return (float) (getRelativeX(pointerX) - contentBounds.getX() - ((contentBounds.getWidth() - barWidth) >> 1))
+		return (float) (pointerX - getAbsoluteX() - contentBounds.getX() - ((contentBounds.getWidth() - barWidth) >> 1))
 				/ barWidth;
 	}
 

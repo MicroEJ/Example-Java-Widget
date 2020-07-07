@@ -112,7 +112,7 @@ public class BufferedScroll extends Container {
 		if (child != oldChild) {
 			if (oldChild != null) {
 				// replace old child by new child
-				replaceChild(getIndexOf(oldChild), child);
+				replaceChild(getChildIndex(oldChild), child);
 			} else {
 				// insert new child before scrollbar
 				insertChild(child, 0);

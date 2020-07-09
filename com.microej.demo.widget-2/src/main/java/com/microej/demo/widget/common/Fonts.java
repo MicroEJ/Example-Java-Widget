@@ -5,18 +5,15 @@
  */
 package com.microej.demo.widget.common;
 
-import ej.mwt.Desktop;
+import ej.microui.display.Font;
 
-/**
- * A page of the demo.
- */
-public interface Page {
+public class Fonts {
 
-	/**
-	 * Gets the desktop that represent the page.
-	 *
-	 * @return the desktop of the page.
-	 */
-	Desktop getDesktop();
+	public static Font getDefaultFont() {
+		return Font.getFont("/fonts/source_l_14px-20px-26h.ejf");
+	}
+
+	private Fonts() {
+	}
 
 }

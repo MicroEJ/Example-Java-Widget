@@ -10,14 +10,23 @@ import com.microej.demo.widget.main.MainPage;
 import ej.microui.display.Display;
 
 /**
- *
+ * Manages the navigation between the pages.
  */
 public class Navigation {
 
+	/**
+	 * Shows the main page.
+	 */
 	public static void showMainPage() {
 		showPage(new MainPage(), false);
 	}
 
+	/**
+	 * Shows a page.
+	 *
+	 * @param page
+	 *            the page to show.
+	 */
 	public static void showPage(Page page) {
 		showPage(page, true);
 	}
@@ -27,4 +36,6 @@ public class Navigation {
 		Display.getDisplay().requestShow(displayable);
 	}
 
+	private Navigation() {
+	}
 }

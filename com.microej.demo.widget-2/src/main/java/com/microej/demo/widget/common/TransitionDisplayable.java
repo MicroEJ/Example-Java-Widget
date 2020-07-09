@@ -17,9 +17,12 @@ import ej.mwt.animation.Animation;
 import ej.mwt.animation.Animator;
 import ej.service.ServiceFactory;
 
-public class TransitionDisplayable extends Displayable implements Animation {
+/**
+ * Used by {@link Navigation} to do a transition between desktops.
+ */
+/* package */ class TransitionDisplayable extends Displayable implements Animation {
 
-	private static final int DURATION = 500;
+	private static final int DURATION = 250;
 
 	private final Desktop newDesktop;
 	private final boolean forward;
@@ -28,14 +31,14 @@ public class TransitionDisplayable extends Displayable implements Animation {
 	private Motion motion;
 	private int lastPosition;
 
-	public TransitionDisplayable(Desktop newDesktop, boolean forward) {
+	/* package */ TransitionDisplayable(Desktop newDesktop, boolean forward) {
 		this.newDesktop = newDesktop;
 		this.forward = forward;
 		int width = Display.getDisplay().getWidth();
 		if (forward) {
-			this.motion = new QuadEaseOutMotion(width, TitleBar.TITLE_BAR_WIDTH, DURATION);
+			this.motion = new QuadEaseOutMotion(width, PageHelper.TITLE_BAR_WIDTH, DURATION);
 		} else {
-			this.motion = new QuadEaseOutMotion(TitleBar.TITLE_BAR_WIDTH, width, DURATION);
+			this.motion = new QuadEaseOutMotion(PageHelper.TITLE_BAR_WIDTH, width, DURATION);
 		}
 	}
 
@@ -45,16 +48,16 @@ public class TransitionDisplayable extends Displayable implements Animation {
 		Display display = Display.getDisplay();
 		int displayWidth = display.getWidth();
 		int displayHeight = display.getHeight();
-		this.buffer = new BufferedImage(displayWidth - TitleBar.TITLE_BAR_WIDTH, displayHeight);
+		this.buffer = new BufferedImage(displayWidth - PageHelper.TITLE_BAR_WIDTH, displayHeight);
 
 		this.newDesktop.setAttached();
 		GraphicsContext imageGraphicsContext = this.buffer.getGraphicsContext();
-		imageGraphicsContext.translate(-TitleBar.TITLE_BAR_WIDTH, 0);
+		imageGraphicsContext.translate(-PageHelper.TITLE_BAR_WIDTH, 0);
 		this.newDesktop.getWidget().render(imageGraphicsContext);
 
 		this.motion.start();
 		ServiceFactory.getRequiredService(Animator.class).startAnimation(this);
-		this.lastPosition = TitleBar.TITLE_BAR_WIDTH;
+		this.lastPosition = PageHelper.TITLE_BAR_WIDTH;
 	}
 
 	@Override
@@ -75,7 +78,7 @@ public class TransitionDisplayable extends Displayable implements Animation {
 			int shift = currentValue - this.lastPosition;
 			Painter.drawDisplayRegion(gc, this.lastPosition, 0, displayWidth, displayHeight, currentValue, 0);
 			gc.setClip(this.lastPosition, 0, shift, displayHeight);
-			Painter.drawImage(gc, this.buffer, TitleBar.TITLE_BAR_WIDTH, 0);
+			Painter.drawImage(gc, this.buffer, PageHelper.TITLE_BAR_WIDTH, 0);
 			this.lastPosition = currentValue;
 		}
 	}

@@ -12,7 +12,6 @@ import ej.microui.display.GraphicsContext;
 import ej.microui.display.Painter;
 import ej.mwt.style.Style;
 import ej.mwt.util.Alignment;
-import ej.mwt.util.Size;
 import ej.widget.util.StringPainter;
 import ej.widget.util.color.LightHelper;
 
@@ -55,20 +54,20 @@ public class LineChart extends BasicChart {
 	 * Render widget
 	 */
 	@Override
-	public void renderContent(GraphicsContext g, Size size) {
+	public void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
 		Font font = style.getFont();
 		int fontHeight = font.getHeight();
 
-		int yBarBottom = getBarBottom(fontHeight, size);
-		int yBarTop = getBarTop(fontHeight, size);
+		int yBarBottom = getBarBottom(fontHeight, contentWidth, contentHeight);
+		int yBarTop = getBarTop(fontHeight, contentWidth, contentHeight);
 
-		this.xStep = (size.getWidth() - LEFT_PADDING - fontHeight / 4.0f) / (getPoints().size() - 1.0f);
+		this.xStep = (contentWidth - LEFT_PADDING - fontHeight / 4.0f) / (getPoints().size() - 1.0f);
 
 		float topValue = getScale().getTopValue();
 
 		// draw selected point value
-		renderSelectedPointValue(g, style, size);
+		renderSelectedPointValue(g, style, contentWidth, contentHeight);
 
 		// draw points
 		int previousX = -1;
@@ -83,7 +82,7 @@ public class LineChart extends BasicChart {
 
 			String name = chartPoint.getName();
 			if (name != null) {
-				StringPainter.drawStringAtPoint(g, name, font, currentX, size.getHeight(), Alignment.HCENTER,
+				StringPainter.drawStringAtPoint(g, name, font, currentX, contentHeight, Alignment.HCENTER,
 						Alignment.BOTTOM);
 			}
 
@@ -129,7 +128,7 @@ public class LineChart extends BasicChart {
 		}
 
 		// draw scale
-		renderScale(g, style, size, topValue);
+		renderScale(g, style, contentWidth, contentHeight, topValue);
 
 		// draw circles
 		if (this.drawCircles) {

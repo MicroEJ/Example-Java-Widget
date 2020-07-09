@@ -66,13 +66,11 @@ import ej.widget.basic.Box;
 public class CheckBox extends Box {
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		if (isChecked()) {
 			Style style = getStyle();
-			int width = size.getWidth();
-			int height = size.getHeight();
 
-			int checkSize = Math.min(width, height);
+			int checkSize = Math.min(contentWidth, contentHeight);
 			g.setColor(style.getColor());
 			Painter.fillRectangle(g, 0, 0, checkSize, checkSize);
 		}

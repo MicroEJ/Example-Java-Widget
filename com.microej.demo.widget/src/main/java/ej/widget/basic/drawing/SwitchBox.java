@@ -60,17 +60,15 @@ public class SwitchBox extends Box {
 	private static final int MINIMUM_SIZE = 12;
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
-		int width = size.getWidth();
-		int height = size.getHeight();
 
 		g.setColor(style.getColor());
 		int horizontalAlignment = style.getHorizontalAlignment();
 		int verticalAlignment = style.getVerticalAlignment();
-		int switchSize = Math.min(width, height) - 2 * THICKNESS;
-		int leftX = Alignment.computeLeftX(switchSize, THICKNESS, width - 2 * THICKNESS, horizontalAlignment);
-		int topY = Alignment.computeTopY(switchSize, THICKNESS, height - 2 * THICKNESS, verticalAlignment);
+		int switchSize = Math.min(contentWidth, contentHeight) - 2 * THICKNESS;
+		int leftX = Alignment.computeLeftX(switchSize, THICKNESS, contentWidth - 2 * THICKNESS, horizontalAlignment);
+		int topY = Alignment.computeTopY(switchSize, THICKNESS, contentHeight - 2 * THICKNESS, verticalAlignment);
 		if (isChecked()) {
 			int centerX = leftX + (switchSize >> 1);
 			ShapePainter.drawThickFadedLine(g, centerX, topY, centerX, topY + switchSize, THICKNESS, 1, Cap.ROUNDED,

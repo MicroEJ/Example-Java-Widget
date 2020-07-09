@@ -63,7 +63,7 @@ public abstract class MyWidget extends Widget implements InstrumentedItem {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		this.isPaint = true;
 		this.translateX = g.getTranslateX();
 		this.translateY = g.getTranslateY();
@@ -72,7 +72,7 @@ public abstract class MyWidget extends Widget implements InstrumentedItem {
 		this.clipWidth = g.getClipWidth();
 		this.clipHeight = g.getClipHeight();
 		g.setColor((int) (Math.random() * Colors.WHITE));
-		Painter.fillRectangle(g, 0, 0, this.getWidth(), this.getHeight());
+		Painter.fillRectangle(g, 0, 0, contentWidth, contentHeight);
 	}
 
 	@Override

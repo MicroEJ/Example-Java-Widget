@@ -102,7 +102,7 @@ public class Item extends Widget {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		// Nothing to do.
 	}
 

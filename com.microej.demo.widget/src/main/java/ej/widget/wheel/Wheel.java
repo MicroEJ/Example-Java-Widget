@@ -89,21 +89,19 @@ public class Wheel extends Widget {
 	}
 
 	@Override
-	public void renderContent(GraphicsContext g, Size size) {
+	public void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
-		int width = size.getWidth();
-		int remainingHeight = size.getHeight();
 
 		int lineHeight = getLineHeight();
 		int itemOnSideCount = this.wheelGroup.getNumSideValues();
 		int maxItemOnSideCount = itemOnSideCount + 1;
-		int currentValueY = (remainingHeight >> 1) + this.spinOffset;
+		int currentValueY = (contentHeight >> 1) + this.spinOffset;
 		int currentVisibleIndex = this.model.getCurrentIndex() + this.currentIndexDiff;
 		int windowHeight = lineHeight * (itemOnSideCount * 2 + 1);
-		g.setClip(0, (remainingHeight - windowHeight) >> 1, width, windowHeight);
+		g.setClip(0, (contentHeight - windowHeight) >> 1, contentWidth, windowHeight);
 
 		// Draws the current value.
-		int x = width >> 1;
+		int x = contentWidth >> 1;
 		int y = currentValueY;
 
 		int color = style.getColor();
@@ -118,8 +116,8 @@ public class Wheel extends Widget {
 		int previousValueCount = maxItemOnSideCount;
 		while (previousValueCount-- > 0 && valueIterator.hasPrevious()) {
 			y -= lineHeight;
-			float fontRatio = computeFontRatio(y, remainingHeight);
-			g.setColor(computeFontColor(y, remainingHeight, color, backgroundColor));
+			float fontRatio = computeFontRatio(y, contentHeight);
+			g.setColor(computeFontColor(y, contentHeight, color, backgroundColor));
 			drawString(g, font, valueIterator.previous(), x, y, Alignment.HCENTER, Alignment.VCENTER, fontRatio);
 		}
 
@@ -129,21 +127,21 @@ public class Wheel extends Widget {
 		y = currentValueY;
 		while (nextValueCount-- > 0 && valueIterator.hasNext()) {
 			y += lineHeight;
-			float fontRatio = computeFontRatio(y, remainingHeight);
-			g.setColor(computeFontColor(y, remainingHeight, color, backgroundColor));
+			float fontRatio = computeFontRatio(y, contentHeight);
+			g.setColor(computeFontColor(y, contentHeight, color, backgroundColor));
 			drawString(g, font, valueIterator.next(), x, y, Alignment.HCENTER, Alignment.VCENTER, fontRatio);
 		}
 
 		// Draws the horizontal lines.
 		g.setColor(style.getExtraInt(LINE_COLOR_FIELD, Colors.BLACK));
 
-		y = (remainingHeight >> 1) - (lineHeight >> 1);
-		Painter.drawHorizontalLine(g, 0, y - 1, width);
-		Painter.drawHorizontalLine(g, 0, y, width);
+		y = (contentHeight >> 1) - (lineHeight >> 1);
+		Painter.drawHorizontalLine(g, 0, y - 1, contentWidth);
+		Painter.drawHorizontalLine(g, 0, y, contentWidth);
 
-		y = (remainingHeight >> 1) + (lineHeight >> 1);
-		Painter.drawHorizontalLine(g, 0, y - 1, width);
-		Painter.drawHorizontalLine(g, 0, y, width);
+		y = (contentHeight >> 1) + (lineHeight >> 1);
+		Painter.drawHorizontalLine(g, 0, y - 1, contentWidth);
+		Painter.drawHorizontalLine(g, 0, y, contentWidth);
 	}
 
 	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY,
@@ -187,7 +185,7 @@ public class Wheel extends Widget {
 		int type = Event.getType(event);
 		if (type == Pointer.EVENT_TYPE) {
 			Pointer pointer = (Pointer) Event.getGenerator(event);
-			int pointerY = getRelativeY(pointer.getY());
+			int pointerY = pointer.getY() - getAbsoluteY();
 			int action = Pointer.getAction(event);
 			switch (action) {
 			case Pointer.PRESSED:

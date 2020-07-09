@@ -184,15 +184,15 @@ public class AnimatedImage extends Widget {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size availableBounds) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		String currentFrame = this.frames[this.currentIndex];
 		assert currentFrame != null;
 		try (ResourceImage frame = ResourceImage.loadImage(currentFrame)) {
 			Style style = getStyle();
 			int horizontalAlignment = style.getHorizontalAlignment();
 			int verticalAlignment = style.getVerticalAlignment();
-			int x = Alignment.computeLeftX(frame.getWidth(), 0, availableBounds.getWidth(), horizontalAlignment);
-			int y = Alignment.computeTopY(frame.getHeight(), 0, availableBounds.getHeight(), verticalAlignment);
+			int x = Alignment.computeLeftX(frame.getWidth(), 0, contentWidth, horizontalAlignment);
+			int y = Alignment.computeTopY(frame.getHeight(), 0, contentHeight, verticalAlignment);
 			g.setColor(style.getColor());
 			Painter.drawImage(g, frame, x, y);
 		}

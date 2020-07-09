@@ -19,13 +19,13 @@ import ej.widget.basic.Box;
 public abstract class PictoToggle extends Box {
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
 		char picto = isChecked() ? getCheckedPicto() : getUncheckedPicto();
 		Font font = style.getFont();
 		g.setColor(style.getColor());
-		int x = Alignment.computeLeftX(font.charWidth(picto), 0, size.getWidth(), Alignment.HCENTER);
-		int y = Alignment.computeTopY(font.getHeight(), 0, size.getHeight(), Alignment.VCENTER);
+		int x = Alignment.computeLeftX(font.charWidth(picto), 0, contentWidth, Alignment.HCENTER);
+		int y = Alignment.computeTopY(font.getHeight(), 0, contentHeight, Alignment.VCENTER);
 		Painter.drawChar(g, font, picto, x, y);
 	}
 

@@ -71,14 +71,12 @@ public class RadioBox extends Box {
 	private static final int MINIMUM_SIZE = 8;
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		if (isChecked()) {
 			Style style = getStyle();
-			int width = size.getWidth();
-			int height = size.getHeight();
 
 			g.setColor(style.getColor());
-			int radioSize = Math.min(width, height);
+			int radioSize = Math.min(contentWidth, contentHeight);
 			ShapePainter.drawThickFadedCircle(g, ANTIALIASING_THICKNESS, ANTIALIASING_THICKNESS,
 					radioSize - (ANTIALIASING_THICKNESS * 2 + 1), ANTIALIASING_THICKNESS, 1);
 			Painter.fillCircle(g, 1, 1, radioSize - (2 + 1));

@@ -123,8 +123,8 @@ public class TestTransitionContainerNoAuto {
 
 			if (transitionContainer instanceof SplashScreenshotTransitionContainer) {
 				Pointer pointer = (Pointer) Event.getGenerator(event);
-				int relativeX = transitionContainer.getRelativeX(pointer.getX());
-				int relativeY = transitionContainer.getRelativeY(pointer.getY());
+				int relativeX = pointer.getX() - transitionContainer.getAbsoluteX();
+				int relativeY = pointer.getY() - transitionContainer.getAbsoluteY();
 				((SplashScreenshotTransitionContainer) transitionContainer).setAnchor(relativeX, relativeY);
 			}
 

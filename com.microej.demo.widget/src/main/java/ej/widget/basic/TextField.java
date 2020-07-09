@@ -410,14 +410,11 @@ public class TextField extends Widget implements EventHandler {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
 		int horizontalAlignment = style.getHorizontalAlignment();
 		int verticalAlignment = style.getVerticalAlignment();
 		Font font = style.getFont();
-
-		int width = size.getWidth();
-		int height = size.getHeight();
 
 		// Compute selection bounds and draw it.
 		int selectionStart = getSelectionStart();
@@ -426,7 +423,7 @@ public class TextField extends Widget implements EventHandler {
 		if (this.showCaret) {
 			int selectionColor = style.getExtraInt(SELECTION_COLOR, style.getColor());
 			g.setColor(selectionColor);
-			Rectangle selection = getBounds(selectionStart, selectionEnd, text, font, width, height,
+			Rectangle selection = getBounds(selectionStart, selectionEnd, text, font, contentWidth, contentHeight,
 					horizontalAlignment, verticalAlignment);
 			int w = (selectionStart != selectionEnd ? selection.getWidth() : 1);
 			Painter.fillRectangle(g, selection.getX(), selection.getY(), w, selection.getHeight());
@@ -435,12 +432,13 @@ public class TextField extends Widget implements EventHandler {
 		// Draw text.
 		g.resetEllipsis();
 		g.setColor(style.getColor());
-		StringPainter.drawStringInArea(g, text, font, 0, 0, width, height, horizontalAlignment, verticalAlignment);
+		StringPainter.drawStringInArea(g, text, font, 0, 0, contentWidth, contentHeight, horizontalAlignment,
+				verticalAlignment);
 
 		// Draw clear button.
 		Font clearButtonFont = style.getExtraObject(CLEAR_BUTTON_FONT, Font.class, font);
-		StringPainter.drawStringInArea(g, CLEAR_BUTTON_STRING, clearButtonFont, 0, 0, width, height, Alignment.RIGHT,
-				Alignment.VCENTER);
+		StringPainter.drawStringInArea(g, CLEAR_BUTTON_STRING, clearButtonFont, 0, 0, contentWidth, contentHeight,
+				Alignment.RIGHT, Alignment.VCENTER);
 	}
 
 	@Override
@@ -581,7 +579,7 @@ public class TextField extends Widget implements EventHandler {
 		int clearButtonWidth = clearButtonFont.stringWidth(CLEAR_BUTTON_STRING);
 		int clearButtonX = Alignment.computeLeftX(clearButtonWidth, contentBounds.getX(), contentBounds.getWidth(),
 				Alignment.RIGHT);
-		int pX = getRelativeX(pointerX);
+		int pX = pointerX - getAbsoluteX();
 		if (pX >= clearButtonX && pX < clearButtonX + clearButtonWidth) {
 			setText(EMPTY_STRING);
 		} else {
@@ -598,7 +596,7 @@ public class TextField extends Widget implements EventHandler {
 	}
 
 	private int getCaret(int pointerX) {
-		int x = getRelativeX(pointerX);
+		int x = pointerX - getAbsoluteX();
 		Style style = getStyle();
 		Font font = style.getFont();
 		Rectangle contentBounds = getContentBounds();

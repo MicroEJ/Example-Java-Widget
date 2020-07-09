@@ -91,13 +91,11 @@ public class CircularProgressBar extends AbstractProgress {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
-		int width = size.getWidth();
-		int height = size.getHeight();
-		int diameter = Math.min(width, height);
-		int shiftX = Alignment.computeLeftX(diameter, 0, width, style.getHorizontalAlignment());
-		int shiftY = Alignment.computeTopY(diameter, 0, height, style.getVerticalAlignment());
+		int diameter = Math.min(contentWidth, contentHeight);
+		int shiftX = Alignment.computeLeftX(diameter, 0, contentWidth, style.getHorizontalAlignment());
+		int shiftY = Alignment.computeTopY(diameter, 0, contentHeight, style.getVerticalAlignment());
 
 		// Fills the complete part, from 90° anti-clockwise.
 		int startAngle;

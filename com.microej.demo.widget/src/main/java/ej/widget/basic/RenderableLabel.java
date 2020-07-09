@@ -120,11 +120,11 @@ public class RenderableLabel extends Widget {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
 		final RenderableString[] lines = this.lines;
 		assert lines != null;
-		getTextStyle(style).drawText(g, lines, style.getColor(), size.getWidth(), size.getHeight(),
+		getTextStyle(style).drawText(g, lines, style.getColor(), contentWidth, contentHeight,
 				style.getHorizontalAlignment(), style.getVerticalAlignment());
 	}
 

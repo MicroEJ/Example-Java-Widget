@@ -91,10 +91,8 @@ public class ProgressBar extends AbstractProgress {
 	}
 
 	@Override
-	protected void renderContent(GraphicsContext g, Size size) {
+	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
-		int width = size.getWidth();
-		int height = size.getHeight();
 
 		g.setColor(style.getColor());
 
@@ -105,33 +103,33 @@ public class ProgressBar extends AbstractProgress {
 
 		if (this.horizontal) {
 			completeBarStartY = 0;
-			completeBarHeight = height;
+			completeBarHeight = contentHeight;
 
 			if (isIndeterminate()) {
-				completeBarStartX = (int) (this.indeterminateProgress * width);
-				completeBarWidth = width >> 1;
-				int excess = (completeBarStartX + completeBarWidth + 1) - width;
+				completeBarStartX = (int) (this.indeterminateProgress * contentWidth);
+				completeBarWidth = contentWidth >> 1;
+				int excess = (completeBarStartX + completeBarWidth + 1) - contentWidth;
 				if (excess > 0) {
 					Painter.fillRectangle(g, 0, 0, excess, completeBarHeight + 1);
 				}
 			} else {
 				completeBarStartX = 0;
-				completeBarWidth = (int) (getPercentComplete() * width);
+				completeBarWidth = (int) (getPercentComplete() * contentWidth);
 			}
 		} else {
-			completeBarWidth = width;
+			completeBarWidth = contentWidth;
 			completeBarStartX = 0;
 
 			if (isIndeterminate()) {
-				completeBarStartY = (int) (this.indeterminateProgress * height);
-				completeBarHeight = height >> 1;
-				int excess = (completeBarStartY + completeBarHeight + 1) - height;
+				completeBarStartY = (int) (this.indeterminateProgress * contentHeight);
+				completeBarHeight = contentHeight >> 1;
+				int excess = (completeBarStartY + completeBarHeight + 1) - contentHeight;
 				if (excess > 0) {
 					Painter.fillRectangle(g, 0, 0, completeBarWidth + 1, excess);
 				}
 			} else {
 				completeBarStartY = 0;
-				completeBarHeight = (int) (getPercentComplete() * height);
+				completeBarHeight = (int) (getPercentComplete() * contentHeight);
 			}
 		}
 

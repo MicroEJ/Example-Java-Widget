@@ -11,6 +11,9 @@ import ej.microui.display.Painter;
 import ej.mwt.style.background.RectangularBackground;
 import ej.mwt.util.Size;
 
+/**
+ * Rectangular background with a image showing an arrow on the right.
+ */
 public class GoToBackground extends RectangularBackground {
 
 	private static final String IMAGES_IC_ARROW_PNG = "/images/ic-arrow.png"; //$NON-NLS-1$

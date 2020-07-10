@@ -3,12 +3,13 @@
  * This library is provided in source code for use, modification and test, subject to license terms.
  * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
-package com.microej.demo.widget.main.widget;
+package com.microej.demo.widget.scrollablelist.widget;
 
 import ej.bon.XMath;
+import ej.drawing.ShapePainter;
+import ej.drawing.ShapePainter.Cap;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
-import ej.microui.display.Painter;
 import ej.mwt.Widget;
 import ej.mwt.style.Style;
 import ej.mwt.util.Alignment;
@@ -109,27 +110,33 @@ public class Scrollbar extends Widget {
 		}
 
 		Style style = getStyle();
+		// Remove 1 for the fade.
+		int width = contentWidth - 1;
+		int height = contentHeight - 1;
+
 		int barSize = getSize(style);
 
 		g.setColor(style.getColor());
 		int barX;
 		int barY;
-		int barWidth;
-		int barHeight;
+		int barX2;
+		int barY2;
 		if (this.horizontal) {
 			int verticalAlignment = style.getVerticalAlignment();
-			barY = Alignment.computeTopY(barSize, 0, contentHeight, verticalAlignment);
-			barWidth = getBarLength(contentWidth, barSize);
-			barX = getBarPosition(contentWidth, barWidth, barSize);
-			barHeight = barSize;
+			barY = Alignment.computeTopY(barSize, 0, height, verticalAlignment) + (barSize >> 1);
+			int barWidth = getBarLength(width, barSize);
+			barX = getBarPosition(width, barWidth, barSize);
+			barX2 = barX + barWidth;
+			barY2 = barY;
 		} else {
 			int horizontalAlignment = style.getHorizontalAlignment();
-			barX = Alignment.computeLeftX(barSize, 0, contentWidth, horizontalAlignment);
-			barHeight = getBarLength(contentHeight, barSize);
-			barY = getBarPosition(contentHeight, barHeight, barSize);
-			barWidth = barSize;
+			barX = Alignment.computeLeftX(barSize, 0, width, horizontalAlignment) + (barSize >> 1);
+			int barHeight = getBarLength(height, barSize);
+			barY = getBarPosition(height, barHeight, barSize);
+			barX2 = barX;
+			barY2 = barY + barHeight;
 		}
-		Painter.fillRectangle(g, barX, barY, barWidth, barHeight);
+		ShapePainter.drawThickFadedLine(g, barX, barY, barX2, barY2, barSize - 1, 1, Cap.ROUNDED, Cap.ROUNDED);
 	}
 
 	private int getBarLength(int availableLength, int size) {
@@ -176,7 +183,6 @@ public class Scrollbar extends Widget {
 		visibilityLevel = XMath.limit(visibilityLevel, GraphicsContext.TRANSPARENT, GraphicsContext.OPAQUE);
 		if (visibilityLevel != this.visibilityLevel) {
 			this.visibilityLevel = visibilityLevel;
-			requestRender();
 		}
 	}
 

@@ -12,14 +12,16 @@ import com.microej.demo.widget.common.PageHelper;
 
 import ej.microui.MicroUI;
 import ej.mwt.Desktop;
+import ej.mwt.Widget;
 import ej.mwt.style.EditableStyle;
 import ej.mwt.style.background.RectangularBackground;
-import ej.mwt.style.outline.border.FlexibleRectangularBorder;
 import ej.mwt.stylesheet.cascading.CascadingStylesheet;
-import ej.mwt.stylesheet.selector.TypeSelector;
+import ej.mwt.stylesheet.selector.ClassSelector;
 import ej.mwt.util.Alignment;
 import ej.widget.basic.Label;
 import ej.widget.container.Grid;
+import ej.widget.container.SimpleDock;
+import ej.widget.container.util.LayoutOrientation;
 
 /**
  * Page showing labels.
@@ -42,8 +44,17 @@ public class LabelPage implements Page {
 	public Desktop getDesktop() {
 		Desktop desktop = PageHelper.createDesktop();
 
-		CascadingStylesheet stylesheet = new CascadingStylesheet();
+		CascadingStylesheet stylesheet = createStylesheet();
 		desktop.setStylesheet(stylesheet);
+
+		Widget pageContent = createPageContent();
+		desktop.setWidget(pageContent);
+
+		return desktop;
+	}
+
+	private CascadingStylesheet createStylesheet() {
+		CascadingStylesheet stylesheet = new CascadingStylesheet();
 
 		EditableStyle style = stylesheet.getDefaultStyle();
 		style.setColor(DemoColors.DEFAULT_FOREGROUND);
@@ -52,19 +63,28 @@ public class LabelPage implements Page {
 		style.setHorizontalAlignment(Alignment.HCENTER);
 		style.setVerticalAlignment(Alignment.VCENTER);
 
-		style = stylesheet.getSelectorStyle(new TypeSelector(Grid.class));
-		style.setBorder(new FlexibleRectangularBorder(DemoColors.EMPTY_SPACE, 0, 0, 0, PageHelper.LEFT_PADDING));
+		style = stylesheet.getSelectorStyle(new ClassSelector(PageHelper.TITLE_CLASSSELECTOR));
+		style.setHorizontalAlignment(Alignment.LEFT);
 
-		PageHelper.addTitleBarStyle(stylesheet);
+		PageHelper.addCommonStyle(stylesheet);
 
+		return stylesheet;
+	}
+
+	private Widget createPageContent() {
+		SimpleDock dock = new SimpleDock(LayoutOrientation.VERTICAL);
+		dock.addClassSelector(PageHelper.CONTENT_CLASSSELECTOR);
+		Label title = new Label("Label"); //$NON-NLS-1$
+		title.addClassSelector(PageHelper.TITLE_CLASSSELECTOR);
+		dock.setFirstChild(title);
 		Grid grid = new Grid(true, 2);
-		for (int i = 0; i < 10; i++) {
-			grid.addChild(new Label("Label " + i));
+		for (int i = 0; i < 6; i++) {
+			grid.addChild(new Label("Label " + i)); //$NON-NLS-1$
 		}
+		dock.setCenterChild(grid);
 
-		desktop.setWidget(PageHelper.createPage(grid, true));
-
-		return desktop;
+		Widget pageContent = PageHelper.createPage(dock, true);
+		return pageContent;
 	}
 
 }

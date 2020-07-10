@@ -3,7 +3,7 @@
  * This library is provided in source code for use, modification and test, subject to license terms.
  * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
-package com.microej.demo.widget.main.widget;
+package com.microej.demo.widget.scrollablelist.widget;
 
 import ej.annotation.Nullable;
 import ej.bon.XMath;
@@ -25,7 +25,6 @@ public class Scroll extends Container {
 	@Nullable
 	private Scrollable scrollableChild;
 	private final Scrollbar scrollbar;
-	private boolean showScrollbar;
 	private boolean horizontal;
 
 	// Swipe management.
@@ -45,22 +44,10 @@ public class Scroll extends Container {
 		this.horizontal = horizontal;
 		this.scrollbar = new Scrollbar(0);
 		this.scrollbar.setHorizontal(horizontal);
-		this.showScrollbar = true;
 		this.assistant = new ScrollAssistant();
 
 		setEnabled(true);
 		addChild(this.scrollbar);
-	}
-
-	@Override
-	protected void setShownChildren() {
-		Widget child = this.child;
-		if (child != null) {
-			setShownChild(child);
-		}
-		if (this.showScrollbar) {
-			setShownChild(this.scrollbar);
-		}
 	}
 
 	/**
@@ -104,16 +91,6 @@ public class Scroll extends Container {
 		this.scrollbar.setHorizontal(horizontal);
 	}
 
-	/**
-	 * Sets whether the scrollbar is visible or not.
-	 *
-	 * @param show
-	 *            <code>true</code> to show the scrollbar, <code>false</code> to hide it.
-	 */
-	public void showScrollbar(boolean show) {
-		this.showScrollbar = show;
-	}
-
 	@Override
 	protected void computeContentOptimalSize(Size size) {
 		int width = 0;
@@ -126,14 +103,10 @@ public class Scroll extends Container {
 
 			if (this.horizontal) {
 				computeChildOptimalSize(child, Widget.NO_CONSTRAINT, heightHint);
-				if (this.showScrollbar) {
-					computeChildOptimalSize(this.scrollbar, widthHint, Widget.NO_CONSTRAINT);
-				}
+				computeChildOptimalSize(this.scrollbar, widthHint, Widget.NO_CONSTRAINT);
 			} else {
 				computeChildOptimalSize(child, widthHint, Widget.NO_CONSTRAINT);
-				if (this.showScrollbar) {
-					computeChildOptimalSize(this.scrollbar, Widget.NO_CONSTRAINT, heightHint);
-				}
+				computeChildOptimalSize(this.scrollbar, Widget.NO_CONSTRAINT, heightHint);
 			}
 
 			width = child.getWidth();
@@ -168,26 +141,22 @@ public class Scroll extends Container {
 			int scrollbarHeight = 0;
 			if (excess > 0) {
 				this.scrollbar.setMaximum(excess);
-				if (this.showScrollbar) {
-					scrollbarHeight = this.scrollbar.getHeight();
-					this.layOutChild(this.scrollbar, 0, 0, contentWidth, scrollbarHeight);
-				}
+				scrollbarHeight = this.scrollbar.getHeight();
+				this.layOutChild(this.scrollbar, 0, contentHeight - scrollbarHeight, contentWidth, scrollbarHeight);
 			}
 			if (child != null) {
-				layOutChild(child, 0, scrollbarHeight, childOptimalWidth, contentHeight - scrollbarHeight);
+				layOutChild(child, 0, 0, childOptimalWidth, contentHeight);
 			}
 		} else {
 			excess = childOptimalHeight - contentHeight;
 			int scrollbarWidth = 0;
 			if (excess > 0) {
 				this.scrollbar.setMaximum(excess);
-				if (this.showScrollbar) {
-					scrollbarWidth = this.scrollbar.getWidth();
-					this.layOutChild(this.scrollbar, 0, 0, scrollbarWidth, contentHeight);
-				}
+				scrollbarWidth = this.scrollbar.getWidth();
+				this.layOutChild(this.scrollbar, contentWidth - scrollbarWidth, 0, scrollbarWidth, contentHeight);
 			}
 			if (child != null) {
-				layOutChild(child, scrollbarWidth, 0, contentWidth - scrollbarWidth, childOptimalHeight);
+				layOutChild(child, 0, 0, contentWidth, childOptimalHeight);
 			}
 		}
 		if (excess > 0) {
@@ -298,6 +267,7 @@ public class Scroll extends Container {
 		@Override
 		public void onAnimationStopped() {
 			Scroll.this.scrollbar.hide();
+			Scroll.this.scrollbar.requestRender();
 		}
 
 		@Override

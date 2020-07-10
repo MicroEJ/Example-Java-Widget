@@ -6,15 +6,15 @@
 package com.microej.demo.widget.common;
 
 import ej.microui.display.Colors;
-import ej.microui.display.GraphicsContext;
 import ej.mwt.Desktop;
 import ej.mwt.Widget;
 import ej.mwt.render.OverlapRenderPolicy;
 import ej.mwt.render.RenderPolicy;
 import ej.mwt.style.EditableStyle;
-import ej.mwt.style.background.Background;
+import ej.mwt.style.background.NoBackground;
 import ej.mwt.style.background.RectangularBackground;
 import ej.mwt.style.dimension.OptimalDimension;
+import ej.mwt.style.outline.FlexibleOutline;
 import ej.mwt.style.outline.UniformOutline;
 import ej.mwt.style.outline.border.FlexibleRectangularBorder;
 import ej.mwt.stylesheet.cascading.CascadingStylesheet;
@@ -22,7 +22,6 @@ import ej.mwt.stylesheet.selector.ClassSelector;
 import ej.mwt.stylesheet.selector.StateSelector;
 import ej.mwt.stylesheet.selector.combinator.AndCombinator;
 import ej.mwt.util.Alignment;
-import ej.mwt.util.Size;
 import ej.widget.basic.ButtonImage;
 import ej.widget.basic.ImageWidget;
 import ej.widget.container.OverlapContainer;
@@ -37,65 +36,68 @@ import ej.widget.util.States;
 public class PageHelper {
 
 	/**
-	 *
+	 * Thickness between the title bar and the page content.
 	 */
-	private static final class OpaqueEmptyBackgroun implements Background {
-		@Override
-		public boolean isTransparent() {
-			return false;
-		}
-
-		@Override
-		public void apply(GraphicsContext g, Size size) {
-		}
-	}
-
-	public static final int TITLE_BAR_WIDTH = 44; // FIXME use one of the image width
 	public static final int LEFT_PADDING = 4;
+	/* package */ static final int TITLE_BAR_WIDTH = 44; // FIXME use one of the image width
 
 	private static final String MICROEJ_BANNER = "/images/microej_banner.png"; //$NON-NLS-1$
 	private static final String ICON = "/images/ic-app_layout.png"; //$NON-NLS-1$
 	private static final String MENU = "/images/ic-list.png"; //$NON-NLS-1$
 	private static final String ROUNDED_CORNER = "/images/rounded-corner.png"; //$NON-NLS-1$
 	private static final String ROUNDED_CORNER_BOTTOM = "/images/rounded-corner-bottom.png"; //$NON-NLS-1$
-	private static final int CORAL = 0xee502e;
-	private static final int POMEGRANATE = 0xcf4520;
+
 	private static final int TITLE_BAR_CLASSSELECTOR = 44696;
 	private static final int ROUNDED_CORNER_CLASSSELECTOR = 44697;
 	private static final int ROUNDED_CORNER_BOTTOM_CLASSSELECTOR = 44698;
+	/**
+	 * Class selector for the page title.
+	 */
+	public static final int TITLE_CLASSSELECTOR = 44699;
+	/**
+	 * Class selector for the page content.
+	 */
+	public static final int CONTENT_CLASSSELECTOR = 44700;
 
 	/**
-	 * Adds the title bar style to a stylesheet.
+	 * Adds the common page style to a stylesheet.
 	 *
 	 * @param stylesheet
 	 *            the stylesheet.
 	 */
-	public static void addTitleBarStyle(CascadingStylesheet stylesheet) {
-		EditableStyle titleBarStyle = stylesheet.getSelectorStyle(new ClassSelector(TITLE_BAR_CLASSSELECTOR));
-		titleBarStyle.setBackground(new RectangularBackground(CORAL));
-		titleBarStyle.setColor(Colors.WHITE);
-		titleBarStyle.setPadding(new UniformOutline(10));
-		titleBarStyle.setBorder(new FlexibleRectangularBorder(POMEGRANATE, 0, 0, 2, 0));
+	public static void addCommonStyle(CascadingStylesheet stylesheet) {
+		EditableStyle style = stylesheet.getSelectorStyle(new ClassSelector(TITLE_BAR_CLASSSELECTOR));
+		style.setBackground(new RectangularBackground(DemoColors.CORAL));
+		style.setColor(Colors.WHITE);
+		style.setPadding(new UniformOutline(10));
+		style.setBorder(new FlexibleRectangularBorder(DemoColors.POMEGRANATE, 0, 0, 2, 0));
 
-		EditableStyle titleBarPressedStyle = stylesheet.getSelectorStyle(
+		style = stylesheet.getSelectorStyle(
 				new AndCombinator(new ClassSelector(TITLE_BAR_CLASSSELECTOR), new StateSelector(States.ACTIVE)));
-		titleBarPressedStyle.setBackground(new RectangularBackground(0xcf4520));
+		style.setBackground(new RectangularBackground(0xcf4520));
 
-		EditableStyle roundedCornerStyle = stylesheet.getSelectorStyle(new ClassSelector(ROUNDED_CORNER_CLASSSELECTOR));
-		roundedCornerStyle.setVerticalAlignment(Alignment.TOP);
-		setRoundedCornerStyle(roundedCornerStyle);
+		style = stylesheet.getSelectorStyle(new ClassSelector(ROUNDED_CORNER_CLASSSELECTOR));
+		style.setVerticalAlignment(Alignment.TOP);
+		setRoundedCornerStyle(style);
 
-		EditableStyle roundedCornerBottomStyle = stylesheet
-				.getSelectorStyle(new ClassSelector(ROUNDED_CORNER_BOTTOM_CLASSSELECTOR));
-		roundedCornerBottomStyle.setVerticalAlignment(Alignment.BOTTOM);
-		setRoundedCornerStyle(roundedCornerBottomStyle);
+		style = stylesheet.getSelectorStyle(new ClassSelector(ROUNDED_CORNER_BOTTOM_CLASSSELECTOR));
+		style.setVerticalAlignment(Alignment.BOTTOM);
+		setRoundedCornerStyle(style);
+
+		style = stylesheet.getSelectorStyle(new ClassSelector(TITLE_CLASSSELECTOR));
+		style.setMargin(new FlexibleOutline(0, 15, 8, 15));
+		style.setBorder(new FlexibleRectangularBorder(DemoColors.CORAL, 0, 0, 2, 0));
+		style.setPadding(new UniformOutline(9));
+
+		style = stylesheet.getSelectorStyle(new ClassSelector(PageHelper.CONTENT_CLASSSELECTOR));
+		style.setBorder(new FlexibleRectangularBorder(DemoColors.EMPTY_SPACE, 0, 0, 0, PageHelper.LEFT_PADDING));
 	}
 
 	private static void setRoundedCornerStyle(EditableStyle roundedCornerBottomStyle) {
 		roundedCornerBottomStyle.setHorizontalAlignment(Alignment.LEFT);
 		roundedCornerBottomStyle.setColor(Colors.BLACK);
 		roundedCornerBottomStyle.setDimension(OptimalDimension.OPTIMAL_DIMENSION_XY);
-		roundedCornerBottomStyle.setBackground(new OpaqueEmptyBackgroun());
+		roundedCornerBottomStyle.setBackground(NoBackground.NO_BACKGROUND);
 	}
 
 	/**
@@ -159,6 +161,11 @@ public class PageHelper {
 		return dock;
 	}
 
+	/**
+	 * Creates a desktop to use for each page.
+	 *
+	 * @return a desktop.
+	 */
 	public static Desktop createDesktop() {
 		return new Desktop() {
 			@Override

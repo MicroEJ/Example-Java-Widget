@@ -1,0 +1,12 @@
+/bin
+/*~
+/**/*~
+/.DS_Store
+/**/.DS_Store
+
+/.sonar
+/src-adpgenerated
+/ej.*
+/com.*
+/launches/*.properties
+/bin-test/

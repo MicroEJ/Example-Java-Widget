@@ -184,8 +184,10 @@ public class KeyboardPage extends AbstractDemoPage {
 		String lastNameText = this.lastName.getText();
 		if (firstNameText.length() > 0 && lastNameText.length() > 0) {
 			this.resultLabel.setText(RESULT_PREFIX + this.firstName.getText() + " " + this.lastName.getText()); //$NON-NLS-1$
+			this.resultLabel.requestRender();
 		} else {
 			this.resultLabel.setText(RESULT_EMPTY);
+			this.resultLabel.requestRender();
 			if (firstNameText.length() == 0) {
 				showKeyboard(KeyboardPage.this.firstName);
 			}

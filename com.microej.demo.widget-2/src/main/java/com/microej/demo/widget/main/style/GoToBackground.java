@@ -9,7 +9,6 @@ import ej.microui.display.GraphicsContext;
 import ej.microui.display.Image;
 import ej.microui.display.Painter;
 import ej.mwt.style.background.RectangularBackground;
-import ej.mwt.util.Size;
 
 /**
  * Rectangular background with a image showing an arrow on the right.
@@ -32,10 +31,10 @@ public class GoToBackground extends RectangularBackground {
 	}
 
 	@Override
-	public void apply(GraphicsContext g, Size size) {
-		super.apply(g, size);
-		Painter.drawImage(g, this.goToImage, size.getWidth() - this.goToImage.getWidth(),
-				(size.getHeight() - this.goToImage.getHeight()) / 2);
+	public void apply(GraphicsContext g, int width, int height) {
+		super.apply(g, width, height);
+		Painter.drawImage(g, this.goToImage, width - this.goToImage.getWidth(),
+				(height - this.goToImage.getHeight()) / 2);
 	}
 
 }

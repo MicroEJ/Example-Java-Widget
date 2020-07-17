@@ -26,7 +26,7 @@ public class FadeScreenshotTransitionContainer extends ScreenshotTransitionConta
 			int contentWidth = getContentWidth();
 			int contentHeight = getContentHeight();
 			g.translate(contentX, contentY);
-			g.setClip(0, 0, contentWidth, contentHeight);
+			g.intersectClip(0, 0, contentWidth, contentHeight);
 
 			int alpha;
 			if (this.previousStep == GraphicsContext.OPAQUE) {

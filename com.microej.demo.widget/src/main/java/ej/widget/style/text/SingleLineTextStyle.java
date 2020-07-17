@@ -50,7 +50,7 @@ public class SingleLineTextStyle implements TextStyle {
 			// Nothing to draw.
 			return;
 		}
-		g.resetEllipsis();
+		g.disableEllipsis();
 		g.setColor(color);
 		RenderableString line = lines[0];
 		int x = Alignment.computeLeftX(line.getWidth(), 0, areaWidth, horizontalAlignment);

@@ -430,7 +430,7 @@ public class TextField extends Widget implements EventHandler {
 		}
 
 		// Draw text.
-		g.resetEllipsis();
+		g.disableEllipsis();
 		g.setColor(style.getColor());
 		StringPainter.drawStringInArea(g, text, font, 0, 0, contentWidth, contentHeight, horizontalAlignment,
 				verticalAlignment);

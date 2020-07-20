@@ -111,7 +111,7 @@ public class LineWrapTextStyle implements TextStyle {
 		int fontHeight = firstLine.getHeight();
 		int lineHeight = getLineHeight(fontHeight);
 
-		g.resetEllipsis();
+		g.disableEllipsis();
 		g.setColor(color);
 		int linesCount = lines.length;
 		// Can be computed once.

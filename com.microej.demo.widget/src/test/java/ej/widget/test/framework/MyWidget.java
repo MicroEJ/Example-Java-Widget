@@ -65,8 +65,8 @@ public abstract class MyWidget extends Widget implements InstrumentedItem {
 	@Override
 	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		this.isPaint = true;
-		this.translateX = g.getTranslateX();
-		this.translateY = g.getTranslateY();
+		this.translateX = g.getTranslationX();
+		this.translateY = g.getTranslationY();
 		this.clipX = g.getClipX();
 		this.clipY = g.getClipY();
 		this.clipWidth = g.getClipWidth();

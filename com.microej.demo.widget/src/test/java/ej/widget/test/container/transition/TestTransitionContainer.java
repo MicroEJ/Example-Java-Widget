@@ -335,7 +335,7 @@ public class TestTransitionContainer extends Test {
 		int containerWidth = container.getWidth();
 		int containerHeight = container.getHeight();
 		GraphicsContext graphicsContext = display.getGraphicsContext();
-		graphicsContext.resetContext();
+		graphicsContext.reset();
 		int expectedColor = display.getDisplayColor(widget.getColor() | 0xff000000);
 		CheckHelper.check(getClass(), "Color left " + container,
 				graphicsContext.readPixel(containerX, containerY + containerHeight / 2) & 0xffffff, expectedColor);

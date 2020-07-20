@@ -10,6 +10,7 @@ import com.is2t.testsuite.support.CheckHelper;
 import ej.microui.display.Colors;
 import ej.microui.display.Display;
 import ej.microui.display.Font;
+import ej.microui.display.FontIdentifiers;
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.Painter;
 import ej.microui.display.RenderableString;
@@ -345,7 +346,7 @@ public class LineWrapTextStyleTest extends Test {
 	private Font getFont() {
 		Font[] allFonts = Font.getAllFonts();
 		for (Font font : allFonts) {
-			if (font.isIdentifierSupported(Font.LATIN) && font.getHeight() == FONT_HEIGHT
+			if (font.isIdentifierSupported(FontIdentifiers.LATIN) && font.getHeight() == FONT_HEIGHT
 					&& font.getStyle() == Font.STYLE_PLAIN) {
 				return font;
 			}
@@ -356,8 +357,8 @@ public class LineWrapTextStyleTest extends Test {
 	private void clean(GraphicsContext g, Display display) {
 		int width = display.getWidth();
 		int height = display.getHeight();
-		g.translate(-g.getTranslateX(), -g.getTranslateY());
-		g.resetClip(0, 0, width, height);
+		g.translate(-g.getTranslationX(), -g.getTranslationY());
+		g.setClip(0, 0, width, height);
 		g.setColor(CLEAN_COLOR);
 		Painter.fillRectangle(g, 0, 0, width, height);
 	}

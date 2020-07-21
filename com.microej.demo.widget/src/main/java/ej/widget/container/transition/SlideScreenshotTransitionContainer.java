@@ -72,7 +72,7 @@ public class SlideScreenshotTransitionContainer extends ScreenshotTransitionCont
 			g.translate(getContentX(), getContentY());
 			int contentWidth = getContentWidth();
 			int contentHeight = getContentHeight();
-			g.setClip(0, 0, contentWidth, contentHeight);
+			g.intersectClip(0, 0, contentWidth, contentHeight);
 			renderAnimation(g);
 		} else {
 			super.render(g);
@@ -138,18 +138,18 @@ public class SlideScreenshotTransitionContainer extends ScreenshotTransitionCont
 
 		// Draw display on itself.
 		if (!this.forward ? !this.clip : !this.overlap) {
-			Painter.drawDisplayRegion(g, g.getTranslateX() + xPreviousDisplay, g.getTranslateY() + yPreviousDisplay,
+			Painter.drawDisplayRegion(g, g.getTranslationX() + xPreviousDisplay, g.getTranslationY() + yPreviousDisplay,
 					contentWidth, contentHeight, xDisplay, yDisplay);
 		}
 
 		// Draw new widget screenshot.
 		if (newIsBelow) {
-			g.setClip(xScreenshot, yScreenshot, widthScreenshot, heightScreenshot);
+			g.intersectClip(xScreenshot, yScreenshot, widthScreenshot, heightScreenshot);
 		} else if (this.clip && this.forward) {
-			g.setClip(xScreenshot, yScreenshot, widthScreenshot, heightScreenshot);
+			g.intersectClip(xScreenshot, yScreenshot, widthScreenshot, heightScreenshot);
 		} else {
 			g.translate(xScreenshot, yScreenshot);
-			g.setClip(0, 0, contentWidth, contentHeight);
+			g.intersectClip(0, 0, contentWidth, contentHeight);
 		}
 		assert this.newScreenshot != null;
 		Painter.drawImage(g, this.newScreenshot, 0, 0);

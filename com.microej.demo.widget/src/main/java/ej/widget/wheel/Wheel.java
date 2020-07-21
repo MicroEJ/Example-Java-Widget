@@ -98,7 +98,7 @@ public class Wheel extends Widget {
 		int currentValueY = (contentHeight >> 1) + this.spinOffset;
 		int currentVisibleIndex = this.model.getCurrentIndex() + this.currentIndexDiff;
 		int windowHeight = lineHeight * (itemOnSideCount * 2 + 1);
-		g.setClip(0, (contentHeight - windowHeight) >> 1, contentWidth, windowHeight);
+		g.intersectClip(0, (contentHeight - windowHeight) >> 1, contentWidth, windowHeight);
 
 		// Draws the current value.
 		int x = contentWidth >> 1;

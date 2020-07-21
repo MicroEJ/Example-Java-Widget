@@ -34,8 +34,8 @@
 		<dependency org="ej.library.ui" name="widget" rev="3.0.0"/>
 
 		<dependency transitive="false" org="com.is2t.libraries" name="checkHelper" rev="1.3.0" conf="test->default"/>
-		<dependency transitive="false" org="com.is2t.CM7.referencePlatforms.st" name="STM32F746GDISCO-K1AU3" rev="4.0.0" conf="test->*">
-			<artifact name="STM32F746GDISCO-K1AU3-platform-dev" type="jpf"/>
+		<dependency transitive="false" org="com.is2t.CM4.referencePlatforms.st.testui" name="STM32F429IEVAL-TestUI_rgb565" rev="3.0.0" conf="test->*">
+			<artifact name="STM32F429IEVAL-UI_rgb565-platform-dev" type="jpf"/>
 		</dependency>
 	</dependencies>
 </ivy-module>

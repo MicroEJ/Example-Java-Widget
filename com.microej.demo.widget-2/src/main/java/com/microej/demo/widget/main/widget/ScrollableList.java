@@ -32,8 +32,8 @@ public class ScrollableList extends List implements Scrollable {
 
 	@Override
 	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
-		int translateX = g.getTranslateX();
-		int translateY = g.getTranslateY();
+		int translateX = g.getTranslationX();
+		int translateY = g.getTranslationY();
 		int x = g.getClipX();
 		int y = g.getClipY();
 		int width = g.getClipWidth();
@@ -48,8 +48,8 @@ public class ScrollableList extends List implements Scrollable {
 			renderChild(child, g);
 			if (i < lastVisibleChildIndex) {
 				// Don't need to reset after the last widget.
-				g.resetTranslate(translateX, translateY);
-				g.resetClip(x, y, width, height);
+				g.setTranslation(translateX, translateY);
+				g.setClip(x, y, width, height);
 			}
 		}
 	}

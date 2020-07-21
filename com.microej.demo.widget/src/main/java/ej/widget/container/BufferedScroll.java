@@ -245,11 +245,11 @@ public class BufferedScroll extends Container {
 		if (previousPaintValue != Integer.MIN_VALUE) {
 			int shift = currentValue - previousPaintValue;
 			g.translate(getContentX(), getContentY());
-			g.setClip(0, 0, getContentWidth(), getContentHeight());
+			g.intersectClip(0, 0, getContentWidth(), getContentHeight());
 
 			// Save paint context for the scrollbar rendering
-			int translateX = g.getTranslateX();
-			int translateY = g.getTranslateY();
+			int translateX = g.getTranslationX();
+			int translateY = g.getTranslationY();
 			int x = g.getClipX();
 			int y = g.getClipY();
 			int width = g.getClipWidth();
@@ -258,9 +258,9 @@ public class BufferedScroll extends Container {
 			renderShiftedContent(g, shift);
 
 			if (this.showScrollbar) {
-				g.resetTranslate(translateX, translateY);
-				g.resetClip(x, y, width, height);
-				g.setClip(this.scrollbar.getX(), this.scrollbar.getY(), this.scrollbar.getWidth(),
+				g.setTranslation(translateX, translateY);
+				g.setClip(x, y, width, height);
+				g.intersectClip(this.scrollbar.getX(), this.scrollbar.getY(), this.scrollbar.getWidth(),
 						this.scrollbar.getHeight());
 				Style style = getStyle();
 				g.translate(-getContentX(), -getContentY());
@@ -295,7 +295,7 @@ public class BufferedScroll extends Container {
 				xChild = 0;
 				widthChild = -shift;
 			}
-			g.setClip(xChild, 0, widthChild, child.getHeight());
+			g.intersectClip(xChild, 0, widthChild, child.getHeight());
 		} else {
 			Painter.drawDisplayRegion(g, absoluteContentX, absoluteContentY, width, height, 0, -shift);
 			int yChild;
@@ -307,7 +307,7 @@ public class BufferedScroll extends Container {
 				yChild = 0;
 				heightChild = -shift;
 			}
-			g.setClip(0, yChild, child.getWidth(), heightChild);
+			g.intersectClip(0, yChild, child.getWidth(), heightChild);
 		}
 
 		// Draw the part of the child that appears.

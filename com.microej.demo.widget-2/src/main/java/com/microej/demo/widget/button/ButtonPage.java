@@ -11,7 +11,6 @@ import com.microej.demo.widget.common.Page;
 
 import ej.mwt.Widget;
 import ej.mwt.style.EditableStyle;
-import ej.mwt.style.background.RectangularBackground;
 import ej.mwt.style.background.RoundedBackground;
 import ej.mwt.style.dimension.OptimalDimension;
 import ej.mwt.style.outline.UniformOutline;
@@ -23,7 +22,6 @@ import ej.mwt.stylesheet.selector.Selector;
 import ej.mwt.stylesheet.selector.StateSelector;
 import ej.mwt.stylesheet.selector.TypeSelector;
 import ej.mwt.stylesheet.selector.combinator.AndCombinator;
-import ej.mwt.util.Alignment;
 import ej.widget.basic.Button;
 import ej.widget.container.Grid;
 import ej.widget.util.States;
@@ -43,14 +41,7 @@ public class ButtonPage implements Page {
 
 	@Override
 	public void populateStylesheet(CascadingStylesheet stylesheet) {
-		EditableStyle style = stylesheet.getDefaultStyle();
-		style.setColor(DemoColors.DEFAULT_FOREGROUND);
-		style.setBackground(new RectangularBackground(DemoColors.DEFAULT_BACKGROUND));
-		style.setFont(Fonts.getDefaultFont());
-		style.setHorizontalAlignment(Alignment.HCENTER);
-		style.setVerticalAlignment(Alignment.VCENTER);
-
-		style = stylesheet.getSelectorStyle(new TypeSelector(Button.class));
+		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(Button.class));
 		style.setDimension(OptimalDimension.OPTIMAL_DIMENSION_XY);
 		style.setPadding(new UniformOutline(10));
 		style.setFont(Fonts.getBoldFont());

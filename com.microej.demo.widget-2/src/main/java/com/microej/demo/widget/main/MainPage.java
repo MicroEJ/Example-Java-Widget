@@ -6,7 +6,6 @@
 package com.microej.demo.widget.main;
 
 import com.microej.demo.widget.common.DemoColors;
-import com.microej.demo.widget.common.Fonts;
 import com.microej.demo.widget.common.Navigation;
 import com.microej.demo.widget.common.Page;
 import com.microej.demo.widget.common.Pages;
@@ -48,19 +47,14 @@ public class MainPage implements Page {
 
 	@Override
 	public void populateStylesheet(CascadingStylesheet stylesheet) {
-		EditableStyle style = stylesheet.getDefaultStyle();
-		style.setColor(0x4b5357);
-		style.setBackground(new RectangularBackground(DemoColors.EMPTY_SPACE));
-		style.setFont(Fonts.getDefaultFont());
-		style.setHorizontalAlignment(Alignment.HCENTER);
-		style.setVerticalAlignment(Alignment.VCENTER);
-
-		style = stylesheet.getSelectorStyle(new TypeSelector(Scrollbar.class));
+		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(Scrollbar.class));
 		style.setDimension(new FixedDimension(2, Widget.NO_CONSTRAINT));
 		style.setPadding(new UniformOutline(1));
 		style.setColor(GRAY);
+		style.setBackground(new RectangularBackground(DemoColors.EMPTY_SPACE));
 
 		style = stylesheet.getSelectorStyle(new ClassSelector(LIST_ITEM));
+		style.setColor(DemoColors.ALTERNATE_BACKGROUND);
 		style.setPadding(new FlexibleOutline(6, 0, 5, 24));
 		style.setHorizontalAlignment(Alignment.LEFT);
 		style.setBackground(new GoToBackground(Colors.WHITE));
@@ -72,9 +66,7 @@ public class MainPage implements Page {
 
 	@Override
 	public Widget getContentWidget() {
-		Scroll scroll = new Scroll(LayoutOrientation.VERTICAL);
 		ScrollableList list = new ScrollableList(LayoutOrientation.VERTICAL);
-		scroll.setChild(list);
 		for (int i = 0; i < Pages.ALL_PAGES.length; i++) {
 			final String pageName = Pages.ALL_PAGES[i];
 			MenuItem goToPage = new MenuItem(pageName);
@@ -92,6 +84,9 @@ public class MainPage implements Page {
 			menuItem.addClassSelector(LIST_ITEM);
 			list.addChild(menuItem);
 		}
+
+		Scroll scroll = new Scroll(LayoutOrientation.VERTICAL);
+		scroll.setChild(list);
 		return scroll;
 	}
 }

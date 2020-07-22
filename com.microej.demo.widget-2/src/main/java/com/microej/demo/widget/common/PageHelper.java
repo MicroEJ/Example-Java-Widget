@@ -66,7 +66,14 @@ public class PageHelper {
 	 *            the stylesheet.
 	 */
 	public static void addCommonStyle(CascadingStylesheet stylesheet) {
-		EditableStyle style = stylesheet.getSelectorStyle(new ClassSelector(TITLE_BAR_CLASSSELECTOR));
+		EditableStyle style = stylesheet.getDefaultStyle();
+		style.setColor(DemoColors.DEFAULT_FOREGROUND);
+		style.setBackground(new RectangularBackground(DemoColors.DEFAULT_BACKGROUND));
+		style.setFont(Fonts.getDefaultFont());
+		style.setHorizontalAlignment(Alignment.HCENTER);
+		style.setVerticalAlignment(Alignment.VCENTER);
+
+		style = stylesheet.getSelectorStyle(new ClassSelector(TITLE_BAR_CLASSSELECTOR));
 		style.setBackground(new RectangularBackground(DemoColors.CORAL));
 		style.setColor(Colors.WHITE);
 		style.setPadding(new UniformOutline(10));
@@ -107,7 +114,7 @@ public class PageHelper {
 	 *            <code>true</code> to add a back button, <code>false</code> to add an icon.
 	 * @return the title bar.
 	 */
-	public static Widget createTitleBar(boolean canGoBack) {
+	private static Widget createTitleBar(boolean canGoBack) {
 		SimpleDock dock = new SimpleDock(LayoutOrientation.VERTICAL);
 
 		Widget top;

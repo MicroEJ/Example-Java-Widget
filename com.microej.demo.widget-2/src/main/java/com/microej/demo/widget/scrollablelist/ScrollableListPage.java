@@ -6,7 +6,6 @@
 package com.microej.demo.widget.scrollablelist;
 
 import com.microej.demo.widget.common.DemoColors;
-import com.microej.demo.widget.common.Fonts;
 import com.microej.demo.widget.common.Page;
 import com.microej.demo.widget.scrollablelist.widget.Scroll;
 import com.microej.demo.widget.scrollablelist.widget.ScrollableList;
@@ -44,14 +43,7 @@ public class ScrollableListPage implements Page {
 
 	@Override
 	public void populateStylesheet(CascadingStylesheet stylesheet) {
-		EditableStyle style = stylesheet.getDefaultStyle();
-		style.setColor(DemoColors.DEFAULT_FOREGROUND);
-		style.setBackground(new RectangularBackground(DemoColors.DEFAULT_BACKGROUND));
-		style.setFont(Fonts.getDefaultFont());
-		style.setHorizontalAlignment(Alignment.HCENTER);
-		style.setVerticalAlignment(Alignment.VCENTER);
-
-		style = stylesheet.getSelectorStyle(new TypeSelector(Scrollbar.class));
+		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(Scrollbar.class));
 		style.setBackground(NoBackground.NO_BACKGROUND);
 		style.setDimension(new FixedDimension(10, Widget.NO_CONSTRAINT));
 		style.setPadding(new UniformOutline(1));

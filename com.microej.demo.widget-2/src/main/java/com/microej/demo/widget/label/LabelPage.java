@@ -5,15 +5,10 @@
  */
 package com.microej.demo.widget.label;
 
-import com.microej.demo.widget.common.DemoColors;
-import com.microej.demo.widget.common.Fonts;
 import com.microej.demo.widget.common.Page;
 
 import ej.mwt.Widget;
-import ej.mwt.style.EditableStyle;
-import ej.mwt.style.background.RectangularBackground;
 import ej.mwt.stylesheet.cascading.CascadingStylesheet;
-import ej.mwt.util.Alignment;
 import ej.widget.basic.Label;
 import ej.widget.container.Grid;
 
@@ -29,12 +24,7 @@ public class LabelPage implements Page {
 
 	@Override
 	public void populateStylesheet(CascadingStylesheet stylesheet) {
-		EditableStyle style = stylesheet.getDefaultStyle();
-		style.setColor(DemoColors.DEFAULT_FOREGROUND);
-		style.setBackground(new RectangularBackground(DemoColors.DEFAULT_BACKGROUND));
-		style.setFont(Fonts.getDefaultFont());
-		style.setHorizontalAlignment(Alignment.HCENTER);
-		style.setVerticalAlignment(Alignment.VCENTER);
+		// no specific style
 	}
 
 	@Override

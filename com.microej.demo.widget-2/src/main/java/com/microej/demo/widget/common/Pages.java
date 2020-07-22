@@ -5,6 +5,7 @@
  */
 package com.microej.demo.widget.common;
 
+import com.microej.demo.widget.button.ButtonPage;
 import com.microej.demo.widget.label.LabelPage;
 import com.microej.demo.widget.scrollablelist.ScrollableListPage;
 
@@ -13,16 +14,14 @@ import com.microej.demo.widget.scrollablelist.ScrollableListPage;
  */
 public class Pages {
 
-	/**
-	 * The label page name.
-	 */
+	/** The label page name. */
 	public static final String LABEL_PAGE = "Label"; //$NON-NLS-1$
-	/**
-	 * The scrollable list page name.
-	 */
+	/** The button page name. */
+	public static final String BUTTON_PAGE = "Button"; //$NON-NLS-1$
+	/** The scrollable list page name. */
 	public static final String SCROLLABLELIST_PAGE = "Scrollable List"; //$NON-NLS-1$
 
-	public static final String[] ALL_PAGES = { LABEL_PAGE, SCROLLABLELIST_PAGE };
+	public static final String[] ALL_PAGES = { LABEL_PAGE, BUTTON_PAGE, SCROLLABLELIST_PAGE };
 
 	/**
 	 * Gets the page matching the given name.
@@ -35,6 +34,8 @@ public class Pages {
 		switch (name) {
 		case LABEL_PAGE:
 			return new LabelPage();
+		case BUTTON_PAGE:
+			return new ButtonPage();
 		case SCROLLABLELIST_PAGE:
 			return new ScrollableListPage();
 		default:

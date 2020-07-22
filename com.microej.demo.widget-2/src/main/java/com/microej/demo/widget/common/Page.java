@@ -5,7 +5,8 @@
  */
 package com.microej.demo.widget.common;
 
-import ej.mwt.Desktop;
+import ej.mwt.Widget;
+import ej.mwt.stylesheet.cascading.CascadingStylesheet;
 
 /**
  * A page of the demo.
@@ -13,10 +14,24 @@ import ej.mwt.Desktop;
 public interface Page {
 
 	/**
-	 * Gets the desktop that represent the page.
+	 * Returns the name of this page.
 	 *
-	 * @return the desktop of the page.
+	 * @return the name of this page.
 	 */
-	Desktop getDesktop();
+	String getName();
 
+	/**
+	 * Populates the stylesheet that customizes this page.
+	 *
+	 * @param stylesheet
+	 *            the stylesheet of this page.
+	 */
+	void populateStylesheet(CascadingStylesheet stylesheet);
+
+	/**
+	 * Gets the widget that represents the content of this page.
+	 *
+	 * @return the content widget of this page.
+	 */
+	Widget getContentWidget();
 }

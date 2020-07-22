@@ -8,13 +8,10 @@ package com.microej.demo.widget.scrollablelist;
 import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Fonts;
 import com.microej.demo.widget.common.Page;
-import com.microej.demo.widget.common.PageHelper;
 import com.microej.demo.widget.scrollablelist.widget.Scroll;
 import com.microej.demo.widget.scrollablelist.widget.ScrollableList;
 import com.microej.demo.widget.scrollablelist.widget.Scrollbar;
 
-import ej.microui.MicroUI;
-import ej.mwt.Desktop;
 import ej.mwt.Widget;
 import ej.mwt.style.EditableStyle;
 import ej.mwt.style.background.NoBackground;
@@ -30,7 +27,6 @@ import ej.mwt.stylesheet.selector.TypeSelector;
 import ej.mwt.stylesheet.selector.combinator.AndCombinator;
 import ej.mwt.util.Alignment;
 import ej.widget.basic.Label;
-import ej.widget.container.SimpleDock;
 import ej.widget.container.util.LayoutOrientation;
 
 /**
@@ -41,34 +37,13 @@ public class ScrollableListPage implements Page {
 	private static final int SCROLL = 70898;
 	private static final int LIST_ITEM = 70899;
 
-	/**
-	 * Shows the scrollable list page.
-	 *
-	 * @param args
-	 *            not used.
-	 */
-	public static void main(String[] args) {
-		MicroUI.start();
-		Desktop desktop = new ScrollableListPage().getDesktop();
-		desktop.requestShow();
+	@Override
+	public String getName() {
+		return "Scrollable List"; //$NON-NLS-1$
 	}
 
 	@Override
-	public Desktop getDesktop() {
-		Desktop desktop = PageHelper.createDesktop();
-
-		CascadingStylesheet stylesheet = createStylesheet();
-		desktop.setStylesheet(stylesheet);
-
-		Widget pageContent = createPageContent();
-		desktop.setWidget(pageContent);
-
-		return desktop;
-	}
-
-	private CascadingStylesheet createStylesheet() {
-		CascadingStylesheet stylesheet = new CascadingStylesheet();
-
+	public void populateStylesheet(CascadingStylesheet stylesheet) {
 		EditableStyle style = stylesheet.getDefaultStyle();
 		style.setColor(DemoColors.DEFAULT_FOREGROUND);
 		style.setBackground(new RectangularBackground(DemoColors.DEFAULT_BACKGROUND));
@@ -94,19 +69,10 @@ public class ScrollableListPage implements Page {
 		style = stylesheet
 				.getSelectorStyle(new AndCombinator(new ClassSelector(LIST_ITEM), OddChildSelector.ODD_CHILD_SELECTOR));
 		style.setBackground(new RectangularBackground(DemoColors.ALTERNATE_BACKGROUND));
-
-		PageHelper.addCommonStyle(stylesheet);
-
-		return stylesheet;
 	}
 
-	private Widget createPageContent() {
-		SimpleDock dock = new SimpleDock(LayoutOrientation.VERTICAL);
-		dock.addClassSelector(PageHelper.CONTENT_CLASSSELECTOR);
-		Label title = new Label("Scrollable List"); //$NON-NLS-1$
-		title.addClassSelector(PageHelper.TITLE_CLASSSELECTOR);
-		dock.setFirstChild(title);
-
+	@Override
+	public Widget getContentWidget() {
 		Scroll scroll = new Scroll(LayoutOrientation.VERTICAL);
 		scroll.addClassSelector(SCROLL);
 		ScrollableList list = new ScrollableList(LayoutOrientation.VERTICAL);
@@ -116,10 +82,6 @@ public class ScrollableListPage implements Page {
 			label.addClassSelector(LIST_ITEM);
 			list.addChild(label);
 		}
-		dock.setCenterChild(scroll);
-
-		Widget pageContent = PageHelper.createPage(dock, true);
-		return pageContent;
+		return scroll;
 	}
-
 }

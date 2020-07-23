@@ -14,36 +14,32 @@ import com.microej.demo.widget.scrollablelist.ScrollableListPage;
  */
 public class Pages {
 
-	/** The label page name. */
-	public static final String LABEL_PAGE = "Label"; //$NON-NLS-1$
-	/** The button page name. */
-	public static final String BUTTON_PAGE = "Button"; //$NON-NLS-1$
-	/** The scrollable list page name. */
-	public static final String SCROLLABLELIST_PAGE = "Scrollable List"; //$NON-NLS-1$
-
-	public static final String[] ALL_PAGES = { LABEL_PAGE, BUTTON_PAGE, SCROLLABLELIST_PAGE };
-
-	/**
-	 * Gets the page matching the given name.
-	 *
-	 * @param name
-	 *            the name of the page.
-	 * @return the page instance.
-	 */
-	public static Page getPage(String name) {
-		switch (name) {
-		case LABEL_PAGE:
-			return new LabelPage();
-		case BUTTON_PAGE:
-			return new ButtonPage();
-		case SCROLLABLELIST_PAGE:
-			return new ScrollableListPage();
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
+	private static final Page[] ALL_PAGES = { //
+			new LabelPage(), //
+			new ButtonPage(), //
+			new ScrollableListPage() //
+	};
 
 	private Pages() {
 	}
 
+	/**
+	 * Returns the number of pages
+	 *
+	 * @return the number of pages.
+	 */
+	public static int getNumPages() {
+		return ALL_PAGES.length;
+	}
+
+	/**
+	 * Returns the page at the given index.
+	 *
+	 * @param index
+	 *            the index of the page to get.
+	 * @return the page at the given index.
+	 */
+	public static Page getPage(int index) {
+		return ALL_PAGES[index];
+	}
 }

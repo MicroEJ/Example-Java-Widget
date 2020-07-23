@@ -67,19 +67,20 @@ public class MainPage implements Page {
 	@Override
 	public Widget getContentWidget() {
 		ScrollableList list = new ScrollableList(LayoutOrientation.VERTICAL);
-		for (int i = 0; i < Pages.ALL_PAGES.length; i++) {
-			final String pageName = Pages.ALL_PAGES[i];
-			MenuItem goToPage = new MenuItem(pageName);
+		int numPages = Pages.getNumPages();
+		for (int i = 0; i < numPages; i++) {
+			final Page page = Pages.getPage(i);
+			MenuItem goToPage = new MenuItem(page.getName());
 			goToPage.addClassSelector(LIST_ITEM);
 			list.addChild(goToPage);
 			goToPage.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick() {
-					Navigation.showPage(Pages.getPage(pageName));
+					Navigation.showPage(page);
 				}
 			});
 		}
-		for (int i = Pages.ALL_PAGES.length; i < 100; i++) {
+		for (int i = numPages; i < 100; i++) {
 			MenuItem menuItem = new MenuItem("Stub Page " + i); //$NON-NLS-1$
 			menuItem.addClassSelector(LIST_ITEM);
 			list.addChild(menuItem);

@@ -8,6 +8,7 @@ package com.microej.demo.widget.common;
 import com.microej.demo.widget.button.ButtonPage;
 import com.microej.demo.widget.dock.DockPage;
 import com.microej.demo.widget.label.LabelPage;
+import com.microej.demo.widget.list.ListPage;
 import com.microej.demo.widget.scrollablelist.ScrollableListPage;
 
 /**
@@ -18,6 +19,7 @@ public class Pages {
 	private static final Page[] ALL_PAGES = { //
 			new LabelPage(), //
 			new ButtonPage(), //
+			new ListPage(), //
 			new DockPage(), //
 			new ScrollableListPage() //
 	};

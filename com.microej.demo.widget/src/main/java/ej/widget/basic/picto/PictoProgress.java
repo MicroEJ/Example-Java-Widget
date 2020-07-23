@@ -62,7 +62,7 @@ public class PictoProgress extends AbstractProgress {
 		char character = getPicto();
 		int x = Alignment.computeLeftX(font.charWidth(character), 0, contentWidth, Alignment.HCENTER);
 		int y = Alignment.computeTopY(font.getHeight(), 0, contentHeight, Alignment.VCENTER);
-		Painter.drawChar(g, font, character, x, y);
+		Painter.drawChar(g, character, font, x, y);
 	}
 
 	private char getPicto() {

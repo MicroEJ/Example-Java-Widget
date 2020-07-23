@@ -47,7 +47,7 @@ public class TestTransitionContainerNoAuto {
 		public void render(GraphicsContext g) {
 			super.render(g);
 			Font font = getStyle().getFont();
-			Painter.drawString(g, font, Integer.toString(font.getHeight()), 10, 10);
+			Painter.drawString(g, Integer.toString(font.getHeight()), font, 10, 10);
 		}
 	}
 

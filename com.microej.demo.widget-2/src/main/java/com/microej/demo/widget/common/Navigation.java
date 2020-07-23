@@ -33,7 +33,7 @@ public class Navigation {
 	 */
 	public static void main(String[] args) {
 		MicroUI.start();
-		Desktop desktop = createDesktop(new MainPage(), false);
+		Desktop desktop = createDesktop(new MainPage());
 		Display.getDisplay().requestShow(desktop);
 	}
 
@@ -55,12 +55,12 @@ public class Navigation {
 	}
 
 	private static void showPage(Page page, boolean forward) {
-		Desktop desktop = createDesktop(page, forward);
+		Desktop desktop = createDesktop(page);
 		TransitionDisplayable displayable = new TransitionDisplayable(desktop, forward);
 		Display.getDisplay().requestShow(displayable);
 	}
 
-	private static Desktop createDesktop(Page page, boolean canGoBack) {
+	private static Desktop createDesktop(Page page) {
 		Stylesheet stylesheet = createStylesheet(page);
 		Widget rootWidget = createRootWidget(page);
 

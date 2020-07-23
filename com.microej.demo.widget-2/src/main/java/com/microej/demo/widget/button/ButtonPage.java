@@ -9,8 +9,11 @@ import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Fonts;
 import com.microej.demo.widget.common.Page;
 
+import ej.microui.display.Colors;
+import ej.microui.display.ResourceImage;
 import ej.mwt.Widget;
 import ej.mwt.style.EditableStyle;
+import ej.mwt.style.background.ImageBackground;
 import ej.mwt.style.background.RoundedBackground;
 import ej.mwt.style.dimension.OptimalDimension;
 import ej.mwt.style.outline.UniformOutline;
@@ -23,7 +26,8 @@ import ej.mwt.stylesheet.selector.StateSelector;
 import ej.mwt.stylesheet.selector.TypeSelector;
 import ej.mwt.stylesheet.selector.combinator.AndCombinator;
 import ej.widget.basic.Button;
-import ej.widget.container.Grid;
+import ej.widget.container.List;
+import ej.widget.container.util.LayoutOrientation;
 import ej.widget.util.States;
 
 /**
@@ -31,8 +35,12 @@ import ej.widget.util.States;
  */
 public class ButtonPage implements Page {
 
+	private static final String BUTTON_IMAGE = "/images/button.png"; //$NON-NLS-1$
+	private static final String PRESSED_BUTTON_IMAGE = "/images/button-pressed.png"; //$NON-NLS-1$
+
 	private static final int RECT_BUTTON = 700;
 	private static final int ROUNDED_BUTTON = 701;
+	private static final int IMAGE_BUTTON = 702;
 
 	@Override
 	public String getName() {
@@ -41,14 +49,16 @@ public class ButtonPage implements Page {
 
 	@Override
 	public void populateStylesheet(CascadingStylesheet stylesheet) {
+		Selector rectButton = new ClassSelector(RECT_BUTTON);
+		Selector roundedButton = new ClassSelector(ROUNDED_BUTTON);
+		Selector imageButton = new ClassSelector(IMAGE_BUTTON);
+		Selector activeSelector = new StateSelector(States.ACTIVE);
+
+		// all buttons
 		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(Button.class));
 		style.setDimension(OptimalDimension.OPTIMAL_DIMENSION_XY);
 		style.setPadding(new UniformOutline(10));
 		style.setFont(Fonts.getBoldFont());
-
-		Selector rectButton = new ClassSelector(RECT_BUTTON);
-		Selector roundedButton = new ClassSelector(ROUNDED_BUTTON);
-		Selector activeSelector = new StateSelector(States.ACTIVE);
 
 		// rect button
 		style = stylesheet.getSelectorStyle(rectButton);
@@ -67,16 +77,33 @@ public class ButtonPage implements Page {
 		style = stylesheet.getSelectorStyle(new AndCombinator(roundedButton, activeSelector));
 		style.setBorder(new RoundedBorder(DemoColors.POMEGRANATE, 4, 1));
 		style.setBackground(new RoundedBackground(DemoColors.POMEGRANATE, 4));
+
+		// image button
+		style = stylesheet.getSelectorStyle(imageButton);
+		style.setBackground(new ImageBackground(ResourceImage.loadImage(BUTTON_IMAGE), Colors.WHITE));
+
+		// active image button
+		style = stylesheet.getSelectorStyle(new AndCombinator(imageButton, activeSelector));
+		style.setBackground(new ImageBackground(ResourceImage.loadImage(PRESSED_BUTTON_IMAGE), Colors.WHITE));
+
+		// TODO: close images when this page is closed
 	}
 
 	@Override
 	public Widget getContentWidget() {
-		Grid grid = new Grid(true, 2);
-		for (int i = 0; i < 6; i++) {
-			Button button = new Button("Button " + i); //$NON-NLS-1$
-			button.addClassSelector(i % 3 == 1 ? ROUNDED_BUTTON : RECT_BUTTON);
-			grid.addChild(button);
-		}
-		return grid;
+		Button rectButton = new Button("Rectangular button"); //$NON-NLS-1$
+		rectButton.addClassSelector(RECT_BUTTON);
+
+		Button roundedButton = new Button("Rounded button"); //$NON-NLS-1$
+		roundedButton.addClassSelector(ROUNDED_BUTTON);
+
+		Button imageButton = new Button("Image button"); //$NON-NLS-1$
+		imageButton.addClassSelector(IMAGE_BUTTON);
+
+		List list = new List(LayoutOrientation.VERTICAL);
+		list.addChild(rectButton);
+		list.addChild(roundedButton);
+		list.addChild(imageButton);
+		return list;
 	}
 }

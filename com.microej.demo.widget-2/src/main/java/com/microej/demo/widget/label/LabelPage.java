@@ -5,17 +5,23 @@
  */
 package com.microej.demo.widget.label;
 
+import com.microej.demo.widget.common.Fonts;
 import com.microej.demo.widget.common.Page;
 
 import ej.mwt.Widget;
+import ej.mwt.style.EditableStyle;
+import ej.mwt.style.dimension.OptimalDimension;
+import ej.mwt.style.outline.UniformOutline;
 import ej.mwt.stylesheet.cascading.CascadingStylesheet;
+import ej.mwt.stylesheet.selector.ClassSelector;
 import ej.widget.basic.Label;
-import ej.widget.container.Grid;
 
 /**
  * Page showing labels.
  */
 public class LabelPage implements Page {
+
+	private static final int LABEL = 600;
 
 	@Override
 	public String getName() {
@@ -24,15 +30,16 @@ public class LabelPage implements Page {
 
 	@Override
 	public void populateStylesheet(CascadingStylesheet stylesheet) {
-		// no specific style
+		EditableStyle style = stylesheet.getSelectorStyle(new ClassSelector(LABEL));
+		style.setDimension(OptimalDimension.OPTIMAL_DIMENSION_XY);
+		style.setPadding(new UniformOutline(10));
+		style.setFont(Fonts.getBoldFont());
 	}
 
 	@Override
 	public Widget getContentWidget() {
-		Grid grid = new Grid(true, 2);
-		for (int i = 0; i < 6; i++) {
-			grid.addChild(new Label("Label " + i)); //$NON-NLS-1$
-		}
-		return grid;
+		Label label = new Label("Hello, world!"); //$NON-NLS-1$
+		label.addClassSelector(LABEL);
+		return label;
 	}
 }

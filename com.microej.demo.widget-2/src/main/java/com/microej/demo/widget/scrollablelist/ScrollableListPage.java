@@ -38,7 +38,7 @@ public class ScrollableListPage implements Page {
 
 	@Override
 	public String getName() {
-		return "Scrollable List"; //$NON-NLS-1$
+		return "ScrollableList"; //$NON-NLS-1$
 	}
 
 	@Override

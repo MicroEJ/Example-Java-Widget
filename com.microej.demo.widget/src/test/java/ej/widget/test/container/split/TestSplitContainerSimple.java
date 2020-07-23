@@ -9,6 +9,10 @@ import com.is2t.testsuite.support.CheckHelper;
 
 import ej.microui.display.Display;
 import ej.mwt.Widget;
+import ej.mwt.style.EditableStyle;
+import ej.mwt.stylesheet.Stylesheet;
+import ej.mwt.stylesheet.cascading.CascadingStylesheet;
+import ej.mwt.stylesheet.selector.TypeSelector;
 import ej.widget.container.Split;
 import ej.widget.container.util.LayoutOrientation;
 import ej.widget.test.framework.Item;
@@ -41,8 +45,8 @@ public class TestSplitContainerSimple extends Test {
 
 		Item leftLabel = new Item(baseWidth, baseHeight);
 		Item rightLabel = new Item(baseWidth, baseHeight);
-		Split splitContainer = createSplitContainer(leftLabel, rightLabel, ratio, true);
-		TestHelper.showAndWait(splitContainer, false);
+		Split splitContainer = createSplitContainer(leftLabel, rightLabel, true);
+		TestHelper.showAndWait(splitContainer, false, createSplitStylesheet(ratio));
 
 		// get widgets size
 		CheckHelper.check(TestSplitContainerSimple.class, "hpus left width", leftLabel.getWidth(), baseWidth);
@@ -66,8 +70,8 @@ public class TestSplitContainerSimple extends Test {
 		// test biggest first
 		Item leftLabel = new Item(baseWidth, biggestHeight);
 		Item rightLabel = new Item(baseWidth, smallestHeight);
-		Split splitContainer = createSplitContainer(leftLabel, rightLabel, ratio, true);
-		TestHelper.showAndWait(splitContainer, false);
+		Split splitContainer = createSplitContainer(leftLabel, rightLabel, true);
+		TestHelper.showAndWait(splitContainer, false, createSplitStylesheet(ratio));
 
 		// get widgets size
 		CheckHelper.check(TestSplitContainerSimple.class, "hpvs left width", leftLabel.getWidth(), baseWidth);
@@ -86,8 +90,8 @@ public class TestSplitContainerSimple extends Test {
 		// test smallest first
 		leftLabel = new Item(baseWidth, smallestHeight);
 		rightLabel = new Item(baseWidth, biggestHeight);
-		splitContainer = createSplitContainer(leftLabel, rightLabel, ratio, true);
-		TestHelper.showAndWait(splitContainer, false);
+		splitContainer = createSplitContainer(leftLabel, rightLabel, true);
+		TestHelper.showAndWait(splitContainer, false, createSplitStylesheet(ratio));
 
 		// get widgets size
 		CheckHelper.check(TestSplitContainerSimple.class, "hpvs left width", leftLabel.getWidth(), baseWidth);
@@ -111,8 +115,8 @@ public class TestSplitContainerSimple extends Test {
 
 		Item leftLabel = new Item(baseWidth, baseHeight);
 		Item rightLabel = new Item(baseWidth, baseHeight);
-		Split splitContainer = createSplitContainer(leftLabel, rightLabel, ratio, true);
-		TestHelper.showAndWait(splitContainer, true);
+		Split splitContainer = createSplitContainer(leftLabel, rightLabel, true);
+		TestHelper.showAndWait(splitContainer, true, createSplitStylesheet(ratio));
 
 		Display display = Display.getDisplay();
 		int displayWidth = display.getWidth();
@@ -139,8 +143,8 @@ public class TestSplitContainerSimple extends Test {
 
 		Item topLabel = new Item(baseWidth, baseHeight);
 		Item bottomLabel = new Item(baseWidth, baseHeight);
-		Split splitContainer = createSplitContainer(topLabel, bottomLabel, ratio, false);
-		TestHelper.showAndWait(splitContainer, false);
+		Split splitContainer = createSplitContainer(topLabel, bottomLabel, false);
+		TestHelper.showAndWait(splitContainer, false, createSplitStylesheet(ratio));
 
 		// get widgets size
 		CheckHelper.check(TestSplitContainerSimple.class, "vpus top width", topLabel.getWidth(), baseWidth);
@@ -164,8 +168,8 @@ public class TestSplitContainerSimple extends Test {
 		// test biggest width first
 		Item topLabel = new Item(biggestWidth, baseHeight);
 		Item bottomLabel = new Item(smallestWidth, baseHeight);
-		Split splitContainer = createSplitContainer(topLabel, bottomLabel, ratio, false);
-		TestHelper.showAndWait(splitContainer, false);
+		Split splitContainer = createSplitContainer(topLabel, bottomLabel, false);
+		TestHelper.showAndWait(splitContainer, false, createSplitStylesheet(ratio));
 
 		// get widgets size
 		CheckHelper.check(TestSplitContainerSimple.class, "vpvs top width", topLabel.getWidth(), biggestWidth);
@@ -185,8 +189,8 @@ public class TestSplitContainerSimple extends Test {
 		// test smallest width first
 		topLabel = new Item(smallestWidth, baseHeight);
 		bottomLabel = new Item(biggestWidth, baseHeight);
-		splitContainer = createSplitContainer(topLabel, bottomLabel, ratio, false);
-		TestHelper.showAndWait(splitContainer, false);
+		splitContainer = createSplitContainer(topLabel, bottomLabel, false);
+		TestHelper.showAndWait(splitContainer, false, createSplitStylesheet(ratio));
 
 		// get widgets size
 		CheckHelper.check(TestSplitContainerSimple.class, "vpvs top width", topLabel.getWidth(), biggestWidth);
@@ -209,8 +213,8 @@ public class TestSplitContainerSimple extends Test {
 
 		Item topLabel = new Item(baseWidth, baseHeight);
 		Item bottomLabel = new Item(baseWidth, baseHeight);
-		Split splitContainer = createSplitContainer(topLabel, bottomLabel, ratio, false);
-		TestHelper.showAndWait(splitContainer, true);
+		Split splitContainer = createSplitContainer(topLabel, bottomLabel, false);
+		TestHelper.showAndWait(splitContainer, true, createSplitStylesheet(ratio));
 
 		Display display = Display.getDisplay();
 		int displayWidth = display.getWidth();
@@ -230,12 +234,18 @@ public class TestSplitContainerSimple extends Test {
 		CheckHelper.check(getClass(), "bottom paint", bottomLabel.isPaint());
 	}
 
-	static Split createSplitContainer(Widget firstLabel, Widget secondLabel, float ratio, boolean horizontal) {
+	private static Split createSplitContainer(Widget firstLabel, Widget secondLabel, boolean horizontal) {
 		boolean orientation = (horizontal ? LayoutOrientation.HORIZONTAL : LayoutOrientation.VERTICAL);
-		Split splitContainer = new Split(orientation, ratio);
+		Split splitContainer = new Split(orientation);
 		splitContainer.setFirstChild(firstLabel);
 		splitContainer.setLastChild(secondLabel);
 		return splitContainer;
 	}
 
+	private static Stylesheet createSplitStylesheet(float ratio) {
+		CascadingStylesheet stylesheet = new CascadingStylesheet();
+		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(Split.class));
+		style.setExtraFloat(Split.RATIO_FIELD, ratio);
+		return stylesheet;
+	}
 }

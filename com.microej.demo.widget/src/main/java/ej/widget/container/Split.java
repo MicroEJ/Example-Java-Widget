@@ -8,6 +8,7 @@ package ej.widget.container;
 import ej.annotation.Nullable;
 import ej.mwt.Container;
 import ej.mwt.Widget;
+import ej.mwt.style.Style;
 import ej.mwt.util.Size;
 import ej.widget.container.util.LayoutOrientation;
 
@@ -31,28 +32,27 @@ import ej.widget.container.util.LayoutOrientation;
  */
 public class Split extends Container {
 
+	/**
+	 * The extra field ID for the fill ratio of the first widget.
+	 */
+	public static final int RATIO_FIELD = 0;
+
+	private static final float DEFAULT_RATIO = 0.5f;
+
 	private boolean orientation;
-	private float ratio;
 	@Nullable
 	private Widget first;
 	@Nullable
 	private Widget last;
 
 	/**
-	 * Creates a split specifying its orientation and the fill ratio of the first widget. The last widget will be given
-	 * the remaining space.
+	 * Creates a split specifying its orientation.
 	 *
 	 * @param orientation
 	 *            the orientation of the split (see {@link LayoutOrientation}).
-	 * @param ratio
-	 *            the fill ratio to set for the first widget.
-	 * @throws IllegalArgumentException
-	 *             if the given ratio is not between <code>0.0</code> and <code>1.0</code> excluded.
-	 * @see #setRatio(float)
 	 */
-	public Split(boolean orientation, float ratio) {
+	public Split(boolean orientation) {
 		this.orientation = orientation;
-		setRatioInternal(ratio);
 	}
 
 	/**
@@ -72,34 +72,6 @@ public class Split extends Container {
 	 */
 	public boolean getOrientation() {
 		return this.orientation;
-	}
-
-	/**
-	 * Sets the fill ratio of the first widget. The last widget will be given the remaining space.
-	 *
-	 * @param ratio
-	 *            the fill ratio to set for the first widget.
-	 * @throws IllegalArgumentException
-	 *             if the given ratio is not between <code>0.0</code> and <code>1.0</code> excluded.
-	 */
-	public void setRatio(float ratio) {
-		setRatioInternal(ratio);
-	}
-
-	/**
-	 * Gets the fill ratio of the first widget.
-	 *
-	 * @return the fill ratio of the first widget.
-	 */
-	public float getRatio() {
-		return this.ratio;
-	}
-
-	private void setRatioInternal(float ratio) {
-		if (ratio <= 0.0f || ratio >= 1.0f) {
-			throw new IllegalArgumentException();
-		}
-		this.ratio = ratio;
 	}
 
 	/**
@@ -193,7 +165,7 @@ public class Split extends Container {
 		}
 
 		boolean isHorizontal = (this.orientation == LayoutOrientation.HORIZONTAL);
-		float ratio = this.ratio;
+		float ratio = getRatio(getStyle());
 
 		// compute width hint for both widgets
 		int widthHint = size.getWidth();
@@ -268,7 +240,7 @@ public class Split extends Container {
 			return;
 		}
 
-		float ratio = this.ratio;
+		float ratio = getRatio(getStyle());
 
 		// compute size of both widgets
 		int firstWidth = contentWidth;
@@ -294,5 +266,9 @@ public class Split extends Container {
 		if (last != null) {
 			layOutChild(last, contentWidth - lastWidth, contentHeight - lastHeight, lastWidth, lastHeight);
 		}
+	}
+
+	private static float getRatio(Style style) {
+		return style.getExtraFloat(RATIO_FIELD, DEFAULT_RATIO);
 	}
 }

@@ -15,7 +15,7 @@ import ej.widget.chart.ChartPoint;
 import ej.widget.chart.LineChart;
 import ej.widget.chart.format.DecimalsChartFormat;
 import ej.widget.chart.scale.AdaptiveChartScale;
-import ej.widget.container.Split;
+import ej.widget.container.SimpleDock;
 import ej.widget.container.util.LayoutOrientation;
 import ej.widget.listener.OnClickListener;
 
@@ -31,7 +31,6 @@ public class ChartPage extends AbstractDemoPage {
 	private static final String UNIT = "km"; //$NON-NLS-1$
 	private static final String SWITCH_TO_BAR = "Switch to bar chart"; //$NON-NLS-1$
 	private static final String SWITCH_TO_LINE = "Switch to line chart"; //$NON-NLS-1$
-	private static final float SPLIT_RATIO = 0.80f;
 
 	/**
 	 * Creates a chart page.
@@ -42,7 +41,7 @@ public class ChartPage extends AbstractDemoPage {
 		Chart chart = new BarChart();
 		loadChart(chart);
 
-		final Split split = new Split(LayoutOrientation.VERTICAL, SPLIT_RATIO);
+		final SimpleDock dock = new SimpleDock(LayoutOrientation.VERTICAL);
 
 		final Button switchButton = new Button(SWITCH_TO_LINE);
 		switchButton.addClassSelector(ClassSelectors.SWITCH_BUTTON);
@@ -54,15 +53,15 @@ public class ChartPage extends AbstractDemoPage {
 				this.isBar = !this.isBar;
 				BasicChart newChart = (this.isBar ? new BarChart() : new LineChart(true, true));
 				loadChart(newChart);
-				split.setFirstChild(newChart);
-				split.requestLayOut();
+				dock.setCenterChild(newChart);
+				dock.requestLayOut();
 				switchButton.setText(this.isBar ? SWITCH_TO_LINE : SWITCH_TO_BAR);
 			}
 		});
 
-		split.setFirstChild(chart);
-		split.setLastChild(switchButton);
-		setCenterChild(split);
+		dock.setCenterChild(chart);
+		dock.setLastChild(switchButton);
+		setCenterChild(dock);
 	}
 
 	private void loadChart(Chart chart) {

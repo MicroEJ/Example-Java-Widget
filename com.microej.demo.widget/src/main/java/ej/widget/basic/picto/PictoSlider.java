@@ -60,14 +60,14 @@ public class PictoSlider extends AbstractSlider {
 		// Draw the bar.
 		int barX = Alignment.computeLeftX(barWidth, 0, contentWidth, Alignment.HCENTER);
 		int barY = Alignment.computeTopY(fontHeight, 0, contentHeight, Alignment.VCENTER);
-		Painter.drawChar(g, font, bar, barX, barY);
+		Painter.drawChar(g, bar, font, barX, barY);
 
 		// Draw the cursor.
 		char cursor = getCursor();
 		int cursorX = barX + (int) (barWidth * getPercentComplete());
 		cursorX = Alignment.computeLeftX(font.charWidth(cursor), cursorX, Alignment.HCENTER);
 		int cursorY = Alignment.computeTopY(font.getHeight(), 0, contentHeight, Alignment.VCENTER);
-		Painter.drawChar(g, font, cursor, cursorX, cursorY);
+		Painter.drawChar(g, cursor, font, cursorX, cursorY);
 	}
 
 	@Override

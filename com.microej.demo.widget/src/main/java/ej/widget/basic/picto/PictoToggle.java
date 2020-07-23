@@ -26,7 +26,7 @@ public abstract class PictoToggle extends Box {
 		g.setColor(style.getColor());
 		int x = Alignment.computeLeftX(font.charWidth(picto), 0, contentWidth, Alignment.HCENTER);
 		int y = Alignment.computeTopY(font.getHeight(), 0, contentHeight, Alignment.VCENTER);
-		Painter.drawChar(g, font, picto, x, y);
+		Painter.drawChar(g, picto, font, x, y);
 	}
 
 	@Override

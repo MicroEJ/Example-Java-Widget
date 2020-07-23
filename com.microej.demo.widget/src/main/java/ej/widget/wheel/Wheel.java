@@ -8,6 +8,7 @@ package ej.widget.wheel;
 import java.util.ListIterator;
 
 import ej.bon.Timer;
+import ej.drawing.TransformPainter;
 import ej.microui.display.Colors;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
@@ -148,7 +149,7 @@ public class Wheel extends Widget {
 			int horizontalAlignment, int verticalAlignment, float fontRatio) {
 		int x = Alignment.computeLeftX((int) (font.stringWidth(string) * fontRatio), anchorX, horizontalAlignment);
 		int y = Alignment.computeTopY((int) (font.getHeight() * fontRatio), anchorY, verticalAlignment);
-		Painter.drawString(g, font, string, x, y, fontRatio, fontRatio);
+		TransformPainter.drawScaledStringBilinear(g, string, font, x, y, fontRatio, fontRatio);
 	}
 
 	private float computeFontRatio(int y, int height) {

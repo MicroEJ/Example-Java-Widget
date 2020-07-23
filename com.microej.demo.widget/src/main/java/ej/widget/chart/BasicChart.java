@@ -196,7 +196,7 @@ public abstract class BasicChart extends Chart implements Animation {
 			int labelY = 0;
 
 			g.setColor(getSelectedColor(style));
-			Painter.drawString(g, labelFont, labelString, labelX + SELECTED_VALUE_PADDING, labelY);
+			Painter.drawString(g, labelString, labelFont, labelX + SELECTED_VALUE_PADDING, labelY);
 		}
 	}
 

@@ -279,7 +279,7 @@ public class Carousel extends Widget {
 
 		if (DEBUG) {
 			g.setColor(Colors.RED);
-			Painter.drawString(g, font, Long.toString(System.currentTimeMillis() - startTime), 10, 10);
+			Painter.drawString(g, Long.toString(System.currentTimeMillis() - startTime), font, 10, 10);
 		}
 	}
 

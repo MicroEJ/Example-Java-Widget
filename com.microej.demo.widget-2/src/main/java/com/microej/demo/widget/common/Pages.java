@@ -10,6 +10,7 @@ import com.microej.demo.widget.checkbox.CheckboxPage;
 import com.microej.demo.widget.dock.DockPage;
 import com.microej.demo.widget.label.LabelPage;
 import com.microej.demo.widget.list.ListPage;
+import com.microej.demo.widget.radiobutton.RadioButtonPage;
 import com.microej.demo.widget.scrollablelist.ScrollableListPage;
 
 /**
@@ -21,6 +22,7 @@ public class Pages {
 			new LabelPage(), //
 			new ButtonPage(), //
 			new CheckboxPage(), //
+			new RadioButtonPage(), //
 			new ListPage(), //
 			new DockPage(), //
 			new ScrollableListPage() //

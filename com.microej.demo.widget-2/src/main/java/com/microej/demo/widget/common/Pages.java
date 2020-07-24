@@ -6,6 +6,7 @@
 package com.microej.demo.widget.common;
 
 import com.microej.demo.widget.button.ButtonPage;
+import com.microej.demo.widget.checkbox.CheckboxPage;
 import com.microej.demo.widget.dock.DockPage;
 import com.microej.demo.widget.label.LabelPage;
 import com.microej.demo.widget.list.ListPage;
@@ -19,6 +20,7 @@ public class Pages {
 	private static final Page[] ALL_PAGES = { //
 			new LabelPage(), //
 			new ButtonPage(), //
+			new CheckboxPage(), //
 			new ListPage(), //
 			new DockPage(), //
 			new ScrollableListPage() //

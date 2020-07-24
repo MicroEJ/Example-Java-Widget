@@ -37,4 +37,17 @@ public class GoToBackground extends RectangularBackground {
 				(height - this.goToImage.getHeight()) / 2);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof GoToBackground) {
+			GoToBackground background = (GoToBackground) obj;
+			return super.equals(obj) && this.goToImage == background.goToImage;
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode() * this.goToImage.hashCode();
+	}
 }

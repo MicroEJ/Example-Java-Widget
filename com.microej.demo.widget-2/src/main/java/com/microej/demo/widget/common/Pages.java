@@ -11,6 +11,7 @@ import com.microej.demo.widget.dock.DockPage;
 import com.microej.demo.widget.grid.GridPage;
 import com.microej.demo.widget.label.LabelPage;
 import com.microej.demo.widget.list.ListPage;
+import com.microej.demo.widget.progressbar.ProgressBarPage;
 import com.microej.demo.widget.radiobutton.RadioButtonPage;
 import com.microej.demo.widget.scrollablelist.ScrollableListPage;
 import com.microej.demo.widget.split.SplitPage;
@@ -25,6 +26,7 @@ public class Pages {
 			new ButtonPage(), //
 			new CheckboxPage(), //
 			new RadioButtonPage(), //
+			new ProgressBarPage(), //
 			new ListPage(), //
 			new GridPage(), //
 			new DockPage(), //

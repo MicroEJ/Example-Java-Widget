@@ -9,6 +9,7 @@ import com.microej.demo.widget.button.ButtonPage;
 import com.microej.demo.widget.checkbox.CheckboxPage;
 import com.microej.demo.widget.dock.DockPage;
 import com.microej.demo.widget.grid.GridPage;
+import com.microej.demo.widget.indeterminateprogressbar.IndeterminateProgressBarPage;
 import com.microej.demo.widget.label.LabelPage;
 import com.microej.demo.widget.list.ListPage;
 import com.microej.demo.widget.progressbar.ProgressBarPage;
@@ -27,6 +28,7 @@ public class Pages {
 			new CheckboxPage(), //
 			new RadioButtonPage(), //
 			new ProgressBarPage(), //
+			new IndeterminateProgressBarPage(), //
 			new ListPage(), //
 			new GridPage(), //
 			new DockPage(), //

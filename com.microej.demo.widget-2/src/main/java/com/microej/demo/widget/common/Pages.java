@@ -12,6 +12,7 @@ import com.microej.demo.widget.label.LabelPage;
 import com.microej.demo.widget.list.ListPage;
 import com.microej.demo.widget.radiobutton.RadioButtonPage;
 import com.microej.demo.widget.scrollablelist.ScrollableListPage;
+import com.microej.demo.widget.split.SplitPage;
 
 /**
  * List of the known pages.
@@ -25,6 +26,7 @@ public class Pages {
 			new RadioButtonPage(), //
 			new ListPage(), //
 			new DockPage(), //
+			new SplitPage(), //
 			new ScrollableListPage() //
 	};
 

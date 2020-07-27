@@ -3,7 +3,7 @@
  * This library is provided in source code for use, modification and test, subject to license terms.
  * Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
  */
-package com.microej.demo.widget.list;
+package com.microej.demo.widget.grid;
 
 import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Fonts;
@@ -18,19 +18,19 @@ import ej.mwt.stylesheet.cascading.CascadingStylesheet;
 import ej.mwt.stylesheet.selector.ClassSelector;
 import ej.mwt.util.Alignment;
 import ej.widget.basic.Label;
-import ej.widget.container.List;
+import ej.widget.container.Grid;
 import ej.widget.container.util.LayoutOrientation;
 
 /**
- * Page showing lists.
+ * Page showing grids.
  */
-public class ListPage implements Page {
+public class GridPage implements Page {
 
-	private static final int LABEL = 900;
+	private static final int LABEL = 1200;
 
 	@Override
 	public String getName() {
-		return "List"; //$NON-NLS-1$
+		return "Grid"; //$NON-NLS-1$
 	}
 
 	@Override
@@ -46,11 +46,11 @@ public class ListPage implements Page {
 
 	@Override
 	public Widget getContentWidget() {
-		List list = new List(LayoutOrientation.HORIZONTAL);
-		for (int i = 0; i < 3; i++) {
-			list.addChild(createLabel(i + 1));
+		Grid grid = new Grid(LayoutOrientation.HORIZONTAL, 3);
+		for (int i = 0; i < 6; i++) {
+			grid.addChild(createLabel(i + 1));
 		}
-		return list;
+		return grid;
 	}
 
 	private static Label createLabel(int id) {

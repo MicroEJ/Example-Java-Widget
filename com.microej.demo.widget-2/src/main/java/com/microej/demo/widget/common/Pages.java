@@ -8,6 +8,7 @@ package com.microej.demo.widget.common;
 import com.microej.demo.widget.button.ButtonPage;
 import com.microej.demo.widget.checkbox.CheckboxPage;
 import com.microej.demo.widget.dock.DockPage;
+import com.microej.demo.widget.grid.GridPage;
 import com.microej.demo.widget.label.LabelPage;
 import com.microej.demo.widget.list.ListPage;
 import com.microej.demo.widget.radiobutton.RadioButtonPage;
@@ -25,6 +26,7 @@ public class Pages {
 			new CheckboxPage(), //
 			new RadioButtonPage(), //
 			new ListPage(), //
+			new GridPage(), //
 			new DockPage(), //
 			new SplitPage(), //
 			new ScrollableListPage() //

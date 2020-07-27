@@ -80,11 +80,6 @@ public class MainPage implements Page {
 				}
 			});
 		}
-		for (int i = numPages; i < 100; i++) {
-			MenuItem menuItem = new MenuItem("Stub Page " + i); //$NON-NLS-1$
-			menuItem.addClassSelector(LIST_ITEM);
-			list.addChild(menuItem);
-		}
 
 		Scroll scroll = new Scroll(LayoutOrientation.VERTICAL);
 		scroll.setChild(list);

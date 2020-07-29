@@ -2,4 +2,5 @@
 # This library is provided in source code for use, modification and test, subject to license terms.
 # Any modification of the source code will break MicroEJ Corp. warranties on the whole library.
 
+/fonts/source_b_11px-16px-21h.ejf::4
 /fonts/source_l_14px-20px-26h.ejf::4

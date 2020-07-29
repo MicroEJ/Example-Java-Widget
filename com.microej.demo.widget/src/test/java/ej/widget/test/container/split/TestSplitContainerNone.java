@@ -27,7 +27,7 @@ public class TestSplitContainerNone extends Test {
 	}
 
 	private void testHorizontal() {
-		Split container = new Split(LayoutOrientation.HORIZONTAL, 0.5f);
+		Split container = new Split(LayoutOrientation.HORIZONTAL);
 		TestHelper.showAndWait(container, false);
 
 		// get widgets size
@@ -44,7 +44,7 @@ public class TestSplitContainerNone extends Test {
 	}
 
 	private void testVertical() {
-		Split container = new Split(LayoutOrientation.VERTICAL, 0.5f);
+		Split container = new Split(LayoutOrientation.VERTICAL);
 		TestHelper.showAndWait(container, false);
 
 		// get widgets size

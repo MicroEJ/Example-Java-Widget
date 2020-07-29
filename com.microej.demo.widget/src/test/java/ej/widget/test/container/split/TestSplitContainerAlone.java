@@ -8,6 +8,10 @@ package ej.widget.test.container.split;
 import com.is2t.testsuite.support.CheckHelper;
 
 import ej.microui.display.Display;
+import ej.mwt.style.EditableStyle;
+import ej.mwt.stylesheet.Stylesheet;
+import ej.mwt.stylesheet.cascading.CascadingStylesheet;
+import ej.mwt.stylesheet.selector.TypeSelector;
 import ej.widget.container.Split;
 import ej.widget.container.util.LayoutOrientation;
 import ej.widget.test.framework.Item;
@@ -35,9 +39,9 @@ public class TestSplitContainerAlone extends Test {
 		float ratio = (float) 1 / 3;
 
 		Item leftLabel = new Item(baseWidth, baseHeight);
-		Split splitContainer = new Split(LayoutOrientation.HORIZONTAL, ratio);
+		Split splitContainer = new Split(LayoutOrientation.HORIZONTAL);
 		splitContainer.setFirstChild(leftLabel);
-		TestHelper.showAndWait(splitContainer, false);
+		TestHelper.showAndWait(splitContainer, false, createSplitStylesheet(ratio));
 
 		// get widgets size
 		CheckHelper.check(TestSplitContainerAlone.class, "h left width", leftLabel.getWidth(), baseWidth);
@@ -53,9 +57,9 @@ public class TestSplitContainerAlone extends Test {
 		float ratio = (float) 1 / 3;
 
 		Item topLabel = new Item(baseWidth, baseHeight);
-		Split splitContainer = new Split(LayoutOrientation.VERTICAL, ratio);
+		Split splitContainer = new Split(LayoutOrientation.VERTICAL);
 		splitContainer.setFirstChild(topLabel);
-		TestHelper.showAndWait(splitContainer, false);
+		TestHelper.showAndWait(splitContainer, false, createSplitStylesheet(ratio));
 
 		// get widgets size
 		CheckHelper.check(TestSplitContainerAlone.class, "v top width", topLabel.getWidth(), baseWidth);
@@ -66,4 +70,10 @@ public class TestSplitContainerAlone extends Test {
 		CheckHelper.check(getClass(), "top paint", topLabel.isPaint());
 	}
 
+	private static Stylesheet createSplitStylesheet(float ratio) {
+		CascadingStylesheet stylesheet = new CascadingStylesheet();
+		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(Split.class));
+		style.setExtraFloat(Split.RATIO_FIELD, ratio);
+		return stylesheet;
+	}
 }

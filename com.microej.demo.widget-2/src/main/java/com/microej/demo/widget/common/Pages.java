@@ -5,44 +5,57 @@
  */
 package com.microej.demo.widget.common;
 
+import com.microej.demo.widget.button.ButtonPage;
+import com.microej.demo.widget.checkbox.CheckboxPage;
+import com.microej.demo.widget.dock.DockPage;
+import com.microej.demo.widget.grid.GridPage;
+import com.microej.demo.widget.indeterminateprogressbar.IndeterminateProgressBarPage;
 import com.microej.demo.widget.label.LabelPage;
+import com.microej.demo.widget.list.ListPage;
+import com.microej.demo.widget.progressbar.ProgressBarPage;
+import com.microej.demo.widget.radiobutton.RadioButtonPage;
 import com.microej.demo.widget.scrollablelist.ScrollableListPage;
+import com.microej.demo.widget.split.SplitPage;
 
 /**
  * List of the known pages.
  */
 public class Pages {
 
-	/**
-	 * The label page name.
-	 */
-	public static final String LABEL_PAGE = "Label"; //$NON-NLS-1$
-	/**
-	 * The scrollable list page name.
-	 */
-	public static final String SCROLLABLELIST_PAGE = "Scrollable List"; //$NON-NLS-1$
-
-	public static final String[] ALL_PAGES = { LABEL_PAGE, SCROLLABLELIST_PAGE };
-
-	/**
-	 * Gets the page matching the given name.
-	 *
-	 * @param name
-	 *            the name of the page.
-	 * @return the page instance.
-	 */
-	public static Page getPage(String name) {
-		switch (name) {
-		case LABEL_PAGE:
-			return new LabelPage();
-		case SCROLLABLELIST_PAGE:
-			return new ScrollableListPage();
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
+	private static final Page[] ALL_PAGES = { //
+			new LabelPage(), //
+			new ButtonPage(), //
+			new CheckboxPage(), //
+			new RadioButtonPage(), //
+			new ProgressBarPage(), //
+			new IndeterminateProgressBarPage(), //
+			new ListPage(), //
+			new GridPage(), //
+			new DockPage(), //
+			new SplitPage(), //
+			new ScrollableListPage() //
+	};
 
 	private Pages() {
 	}
 
+	/**
+	 * Returns the number of pages
+	 *
+	 * @return the number of pages.
+	 */
+	public static int getNumPages() {
+		return ALL_PAGES.length;
+	}
+
+	/**
+	 * Returns the page at the given index.
+	 *
+	 * @param index
+	 *            the index of the page to get.
+	 * @return the page at the given index.
+	 */
+	public static Page getPage(int index) {
+		return ALL_PAGES[index];
+	}
 }

@@ -5,86 +5,41 @@
  */
 package com.microej.demo.widget.label;
 
-import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Fonts;
 import com.microej.demo.widget.common.Page;
-import com.microej.demo.widget.common.PageHelper;
 
-import ej.microui.MicroUI;
-import ej.mwt.Desktop;
 import ej.mwt.Widget;
 import ej.mwt.style.EditableStyle;
-import ej.mwt.style.background.RectangularBackground;
+import ej.mwt.style.dimension.OptimalDimension;
+import ej.mwt.style.outline.UniformOutline;
 import ej.mwt.stylesheet.cascading.CascadingStylesheet;
 import ej.mwt.stylesheet.selector.ClassSelector;
-import ej.mwt.util.Alignment;
 import ej.widget.basic.Label;
-import ej.widget.container.Grid;
-import ej.widget.container.SimpleDock;
-import ej.widget.container.util.LayoutOrientation;
 
 /**
  * Page showing labels.
  */
 public class LabelPage implements Page {
 
-	/**
-	 * Shows the label page.
-	 *
-	 * @param args
-	 *            not used.
-	 */
-	public static void main(String[] args) {
-		MicroUI.start();
-		Desktop desktop = new LabelPage().getDesktop();
-		desktop.requestShow();
+	private static final int LABEL = 600;
+
+	@Override
+	public String getName() {
+		return "Label"; //$NON-NLS-1$
 	}
 
 	@Override
-	public Desktop getDesktop() {
-		Desktop desktop = PageHelper.createDesktop();
-
-		CascadingStylesheet stylesheet = createStylesheet();
-		desktop.setStylesheet(stylesheet);
-
-		Widget pageContent = createPageContent();
-		desktop.setWidget(pageContent);
-
-		return desktop;
+	public void populateStylesheet(CascadingStylesheet stylesheet) {
+		EditableStyle style = stylesheet.getSelectorStyle(new ClassSelector(LABEL));
+		style.setDimension(OptimalDimension.OPTIMAL_DIMENSION_XY);
+		style.setPadding(new UniformOutline(10));
+		style.setFont(Fonts.getBoldFont());
 	}
 
-	private CascadingStylesheet createStylesheet() {
-		CascadingStylesheet stylesheet = new CascadingStylesheet();
-
-		EditableStyle style = stylesheet.getDefaultStyle();
-		style.setColor(DemoColors.DEFAULT_FOREGROUND);
-		style.setBackground(new RectangularBackground(DemoColors.DEFAULT_BACKGROUND));
-		style.setFont(Fonts.getDefaultFont());
-		style.setHorizontalAlignment(Alignment.HCENTER);
-		style.setVerticalAlignment(Alignment.VCENTER);
-
-		style = stylesheet.getSelectorStyle(new ClassSelector(PageHelper.TITLE_CLASSSELECTOR));
-		style.setHorizontalAlignment(Alignment.LEFT);
-
-		PageHelper.addCommonStyle(stylesheet);
-
-		return stylesheet;
+	@Override
+	public Widget getContentWidget() {
+		Label label = new Label("Hello, world!"); //$NON-NLS-1$
+		label.addClassSelector(LABEL);
+		return label;
 	}
-
-	private Widget createPageContent() {
-		SimpleDock dock = new SimpleDock(LayoutOrientation.VERTICAL);
-		dock.addClassSelector(PageHelper.CONTENT_CLASSSELECTOR);
-		Label title = new Label("Label"); //$NON-NLS-1$
-		title.addClassSelector(PageHelper.TITLE_CLASSSELECTOR);
-		dock.setFirstChild(title);
-		Grid grid = new Grid(true, 2);
-		for (int i = 0; i < 6; i++) {
-			grid.addChild(new Label("Label " + i)); //$NON-NLS-1$
-		}
-		dock.setCenterChild(grid);
-
-		Widget pageContent = PageHelper.createPage(dock, true);
-		return pageContent;
-	}
-
 }

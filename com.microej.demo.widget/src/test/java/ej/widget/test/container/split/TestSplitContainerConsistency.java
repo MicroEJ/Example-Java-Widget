@@ -30,7 +30,7 @@ public class TestSplitContainerConsistency extends Test {
 		Item item1 = new Item(baseWidth, baseHeight);
 		Item item2 = new Item(baseWidth, baseHeight);
 		Item item3 = new Item(baseWidth, baseHeight);
-		Split splitContainer = new Split(LayoutOrientation.HORIZONTAL, 0.5f);
+		Split splitContainer = new Split(LayoutOrientation.HORIZONTAL);
 		TestHelper.checkItemsCount(TestSplitContainerConsistency.class, splitContainer, 0);
 		splitContainer.setFirstChild(item1);
 		TestHelper.checkItemsCount(TestSplitContainerConsistency.class, splitContainer, 1);
@@ -114,14 +114,6 @@ public class TestSplitContainerConsistency extends Test {
 		item1.reset();
 		item2.reset();
 		item3.reset();
-
-		try {
-			splitContainer.setRatio(0.0f);
-			CheckHelper.check(TestSplitContainerConsistency.class, "0 ratio", false);
-		} catch (IllegalArgumentException e) {
-			CheckHelper.check(TestSplitContainerConsistency.class, "0 ratio", true);
-		}
-
 	}
 
 }

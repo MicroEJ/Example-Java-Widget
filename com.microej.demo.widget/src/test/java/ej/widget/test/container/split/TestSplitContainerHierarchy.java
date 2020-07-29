@@ -8,7 +8,11 @@ package ej.widget.test.container.split;
 import com.is2t.testsuite.support.CheckHelper;
 
 import ej.microui.display.Display;
-import ej.mwt.Container;
+import ej.mwt.Widget;
+import ej.mwt.style.EditableStyle;
+import ej.mwt.stylesheet.Stylesheet;
+import ej.mwt.stylesheet.cascading.CascadingStylesheet;
+import ej.mwt.stylesheet.selector.TypeSelector;
 import ej.widget.container.Split;
 import ej.widget.container.util.LayoutOrientation;
 import ej.widget.test.framework.Item;
@@ -43,14 +47,12 @@ public class TestSplitContainerHierarchy extends Test {
 
 		Item leftLeftLabel = new Item(baseWidth, baseHeight);
 		Item leftRightLabel = new Item(baseWidth, baseHeight);
-		Split leftSplitContainer = TestSplitContainerSimple.createSplitContainer(leftLeftLabel, leftRightLabel, ratio,
-				true);
+		Split leftSplitContainer = createSplitContainer(leftLeftLabel, leftRightLabel, true);
 		Item rightLeftLabel = new Item(baseWidth, baseHeight);
 		Item rightRightLabel = new Item(baseWidth, baseHeight);
-		Split rightSplitContainer = TestSplitContainerSimple.createSplitContainer(rightLeftLabel, rightRightLabel,
-				ratio, true);
-		Split splitContainer = createSplitContainer(leftSplitContainer, rightSplitContainer, ratio, true);
-		TestHelper.showAndWait(splitContainer, false);
+		Split rightSplitContainer = createSplitContainer(rightLeftLabel, rightRightLabel, true);
+		Split splitContainer = createSplitContainer(leftSplitContainer, rightSplitContainer, true);
+		TestHelper.showAndWait(splitContainer, false, createSplitStylesheet(ratio));
 
 		// get widgets size
 		CheckHelper.check(TestSplitContainerHierarchy.class, "hhpus left left width", leftLeftLabel.getWidth(),
@@ -82,14 +84,12 @@ public class TestSplitContainerHierarchy extends Test {
 
 		Item topLeftLabel = new Item(baseWidth, baseHeight);
 		Item topRightLabel = new Item(baseWidth, baseHeight);
-		Split topSplitContainer = TestSplitContainerSimple.createSplitContainer(topLeftLabel, topRightLabel, ratio,
-				true);
+		Split topSplitContainer = createSplitContainer(topLeftLabel, topRightLabel, true);
 		Item bottomLeftLabel = new Item(baseWidth, baseHeight);
 		Item bottomRightLabel = new Item(baseWidth, baseHeight);
-		Split bottomSplitContainer = TestSplitContainerSimple.createSplitContainer(bottomLeftLabel, bottomRightLabel,
-				ratio, true);
-		Split splitContainer = createSplitContainer(topSplitContainer, bottomSplitContainer, ratio, false);
-		TestHelper.showAndWait(splitContainer, false);
+		Split bottomSplitContainer = createSplitContainer(bottomLeftLabel, bottomRightLabel, true);
+		Split splitContainer = createSplitContainer(topSplitContainer, bottomSplitContainer, false);
+		TestHelper.showAndWait(splitContainer, false, createSplitStylesheet(ratio));
 
 		// get widgets size
 		CheckHelper.check(TestSplitContainerHierarchy.class, "vhpus top left width", topLeftLabel.getWidth(),
@@ -121,14 +121,12 @@ public class TestSplitContainerHierarchy extends Test {
 
 		Item topTopLabel = new Item(baseWidth, baseHeight);
 		Item topBottomLabel = new Item(baseWidth, baseHeight);
-		Split topSplitContainer = TestSplitContainerSimple.createSplitContainer(topTopLabel, topBottomLabel, ratio,
-				false);
+		Split topSplitContainer = createSplitContainer(topTopLabel, topBottomLabel, false);
 		Item bottomTopLabel = new Item(baseWidth, baseHeight);
 		Item bottomBottomLabel = new Item(baseWidth, baseHeight);
-		Split bottomSplitContainer = TestSplitContainerSimple.createSplitContainer(bottomTopLabel, bottomBottomLabel,
-				ratio, false);
-		Split splitContainer = createSplitContainer(topSplitContainer, bottomSplitContainer, ratio, false);
-		TestHelper.showAndWait(splitContainer, false);
+		Split bottomSplitContainer = createSplitContainer(bottomTopLabel, bottomBottomLabel, false);
+		Split splitContainer = createSplitContainer(topSplitContainer, bottomSplitContainer, false);
+		TestHelper.showAndWait(splitContainer, false, createSplitStylesheet(ratio));
 
 		// get widgets size
 		CheckHelper.check(TestSplitContainerHierarchy.class, "vvpus top top width", topTopLabel.getWidth(), baseWidth);
@@ -159,14 +157,12 @@ public class TestSplitContainerHierarchy extends Test {
 
 		Item leftTopLabel = new Item(baseWidth, baseHeight);
 		Item leftBottomLabel = new Item(baseWidth, baseHeight);
-		Split leftSplitContainer = TestSplitContainerSimple.createSplitContainer(leftTopLabel, leftBottomLabel, ratio,
-				false);
+		Split leftSplitContainer = createSplitContainer(leftTopLabel, leftBottomLabel, false);
 		Item rightTopLabel = new Item(baseWidth, baseHeight);
 		Item rightBottomLabel = new Item(baseWidth, baseHeight);
-		Split rightSplitContainer = TestSplitContainerSimple.createSplitContainer(rightTopLabel, rightBottomLabel,
-				ratio, false);
-		Split splitContainer = createSplitContainer(leftSplitContainer, rightSplitContainer, ratio, true);
-		TestHelper.showAndWait(splitContainer, false);
+		Split rightSplitContainer = createSplitContainer(rightTopLabel, rightBottomLabel, false);
+		Split splitContainer = createSplitContainer(leftSplitContainer, rightSplitContainer, true);
+		TestHelper.showAndWait(splitContainer, false, createSplitStylesheet(ratio));
 
 		// get widgets size
 		CheckHelper.check(TestSplitContainerHierarchy.class, "hvpus left top width", leftTopLabel.getWidth(),
@@ -198,14 +194,12 @@ public class TestSplitContainerHierarchy extends Test {
 
 		Item leftLeftLabel = new Item(baseWidth, baseHeight);
 		Item leftRightLabel = new Item(baseWidth, baseHeight);
-		Split leftSplitContainer = TestSplitContainerSimple.createSplitContainer(leftLeftLabel, leftRightLabel, ratio,
-				true);
+		Split leftSplitContainer = createSplitContainer(leftLeftLabel, leftRightLabel, true);
 		Item rightLeftLabel = new Item(baseWidth, baseHeight);
 		Item rightRightLabel = new Item(baseWidth, baseHeight);
-		Split rightSplitContainer = TestSplitContainerSimple.createSplitContainer(rightLeftLabel, rightRightLabel,
-				ratio, true);
-		Split splitContainer = createSplitContainer(leftSplitContainer, rightSplitContainer, ratio, true);
-		TestHelper.showAndWait(splitContainer, true);
+		Split rightSplitContainer = createSplitContainer(rightLeftLabel, rightRightLabel, true);
+		Split splitContainer = createSplitContainer(leftSplitContainer, rightSplitContainer, true);
+		TestHelper.showAndWait(splitContainer, true, createSplitStylesheet(ratio));
 
 		Display display = Display.getDisplay();
 		int displayWidth = display.getWidth();
@@ -240,14 +234,12 @@ public class TestSplitContainerHierarchy extends Test {
 
 		Item topLeftLabel = new Item(baseWidth, baseHeight);
 		Item topRightLabel = new Item(baseWidth, baseHeight);
-		Split topSplitContainer = TestSplitContainerSimple.createSplitContainer(topLeftLabel, topRightLabel, ratio,
-				true);
+		Split topSplitContainer = createSplitContainer(topLeftLabel, topRightLabel, true);
 		Item bottomLeftLabel = new Item(baseWidth, baseHeight);
 		Item bottomRightLabel = new Item(baseWidth, baseHeight);
-		Split bottomSplitContainer = TestSplitContainerSimple.createSplitContainer(bottomLeftLabel, bottomRightLabel,
-				ratio, true);
-		Split splitContainer = createSplitContainer(topSplitContainer, bottomSplitContainer, ratio, false);
-		TestHelper.showAndWait(splitContainer, true);
+		Split bottomSplitContainer = createSplitContainer(bottomLeftLabel, bottomRightLabel, true);
+		Split splitContainer = createSplitContainer(topSplitContainer, bottomSplitContainer, false);
+		TestHelper.showAndWait(splitContainer, true, createSplitStylesheet(ratio));
 
 		Display display = Display.getDisplay();
 		int displayWidth = display.getWidth();
@@ -282,14 +274,12 @@ public class TestSplitContainerHierarchy extends Test {
 
 		Item topTopLabel = new Item(baseWidth, baseHeight);
 		Item topBottomLabel = new Item(baseWidth, baseHeight);
-		Split topSplitContainer = TestSplitContainerSimple.createSplitContainer(topTopLabel, topBottomLabel, ratio,
-				false);
+		Split topSplitContainer = createSplitContainer(topTopLabel, topBottomLabel, false);
 		Item bottomTopLabel = new Item(baseWidth, baseHeight);
 		Item bottomBottomLabel = new Item(baseWidth, baseHeight);
-		Split bottomSplitContainer = TestSplitContainerSimple.createSplitContainer(bottomTopLabel, bottomBottomLabel,
-				ratio, false);
-		Split splitContainer = createSplitContainer(topSplitContainer, bottomSplitContainer, ratio, false);
-		TestHelper.showAndWait(splitContainer, true);
+		Split bottomSplitContainer = createSplitContainer(bottomTopLabel, bottomBottomLabel, false);
+		Split splitContainer = createSplitContainer(topSplitContainer, bottomSplitContainer, false);
+		TestHelper.showAndWait(splitContainer, true, createSplitStylesheet(ratio));
 
 		Display display = Display.getDisplay();
 		int displayWidth = display.getWidth();
@@ -325,14 +315,12 @@ public class TestSplitContainerHierarchy extends Test {
 
 		Item leftTopLabel = new Item(baseWidth, baseHeight);
 		Item leftBottomLabel = new Item(baseWidth, baseHeight);
-		Split leftSplitContainer = TestSplitContainerSimple.createSplitContainer(leftTopLabel, leftBottomLabel, ratio,
-				false);
+		Split leftSplitContainer = createSplitContainer(leftTopLabel, leftBottomLabel, false);
 		Item rightTopLabel = new Item(baseWidth, baseHeight);
 		Item rightBottomLabel = new Item(baseWidth, baseHeight);
-		Split rightSplitContainer = TestSplitContainerSimple.createSplitContainer(rightTopLabel, rightBottomLabel,
-				ratio, false);
-		Split splitContainer = createSplitContainer(leftSplitContainer, rightSplitContainer, ratio, true);
-		TestHelper.showAndWait(splitContainer, true);
+		Split rightSplitContainer = createSplitContainer(rightTopLabel, rightBottomLabel, false);
+		Split splitContainer = createSplitContainer(leftSplitContainer, rightSplitContainer, true);
+		TestHelper.showAndWait(splitContainer, true, createSplitStylesheet(ratio));
 
 		Display display = Display.getDisplay();
 		int displayWidth = display.getWidth();
@@ -360,12 +348,18 @@ public class TestSplitContainerHierarchy extends Test {
 		CheckHelper.check(getClass(), "right bottom paint", rightBottomLabel.isPaint());
 	}
 
-	static Split createSplitContainer(Container firstLabel, Container secondLabel, float ratio, boolean horizontal) {
+	private static Split createSplitContainer(Widget firstLabel, Widget secondLabel, boolean horizontal) {
 		boolean orientation = (horizontal ? LayoutOrientation.HORIZONTAL : LayoutOrientation.VERTICAL);
-		Split splitContainer = new Split(orientation, ratio);
+		Split splitContainer = new Split(orientation);
 		splitContainer.setFirstChild(firstLabel);
 		splitContainer.setLastChild(secondLabel);
 		return splitContainer;
 	}
 
+	private static Stylesheet createSplitStylesheet(float ratio) {
+		CascadingStylesheet stylesheet = new CascadingStylesheet();
+		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(Split.class));
+		style.setExtraFloat(Split.RATIO_FIELD, ratio);
+		return stylesheet;
+	}
 }

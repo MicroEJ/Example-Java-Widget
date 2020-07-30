@@ -98,7 +98,7 @@ public class PageHelper {
 
 		style = stylesheet.getSelectorStyle(new ClassSelector(PageHelper.CONTENT_CLASSSELECTOR));
 		style.setBorder(new FlexibleRectangularBorder(DemoColors.EMPTY_SPACE, 0, 0, 0, PageHelper.LEFT_PADDING));
-		style.setPadding(new FlexibleOutline(0, 6, 0, 6));
+		style.setPadding(new FlexibleOutline(0, 6, 20, 6));
 	}
 
 	private static void setRoundedCornerStyle(EditableStyle roundedCornerBottomStyle) {

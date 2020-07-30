@@ -20,9 +20,7 @@ import ej.widget.util.StringPainter;
  */
 public class ProgressBar extends Widget {
 
-	/**
-	 * The extra field ID for the color of the percentage string.
-	 */
+	/** The extra field ID for the color of the percentage string. */
 	public static final int STRING_COLOR_FIELD = 0;
 
 	private static final int DEFAULT_STRING_COLOR = DefaultStyle.COLOR;

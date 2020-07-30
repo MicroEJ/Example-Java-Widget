@@ -28,9 +28,7 @@ import ej.widget.style.text.TextStyle;
  */
 public class RenderableLabel extends Widget {
 
-	/**
-	 * The extra field ID for the text style.
-	 */
+	/** The extra field ID for the text style. */
 	public static final int TEXT_STYLE = 0;
 
 	private String text;

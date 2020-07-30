@@ -35,14 +35,9 @@ import ej.widget.util.StringPainter;
  */
 public class TextField extends Widget implements EventHandler {
 
-	/**
-	 * The extra field ID for the selection color.
-	 */
+	/** The extra field ID for the selection color. */
 	public static final int SELECTION_COLOR = 0;
-
-	/**
-	 * The extra field ID for the clear button font.
-	 */
+	/** The extra field ID for the clear button font. */
 	public static final int CLEAR_BUTTON_FONT = 1;
 
 	private static final OnClickListener[] EMPTY_LISTENERS = new OnClickListener[0];

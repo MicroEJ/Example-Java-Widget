@@ -32,9 +32,7 @@ import ej.widget.container.util.LayoutOrientation;
  */
 public class Split extends Container {
 
-	/**
-	 * The extra field ID for the fill ratio of the first widget.
-	 */
+	/** The extra field ID for the fill ratio of the first widget. */
 	public static final int RATIO_FIELD = 0;
 
 	private static final float DEFAULT_RATIO = 0.5f;

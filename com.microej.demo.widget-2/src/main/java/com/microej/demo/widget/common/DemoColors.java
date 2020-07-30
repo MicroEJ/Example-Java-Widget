@@ -38,6 +38,10 @@ public class DemoColors {
 	 */
 	public static final int CORAL = 0xee502e;
 	/**
+	 * MicroEJ Absinthe color.
+	 */
+	public static final int ABSINTHE = 0x6cc24a;
+	/**
 	 * MicroEJ Pomegranate color.
 	 */
 	public static final int POMEGRANATE = 0xcf4520;

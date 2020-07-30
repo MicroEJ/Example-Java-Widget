@@ -6,6 +6,7 @@
 package com.microej.demo.widget.checkbox;
 
 import com.microej.demo.widget.checkbox.widget.Checkbox;
+import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Fonts;
 import com.microej.demo.widget.common.Page;
 
@@ -41,6 +42,7 @@ public class CheckboxPage implements Page {
 		style.setFont(Fonts.getBoldFont());
 		style.setHorizontalAlignment(Alignment.LEFT);
 		style.setMargin(new UniformOutline(2));
+		style.setExtraInt(Checkbox.CHECKED_COLOR_FIELD, DemoColors.CORAL);
 	}
 
 	@Override

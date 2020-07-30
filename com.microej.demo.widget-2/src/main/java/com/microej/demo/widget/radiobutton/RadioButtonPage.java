@@ -5,6 +5,7 @@
  */
 package com.microej.demo.widget.radiobutton;
 
+import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Fonts;
 import com.microej.demo.widget.common.Page;
 import com.microej.demo.widget.radiobutton.widget.RadioButton;
@@ -42,6 +43,7 @@ public class RadioButtonPage implements Page {
 		style.setFont(Fonts.getBoldFont());
 		style.setHorizontalAlignment(Alignment.LEFT);
 		style.setMargin(new UniformOutline(2));
+		style.setExtraInt(RadioButton.CHECKED_COLOR_FIELD, DemoColors.CORAL);
 	}
 
 	@Override

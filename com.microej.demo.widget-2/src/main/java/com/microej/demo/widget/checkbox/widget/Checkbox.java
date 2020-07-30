@@ -20,6 +20,9 @@ import ej.mwt.util.Size;
  */
 public class Checkbox extends Widget {
 
+	/** The extra field ID for the color of the checkbox when it is checked. */
+	public static final int CHECKED_COLOR_FIELD = 0;
+
 	private final String text;
 
 	private boolean checked;
@@ -54,12 +57,14 @@ public class Checkbox extends Widget {
 
 		// fill box
 		if (this.checked) {
+			g.setColor(getCheckedColor(style));
 			Painter.fillRectangle(g, boxX + 4, boxY + 4, boxSize - 8, boxSize - 8);
 		}
 
 		// draw text
 		int textX = boxX + boxSize + computeSpacing(font);
 		int textY = Alignment.computeTopY(font.getHeight(), 0, contentHeight, verticalAlignment);
+		g.setColor(style.getColor());
 		Painter.drawString(g, this.text, font, textX, textY);
 	}
 
@@ -94,5 +99,9 @@ public class Checkbox extends Widget {
 
 	private static int computeSpacing(Font font) {
 		return font.getHeight() / 2;
+	}
+
+	private static int getCheckedColor(Style style) {
+		return style.getExtraInt(CHECKED_COLOR_FIELD, style.getColor());
 	}
 }

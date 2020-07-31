@@ -22,6 +22,8 @@ import ej.widget.container.util.LayoutOrientation;
  */
 public class Navigation {
 
+	private static Desktop mainDesktop;
+
 	private Navigation() {
 	}
 
@@ -33,15 +35,16 @@ public class Navigation {
 	 */
 	public static void main(String[] args) {
 		MicroUI.start();
-		Desktop desktop = createDesktop(new MainPage());
-		Display.getDisplay().requestShow(desktop);
+		mainDesktop = createDesktop(new MainPage());
+		Display.getDisplay().requestShow(mainDesktop);
 	}
 
 	/**
 	 * Shows the main page.
 	 */
 	public static void showMainPage() {
-		showPage(new MainPage(), false);
+		TransitionDisplayable displayable = new TransitionDisplayable(mainDesktop, false);
+		Display.getDisplay().requestShow(displayable);
 	}
 
 	/**
@@ -51,12 +54,8 @@ public class Navigation {
 	 *            the page to show.
 	 */
 	public static void showPage(Page page) {
-		showPage(page, true);
-	}
-
-	private static void showPage(Page page, boolean forward) {
 		Desktop desktop = createDesktop(page);
-		TransitionDisplayable displayable = new TransitionDisplayable(desktop, forward);
+		TransitionDisplayable displayable = new TransitionDisplayable(desktop, true);
 		Display.getDisplay().requestShow(displayable);
 	}
 

@@ -21,6 +21,9 @@ import ej.mwt.util.Size;
  */
 public class RadioButton extends Widget {
 
+	/** The extra field ID for the color of the radio button when it is checked. */
+	public static final int CHECKED_COLOR_FIELD = 0;
+
 	private final String text;
 	private final RadioButtonGroup group;
 
@@ -55,6 +58,7 @@ public class RadioButton extends Widget {
 
 		// fill box
 		if (this.group.isChecked(this)) {
+			g.setColor(getCheckedColor(style));
 			ShapePainter.drawThickFadedCircle(g, boxX + 5, boxY + 5, boxSize - 10, 0, 1);
 			Painter.fillCircle(g, boxX + 5, boxY + 5, boxSize - 10);
 			Painter.fillCircle(g, boxX + 5 + 1, boxY + 5 + 1, boxSize - 10);
@@ -63,6 +67,7 @@ public class RadioButton extends Widget {
 		// draw text
 		int textX = boxX + boxSize + computeSpacing(font);
 		int textY = Alignment.computeTopY(font.getHeight(), 0, contentHeight, verticalAlignment);
+		g.setColor(style.getColor());
 		Painter.drawString(g, this.text, font, textX, textY);
 	}
 
@@ -96,5 +101,9 @@ public class RadioButton extends Widget {
 
 	private static int computeSpacing(Font font) {
 		return font.getHeight() / 2 + 1;
+	}
+
+	private static int getCheckedColor(Style style) {
+		return style.getExtraInt(CHECKED_COLOR_FIELD, style.getColor());
 	}
 }

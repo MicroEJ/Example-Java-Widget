@@ -35,9 +35,7 @@ import ej.widget.util.color.GradientHelper;
  */
 public class Wheel extends Widget {
 
-	/**
-	 * The extra field ID for the color of the horizontal lines.
-	 */
+	/** The extra field ID for the color of the horizontal lines. */
 	public static final int LINE_COLOR_FIELD = 0;
 
 	private static final int RELEASE_WITH_NO_MOVE_DELAY = 150;

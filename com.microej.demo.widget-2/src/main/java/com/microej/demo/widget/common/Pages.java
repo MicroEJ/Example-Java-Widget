@@ -16,6 +16,7 @@ import com.microej.demo.widget.progressbar.ProgressBarPage;
 import com.microej.demo.widget.radiobutton.RadioButtonPage;
 import com.microej.demo.widget.scrollablelist.ScrollableListPage;
 import com.microej.demo.widget.split.SplitPage;
+import com.microej.demo.widget.toggle.TogglePage;
 
 /**
  * List of the known pages.
@@ -27,6 +28,7 @@ public class Pages {
 			new ButtonPage(), //
 			new CheckboxPage(), //
 			new RadioButtonPage(), //
+			new TogglePage(), //
 			new ProgressBarPage(), //
 			new IndeterminateProgressBarPage(), //
 			new ListPage(), //

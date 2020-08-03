@@ -10,3 +10,6 @@
 /images/microej_banner.png:RGB565
 /images/rounded-corner.png:A4
 /images/rounded-corner-bottom.png:A4
+/images/toggle-background.png:A4
+/images/toggle-cursor-on.png:ARGB4444
+/images/toggle-cursor-off.png:ARGB4444

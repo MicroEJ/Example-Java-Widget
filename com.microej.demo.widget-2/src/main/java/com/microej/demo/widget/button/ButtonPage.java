@@ -10,12 +10,12 @@ import com.microej.demo.widget.common.Fonts;
 import com.microej.demo.widget.common.Page;
 
 import ej.microui.display.Colors;
-import ej.microui.display.ResourceImage;
+import ej.microui.display.Image;
 import ej.mwt.Widget;
 import ej.mwt.style.EditableStyle;
 import ej.mwt.style.background.ImageBackground;
 import ej.mwt.style.background.RoundedBackground;
-import ej.mwt.style.dimension.OptimalDimension;
+import ej.mwt.style.dimension.FixedDimension;
 import ej.mwt.style.outline.UniformOutline;
 import ej.mwt.style.outline.border.RectangularBorder;
 import ej.mwt.style.outline.border.RoundedBorder;
@@ -56,7 +56,7 @@ public class ButtonPage implements Page {
 
 		// all buttons
 		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(Button.class));
-		style.setDimension(OptimalDimension.OPTIMAL_DIMENSION_XY);
+		style.setDimension(new FixedDimension(154, 20));
 		style.setPadding(new UniformOutline(10));
 		style.setFont(Fonts.getBoldFont());
 
@@ -80,13 +80,12 @@ public class ButtonPage implements Page {
 
 		// image button
 		style = stylesheet.getSelectorStyle(imageButton);
-		style.setBackground(new ImageBackground(ResourceImage.loadImage(BUTTON_IMAGE), Colors.WHITE));
+		style.setBackground(new ImageBackground(Image.getImage(BUTTON_IMAGE), Colors.WHITE));
 
 		// active image button
 		style = stylesheet.getSelectorStyle(new AndCombinator(imageButton, activeSelector));
-		style.setBackground(new ImageBackground(ResourceImage.loadImage(PRESSED_BUTTON_IMAGE), Colors.WHITE));
-
-		// TODO: close images when this page is closed
+		style.setBackground(new ImageBackground(Image.getImage(PRESSED_BUTTON_IMAGE), Colors.WHITE));
+		style.setColor(DemoColors.CORAL);
 	}
 
 	@Override

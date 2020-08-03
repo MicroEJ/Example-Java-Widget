@@ -27,9 +27,7 @@ import ej.widget.util.StringPainter;
  */
 public abstract class BasicChart extends Chart implements Animation {
 
-	/**
-	 * The extra field ID for the selected color.
-	 */
+	/** The extra field ID for the selected color. */
 	public static final int SELECTED_COLOR = 0;
 
 	/* package */ static final int LEFT_PADDING = 30;

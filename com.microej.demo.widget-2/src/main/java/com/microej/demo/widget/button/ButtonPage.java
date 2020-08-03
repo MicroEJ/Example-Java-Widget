@@ -10,7 +10,7 @@ import com.microej.demo.widget.common.Fonts;
 import com.microej.demo.widget.common.Page;
 
 import ej.microui.display.Colors;
-import ej.microui.display.ResourceImage;
+import ej.microui.display.Image;
 import ej.mwt.Widget;
 import ej.mwt.style.EditableStyle;
 import ej.mwt.style.background.ImageBackground;
@@ -80,14 +80,12 @@ public class ButtonPage implements Page {
 
 		// image button
 		style = stylesheet.getSelectorStyle(imageButton);
-		style.setBackground(new ImageBackground(ResourceImage.loadImage(BUTTON_IMAGE), Colors.WHITE));
+		style.setBackground(new ImageBackground(Image.getImage(BUTTON_IMAGE), Colors.WHITE));
 
 		// active image button
 		style = stylesheet.getSelectorStyle(new AndCombinator(imageButton, activeSelector));
-		style.setBackground(new ImageBackground(ResourceImage.loadImage(PRESSED_BUTTON_IMAGE), Colors.WHITE));
+		style.setBackground(new ImageBackground(Image.getImage(PRESSED_BUTTON_IMAGE), Colors.WHITE));
 		style.setColor(DemoColors.CORAL);
-
-		// TODO: close images when this page is closed
 	}
 
 	@Override

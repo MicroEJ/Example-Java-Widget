@@ -59,6 +59,9 @@ public class MainPage implements Page {
 		style.setHorizontalAlignment(Alignment.LEFT);
 		style.setBackground(new GoToBackground(Colors.WHITE));
 
+		style = stylesheet.getSelectorStyle(new TypeSelector(Scroll.class));
+		style.setBackground(new RectangularBackground(Colors.WHITE));
+
 		style = stylesheet
 				.getSelectorStyle(new AndCombinator(new ClassSelector(LIST_ITEM), OddChildSelector.ODD_CHILD_SELECTOR));
 		style.setBackground(new GoToBackground(GRAY));

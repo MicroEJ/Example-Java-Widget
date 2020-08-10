@@ -9,7 +9,6 @@ import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Fonts;
 import com.microej.demo.widget.common.Page;
 
-import ej.microui.display.Colors;
 import ej.microui.display.Image;
 import ej.mwt.Widget;
 import ej.mwt.style.EditableStyle;
@@ -80,11 +79,11 @@ public class ButtonPage implements Page {
 
 		// image button
 		style = stylesheet.getSelectorStyle(imageButton);
-		style.setBackground(new ImageBackground(Image.getImage(BUTTON_IMAGE), Colors.WHITE));
+		style.setBackground(new ImageBackground(Image.getImage(BUTTON_IMAGE)));
 
 		// active image button
 		style = stylesheet.getSelectorStyle(new AndCombinator(imageButton, activeSelector));
-		style.setBackground(new ImageBackground(Image.getImage(PRESSED_BUTTON_IMAGE), Colors.WHITE));
+		style.setBackground(new ImageBackground(Image.getImage(PRESSED_BUTTON_IMAGE)));
 		style.setColor(DemoColors.CORAL);
 	}
 

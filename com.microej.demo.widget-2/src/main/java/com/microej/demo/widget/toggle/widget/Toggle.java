@@ -5,6 +5,7 @@
  */
 package com.microej.demo.widget.toggle.widget;
 
+import ej.annotation.Nullable;
 import ej.bon.XMath;
 import ej.microui.display.Colors;
 import ej.microui.display.Font;
@@ -44,8 +45,11 @@ public class Toggle extends Widget implements Animation {
 
 	private final String text;
 
+	@Nullable
 	private ResourceImage backgroundImage;
+	@Nullable
 	private ResourceImage cursorOnImage;
+	@Nullable
 	private ResourceImage cursorOffImage;
 
 	private boolean checked;
@@ -61,11 +65,8 @@ public class Toggle extends Widget implements Animation {
 		setEnabled(true);
 
 		this.text = text;
-		this.backgroundImage = null;
-		this.cursorOnImage = null;
-		this.cursorOffImage = null;
-		this.checked = false;
-		this.animEndTime = 0;
+		// this.checked = false; VM_DONE
+		// this.animEndTime = 0; VM_DONE
 	}
 
 	@Override
@@ -77,9 +78,18 @@ public class Toggle extends Widget implements Animation {
 
 	@Override
 	protected void onDetached() {
-		this.backgroundImage.close();
-		this.cursorOnImage.close();
-		this.cursorOffImage.close();
+		final ResourceImage backgroundImage = this.backgroundImage;
+		if (backgroundImage != null) {
+			backgroundImage.close();
+		}
+		final ResourceImage cursorOnImage = this.cursorOnImage;
+		if (cursorOnImage != null) {
+			cursorOnImage.close();
+		}
+		final ResourceImage cursorOffImage = this.cursorOffImage;
+		if (cursorOffImage != null) {
+			cursorOffImage.close();
+		}
 	}
 
 	@Override
@@ -89,6 +99,13 @@ public class Toggle extends Widget implements Animation {
 		int horizontalAlignment = style.getHorizontalAlignment();
 		int verticalAlignment = style.getVerticalAlignment();
 
+		final ResourceImage backgroundImage = this.backgroundImage;
+		assert backgroundImage != null;
+		final ResourceImage cursorOnImage = this.cursorOnImage;
+		assert cursorOnImage != null;
+		final ResourceImage cursorOffImage = this.cursorOffImage;
+		assert cursorOffImage != null;
+
 		// compute checked ratio (1 = checked, 0 = unchecked, 0.5 = middle)
 		float ratio = (float) (this.animEndTime - System.currentTimeMillis()) / ANIM_DURATION;
 		ratio = XMath.limit(ratio, 0.0f, 1.0f);
@@ -97,31 +114,38 @@ public class Toggle extends Widget implements Animation {
 		}
 
 		// draw background
-		int backgroundX = Alignment.computeLeftX(computeWidth(this.text, font, this.backgroundImage), 0, contentWidth,
+		int backgroundX = Alignment.computeLeftX(computeWidth(this.text, font, backgroundImage), 0, contentWidth,
 				horizontalAlignment);
-		int backgroundY = Alignment.computeTopY(this.backgroundImage.getHeight(), 0, contentHeight, verticalAlignment);
+		int backgroundY = Alignment.computeTopY(backgroundImage.getHeight(), 0, contentHeight, verticalAlignment);
 		g.setColor(GradientHelper.blendColors(getUncheckedColor(style), getCheckedColor(style), ratio));
-		Painter.drawImage(g, this.backgroundImage, backgroundX, backgroundY);
+		Painter.drawImage(g, backgroundImage, backgroundX, backgroundY);
 
 		// draw cursor
-		Image cursorImage = this.checked ? this.cursorOnImage : this.cursorOffImage;
-		int cursorTranslation = this.backgroundImage.getWidth() - cursorImage.getWidth();
+		Image cursorImage = this.checked ? cursorOnImage : cursorOffImage;
+		int cursorTranslation = backgroundImage.getWidth() - cursorImage.getWidth();
 		int cursorX = backgroundX + (int) (ratio * cursorTranslation);
 		int cursorY = Alignment.computeTopY(cursorImage.getHeight(), 0, contentHeight, verticalAlignment);
 		g.setColor(style.getColor());
 		Painter.drawImage(g, cursorImage, cursorX, cursorY);
 
 		// draw text
-		int textX = backgroundX + this.backgroundImage.getWidth() + computeSpacing(font);
+		int textX = backgroundX + backgroundImage.getWidth() + computeSpacing(font);
 		int textY = Alignment.computeTopY(font.getHeight(), 0, contentHeight, verticalAlignment);
 		Painter.drawString(g, this.text, font, textX, textY);
 	}
 
 	@Override
 	protected void computeContentOptimalSize(Size size) {
+		final ResourceImage backgroundImage = this.backgroundImage;
+		assert backgroundImage != null;
+		final ResourceImage cursorOnImage = this.cursorOnImage;
+		assert cursorOnImage != null;
+		final ResourceImage cursorOffImage = this.cursorOffImage;
+		assert cursorOffImage != null;
+
 		Font font = getStyle().getFont();
-		int width = computeWidth(this.text, font, this.backgroundImage);
-		int height = computeHeight(font, this.backgroundImage, this.cursorOnImage, this.cursorOffImage);
+		int width = computeWidth(this.text, font, backgroundImage);
+		int height = computeHeight(font, backgroundImage, cursorOnImage, cursorOffImage);
 		size.setSize(width, height);
 	}
 

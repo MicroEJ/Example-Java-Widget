@@ -7,6 +7,7 @@ package com.microej.demo.widget.common;
 
 import com.microej.demo.widget.main.MainPage;
 
+import ej.annotation.Nullable;
 import ej.microui.MicroUI;
 import ej.microui.display.Display;
 import ej.mwt.Desktop;
@@ -22,6 +23,7 @@ import ej.widget.container.util.LayoutOrientation;
  */
 public class Navigation {
 
+	@Nullable
 	private static Desktop mainDesktop;
 
 	private Navigation() {
@@ -35,14 +37,16 @@ public class Navigation {
 	 */
 	public static void main(String[] args) {
 		MicroUI.start();
-		mainDesktop = createDesktop(new MainPage());
-		Display.getDisplay().requestShow(mainDesktop);
+		Desktop desktop = createDesktop(new MainPage());
+		mainDesktop = desktop;
+		Display.getDisplay().requestShow(desktop);
 	}
 
 	/**
 	 * Shows the main page.
 	 */
 	public static void showMainPage() {
+		assert mainDesktop != null;
 		TransitionDisplayable displayable = new TransitionDisplayable(mainDesktop, false);
 		Display.getDisplay().requestShow(displayable);
 	}

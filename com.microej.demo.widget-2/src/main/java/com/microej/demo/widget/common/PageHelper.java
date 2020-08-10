@@ -22,7 +22,7 @@ import ej.mwt.stylesheet.selector.ClassSelector;
 import ej.mwt.stylesheet.selector.StateSelector;
 import ej.mwt.stylesheet.selector.combinator.AndCombinator;
 import ej.mwt.util.Alignment;
-import ej.widget.basic.ButtonImage;
+import ej.widget.basic.ImageButton;
 import ej.widget.basic.ImageWidget;
 import ej.widget.container.OverlapContainer;
 import ej.widget.container.SimpleDock;
@@ -120,14 +120,14 @@ public class PageHelper {
 
 		Widget top;
 		if (canGoBack) {
-			ButtonImage buttonImage = new ButtonImage(MENU);
-			buttonImage.setOnClickListener(new OnClickListener() {
+			ImageButton imageButton = new ImageButton(MENU);
+			imageButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick() {
 					Navigation.showMainPage();
 				}
 			});
-			top = buttonImage;
+			top = imageButton;
 		} else {
 			top = new ImageWidget(ICON);
 		}

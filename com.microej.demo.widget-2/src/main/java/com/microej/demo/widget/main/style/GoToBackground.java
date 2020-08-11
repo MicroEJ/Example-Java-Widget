@@ -5,6 +5,7 @@
  */
 package com.microej.demo.widget.main.style;
 
+import ej.annotation.Nullable;
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.Image;
 import ej.microui.display.Painter;
@@ -38,7 +39,7 @@ public class GoToBackground extends RectangularBackground {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(@Nullable Object obj) {
 		if (obj instanceof GoToBackground) {
 			GoToBackground background = (GoToBackground) obj;
 			return super.equals(obj) && this.goToImage == background.goToImage;

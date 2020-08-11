@@ -5,6 +5,7 @@
  */
 package com.microej.demo.widget.common;
 
+import ej.annotation.Nullable;
 import ej.microui.display.BufferedImage;
 import ej.microui.display.Display;
 import ej.microui.display.Displayable;
@@ -13,6 +14,7 @@ import ej.microui.display.Painter;
 import ej.motion.Motion;
 import ej.motion.quad.QuadEaseOutMotion;
 import ej.mwt.Desktop;
+import ej.mwt.Widget;
 import ej.mwt.animation.Animation;
 import ej.mwt.animation.Animator;
 import ej.service.ServiceFactory;
@@ -27,6 +29,7 @@ import ej.service.ServiceFactory;
 	private final Desktop newDesktop;
 	private final boolean forward;
 
+	@Nullable
 	private BufferedImage buffer;
 	private Motion motion;
 	private int lastPosition;
@@ -48,12 +51,15 @@ import ej.service.ServiceFactory;
 		Display display = Display.getDisplay();
 		int displayWidth = display.getWidth();
 		int displayHeight = display.getHeight();
-		this.buffer = new BufferedImage(displayWidth - PageHelper.TITLE_BAR_WIDTH, displayHeight);
+		BufferedImage bufferedImage = new BufferedImage(displayWidth - PageHelper.TITLE_BAR_WIDTH, displayHeight);
 
 		this.newDesktop.setAttached();
-		GraphicsContext imageGraphicsContext = this.buffer.getGraphicsContext();
+		GraphicsContext imageGraphicsContext = bufferedImage.getGraphicsContext();
+		this.buffer = bufferedImage;
 		imageGraphicsContext.translate(-PageHelper.TITLE_BAR_WIDTH, 0);
-		this.newDesktop.getWidget().render(imageGraphicsContext);
+		Widget widget = this.newDesktop.getWidget();
+		assert widget != null;
+		widget.render(imageGraphicsContext);
 
 		this.motion.start();
 		ServiceFactory.getRequiredService(Animator.class).startAnimation(this);
@@ -63,14 +69,20 @@ import ej.service.ServiceFactory;
 	@Override
 	protected void onHidden() {
 		super.onHidden();
-		this.buffer.close();
+		BufferedImage buffer = this.buffer;
+		if (buffer != null) {
+			buffer.close();
+			this.buffer = null;
+		}
 	}
 
 	@Override
 	protected void render(GraphicsContext gc) {
+		BufferedImage buffer = this.buffer;
+		assert buffer != null;
 		int currentValue = this.motion.getCurrentValue();
 		if (this.forward) {
-			Painter.drawImage(gc, this.buffer, currentValue, 0);
+			Painter.drawImage(gc, buffer, currentValue, 0);
 		} else {
 			Display display = Display.getDisplay();
 			int displayWidth = display.getWidth();
@@ -78,7 +90,7 @@ import ej.service.ServiceFactory;
 			int shift = currentValue - this.lastPosition;
 			Painter.drawDisplayRegion(gc, this.lastPosition, 0, displayWidth, displayHeight, currentValue, 0);
 			gc.setClip(this.lastPosition, 0, shift, displayHeight);
-			Painter.drawImage(gc, this.buffer, PageHelper.TITLE_BAR_WIDTH, 0);
+			Painter.drawImage(gc, buffer, PageHelper.TITLE_BAR_WIDTH, 0);
 			this.lastPosition = currentValue;
 		}
 	}

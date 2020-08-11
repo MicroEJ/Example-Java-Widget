@@ -58,6 +58,8 @@ public class Pages {
 	 * @return the page at the given index.
 	 */
 	public static Page getPage(int index) {
-		return ALL_PAGES[index];
+		Page page = ALL_PAGES[index];
+		assert page != null;
+		return page;
 	}
 }

@@ -1,1 +1,0 @@
-MicroEJ Studio provides tools built on Eclipse to develop software applications for MicroEJ-ready devices. MicroEJ Studio allows application developers to write Java applications, run them on a virtual (simulated) or real device, and publish them to the MicroEJ Application Store.

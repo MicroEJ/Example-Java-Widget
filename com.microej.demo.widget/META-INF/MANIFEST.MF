@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Application-Id: WidgetDemo
-Application-Version: 6.1.1
-Application-PrintableName: Widget Demo
-Application-Description: This demo illustrates the Widget library (ej.widget, ej.container, ej.style, ej.navigation, ej.color) based on MicroUI 2 and MWT 2.
-Application-Activities: com.microej.demo.widget.MainActivity

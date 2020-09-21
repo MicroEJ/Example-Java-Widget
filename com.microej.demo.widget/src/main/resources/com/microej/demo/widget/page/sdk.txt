@@ -1,1 +1,0 @@
-MicroEJ SDK provides a scalable OS and tools built on Eclipse to develop software for embedded and IoT devices. MicroEJ Workbench allows firmware developers to integrate, configure, and build an embedded MicroEJ OS for running mixed Java and C software applications on their device.

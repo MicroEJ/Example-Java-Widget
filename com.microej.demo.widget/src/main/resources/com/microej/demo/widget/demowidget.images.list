@@ -1,0 +1,14 @@
+# Copyright 2020 MicroEJ Corp. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be found with this software.
+
+/images/button-pressed.png:RGB565
+/images/button.png:RGB565
+/images/ic-app_layout.png:A4
+/images/ic-list.png:A4
+/images/ic-arrow.png:ARGB4444
+/images/microej_banner.png:RGB565
+/images/rounded-corner.png:A4
+/images/rounded-corner-bottom.png:A4
+/images/toggle-background.png:A4
+/images/toggle-cursor-on.png:ARGB4444
+/images/toggle-cursor-off.png:ARGB4444

@@ -1,1 +1,0 @@
-MicroEJ Application Store provides Cloud-based services to deploy software applications to MicroEJ-ready devices. MicroEJ Application Store allows OEMs to manage users, expose devices, distribute and monetize applications.

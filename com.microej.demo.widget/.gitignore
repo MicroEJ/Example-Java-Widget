@@ -8,5 +8,5 @@
 /src-adpgenerated
 /ej.*
 /com.*
-/launches/*.properties
+/launchers/*.properties
 /bin-test/

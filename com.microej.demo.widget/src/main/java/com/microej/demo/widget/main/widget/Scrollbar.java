@@ -52,8 +52,8 @@ public class Scrollbar extends Widget {
 
 	private static final int MINIMUM_RATIO = 4;
 	private static final int MINIMUM_SIZE = 4;
-	private static final int MINIMUM_HEIGHT = 50;
-	private static final int MAXIMUM_HEIGHT = 120;
+	private static final int MINIMUM_LENGTH_RATIO = 25;
+	private static final int MAXIMUM_LENGTH_RATIO = 75;
 
 	private boolean horizontal;
 	private int maximum;
@@ -139,7 +139,9 @@ public class Scrollbar extends Widget {
 		int expectedLength = Math.max(availableLength * availableLength / this.maximum, size * MINIMUM_RATIO);
 		// Don't know why the minimum size is '2', but with lower values the result is not correct.
 		int finalLength = XMath.limit(expectedLength - excess, 2, availableLength - excess);
-		return XMath.limit(finalLength - 1, MINIMUM_HEIGHT, MAXIMUM_HEIGHT);
+		int minimumLength = availableLength * MINIMUM_LENGTH_RATIO / 100;
+		int maximumLength = availableLength * MAXIMUM_LENGTH_RATIO / 100;
+		return XMath.limit(finalLength - 1, minimumLength, maximumLength);
 	}
 
 	private int getBarPosition(int totalSize, int barSize, int size) {

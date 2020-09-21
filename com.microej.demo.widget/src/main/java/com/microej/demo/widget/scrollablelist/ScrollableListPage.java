@@ -33,6 +33,8 @@ import ej.widget.container.LayoutOrientation;
  */
 public class ScrollableListPage implements Page {
 
+	private static final int NUM_ITEMS = 20;
+
 	private static final int SCROLL = 70898;
 	private static final int LIST_ITEM = 70899;
 
@@ -69,7 +71,7 @@ public class ScrollableListPage implements Page {
 		scroll.addClassSelector(SCROLL);
 		ScrollableList list = new ScrollableList(LayoutOrientation.VERTICAL);
 		scroll.setChild(list);
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < NUM_ITEMS; i++) {
 			Label label = new Label("Item " + i); //$NON-NLS-1$
 			label.addClassSelector(LIST_ITEM);
 			list.addChild(label);

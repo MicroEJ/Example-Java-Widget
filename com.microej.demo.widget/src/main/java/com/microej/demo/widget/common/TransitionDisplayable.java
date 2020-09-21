@@ -4,8 +4,6 @@
  */
 package com.microej.demo.widget.common;
 
-import ej.annotation.Nullable;
-import ej.microui.display.BufferedImage;
 import ej.microui.display.Display;
 import ej.microui.display.Displayable;
 import ej.microui.display.GraphicsContext;
@@ -28,8 +26,6 @@ import ej.mwt.animation.Animator;
 	private final boolean forward;
 	private final Animator animator;
 
-	@Nullable
-	private BufferedImage buffer;
 	private Motion motion;
 	private int lastPosition;
 
@@ -48,18 +44,6 @@ import ej.mwt.animation.Animator;
 	@Override
 	protected void onShown() {
 		super.onShown();
-		Display display = Display.getDisplay();
-		int displayWidth = display.getWidth();
-		int displayHeight = display.getHeight();
-		BufferedImage bufferedImage = new BufferedImage(displayWidth - PageHelper.TITLE_BAR_WIDTH, displayHeight);
-
-		this.newDesktop.setAttached();
-		GraphicsContext imageGraphicsContext = bufferedImage.getGraphicsContext();
-		this.buffer = bufferedImage;
-		imageGraphicsContext.translate(-PageHelper.TITLE_BAR_WIDTH, 0);
-		Widget widget = this.newDesktop.getWidget();
-		assert widget != null;
-		widget.render(imageGraphicsContext);
 
 		this.motion.start();
 		this.animator.startAnimation(this);
@@ -67,32 +51,34 @@ import ej.mwt.animation.Animator;
 	}
 
 	@Override
-	protected void onHidden() {
-		super.onHidden();
-		BufferedImage buffer = this.buffer;
-		if (buffer != null) {
-			buffer.close();
-			this.buffer = null;
+	protected void render(GraphicsContext gc) {
+		int currentPosition = this.motion.getCurrentValue();
+
+		Display display = Display.getDisplay();
+		int displayWidth = display.getWidth();
+		int displayHeight = display.getHeight();
+
+		if (this.forward) {
+			renderNewDesktop(gc, currentPosition - PageHelper.TITLE_BAR_WIDTH, currentPosition,
+					displayWidth - currentPosition);
+		} else {
+			int lastPosition = this.lastPosition;
+			Painter.drawDisplayRegion(gc, lastPosition, 0, displayWidth - currentPosition, displayHeight,
+					currentPosition, 0);
+			renderNewDesktop(gc, 0, lastPosition, currentPosition - lastPosition);
+			this.lastPosition = currentPosition;
 		}
 	}
 
-	@Override
-	protected void render(GraphicsContext gc) {
-		BufferedImage buffer = this.buffer;
-		assert buffer != null;
-		int currentValue = this.motion.getCurrentValue();
-		if (this.forward) {
-			Painter.drawImage(gc, buffer, currentValue, 0);
-		} else {
-			Display display = Display.getDisplay();
-			int displayWidth = display.getWidth();
-			int displayHeight = display.getHeight();
-			int shift = currentValue - this.lastPosition;
-			Painter.drawDisplayRegion(gc, this.lastPosition, 0, displayWidth, displayHeight, currentValue, 0);
-			gc.setClip(this.lastPosition, 0, shift, displayHeight);
-			Painter.drawImage(gc, buffer, PageHelper.TITLE_BAR_WIDTH, 0);
-			this.lastPosition = currentValue;
-		}
+	private void renderNewDesktop(GraphicsContext gc, int x, int clipX, int clipWidth) {
+		gc.setClip(clipX, 0, clipWidth, gc.getHeight());
+		gc.setTranslation(x, 0);
+
+		Desktop newDesktop = this.newDesktop;
+		newDesktop.setAttached();
+		Widget widget = newDesktop.getWidget();
+		assert (widget != null);
+		widget.render(gc);
 	}
 
 	@Override

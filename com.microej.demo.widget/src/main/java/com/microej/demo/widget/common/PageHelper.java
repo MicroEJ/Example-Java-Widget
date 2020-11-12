@@ -5,6 +5,7 @@
 package com.microej.demo.widget.common;
 
 import ej.microui.display.Colors;
+import ej.microui.display.GraphicsContext;
 import ej.mwt.Desktop;
 import ej.mwt.Widget;
 import ej.mwt.animation.Animator;
@@ -131,7 +132,17 @@ public class PageHelper {
 	private static Widget createTitleBar(boolean canGoBack) {
 		SimpleDock dock = new SimpleDock(LayoutOrientation.VERTICAL);
 
-		Widget top;
+		Widget top = createTitleButton(canGoBack);
+		dock.setFirstChild(top);
+
+		ImageWidget verticalTitle = new ImageWidget(MICROEJ_BANNER);
+		dock.setCenterChild(verticalTitle);
+
+		return dock;
+	}
+
+	private static Widget createTitleButton(boolean canGoBack) {
+		Widget widget;
 		if (canGoBack) {
 			ImageButton imageButton = new ImageButton(MENU);
 			imageButton.setOnClickListener(new OnClickListener() {
@@ -140,17 +151,12 @@ public class PageHelper {
 					Navigation.showMainPage();
 				}
 			});
-			top = imageButton;
+			widget = imageButton;
 		} else {
-			top = new ImageWidget(ICON);
+			widget = new ImageWidget(ICON);
 		}
-		top.addClassSelector(TITLE_BAR_CLASSSELECTOR);
-		dock.setFirstChild(top);
-
-		ImageWidget verticalTitle = new ImageWidget(MICROEJ_BANNER);
-		dock.setCenterChild(verticalTitle);
-
-		return dock;
+		widget.addClassSelector(TITLE_BAR_CLASSSELECTOR);
+		return widget;
 	}
 
 	/**
@@ -163,7 +169,10 @@ public class PageHelper {
 	 */
 	public static void updateTitleBar(Widget pageWidget, boolean canGoBack) {
 		SimpleDock mainDock = (SimpleDock) pageWidget;
-		mainDock.setFirstChild(createTitleBar(canGoBack));
+		SimpleDock titleBar = (SimpleDock) mainDock.getFirstChild();
+		assert (titleBar != null);
+		titleBar.setFirstChild(createTitleButton(canGoBack));
+		titleBar.requestLayOut();
 	}
 
 	/**

@@ -84,7 +84,6 @@ public class Navigation {
 		assert (pageWidget != null);
 
 		PageHelper.updateTitleBar(pageWidget, canGoBack);
-		desktop.requestLayOut();
 	}
 
 	private static Desktop createDesktop(Page page) {

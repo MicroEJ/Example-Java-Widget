@@ -5,7 +5,6 @@
 package com.microej.demo.widget.common;
 
 import ej.microui.display.Colors;
-import ej.microui.display.GraphicsContext;
 import ej.mwt.Desktop;
 import ej.mwt.Widget;
 import ej.mwt.animation.Animator;

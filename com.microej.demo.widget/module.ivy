@@ -3,11 +3,10 @@
 	Use of this source code is governed by a BSD-style license that can be found with this software.
 -->
 <ivy-module version="2.0" xmlns:ea="http://www.easyant.org" xmlns:ej="https://developer.microej.com" ej:version="2.0.0">
-	<info organisation="com.microej.demo" module="widget" status="integration" revision="7.0.4">
-		<ea:build organisation="com.is2t.easyant.buildtypes" module="build-firmware-singleapp" revision="1.+">
-			<ea:property name="application.main.class" value="com.microej.demo.widget.common.Navigation"/>
-			<ea:property name="virtual.device.sim.only" value="set"/>
-		</ea:build>
+	<info organisation="com.microej.demo" module="widget" status="integration" revision="7.0.5">
+		<ea:build organisation="com.is2t.easyant.buildtypes" module="build-firmware-singleapp" revision="1.+"/>
+		<ea:property name="application.main.class" value="com.microej.demo.widget.common.Navigation"/>
+		<ea:property name="virtual.device.sim.only" value="set"/>
 	</info>
 
 	<configurations defaultconfmapping="default->default;provided->provided;vdruntime->default">
@@ -27,9 +26,8 @@
 	<dependencies>
 		<dependency org="ej.api" name="edc" rev="1.3.3"/>
 		<dependency org="ej.api" name="bon" rev="1.4.0"/>
-		<dependency org="ej.api" name="microui" rev="3.0.1">
-			<exclude org="ej.api" module="edc" />
-		</dependency>
+		<dependency org="ej.api" name="microui" rev="3.0.3"/>
+		<dependency org="ej.api" name="drawing" rev="1.0.2"/>
 
 		<dependency org="ej.library.ui" name="mwt" rev="3.1.1"/>
 		<dependency org="ej.library.ui" name="widget" rev="3.1.0"/>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.toggle.widget;
@@ -13,6 +13,7 @@ import ej.microui.display.Image;
 import ej.microui.display.Painter;
 import ej.microui.display.ResourceImage;
 import ej.microui.event.Event;
+import ej.microui.event.generator.Buttons;
 import ej.microui.event.generator.Pointer;
 import ej.mwt.Widget;
 import ej.mwt.animation.Animation;
@@ -42,7 +43,6 @@ public class Toggle extends Widget implements Animation {
 	private static final long ANIM_DURATION = 150;
 
 	private final String text;
-	private final Animator animator;
 
 	@Nullable
 	private ResourceImage backgroundImage;
@@ -59,14 +59,9 @@ public class Toggle extends Widget implements Animation {
 	 *
 	 * @param text
 	 *            the text to display.
-	 * @param animator
-	 *            the animator to use.
 	 */
-	public Toggle(String text, Animator animator) {
-		setEnabled(true);
-
+	public Toggle(String text) {
 		this.text = text;
-		this.animator = animator;
 		// this.checked = false; VM_DONE
 		// this.animEndTime = 0; VM_DONE
 	}
@@ -92,6 +87,16 @@ public class Toggle extends Widget implements Animation {
 		if (cursorOffImage != null) {
 			cursorOffImage.close();
 		}
+	}
+
+	@Override
+	public void onShown() {
+		setEnabled(true);
+	}
+
+	@Override
+	protected void onHidden() {
+		getDesktop().getAnimator().stopAnimation(this);
 	}
 
 	@Override
@@ -155,13 +160,14 @@ public class Toggle extends Widget implements Animation {
 	public boolean handleEvent(int event) {
 		int type = Event.getType(event);
 		if (type == Pointer.EVENT_TYPE) {
-			int action = Pointer.getAction(event);
-			if (action == Pointer.RELEASED) {
+			int action = Buttons.getAction(event);
+			if (action == Buttons.RELEASED) {
 				this.checked = !this.checked;
 				this.animEndTime = System.currentTimeMillis() + ANIM_DURATION;
 				requestRender();
-				this.animator.stopAnimation(this);
-				this.animator.startAnimation(this);
+				Animator animator = getDesktop().getAnimator();
+				animator.stopAnimation(this);
+				animator.startAnimation(this);
 				return true;
 			}
 		}

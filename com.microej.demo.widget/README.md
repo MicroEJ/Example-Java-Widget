@@ -1,6 +1,6 @@
 # Overview
 
-This demo illustrates the widgets and containers available in the widget library: `ej.library.ui#widget-3.1.0 <https://repository.microej.com/artifacts/ej/library/ui/widget/3.1.0/>`_.
+This demo illustrates the widgets and containers available in the widget library: [ej.library.ui#widget-3.1.0](https://repository.microej.com/modules/ej/library/ui/widget/3.1.0/).
 
 At startup, it shows a list of items.
 Clicking on an item opens a new page showing a widget or a set of widgets.
@@ -18,17 +18,31 @@ Each page class contains 2 methods:
 Here are the pages:
 
 - `Label`: demonstrates the simple `Label` widget from the widget library.
+- `AutoscrollLabel`: demonstrates a label which autoscroll when the label text is longer than label length.
+- `Image Widget` : demonstrates how to display an image using `ImageWidget` from the widget library.
+- `Slider with value` : demonstrate a Slider with displayed value.
+- `Slider with progress` : demonstrate a Slider with progress.
 - `Button`: demonstrates different styles of the simple `Button` widget from the widget library.
 - `Checkbox`: demonstrates a `Checkbox` widget.
 - `Radio Button`: demonstrates a `RadioButton` widget.
 - `Toggle`: demonstrates a `Toggle` widget animated when its state changes.
 - `Progress Bar`: demonstrates a `ProgressBar` widget.
 - `Indeterminate Progress Bar`: demonstrates an `IndeterminateProgressBar` widget.
+- `Keyboard`: demonstrates a keyboard widget.
+- `Circular Indeterminate Progress`: demonstrates a `CircularIndeterminateProgress` widget.
+- `Circular Dotted Progress`: demonstrates a `CircularDottedProgress` widget.
+- `Circular Progress`: demonstrates a `CircularProgress` widget.
+- `Wheel` : demonstrates a `Wheel` widget.
+- `Carousel`: demonstrates a `Carousel` widget.
 - `List`: demonstrates the `List` container from the widget library.
 - `Grid`: demonstrates the `Grid` container from the widget library.
 - `Dock`: demonstrates the `Dock` container from the widget library.
 - `Split`: demonstrates a `Split` container.
 - `Scrollable List`: demonstrates a `Scrollable List` container.
+- `Scrollable Text`: demonstrates displaying a long, scrollable text.
+- `Line Chart`: demonstrates a `LineChart` widget.
+- `Bar Chart`: demonstrates a `BarChart` widget.
+
 
 # Usage
 
@@ -59,5 +73,5 @@ N/A
 None.
 
 ---  
-_Copyright 2020 MicroEJ Corp. All rights reserved._  
+_Copyright 2020-2021 MicroEJ Corp. All rights reserved._  
 _Use of this source code is governed by a BSD-style license that can be found with this software._  

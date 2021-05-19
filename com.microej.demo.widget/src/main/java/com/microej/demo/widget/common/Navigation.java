@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common;
@@ -11,7 +11,6 @@ import ej.microui.MicroUI;
 import ej.microui.display.Display;
 import ej.mwt.Desktop;
 import ej.mwt.Widget;
-import ej.mwt.animation.Animator;
 import ej.mwt.stylesheet.CachedStylesheet;
 import ej.mwt.stylesheet.Stylesheet;
 import ej.mwt.stylesheet.cascading.CascadingStylesheet;
@@ -56,8 +55,7 @@ public class Navigation {
 		assert (pageWidget != null);
 		PageHelper.updateTitleBar(pageWidget, false);
 
-		Animator animator = PageHelper.getAnimator();
-		TransitionDisplayable displayable = new TransitionDisplayable(desktop, false, animator);
+		TransitionDisplayable displayable = new TransitionDisplayable(desktop, false);
 		Display.getDisplay().requestShow(displayable);
 	}
 
@@ -71,8 +69,7 @@ public class Navigation {
 		updateTitleBar(true);
 
 		Desktop desktop = createDesktop(page);
-		Animator animator = PageHelper.getAnimator();
-		TransitionDisplayable displayable = new TransitionDisplayable(desktop, true, animator);
+		TransitionDisplayable displayable = new TransitionDisplayable(desktop, true);
 		Display.getDisplay().requestShow(displayable);
 	}
 

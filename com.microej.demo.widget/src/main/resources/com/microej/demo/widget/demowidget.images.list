@@ -1,4 +1,4 @@
-# Copyright 2020 MicroEJ Corp. All rights reserved.
+# Copyright 2020-2021 MicroEJ Corp. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be found with this software.
 
 /images/button-pressed.png:RGB565
@@ -12,3 +12,9 @@
 /images/toggle-background.png:A4
 /images/toggle-cursor-on.png:ARGB4444
 /images/toggle-cursor-off.png:ARGB4444
+/images/microej_background.png:ARGB4444
+/images/carousel/cowboy.png:ARGB4444
+/images/carousel/frenchie.png:ARGB4444
+/images/carousel/santa.png:ARGB4444
+/images/carousel/space.png:ARGB4444
+/images/carousel/superjeo.png:ARGB4444

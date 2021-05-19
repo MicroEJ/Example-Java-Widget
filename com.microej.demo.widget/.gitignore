@@ -10,3 +10,4 @@
 /com.*
 /launchers/*.properties
 /bin-test/
+/.scannerwork

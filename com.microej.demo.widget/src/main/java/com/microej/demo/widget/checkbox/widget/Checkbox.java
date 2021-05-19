@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.checkbox.widget;
@@ -8,6 +8,7 @@ import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.Painter;
 import ej.microui.event.Event;
+import ej.microui.event.generator.Buttons;
 import ej.microui.event.generator.Pointer;
 import ej.mwt.Widget;
 import ej.mwt.style.Style;
@@ -22,6 +23,9 @@ public class Checkbox extends Widget {
 	/** The extra field ID for the color of the checkbox when it is checked. */
 	public static final int CHECKED_COLOR_FIELD = 0;
 
+	private static final int INNER_BOX_OFFSET = 4;
+	private static final int BOX_SIZE_SPACING = 3;
+
 	private final String text;
 
 	private boolean checked;
@@ -33,10 +37,13 @@ public class Checkbox extends Widget {
 	 *            the text to display.
 	 */
 	public Checkbox(String text) {
-		setEnabled(true);
-
 		this.text = text;
 		this.checked = false;
+	}
+
+	@Override
+	public void onShown() {
+		setEnabled(true);
 	}
 
 	@Override
@@ -57,7 +64,8 @@ public class Checkbox extends Widget {
 		// fill box
 		if (this.checked) {
 			g.setColor(getCheckedColor(style));
-			Painter.fillRectangle(g, boxX + 4, boxY + 4, boxSize - 8, boxSize - 8);
+			int innerBoxSize = boxSize - INNER_BOX_OFFSET * 2;
+			Painter.fillRectangle(g, boxX + INNER_BOX_OFFSET, boxY + INNER_BOX_OFFSET, innerBoxSize, innerBoxSize);
 		}
 
 		// draw text
@@ -77,8 +85,8 @@ public class Checkbox extends Widget {
 	public boolean handleEvent(int event) {
 		int type = Event.getType(event);
 		if (type == Pointer.EVENT_TYPE) {
-			int action = Pointer.getAction(event);
-			if (action == Pointer.RELEASED) {
+			int action = Buttons.getAction(event);
+			if (action == Buttons.RELEASED) {
 				this.checked = !this.checked;
 				requestRender();
 				return true;
@@ -93,7 +101,7 @@ public class Checkbox extends Widget {
 	}
 
 	private static int computeBoxSize(Font font) {
-		return font.getHeight() - 3;
+		return font.getHeight() - BOX_SIZE_SPACING;
 	}
 
 	private static int computeSpacing(Font font) {

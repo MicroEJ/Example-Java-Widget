@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2015-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.indeterminateprogressbar.widget;
@@ -8,7 +8,6 @@ import ej.microui.display.GraphicsContext;
 import ej.microui.display.Painter;
 import ej.mwt.Widget;
 import ej.mwt.animation.Animation;
-import ej.mwt.animation.Animator;
 import ej.mwt.style.Style;
 import ej.mwt.util.Size;
 
@@ -19,18 +18,6 @@ import ej.mwt.util.Size;
 public class IndeterminateProgressBar extends Widget implements Animation {
 
 	private static final int ANIM_PERIOD = 1_000;
-
-	private final Animator animator;
-
-	/**
-	 * Creates an indeterminate progress bar.
-	 *
-	 * @param animator
-	 *            the animator to use.
-	 */
-	public IndeterminateProgressBar(Animator animator) {
-		this.animator = animator;
-	}
 
 	@Override
 	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
@@ -54,12 +41,12 @@ public class IndeterminateProgressBar extends Widget implements Animation {
 
 	@Override
 	protected void onShown() {
-		this.animator.startAnimation(this);
+		getDesktop().getAnimator().startAnimation(this);
 	}
 
 	@Override
 	protected void onHidden() {
-		this.animator.stopAnimation(this);
+		getDesktop().getAnimator().stopAnimation(this);
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2013-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.scrollablelist.widget;
@@ -20,7 +20,6 @@ import ej.widget.util.swipe.Swipeable;
  */
 public class Scroll extends Container {
 
-	private final Animator animator;
 	@Nullable
 	private Widget child;
 	@Nullable
@@ -40,17 +39,13 @@ public class Scroll extends Container {
 	 *
 	 * @param horizontal
 	 *            <code>true</code> to scroll horizontally, <code>false</code> to scroll vertically.
-	 * @param animator
-	 *            the animator to use.
 	 */
-	public Scroll(boolean horizontal, Animator animator) {
+	public Scroll(boolean horizontal) {
 		this.horizontal = horizontal;
-		this.animator = animator;
 		this.scrollbar = new Scrollbar(0);
 		this.scrollbar.setHorizontal(horizontal);
 		this.assistant = new ScrollAssistant();
 
-		setEnabled(true);
 		addChild(this.scrollbar);
 	}
 
@@ -169,8 +164,8 @@ public class Scroll extends Container {
 				swipeEventHandler.stop();
 			}
 
-			swipeEventHandler = new SwipeEventHandler(excess, false, this.horizontal, this.assistant);
-			swipeEventHandler.setAnimator(this.animator);
+			Animator animator = getDesktop().getAnimator();
+			swipeEventHandler = new SwipeEventHandler(excess, false, this.horizontal, this.assistant, animator);
 			swipeEventHandler.setSwipeListener(this.assistant);
 			swipeEventHandler.moveTo(this.value);
 			this.swipeEventHandler = swipeEventHandler;
@@ -178,6 +173,11 @@ public class Scroll extends Container {
 
 		int childCoordinate = -this.scrollbar.getValue();
 		updateViewport(childCoordinate);
+	}
+
+	@Override
+	public void onShown() {
+		setEnabled(true);
 	}
 
 	@Override

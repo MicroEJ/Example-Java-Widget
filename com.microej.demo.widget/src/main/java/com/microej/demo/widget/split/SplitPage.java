@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.split;
@@ -28,6 +28,11 @@ public class SplitPage implements Page {
 	private static final int SPLIT = 1100;
 	private static final int LABEL = 1101;
 
+	private static final float SPLIT_RATIO = 0.60f;
+	private static final int LABEL_MARGIN = 6;
+	private static final int LABEL_PADDING_SIDES = 7;
+	private static final int LABEL_PADDING_TOP_BOTTOM = 2;
+
 	@Override
 	public String getName() {
 		return "Split"; //$NON-NLS-1$
@@ -36,14 +41,15 @@ public class SplitPage implements Page {
 	@Override
 	public void populateStylesheet(CascadingStylesheet stylesheet) {
 		EditableStyle style = stylesheet.getSelectorStyle(new ClassSelector(SPLIT));
-		style.setExtraFloat(Split.RATIO_FIELD, 0.60f);
+		style.setExtraFloat(Split.RATIO_FIELD, SPLIT_RATIO);
 
 		style = stylesheet.getSelectorStyle(new ClassSelector(LABEL));
 		style.setHorizontalAlignment(Alignment.LEFT);
 		style.setVerticalAlignment(Alignment.TOP);
 		style.setFont(Fonts.getBoldFont());
-		style.setMargin(new UniformOutline(6));
-		style.setPadding(new FlexibleOutline(2, 7, 2, 7));
+		style.setMargin(new UniformOutline(LABEL_MARGIN));
+		style.setPadding(new FlexibleOutline(LABEL_PADDING_TOP_BOTTOM, LABEL_PADDING_SIDES, LABEL_PADDING_TOP_BOTTOM,
+				LABEL_PADDING_SIDES));
 		style.setBorder(new RectangularBorder(DemoColors.DEFAULT_FOREGROUND, 1));
 	}
 

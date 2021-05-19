@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2009-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.main.widget;
@@ -54,6 +54,8 @@ public class Scrollbar extends Widget {
 	private static final int MINIMUM_SIZE = 4;
 	private static final int MINIMUM_LENGTH_RATIO = 25;
 	private static final int MAXIMUM_LENGTH_RATIO = 75;
+
+	private static final int PERCENTAGE_DIVIDER = 100;
 
 	private boolean horizontal;
 	private int maximum;
@@ -139,8 +141,8 @@ public class Scrollbar extends Widget {
 		int expectedLength = Math.max(availableLength * availableLength / this.maximum, size * MINIMUM_RATIO);
 		// Don't know why the minimum size is '2', but with lower values the result is not correct.
 		int finalLength = XMath.limit(expectedLength - excess, 2, availableLength - excess);
-		int minimumLength = availableLength * MINIMUM_LENGTH_RATIO / 100;
-		int maximumLength = availableLength * MAXIMUM_LENGTH_RATIO / 100;
+		int minimumLength = availableLength * MINIMUM_LENGTH_RATIO / PERCENTAGE_DIVIDER;
+		int maximumLength = availableLength * MAXIMUM_LENGTH_RATIO / PERCENTAGE_DIVIDER;
 		return XMath.limit(finalLength - 1, minimumLength, maximumLength);
 	}
 

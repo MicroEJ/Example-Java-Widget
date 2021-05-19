@@ -1,11 +1,12 @@
 /*
- * Copyright 2015-2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2015-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.main.widget;
 
 import ej.annotation.Nullable;
 import ej.microui.event.Event;
+import ej.microui.event.generator.Buttons;
 import ej.microui.event.generator.Pointer;
 import ej.widget.basic.Label;
 import ej.widget.basic.OnClickListener;
@@ -25,7 +26,6 @@ public class MenuItem extends Label {
 	 */
 	public MenuItem(String text) {
 		super(text);
-		setEnabled(true);
 
 		this.onClickListener = null;
 	}
@@ -41,11 +41,16 @@ public class MenuItem extends Label {
 	}
 
 	@Override
+	public void onShown() {
+		setEnabled(true);
+	}
+
+	@Override
 	public boolean handleEvent(int event) {
 		int type = Event.getType(event);
 		if (type == Pointer.EVENT_TYPE) {
-			int action = Pointer.getAction(event);
-			if (action == Pointer.RELEASED) {
+			int action = Buttons.getAction(event);
+			if (action == Buttons.RELEASED) {
 				handleClick();
 				return true;
 			}

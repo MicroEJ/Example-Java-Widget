@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2013-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.main.widget;
@@ -20,7 +20,6 @@ import ej.widget.util.swipe.Swipeable;
  */
 public class Scroll extends Container {
 
-	private final Animator animator;
 	@Nullable
 	private Widget child;
 	@Nullable
@@ -41,18 +40,14 @@ public class Scroll extends Container {
 	 *
 	 * @param horizontal
 	 *            <code>true</code> to scroll horizontally, <code>false</code> to scroll vertically.
-	 * @param animator
-	 *            the animator to use.
 	 */
-	public Scroll(boolean horizontal, Animator animator) {
+	public Scroll(boolean horizontal) {
 		this.horizontal = horizontal;
-		this.animator = animator;
 		this.scrollbar = new Scrollbar(0);
 		this.scrollbar.setHorizontal(horizontal);
 		this.showScrollbar = true;
 		this.assistant = new ScrollAssistant();
 
-		setEnabled(true);
 		addChild(this.scrollbar);
 	}
 
@@ -155,6 +150,13 @@ public class Scroll extends Container {
 			scrollableChild.initializeViewport(contentWidth, contentHeight);
 		}
 
+		layoutOnScroll(contentWidth, contentHeight);
+
+		int childCoordinate = -this.scrollbar.getValue();
+		updateViewport(childCoordinate);
+	}
+
+	private void layoutOnScroll(int contentWidth, int contentHeight) {
 		Widget child = this.child;
 		int childOptimalWidth;
 		int childOptimalHeight;
@@ -166,6 +168,25 @@ public class Scroll extends Container {
 			childOptimalHeight = 0;
 		}
 
+		if (child != null) {
+			int excess = treatExcess(child, contentWidth, contentHeight, childOptimalWidth, childOptimalHeight);
+			if (excess > 0) {
+				SwipeEventHandler swipeEventHandler = this.swipeEventHandler;
+				if (swipeEventHandler != null) {
+					swipeEventHandler.stop();
+				}
+
+				Animator animator = getDesktop().getAnimator();
+				swipeEventHandler = new SwipeEventHandler(excess, false, this.horizontal, this.assistant, animator);
+				swipeEventHandler.setSwipeListener(this.assistant);
+				swipeEventHandler.moveTo(this.value);
+				this.swipeEventHandler = swipeEventHandler;
+			}
+		}
+	}
+
+	private int treatExcess(Widget child, int contentWidth, int contentHeight, int childOptimalWidth,
+			int childOptimalHeight) {
 		int excess;
 		if (this.horizontal) {
 			excess = childOptimalWidth - contentWidth;
@@ -177,9 +198,7 @@ public class Scroll extends Container {
 					this.layOutChild(this.scrollbar, 0, 0, contentWidth, scrollbarHeight);
 				}
 			}
-			if (child != null) {
-				layOutChild(child, 0, scrollbarHeight, childOptimalWidth, contentHeight - scrollbarHeight);
-			}
+			layOutChild(child, 0, scrollbarHeight, childOptimalWidth, contentHeight - scrollbarHeight);
 		} else {
 			excess = childOptimalHeight - contentHeight;
 			int scrollbarWidth = 0;
@@ -190,25 +209,14 @@ public class Scroll extends Container {
 					this.layOutChild(this.scrollbar, 0, 0, scrollbarWidth, contentHeight);
 				}
 			}
-			if (child != null) {
-				layOutChild(child, scrollbarWidth, 0, contentWidth - scrollbarWidth, childOptimalHeight);
-			}
+			layOutChild(child, scrollbarWidth, 0, contentWidth - scrollbarWidth, childOptimalHeight);
 		}
-		if (excess > 0) {
-			SwipeEventHandler swipeEventHandler = this.swipeEventHandler;
-			if (swipeEventHandler != null) {
-				swipeEventHandler.stop();
-			}
+		return excess;
+	}
 
-			swipeEventHandler = new SwipeEventHandler(excess, false, this.horizontal, this.assistant);
-			swipeEventHandler.setAnimator(this.animator);
-			swipeEventHandler.setSwipeListener(this.assistant);
-			swipeEventHandler.moveTo(this.value);
-			this.swipeEventHandler = swipeEventHandler;
-		}
-
-		int childCoordinate = -this.scrollbar.getValue();
-		updateViewport(childCoordinate);
+	@Override
+	public void onShown() {
+		setEnabled(true);
 	}
 
 	@Override

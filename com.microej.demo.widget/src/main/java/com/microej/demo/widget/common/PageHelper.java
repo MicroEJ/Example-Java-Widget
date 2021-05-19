@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common;
@@ -7,7 +7,6 @@ package com.microej.demo.widget.common;
 import ej.microui.display.Colors;
 import ej.mwt.Desktop;
 import ej.mwt.Widget;
-import ej.mwt.animation.Animator;
 import ej.mwt.render.OverlapRenderPolicy;
 import ej.mwt.render.RenderPolicy;
 import ej.mwt.style.EditableStyle;
@@ -19,6 +18,7 @@ import ej.mwt.style.outline.UniformOutline;
 import ej.mwt.style.outline.border.FlexibleRectangularBorder;
 import ej.mwt.stylesheet.cascading.CascadingStylesheet;
 import ej.mwt.stylesheet.selector.ClassSelector;
+import ej.mwt.stylesheet.selector.Selector;
 import ej.mwt.stylesheet.selector.StateSelector;
 import ej.mwt.stylesheet.selector.combinator.AndCombinator;
 import ej.mwt.util.Alignment;
@@ -46,9 +46,18 @@ public class PageHelper {
 	private static final String ROUNDED_CORNER = "/images/rounded-corner.png"; //$NON-NLS-1$
 	private static final String ROUNDED_CORNER_BOTTOM = "/images/rounded-corner-bottom.png"; //$NON-NLS-1$
 
-	private static final int TITLE_BAR_CLASSSELECTOR = 44696;
+	private static final int TITLE_BUTTON_CLASSSELECTOR = 44695;
+	private static final int BANNER_CLASSSELECTOR = 44696;
 	private static final int ROUNDED_CORNER_CLASSSELECTOR = 44697;
 	private static final int ROUNDED_CORNER_BOTTOM_CLASSSELECTOR = 44698;
+
+	private static final int TITLE_BUTTON_PADDING = 10;
+	private static final int TITLE_PADDING = 9;
+	private static final int TITLE_MARGIN_SIDES = 15;
+	private static final int TITLE_MARGIN_BOTTOM = 8;
+	private static final int CONTENT_PADDING_SIDES = 6;
+	private static final int CONTENT_PADDING_BOTTOM = 20;
+
 	/**
 	 * Class selector for the page title.
 	 */
@@ -58,18 +67,7 @@ public class PageHelper {
 	 */
 	public static final int CONTENT_CLASSSELECTOR = 44700;
 
-	private static final Animator ANIMATOR = new Animator();
-
 	private PageHelper() {
-	}
-
-	/**
-	 * Returns the animator instance.
-	 *
-	 * @return the animator instance.
-	 */
-	public static Animator getAnimator() {
-		return ANIMATOR;
 	}
 
 	/**
@@ -79,6 +77,8 @@ public class PageHelper {
 	 *            the stylesheet.
 	 */
 	public static void addCommonStyle(CascadingStylesheet stylesheet) {
+		Selector titleButton = new ClassSelector(TITLE_BUTTON_CLASSSELECTOR);
+
 		EditableStyle style = stylesheet.getDefaultStyle();
 		style.setColor(DemoColors.DEFAULT_FOREGROUND);
 		style.setBackground(new RectangularBackground(DemoColors.DEFAULT_BACKGROUND));
@@ -86,15 +86,18 @@ public class PageHelper {
 		style.setHorizontalAlignment(Alignment.HCENTER);
 		style.setVerticalAlignment(Alignment.VCENTER);
 
-		style = stylesheet.getSelectorStyle(new ClassSelector(TITLE_BAR_CLASSSELECTOR));
+		style = stylesheet.getSelectorStyle(titleButton);
 		style.setBackground(new RectangularBackground(DemoColors.CORAL));
 		style.setColor(Colors.WHITE);
-		style.setPadding(new UniformOutline(10));
+		style.setPadding(new UniformOutline(TITLE_BUTTON_PADDING));
 		style.setBorder(new FlexibleRectangularBorder(DemoColors.POMEGRANATE, 0, 0, 2, 0));
 
-		style = stylesheet.getSelectorStyle(
-				new AndCombinator(new ClassSelector(TITLE_BAR_CLASSSELECTOR), new StateSelector(ImageButton.ACTIVE)));
+		style = stylesheet.getSelectorStyle(new AndCombinator(titleButton, new StateSelector(ImageButton.ACTIVE)));
 		style.setBackground(new RectangularBackground(0xcf4520));
+
+		style = stylesheet.getSelectorStyle(new ClassSelector(BANNER_CLASSSELECTOR));
+		style.setBackground(new RectangularBackground(DemoColors.EMPTY_SPACE));
+		style.setVerticalAlignment(Alignment.TOP);
 
 		style = stylesheet.getSelectorStyle(new ClassSelector(ROUNDED_CORNER_CLASSSELECTOR));
 		style.setVerticalAlignment(Alignment.TOP);
@@ -105,13 +108,13 @@ public class PageHelper {
 		setRoundedCornerStyle(style);
 
 		style = stylesheet.getSelectorStyle(new ClassSelector(TITLE_CLASSSELECTOR));
-		style.setMargin(new FlexibleOutline(0, 15, 8, 15));
+		style.setMargin(new FlexibleOutline(0, TITLE_MARGIN_SIDES, TITLE_MARGIN_BOTTOM, TITLE_MARGIN_SIDES));
 		style.setBorder(new FlexibleRectangularBorder(DemoColors.CORAL, 0, 0, 2, 0));
-		style.setPadding(new UniformOutline(9));
+		style.setPadding(new UniformOutline(TITLE_PADDING));
 
 		style = stylesheet.getSelectorStyle(new ClassSelector(PageHelper.CONTENT_CLASSSELECTOR));
 		style.setBorder(new FlexibleRectangularBorder(DemoColors.EMPTY_SPACE, 0, 0, 0, PageHelper.LEFT_PADDING));
-		style.setPadding(new FlexibleOutline(0, 6, 20, 6));
+		style.setPadding(new FlexibleOutline(0, CONTENT_PADDING_SIDES, CONTENT_PADDING_BOTTOM, CONTENT_PADDING_SIDES));
 	}
 
 	private static void setRoundedCornerStyle(EditableStyle roundedCornerBottomStyle) {
@@ -134,8 +137,9 @@ public class PageHelper {
 		Widget top = createTitleButton(canGoBack);
 		dock.setFirstChild(top);
 
-		ImageWidget verticalTitle = new ImageWidget(MICROEJ_BANNER);
-		dock.setCenterChild(verticalTitle);
+		ImageWidget banner = new ImageWidget(MICROEJ_BANNER);
+		banner.addClassSelector(BANNER_CLASSSELECTOR);
+		dock.setCenterChild(banner);
 
 		return dock;
 	}
@@ -154,7 +158,7 @@ public class PageHelper {
 		} else {
 			widget = new ImageWidget(ICON);
 		}
-		widget.addClassSelector(TITLE_BAR_CLASSSELECTOR);
+		widget.addClassSelector(TITLE_BUTTON_CLASSSELECTOR);
 		return widget;
 	}
 
@@ -191,6 +195,7 @@ public class PageHelper {
 
 		OverlapContainer overlapContainer = new OverlapContainer();
 		overlapContainer.addChild(content);
+
 		ImageWidget topImage = new ImageWidget(ROUNDED_CORNER);
 		topImage.addClassSelector(ROUNDED_CORNER_CLASSSELECTOR);
 		overlapContainer.addChild(topImage);
@@ -199,7 +204,6 @@ public class PageHelper {
 		overlapContainer.addChild(bottomImage);
 
 		dock.setCenterChild(overlapContainer);
-
 		return dock;
 	}
 

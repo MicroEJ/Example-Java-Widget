@@ -1,24 +1,26 @@
 /*
- * Copyright 2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common;
 
+import ej.annotation.Nullable;
 import ej.microui.display.Display;
 import ej.microui.display.Displayable;
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.Painter;
 import ej.motion.Motion;
-import ej.motion.quad.QuadEaseOutMotion;
+import ej.motion.quad.QuadEaseOutFunction;
 import ej.mwt.Desktop;
 import ej.mwt.Widget;
-import ej.mwt.animation.Animation;
 import ej.mwt.animation.Animator;
+import ej.widget.util.motion.MotionAnimation;
+import ej.widget.util.motion.MotionAnimationListener;
 
 /**
  * Used by {@link Navigation} to do a transition between desktops.
  */
-/* package */ class TransitionDisplayable extends Displayable implements Animation {
+/* package */ class TransitionDisplayable extends Displayable implements MotionAnimationListener {
 
 	private static final int DURATION = 250;
 
@@ -26,37 +28,54 @@ import ej.mwt.animation.Animator;
 	private final boolean forward;
 	private final Animator animator;
 
-	private Motion motion;
+	private @Nullable MotionAnimation animation;
+	private int currentPosition;
 	private int lastPosition;
 
-	/* package */ TransitionDisplayable(Desktop newDesktop, boolean forward, Animator animator) {
+	/* package */ TransitionDisplayable(Desktop newDesktop, boolean forward) {
 		this.newDesktop = newDesktop;
 		this.forward = forward;
-		this.animator = animator;
-		int width = Display.getDisplay().getWidth();
-		if (forward) {
-			this.motion = new QuadEaseOutMotion(width, PageHelper.TITLE_BAR_WIDTH, DURATION);
-		} else {
-			this.motion = new QuadEaseOutMotion(PageHelper.TITLE_BAR_WIDTH, width, DURATION);
-		}
+		this.animator = new Animator();
 	}
 
 	@Override
 	protected void onShown() {
 		super.onShown();
 
-		this.motion.start();
-		this.animator.startAnimation(this);
-		this.lastPosition = PageHelper.TITLE_BAR_WIDTH;
+		Motion motion = createMotion(this.forward);
+		this.animation = new MotionAnimation(this.animator, motion, this);
+		this.animation.start();
+		this.currentPosition = motion.getStartValue();
+		this.lastPosition = this.currentPosition;
+	}
+
+	@Override
+	protected void onHidden() {
+		super.onHidden();
+
+		if (this.animation != null) {
+			this.animation.stop();
+			this.animation = null;
+		}
+	}
+
+	@Override
+	public void tick(int value, boolean finished) {
+		if (finished) {
+			this.newDesktop.requestShow();
+		} else {
+			this.currentPosition = value;
+			requestRender();
+		}
 	}
 
 	@Override
 	protected void render(GraphicsContext gc) {
-		int currentPosition = this.motion.getCurrentValue();
-
 		Display display = Display.getDisplay();
 		int displayWidth = display.getWidth();
 		int displayHeight = display.getHeight();
+
+		int currentPosition = this.currentPosition;
 
 		if (this.forward) {
 			renderNewDesktop(gc, currentPosition - PageHelper.TITLE_BAR_WIDTH, currentPosition,
@@ -66,8 +85,9 @@ import ej.mwt.animation.Animator;
 			Painter.drawDisplayRegion(gc, lastPosition, 0, displayWidth - currentPosition, displayHeight,
 					currentPosition, 0);
 			renderNewDesktop(gc, 0, lastPosition, currentPosition - lastPosition);
-			this.lastPosition = currentPosition;
 		}
+
+		this.lastPosition = currentPosition;
 	}
 
 	private void renderNewDesktop(GraphicsContext gc, int x, int clipX, int clipWidth) {
@@ -82,19 +102,16 @@ import ej.mwt.animation.Animator;
 	}
 
 	@Override
-	public boolean tick(long currentTimeMillis) {
-		if (this.motion.isFinished()) {
-			this.newDesktop.requestShow();
-			return false;
-		} else {
-			requestRender();
-			return true;
-		}
-	}
-
-	@Override
 	public boolean handleEvent(int event) {
 		return false;
 	}
 
+	private static Motion createMotion(boolean forward) {
+		int width = Display.getDisplay().getWidth();
+		if (forward) {
+			return new Motion(QuadEaseOutFunction.INSTANCE, width, PageHelper.TITLE_BAR_WIDTH, DURATION);
+		} else {
+			return new Motion(QuadEaseOutFunction.INSTANCE, PageHelper.TITLE_BAR_WIDTH, width, DURATION);
+		}
+	}
 }

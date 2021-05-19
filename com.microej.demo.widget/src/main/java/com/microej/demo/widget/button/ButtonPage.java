@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.button;
@@ -39,6 +39,14 @@ public class ButtonPage implements Page {
 	private static final int ROUNDED_BUTTON = 701;
 	private static final int IMAGE_BUTTON = 702;
 
+	private static final int BUTTONS_PADDING = 10;
+	private static final int BUTTONS_WIDTH = 154;
+	private static final int BUTTONS_HEIGHT = 20;
+
+	private static final int ROUNDED_CORNER_RADIUS = 4;
+	private static final int ROUNDED_BORDER_THICKNESS = 1;
+	private static final int RECTANGULAR_BORDER_THICKNESS = 1;
+
 	@Override
 	public String getName() {
 		return "Button"; //$NON-NLS-1$
@@ -53,27 +61,28 @@ public class ButtonPage implements Page {
 
 		// all buttons
 		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(Button.class));
-		style.setDimension(new FixedDimension(154, 20));
-		style.setPadding(new UniformOutline(10));
+		style.setDimension(new FixedDimension(BUTTONS_WIDTH, BUTTONS_HEIGHT));
+		style.setPadding(new UniformOutline(BUTTONS_PADDING));
 		style.setFont(Fonts.getBoldFont());
 
 		// rect button
 		style = stylesheet.getSelectorStyle(rectButton);
-		style.setBorder(new RectangularBorder(DemoColors.DEFAULT_BORDER, 1));
+		style.setBorder(new RectangularBorder(DemoColors.DEFAULT_BORDER, RECTANGULAR_BORDER_THICKNESS));
 
 		// active rect button
 		style = stylesheet.getSelectorStyle(new AndCombinator(rectButton, activeSelector));
-		style.setBorder(new RectangularBorder(DemoColors.POMEGRANATE, 1));
+		style.setBorder(new RectangularBorder(DemoColors.POMEGRANATE, RECTANGULAR_BORDER_THICKNESS));
 
 		// rounded button
 		style = stylesheet.getSelectorStyle(roundedButton);
-		style.setBorder(new RoundedBorder(DemoColors.ALTERNATE_BACKGROUND, 4, 1));
-		style.setBackground(new RoundedBackground(DemoColors.ALTERNATE_BACKGROUND, 4));
+		style.setBorder(
+				new RoundedBorder(DemoColors.ALTERNATE_BACKGROUND, ROUNDED_CORNER_RADIUS, ROUNDED_BORDER_THICKNESS));
+		style.setBackground(new RoundedBackground(DemoColors.ALTERNATE_BACKGROUND, ROUNDED_CORNER_RADIUS));
 
 		// active rounded button
 		style = stylesheet.getSelectorStyle(new AndCombinator(roundedButton, activeSelector));
-		style.setBorder(new RoundedBorder(DemoColors.POMEGRANATE, 4, 1));
-		style.setBackground(new RoundedBackground(DemoColors.POMEGRANATE, 4));
+		style.setBorder(new RoundedBorder(DemoColors.POMEGRANATE, ROUNDED_CORNER_RADIUS, ROUNDED_BORDER_THICKNESS));
+		style.setBackground(new RoundedBackground(DemoColors.POMEGRANATE, ROUNDED_CORNER_RADIUS));
 
 		// image button
 		style = stylesheet.getSelectorStyle(imageButton);

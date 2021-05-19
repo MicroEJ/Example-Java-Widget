@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2015-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.progressbar.widget;
@@ -23,6 +23,8 @@ public class ProgressBar extends Widget {
 	public static final int STRING_COLOR_FIELD = 0;
 
 	private static final int DEFAULT_STRING_COLOR = DefaultStyle.COLOR;
+
+	private static final int PROGRESS_MULTIPLIER = 100;
 
 	private float progress;
 
@@ -55,7 +57,7 @@ public class ProgressBar extends Widget {
 		Painter.fillRectangle(g, 0, 0, filledWidth, contentHeight);
 
 		// draw percentage string
-		int percentage = Math.round(100 * this.progress);
+		int percentage = Math.round(PROGRESS_MULTIPLIER * this.progress);
 		String string = Integer.toString(percentage) + "%"; //$NON-NLS-1$
 		g.setColor(getStringColor(style));
 		StringPainter.drawStringInArea(g, string, style.getFont(), 0, 0, contentWidth, contentHeight,

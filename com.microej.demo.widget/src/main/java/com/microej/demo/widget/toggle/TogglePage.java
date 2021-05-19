@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.toggle;
@@ -7,11 +7,9 @@ package com.microej.demo.widget.toggle;
 import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Fonts;
 import com.microej.demo.widget.common.Page;
-import com.microej.demo.widget.common.PageHelper;
 import com.microej.demo.widget.toggle.widget.Toggle;
 
 import ej.mwt.Widget;
-import ej.mwt.animation.Animator;
 import ej.mwt.style.EditableStyle;
 import ej.mwt.style.dimension.OptimalDimension;
 import ej.mwt.style.outline.UniformOutline;
@@ -49,15 +47,13 @@ public class TogglePage implements Page {
 
 	@Override
 	public Widget getContentWidget() {
-		Animator animator = PageHelper.getAnimator();
-
-		Toggle toggle1 = new Toggle("Offline mode", animator); //$NON-NLS-1$
+		Toggle toggle1 = new Toggle("Offline mode"); //$NON-NLS-1$
 		toggle1.addClassSelector(TOGGLE);
 
-		Toggle toggle2 = new Toggle("Notifications", animator); //$NON-NLS-1$
+		Toggle toggle2 = new Toggle("Notifications"); //$NON-NLS-1$
 		toggle2.addClassSelector(TOGGLE);
 
-		Toggle toggle3 = new Toggle("Dark theme", animator); //$NON-NLS-1$
+		Toggle toggle3 = new Toggle("Dark theme"); //$NON-NLS-1$
 		toggle3.addClassSelector(TOGGLE);
 
 		List list = new List(LayoutOrientation.VERTICAL);

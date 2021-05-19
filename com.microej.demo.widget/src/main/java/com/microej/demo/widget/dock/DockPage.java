@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.dock;
@@ -26,6 +26,17 @@ public class DockPage implements Page {
 
 	private static final int LABEL = 800;
 
+	private static final int LABEL_MARGIN = 6;
+	private static final int LABEL_PADDING_SIDES = 7;
+	private static final int LABEL_PADDING_TOP_BOTTOM = 2;
+
+	private static final String LABEL_ID_ONE = "1"; //$NON-NLS-1$
+	private static final String LABEL_ID_TWO = "2"; //$NON-NLS-1$
+	private static final String LABEL_ID_THREE = "3"; //$NON-NLS-1$
+	private static final String LABEL_ID_FOUR = "4"; //$NON-NLS-1$
+	private static final String LABEL_ID_FIVE = "5"; //$NON-NLS-1$
+	private static final String LABEL_ID_SIX = "6"; //$NON-NLS-1$
+
 	@Override
 	public String getName() {
 		return "Dock"; //$NON-NLS-1$
@@ -37,25 +48,26 @@ public class DockPage implements Page {
 		style.setHorizontalAlignment(Alignment.LEFT);
 		style.setVerticalAlignment(Alignment.TOP);
 		style.setFont(Fonts.getBoldFont());
-		style.setMargin(new UniformOutline(6));
-		style.setPadding(new FlexibleOutline(2, 7, 2, 7));
+		style.setMargin(new UniformOutline(LABEL_MARGIN));
+		style.setPadding(new FlexibleOutline(LABEL_PADDING_TOP_BOTTOM, LABEL_PADDING_SIDES, LABEL_PADDING_TOP_BOTTOM,
+				LABEL_PADDING_SIDES));
 		style.setBorder(new RectangularBorder(DemoColors.DEFAULT_FOREGROUND, 1));
 	}
 
 	@Override
 	public Widget getContentWidget() {
 		Dock dock = new Dock();
-		dock.addChildOnLeft(createLabel(1));
-		dock.addChildOnTop(createLabel(2));
-		dock.addChildOnRight(createLabel(3));
-		dock.addChildOnBottom(createLabel(4));
-		dock.addChildOnLeft(createLabel(5));
-		dock.setCenterChild(createLabel(6));
+		dock.addChildOnLeft(createLabel(LABEL_ID_ONE));
+		dock.addChildOnTop(createLabel(LABEL_ID_TWO));
+		dock.addChildOnRight(createLabel(LABEL_ID_THREE));
+		dock.addChildOnBottom(createLabel(LABEL_ID_FOUR));
+		dock.addChildOnLeft(createLabel(LABEL_ID_FIVE));
+		dock.setCenterChild(createLabel(LABEL_ID_SIX));
 		return dock;
 	}
 
-	private static Label createLabel(int id) {
-		Label label = new Label(Integer.toString(id));
+	private static Label createLabel(String id) {
+		Label label = new Label(id);
 		label.addClassSelector(LABEL);
 		return label;
 	}

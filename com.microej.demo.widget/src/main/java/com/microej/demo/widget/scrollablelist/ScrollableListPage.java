@@ -1,12 +1,11 @@
 /*
- * Copyright 2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.scrollablelist;
 
 import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Page;
-import com.microej.demo.widget.common.PageHelper;
 import com.microej.demo.widget.scrollablelist.widget.Scroll;
 import com.microej.demo.widget.scrollablelist.widget.ScrollableList;
 import com.microej.demo.widget.scrollablelist.widget.Scrollbar;
@@ -38,6 +37,13 @@ public class ScrollableListPage implements Page {
 	private static final int SCROLL = 70898;
 	private static final int LIST_ITEM = 70899;
 
+	private static final int SCROLLBAR_WIDTH = 10;
+	private static final int SCROLLBAR_PADDING = 1;
+	private static final int SCROLL_MARGIN_SIDES = 15;
+	private static final int LIST_ITEM_BORDER_THICKNESS = 1;
+	private static final int LIST_ITEM_MARGIN_SIDES = 10;
+	private static final int LIST_ITEM_MARGIN_TOP_BOTTOM = 5;
+
 	@Override
 	public String getName() {
 		return "Scrollable List"; //$NON-NLS-1$
@@ -47,16 +53,17 @@ public class ScrollableListPage implements Page {
 	public void populateStylesheet(CascadingStylesheet stylesheet) {
 		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(Scrollbar.class));
 		style.setBackground(NoBackground.NO_BACKGROUND);
-		style.setDimension(new FixedDimension(10, Widget.NO_CONSTRAINT));
-		style.setPadding(new UniformOutline(1));
+		style.setDimension(new FixedDimension(SCROLLBAR_WIDTH, Widget.NO_CONSTRAINT));
+		style.setPadding(new UniformOutline(SCROLLBAR_PADDING));
 		style.setColor(DemoColors.DEFAULT_FOREGROUND);
 
 		style = stylesheet.getSelectorStyle(new ClassSelector(SCROLL));
-		style.setMargin(new FlexibleOutline(0, 15, 0, 15));
+		style.setMargin(new FlexibleOutline(0, SCROLL_MARGIN_SIDES, 0, SCROLL_MARGIN_SIDES));
 
 		style = stylesheet.getSelectorStyle(new ClassSelector(LIST_ITEM));
-		style.setBorder(new FlexibleRectangularBorder(DemoColors.DEFAULT_BORDER, 1, 0, 0, 0));
-		style.setPadding(new FlexibleOutline(5, 10, 5, 10));
+		style.setBorder(new FlexibleRectangularBorder(DemoColors.DEFAULT_BORDER, LIST_ITEM_BORDER_THICKNESS, 0, 0, 0));
+		style.setPadding(new FlexibleOutline(LIST_ITEM_MARGIN_TOP_BOTTOM, LIST_ITEM_MARGIN_SIDES,
+				LIST_ITEM_MARGIN_TOP_BOTTOM, LIST_ITEM_MARGIN_SIDES));
 		style.setHorizontalAlignment(Alignment.LEFT);
 		style.setBackground(new RectangularBackground(DemoColors.DEFAULT_BACKGROUND));
 
@@ -67,7 +74,7 @@ public class ScrollableListPage implements Page {
 
 	@Override
 	public Widget getContentWidget() {
-		Scroll scroll = new Scroll(LayoutOrientation.VERTICAL, PageHelper.getAnimator());
+		Scroll scroll = new Scroll(LayoutOrientation.VERTICAL);
 		scroll.addClassSelector(SCROLL);
 		ScrollableList list = new ScrollableList(LayoutOrientation.VERTICAL);
 		scroll.setChild(list);

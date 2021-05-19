@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.label;
@@ -22,6 +22,8 @@ public class LabelPage implements Page {
 
 	private static final int LABEL = 600;
 
+	private static final int LABEL_PADDING = 10;
+
 	@Override
 	public String getName() {
 		return "Label"; //$NON-NLS-1$
@@ -31,7 +33,7 @@ public class LabelPage implements Page {
 	public void populateStylesheet(CascadingStylesheet stylesheet) {
 		EditableStyle style = stylesheet.getSelectorStyle(new ClassSelector(LABEL));
 		style.setDimension(OptimalDimension.OPTIMAL_DIMENSION_XY);
-		style.setPadding(new UniformOutline(10));
+		style.setPadding(new UniformOutline(LABEL_PADDING));
 		style.setFont(Fonts.getBoldFont());
 	}
 

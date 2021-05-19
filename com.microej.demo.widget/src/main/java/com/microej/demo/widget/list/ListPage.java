@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.list;
@@ -27,6 +27,13 @@ public class ListPage implements Page {
 
 	private static final int LABEL = 900;
 
+	private static final int LABEL_MARGIN = 6;
+	private static final int LABEL_PADDING_SIDES = 7;
+	private static final int LABEL_PADDING_TOP_BOTTOM = 2;
+	private static final int LABEL_BORDER_THICKNESS = 1;
+
+	private static final int LABEL_COUNT = 3;
+
 	@Override
 	public String getName() {
 		return "List"; //$NON-NLS-1$
@@ -38,15 +45,16 @@ public class ListPage implements Page {
 		style.setHorizontalAlignment(Alignment.LEFT);
 		style.setVerticalAlignment(Alignment.TOP);
 		style.setFont(Fonts.getBoldFont());
-		style.setMargin(new UniformOutline(6));
-		style.setPadding(new FlexibleOutline(2, 7, 2, 7));
-		style.setBorder(new RectangularBorder(DemoColors.DEFAULT_FOREGROUND, 1));
+		style.setMargin(new UniformOutline(LABEL_MARGIN));
+		style.setPadding(new FlexibleOutline(LABEL_PADDING_TOP_BOTTOM, LABEL_PADDING_SIDES, LABEL_PADDING_TOP_BOTTOM,
+				LABEL_PADDING_SIDES));
+		style.setBorder(new RectangularBorder(DemoColors.DEFAULT_FOREGROUND, LABEL_BORDER_THICKNESS));
 	}
 
 	@Override
 	public Widget getContentWidget() {
 		List list = new List(LayoutOrientation.HORIZONTAL);
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < LABEL_COUNT; i++) {
 			list.addChild(createLabel(i + 1));
 		}
 		return list;

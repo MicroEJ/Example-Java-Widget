@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.main;
@@ -7,7 +7,6 @@ package com.microej.demo.widget.main;
 import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Navigation;
 import com.microej.demo.widget.common.Page;
-import com.microej.demo.widget.common.PageHelper;
 import com.microej.demo.widget.common.Pages;
 import com.microej.demo.widget.main.style.GoToBackground;
 import com.microej.demo.widget.main.widget.MenuItem;
@@ -40,6 +39,10 @@ public class MainPage implements Page {
 
 	private static final int GRAY = 0xe5e9eb;
 
+	private static final int LIST_ITEM_PADDING_TOP = 6;
+	private static final int LIST_ITEM_PADDING_BOTTOM = 5;
+	private static final int LIST_ITEM_PADDING_LEFT = 24;
+
 	@Override
 	public String getName() {
 		return "Main"; //$NON-NLS-1$
@@ -55,7 +58,8 @@ public class MainPage implements Page {
 
 		style = stylesheet.getSelectorStyle(new ClassSelector(LIST_ITEM));
 		style.setColor(DemoColors.ALTERNATE_BACKGROUND);
-		style.setPadding(new FlexibleOutline(6, 0, 5, 24));
+		style.setPadding(
+				new FlexibleOutline(LIST_ITEM_PADDING_TOP, 0, LIST_ITEM_PADDING_BOTTOM, LIST_ITEM_PADDING_LEFT));
 		style.setHorizontalAlignment(Alignment.LEFT);
 		style.setBackground(new GoToBackground(Colors.WHITE));
 
@@ -84,7 +88,7 @@ public class MainPage implements Page {
 			});
 		}
 
-		Scroll scroll = new Scroll(LayoutOrientation.VERTICAL, PageHelper.getAnimator());
+		Scroll scroll = new Scroll(LayoutOrientation.VERTICAL);
 		scroll.setChild(list);
 		return scroll;
 	}

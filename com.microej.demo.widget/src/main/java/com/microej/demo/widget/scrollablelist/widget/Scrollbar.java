@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2009-2021 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.scrollablelist.widget;
@@ -55,6 +55,8 @@ public class Scrollbar extends Widget {
 	private static final int MINIMUM_SIZE = 4;
 	private static final int MINIMUM_LENGTH_RATIO = 25;
 	private static final int MAXIMUM_LENGTH_RATIO = 75;
+
+	private static final int PERCENTAGE_DIVIDER = 100;
 
 	private boolean horizontal;
 	private int maximum;
@@ -140,19 +142,23 @@ public class Scrollbar extends Widget {
 		ShapePainter.drawThickFadedLine(g, barX, barY, barX2, barY2, barSize - 1, 1, Cap.ROUNDED, Cap.ROUNDED);
 	}
 
-	private int getBarLength(int availableLength, int size) {
-		availableLength = availableLength - (size << 1);
+	private int getBarLength(int availableLength, int barSize) {
+		availableLength = availableLength - (barSize << 1);
 		int excess = Math.abs(this.requiredValue - this.value) >> 1;
-		int expectedLength = Math.max(availableLength * availableLength / this.maximum, size * MINIMUM_RATIO);
+		int expectedLength = Math.max(availableLength * availableLength / this.maximum, barSize * MINIMUM_RATIO);
 		// Don't know why the minimum size is '2', but with lower values the result is not correct.
 		int finalLength = XMath.limit(expectedLength - excess, 2, availableLength - excess);
-		int minimumLength = availableLength * MINIMUM_LENGTH_RATIO / 100;
-		int maximumLength = availableLength * MAXIMUM_LENGTH_RATIO / 100;
+		int minimumLength = availableLength * MINIMUM_LENGTH_RATIO / PERCENTAGE_DIVIDER;
+		int maximumLength = availableLength * MAXIMUM_LENGTH_RATIO / PERCENTAGE_DIVIDER;
+		finalLength -= barSize; // Subtract site of two caps
 		return XMath.limit(finalLength - 1, minimumLength, maximumLength);
 	}
 
-	private int getBarPosition(int totalSize, int barSize, int size) {
-		return this.value * (totalSize - barSize - size) / this.maximum;
+	private int getBarPosition(int totalSize, int barLength, int barSize) {
+		int position = this.value * (totalSize - barLength - barSize) / this.maximum;
+		position = position + barSize / 2; // Add the size of one cap to the position, so it does not get cut off at the
+											// end
+		return position;
 	}
 
 	private int getSize(Style style) {

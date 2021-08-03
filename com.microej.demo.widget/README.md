@@ -40,6 +40,7 @@ Here are the pages:
 - `Split`: demonstrates a `Split` container.
 - `Scrollable List`: demonstrates a `Scrollable List` container.
 - `Scrollable Text`: demonstrates displaying a long, scrollable text.
+- `Selectable List`: demonstrates a list of items that are selectable with an animation.
 - `Line Chart`: demonstrates a `LineChart` widget.
 - `Bar Chart`: demonstrates a `BarChart` widget.
 

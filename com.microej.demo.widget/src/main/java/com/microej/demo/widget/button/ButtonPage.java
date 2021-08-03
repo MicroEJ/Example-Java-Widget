@@ -63,7 +63,7 @@ public class ButtonPage implements Page {
 		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(Button.class));
 		style.setDimension(new FixedDimension(BUTTONS_WIDTH, BUTTONS_HEIGHT));
 		style.setPadding(new UniformOutline(BUTTONS_PADDING));
-		style.setFont(Fonts.getBoldFont());
+		style.setFont(Fonts.getSourceSansPro16px700());
 
 		// rect button
 		style = stylesheet.getSelectorStyle(rectButton);

@@ -39,7 +39,7 @@ public class AutoscrollLabelPage implements Page {
 		style.setDimension(new FixedDimension(Widget.NO_CONSTRAINT, HEIGHT));
 		style.setMargin(new UniformOutline(MARGIN));
 		style.setBorder(new FlexibleRectangularBorder(DemoColors.DEFAULT_BORDER, 0, 1, 0, 1));
-		style.setFont(Fonts.getBoldFont());
+		style.setFont(Fonts.getSourceSansPro16px700());
 		style.setHorizontalAlignment(Alignment.LEFT);
 	}
 

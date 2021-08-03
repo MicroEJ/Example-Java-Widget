@@ -40,7 +40,7 @@ public class SliderWithValuePage implements Page {
 	@Override
 	public void populateStylesheet(CascadingStylesheet stylesheet) {
 		EditableStyle sliderStyle = stylesheet.getSelectorStyle(new TypeSelector(SliderWithValue.class));
-		sliderStyle.setFont(Fonts.getBoldFont());
+		sliderStyle.setFont(Fonts.getSourceSansPro16px700());
 		sliderStyle.setColor(Colors.WHITE);
 		sliderStyle.setExtraInt(SliderWithValue.BAR_COLOR_ID, 0x97A7AF);
 		sliderStyle.setExtraInt(SliderWithValue.CURSOR_EDGE_ID, 0xEE502E);
@@ -50,12 +50,12 @@ public class SliderWithValuePage implements Page {
 
 		// left limit
 		EditableStyle buttonStyle = stylesheet.getSelectorStyle(new ClassSelector(LEFT_LIMIT));
-		buttonStyle.setFont(Fonts.getBoldFont());
+		buttonStyle.setFont(Fonts.getSourceSansPro16px700());
 		buttonStyle.setVerticalAlignment(Alignment.VCENTER);
 
 		// right limit
 		buttonStyle = stylesheet.getSelectorStyle(new ClassSelector(RIGHT_LIMIT));
-		buttonStyle.setFont(Fonts.getBoldFont());
+		buttonStyle.setFont(Fonts.getSourceSansPro16px700());
 		buttonStyle.setVerticalAlignment(Alignment.VCENTER);
 	}
 

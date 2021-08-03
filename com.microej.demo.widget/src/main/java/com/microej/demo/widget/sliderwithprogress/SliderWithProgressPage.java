@@ -37,7 +37,7 @@ public class SliderWithProgressPage implements Page {
 	@Override
 	public void populateStylesheet(CascadingStylesheet stylesheet) {
 		EditableStyle sliderStyle = stylesheet.getSelectorStyle(new ClassSelector(ROUNDED_SLIDER));
-		sliderStyle.setFont(Fonts.getBoldFont());
+		sliderStyle.setFont(Fonts.getSourceSansPro16px700());
 		sliderStyle.setMargin(new FlexibleOutline(0, LATERAL_SPACE, 0, LATERAL_SPACE));
 		sliderStyle.setExtraInt(SliderWithProgress.BAR_COLOR_ID, BAR_COLOR);
 		sliderStyle.setExtraInt(SliderWithProgress.FILL_COLOR_ID, FILL_COLOR);

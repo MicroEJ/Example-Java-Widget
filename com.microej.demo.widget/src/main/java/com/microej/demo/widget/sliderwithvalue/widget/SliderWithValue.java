@@ -176,7 +176,7 @@ public class SliderWithValue extends Widget implements EventHandler {
 				THICKNESS);
 		String valueText = Integer.toString(this.value);
 		gc.setColor(style.getColor());
-		StringPainter.drawStringInArea(gc, valueText, Fonts.getBoldFont(), left, top, diameter, diameter,
+		StringPainter.drawStringInArea(gc, valueText, Fonts.getSourceSansPro16px700(), left, top, diameter, diameter,
 				Alignment.HCENTER, Alignment.VCENTER);
 	}
 

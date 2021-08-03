@@ -11,47 +11,88 @@ import ej.microui.display.Font;
  */
 public class Fonts {
 
-	private static final String SOURCE_LIGHT_20 = "/fonts/source_l_14px-20px-26h.ejf"; //$NON-NLS-1$
-	private static final String SOURCE_BOLD_16 = "/fonts/source_b_11px-16px-21h.ejf"; //$NON-NLS-1$
-	private static final String SOURCE_30 = "/fonts/source_sans_pro_24.ejf"; //$NON-NLS-1$
-	private static final String SOURCE_REGULAR = "/fonts/source_r_13-24px.ejf"; //$NON-NLS-1$
+	private static final String SOURCE_12_400 = "/fonts/SourceSansPro_12px-400.ejf"; //$NON-NLS-1$
+	private static final String SOURCE_15_600 = "/fonts/SourceSansPro_15px-600.ejf"; //$NON-NLS-1$
+	private static final String SOURCE_16_700 = "/fonts/SourceSansPro_16px-700.ejf"; //$NON-NLS-1$
+	private static final String SOURCE_19_300 = "/fonts/SourceSansPro_19px-300.ejf"; //$NON-NLS-1$
+	private static final String SOURCE_22_400 = "/fonts/SourceSansPro_22px-400.ejf"; //$NON-NLS-1$
 
 	private Fonts() {
 	}
 
 	/**
-	 * Gets the default font (20px height).
+	 * Gets the Source Sans Pro font with a height of 12px and a weight of 400.
+	 * <p>
+	 * Height (Cap to descender): 12<br>
+	 * Font-weight: 400<br>
+	 * Height: 19<br>
+	 * Baseline: 13<br>
+	 * Space size: 4<br>
 	 *
-	 * @return the default font.
+	 * @return the font with the settings given above.
+	 *
 	 */
-	public static Font getDefaultFont() {
-		return Font.getFont(SOURCE_LIGHT_20);
+	public static Font getSourceSansPro12px400() {
+		return Font.getFont(SOURCE_12_400);
 	}
 
 	/**
-	 * Gets the bold font with 16px height.
+	 * Gets the Source Sans Pro font with a height of 15px and a weight of 600.
+	 * <p>
+	 * Height (Cap to descender): 15<br>
+	 * Font-weight: 600<br>
+	 * Height: 20<br>
+	 * Baseline: 16<br>
+	 * Space size: 4<br>
 	 *
-	 * @return the bold font with 16px height.
+	 * @return the font with the settings given above.
 	 */
-	public static Font getBoldFont() {
-		return Font.getFont(SOURCE_BOLD_16);
+	public static Font getSourceSansPro15px600() {
+		return Font.getFont(SOURCE_15_600);
 	}
 
 	/**
-	 * Gets the regular font.
+	 * Gets the Source Sans Pro font with a height of 16px and a weight of 700.
+	 * <p>
+	 * Height (Cap to descender): 16<br>
+	 * Font-weight: 700<br>
+	 * Height: 21<br>
+	 * Baseline: 17<br>
+	 * Space size: 5<br>
 	 *
-	 * @return the regular font.
+	 * @return the font with the settings given above.
 	 */
-	public static Font getRegularFont() {
-		return Font.getFont(SOURCE_REGULAR);
+	public static Font getSourceSansPro16px700() {
+		return Font.getFont(SOURCE_16_700);
 	}
 
 	/**
-	 * Gets the font with 30px height.
+	 * Gets the Source Sans Pro font with a height of 19px and a weight of 300.
+	 * <p>
+	 * Height (Cap to descender): 19<br>
+	 * Font-weight: 700<br>
+	 * Height: 26<br>
+	 * Baseline: 21<br>
+	 * Space size: 4<br>
 	 *
-	 * @return the font with 30px height.
+	 * @return the font with the settings given above.
 	 */
-	public static Font getFont30px() {
-		return Font.getFont(SOURCE_30);
+	public static Font getSourceSansPro19px300() {
+		return Font.getFont(SOURCE_19_300);
+	}
+
+	/**
+	 * Gets the Source Sans Pro font with a height of 22px and a weight of 400.
+	 * <p>
+	 * Height (Cap to descender): 22<br>
+	 * Font-weight: 400<br>
+	 * Height: 30<br>
+	 * Baseline: 24<br>
+	 * Space size: 8<br>
+	 *
+	 * @return the font with the settings given above.
+	 */
+	public static Font getSourceSansPro22px400() {
+		return Font.getFont(SOURCE_22_400);
 	}
 }

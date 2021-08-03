@@ -3,7 +3,7 @@
 	Use of this source code is governed by a BSD-style license that can be found with this software.
 -->
 <ivy-module version="2.0" xmlns:ea="http://www.easyant.org" xmlns:ej="https://developer.microej.com" ej:version="2.0.0">
-	<info organisation="com.microej.demo" module="widget" status="integration" revision="7.2.0">
+	<info organisation="com.microej.demo" module="widget" status="integration" revision="7.3.0">
 		<ea:build organisation="com.is2t.easyant.buildtypes" module="build-firmware-singleapp" revision="1.+"/>
 		<ea:property name="application.main.class" value="com.microej.demo.widget.common.Navigation"/>
 		<ea:property name="virtual.device.sim.only" value="set"/>

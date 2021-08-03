@@ -34,7 +34,7 @@ public class LabelPage implements Page {
 		EditableStyle style = stylesheet.getSelectorStyle(new ClassSelector(LABEL));
 		style.setDimension(OptimalDimension.OPTIMAL_DIMENSION_XY);
 		style.setPadding(new UniformOutline(LABEL_PADDING));
-		style.setFont(Fonts.getBoldFont());
+		style.setFont(Fonts.getSourceSansPro16px700());
 	}
 
 	@Override

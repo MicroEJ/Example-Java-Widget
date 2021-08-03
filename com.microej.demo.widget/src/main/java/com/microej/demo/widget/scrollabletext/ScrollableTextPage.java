@@ -70,7 +70,7 @@ public class ScrollableTextPage implements Page {
 		style.setMargin(new FlexibleOutline(SCROLL_MARGIN_TOP, SCROLL_MARGIN_SIDES, 0, SCROLL_MARGIN_SIDES));
 
 		style = stylesheet.getSelectorStyle(new ClassSelector(CLASS_TEXT_TITLE));
-		style.setFont(Fonts.getBoldFont());
+		style.setFont(Fonts.getSourceSansPro16px700());
 		style.setHorizontalAlignment(Alignment.LEFT);
 		style.setVerticalAlignment(Alignment.TOP);
 		style.setBorder(new FlexibleRectangularBorder(DemoColors.DEFAULT_BORDER, 0, 0, 1, 0));
@@ -81,7 +81,7 @@ public class ScrollableTextPage implements Page {
 		style.setMargin(new FlexibleOutline(0, 0, MARGIN_TEXT_TITLE, 0));
 
 		style = stylesheet.getSelectorStyle(new ClassSelector(CLASS_TEXT_CONTENT));
-		style.setFont(Fonts.getRegularFont());
+		style.setFont(Fonts.getSourceSansPro12px400());
 		style.setHorizontalAlignment(Alignment.LEFT);
 		style.setVerticalAlignment(Alignment.TOP);
 

@@ -55,7 +55,7 @@ public class WheelPage implements Page {
 		wheelStyle.setColor(DemoColors.DEFAULT_FOREGROUND);
 		wheelStyle.setBackground(new RectangularBackground(DemoColors.DEFAULT_BACKGROUND));
 		wheelStyle.setExtraInt(Wheel.LINE_COLOR_FIELD, DemoColors.CORAL);
-		wheelStyle.setFont(Fonts.getFont30px());
+		wheelStyle.setFont(Fonts.getSourceSansPro22px400());
 
 		EditableStyle datePickerStyle = stylesheet.getSelectorStyle(new ClassSelector(DATE_PICKER));
 		datePickerStyle.setMargin(new UniformOutline(DATE_PICKER_MARGIN));

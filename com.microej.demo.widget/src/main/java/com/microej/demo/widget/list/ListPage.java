@@ -44,7 +44,7 @@ public class ListPage implements Page {
 		EditableStyle style = stylesheet.getSelectorStyle(new ClassSelector(LABEL));
 		style.setHorizontalAlignment(Alignment.LEFT);
 		style.setVerticalAlignment(Alignment.TOP);
-		style.setFont(Fonts.getBoldFont());
+		style.setFont(Fonts.getSourceSansPro16px700());
 		style.setMargin(new UniformOutline(LABEL_MARGIN));
 		style.setPadding(new FlexibleOutline(LABEL_PADDING_TOP_BOTTOM, LABEL_PADDING_SIDES, LABEL_PADDING_TOP_BOTTOM,
 				LABEL_PADDING_SIDES));

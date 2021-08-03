@@ -29,7 +29,6 @@ import ej.mwt.stylesheet.selector.TypeSelector;
 import ej.mwt.stylesheet.selector.combinator.AndCombinator;
 import ej.mwt.util.Alignment;
 import ej.widget.basic.Label;
-import ej.widget.util.font.StrictFontLoader;
 
 /**
  * This page illustrates a keyboard.
@@ -59,12 +58,6 @@ public class KeyboardPage implements Page {
 	private static final int TEXT_SELECTION_COLOR = TEXT_PLACEHOLDER_COLOR;
 	/** Shift key background. */
 	private static final int SHIFT_KEY_BACKGROUND = 0xcbd3d7;
-	/** Key font. */
-	private static final String SOURCE_SANS_PRO = "source_sans_pro"; //$NON-NLS-1$
-	/** Key font size. */
-	private static final int FONT_SIZE = 20;
-	/** Text field font size. */
-	private static final int LARGE_FONT_SIZE = 30;
 	/** Key corner radius. */
 	private static final int KEY_CORNER_RADIUS = 13;
 
@@ -75,9 +68,9 @@ public class KeyboardPage implements Page {
 
 	@Override
 	public void populateStylesheet(CascadingStylesheet stylesheet) {
-		StrictFontLoader fontLoader = new StrictFontLoader();
-		Font textFont = fontLoader.getFont(SOURCE_SANS_PRO, FONT_SIZE);
-		Font textFieldFont = Fonts.getDefaultFont();
+		Font textFont = Fonts.getSourceSansPro15px600();
+		Font textFieldFont = textFont;
+		Font textLargeFont = Fonts.getSourceSansPro22px400();
 
 		// Keyboard
 		TypeSelector keyboardSelector = new TypeSelector(Keyboard.class);
@@ -142,7 +135,7 @@ public class KeyboardPage implements Page {
 		textStyle.setPadding(new FlexibleOutline(0, 1, 1, 1));
 		textStyle.setExtraInt(TextField.SELECTION_BACKGROUND, TEXT_SELECTION_BACKGROUND);
 		textStyle.setExtraInt(TextField.SELECTION_COLOR, TEXT_SELECTION_COLOR);
-		textStyle.setExtraObject(TextField.CLEAR_BUTTON_FONT, fontLoader.getFont(SOURCE_SANS_PRO, LARGE_FONT_SIZE));
+		textStyle.setExtraObject(TextField.CLEAR_BUTTON_FONT, textLargeFont);
 
 		activeSelector = new StateSelector(TextField.ACTIVE);
 		AndCombinator focusedTextSelector = new AndCombinator(textSelector, activeSelector);

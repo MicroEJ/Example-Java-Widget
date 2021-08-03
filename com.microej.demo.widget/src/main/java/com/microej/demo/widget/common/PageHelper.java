@@ -82,7 +82,7 @@ public class PageHelper {
 		EditableStyle style = stylesheet.getDefaultStyle();
 		style.setColor(DemoColors.DEFAULT_FOREGROUND);
 		style.setBackground(new RectangularBackground(DemoColors.DEFAULT_BACKGROUND));
-		style.setFont(Fonts.getDefaultFont());
+		style.setFont(Fonts.getSourceSansPro19px300());
 		style.setHorizontalAlignment(Alignment.HCENTER);
 		style.setVerticalAlignment(Alignment.VCENTER);
 

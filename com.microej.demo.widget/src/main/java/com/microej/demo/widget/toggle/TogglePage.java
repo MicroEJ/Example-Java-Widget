@@ -38,7 +38,7 @@ public class TogglePage implements Page {
 		style.setDimension(OptimalDimension.OPTIMAL_DIMENSION_XY);
 
 		style = stylesheet.getSelectorStyle(new ClassSelector(TOGGLE));
-		style.setFont(Fonts.getBoldFont());
+		style.setFont(Fonts.getSourceSansPro16px700());
 		style.setHorizontalAlignment(Alignment.LEFT);
 		style.setMargin(new UniformOutline(2));
 		style.setExtraInt(Toggle.CHECKED_COLOR_FIELD, DemoColors.ABSINTHE);

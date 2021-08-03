@@ -24,6 +24,7 @@ import com.microej.demo.widget.progressbar.ProgressBarPage;
 import com.microej.demo.widget.radiobutton.RadioButtonPage;
 import com.microej.demo.widget.scrollablelist.ScrollableListPage;
 import com.microej.demo.widget.scrollabletext.ScrollableTextPage;
+import com.microej.demo.widget.selectablelist.SelectableListPage;
 import com.microej.demo.widget.sliderwithprogress.SliderWithProgressPage;
 import com.microej.demo.widget.sliderwithvalue.SliderWithValuePage;
 import com.microej.demo.widget.split.SplitPage;
@@ -59,6 +60,7 @@ public class Pages {
 			new SplitPage(), //
 			new ScrollableListPage(), //
 			new ScrollableTextPage(), //
+			new SelectableListPage(), //
 			new LineChartPage(), //
 			new BarChartPage(), //
 	};

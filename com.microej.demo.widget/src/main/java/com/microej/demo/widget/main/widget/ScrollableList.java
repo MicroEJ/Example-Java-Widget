@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2014-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.main.widget;
@@ -137,7 +137,7 @@ public class ScrollableList extends List implements Scrollable {
 			int firstVisibleChildIndex = this.firstVisibleChildIndex;
 			int lastVisible = size;
 			boolean horizontal = (getOrientation() == LayoutOrientation.HORIZONTAL);
-			for (int i = firstVisibleChildIndex - 1; ++i < lastVisible;) {
+			for (int i = firstVisibleChildIndex; i < lastVisible; i++) {
 				Widget child = children[i];
 				if (!child.isShown()) {
 					break;
@@ -180,7 +180,7 @@ public class ScrollableList extends List implements Scrollable {
 			Widget[] children = getChildren();
 			int size = children.length;
 			int firstCandidate = searchForward ? size - 1 : 0;
-			for (int i = this.firstVisibleChildIndex; searchForward ? ++i < size : --i >= 0;) {
+			for (int i = this.firstVisibleChildIndex; i >= 0 && i < size; i += (searchForward ? 1 : -1)) {
 				Widget child = children[i];
 				int candidateY = child.getY();
 				int candidateHeight = child.getHeight();
@@ -204,7 +204,7 @@ public class ScrollableList extends List implements Scrollable {
 			Widget[] children = getChildren();
 			int size = children.length;
 			int firstCandidate = searchForward ? size - 1 : 0;
-			for (int i = this.firstVisibleChildIndex; searchForward ? ++i < size : --i >= 0;) {
+			for (int i = this.firstVisibleChildIndex; i >= 0 && i < size; i += (searchForward ? 1 : -1)) {
 				Widget child = children[i];
 				int candidateX = child.getX();
 				int candidateWidth = child.getWidth();

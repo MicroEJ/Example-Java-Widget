@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2017-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.carousel.widget;
@@ -26,7 +26,7 @@ import ej.mwt.util.Size;
  */
 public class Carousel extends Widget {
 
-	private static final float SPACING_RATIO = 0.35f; // entry spacing
+	private static final float SPACING_RATIO = 0.55f; // entry spacing
 	private static final float SIZE_FACTOR = 1.5f; // entry size factor
 	private static final float SIZE_DISPLAY_THRESHOLD = 0.40f; // don't draw entry if lower
 
@@ -88,6 +88,7 @@ public class Carousel extends Widget {
 	 *            the maximum height of an entry
 	 */
 	public Carousel(CarouselEntry[] entries, int initialEntryIndex, int entryWidth, int entryHeight) {
+		super(true);
 		this.entries = entries.clone();
 		this.entryWidth = entryWidth;
 		this.entryHeight = entryHeight;
@@ -178,12 +179,7 @@ public class Carousel extends Widget {
 		}
 
 		// start DND
-		long currentTime = System.currentTimeMillis();
-		boolean dndNotStarted = !this.dnd && this.noDrag && currentTime - this.lastPressTime >= DND_START_TIME;
-		if (dndNotStarted && (this.lastPressX > halfWidth - this.entryWidth / 2
-				&& this.lastPressX < halfWidth + this.entryWidth / 2)) {
-			startDND();
-		}
+		long currentTime = startDndIfNecessary(halfWidth);
 
 		// check if the carousel is currently stopped
 		boolean stopped = (currentTime - this.lastDragTime >= STOPPED_START_TIME && this.gotoAnimDistance == 0
@@ -195,6 +191,16 @@ public class Carousel extends Widget {
 			requestRender();
 		}
 		this.stopped = stopped;
+	}
+
+	private long startDndIfNecessary(int halfWidth) {
+		long currentTime = System.currentTimeMillis();
+		boolean dndNotStarted = !this.dnd && this.noDrag && currentTime - this.lastPressTime >= DND_START_TIME;
+		if (dndNotStarted && (this.lastPressX > halfWidth - this.entryWidth / 2
+				&& this.lastPressX < halfWidth + this.entryWidth / 2)) {
+			startDnd();
+		}
+		return currentTime;
 	}
 
 	@Override
@@ -225,7 +231,7 @@ public class Carousel extends Widget {
 		// get top entry
 		int topEntry = getEntryAtDrag(totalDrag);
 		if (this.dnd) {
-			updateDND(topEntry);
+			updateDnd(topEntry);
 		}
 
 		// draw entries
@@ -244,8 +250,7 @@ public class Carousel extends Widget {
 			int offsetY = this.lastDragY - halfHeight;
 			final CarouselEntry dndEntry = this.dndEntry;
 			if (dndEntry != null) {
-				dndEntry.render(g, contentWidth, contentHeight, font, this.dnd, this.stopped, true, false, 1.0f,
-						offsetX, offsetY, true);
+				dndEntry.render(g, contentWidth, contentHeight, font, this.stopped, 1.0f, offsetX, offsetY, true);
 			}
 		}
 	}
@@ -277,8 +282,7 @@ public class Carousel extends Widget {
 					clicked &= (this.lastPressX > halfWidth - this.entryWidth / 2
 							&& this.lastPressX < halfWidth + this.entryWidth / 2);
 				}
-				entry.render(g, contentWidth, contentHeight, font, this.dnd, this.stopped, clicked, selected, sizeRatio,
-						offsetX, 0, false);
+				entry.render(g, contentWidth, contentHeight, font, this.stopped, sizeRatio, offsetX, 0, false);
 			}
 		}
 	}
@@ -349,7 +353,7 @@ public class Carousel extends Widget {
 	private void handleRelease(int pointerX) {
 		if (this.dnd) {
 			// stop DND
-			stopDND();
+			stopDnd();
 		} else if (this.noDrag) {
 			// this is just a click
 			int halfWidth = getWidth() / 2;
@@ -401,7 +405,7 @@ public class Carousel extends Widget {
 		this.gotoAnimDistance = 0;
 	}
 
-	private void startDND() {
+	private void startDnd() {
 		int totalDrag = getTotalDrag();
 		int topEntry = getEntryAtDrag(totalDrag);
 
@@ -413,7 +417,7 @@ public class Carousel extends Widget {
 		this.entries[topEntry] = null;
 	}
 
-	private void updateDND(int newDndIndex) {
+	private void updateDnd(int newDndIndex) {
 		if (newDndIndex != this.dndIndex) {
 			int dndDiff = newDndIndex - this.dndIndex;
 			int dndDir = (dndDiff > 0 ? 1 : -1); // 1 or -1
@@ -432,7 +436,7 @@ public class Carousel extends Widget {
 		}
 	}
 
-	private void stopDND() {
+	private void stopDnd() {
 		this.entries[this.dndIndex] = this.dndEntry;
 
 		this.currentDrag += this.dndDragX + this.endDragX - this.startDragX;

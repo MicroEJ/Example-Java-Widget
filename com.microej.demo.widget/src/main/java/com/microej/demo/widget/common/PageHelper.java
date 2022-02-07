@@ -1,10 +1,11 @@
 /*
- * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common;
 
 import ej.microui.display.Colors;
+import ej.microui.display.Image;
 import ej.mwt.Desktop;
 import ej.mwt.Widget;
 import ej.mwt.render.OverlapRenderPolicy;
@@ -38,7 +39,6 @@ public class PageHelper {
 	 * Thickness between the title bar and the page content.
 	 */
 	public static final int LEFT_PADDING = 4;
-	/* package */ static final int TITLE_BAR_WIDTH = 44; // FIXME use one of the image width
 
 	private static final String MICROEJ_BANNER = "/images/microej_banner.png"; //$NON-NLS-1$
 	private static final String ICON = "/images/ic-app_layout.png"; //$NON-NLS-1$
@@ -68,6 +68,7 @@ public class PageHelper {
 	public static final int CONTENT_CLASSSELECTOR = 44700;
 
 	private PageHelper() {
+		// Prevent instantiation.
 	}
 
 	/**
@@ -122,6 +123,10 @@ public class PageHelper {
 		roundedCornerBottomStyle.setColor(Colors.BLACK);
 		roundedCornerBottomStyle.setDimension(OptimalDimension.OPTIMAL_DIMENSION_XY);
 		roundedCornerBottomStyle.setBackground(NoBackground.NO_BACKGROUND);
+	}
+
+	/* package */ static int getTitleBarWidth() {
+		return Image.getImage(MICROEJ_BANNER).getWidth();
 	}
 
 	/**

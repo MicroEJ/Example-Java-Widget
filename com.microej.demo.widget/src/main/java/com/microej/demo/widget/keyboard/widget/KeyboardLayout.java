@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2017-2022 MicroEJ Corp. All rights reserved.
  *Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.keyboard.widget;
@@ -27,10 +27,10 @@ public class KeyboardLayout {
 	public static final int SYMBOL_LAYOUT_INDEX = 3;
 
 	private static final String[] LOWER_CASE_LAYOUT = { "qwertyuiop", //$NON-NLS-1$
-			"asdfghjkl\u0008", //$NON-NLS-1$
+			"asdfghjkl" + ControlCharacters.BACK_SPACE, //$NON-NLS-1$
 			"zxcvbnm" }; //$NON-NLS-1$
 	private static final String[] UPPER_CASE_LAYOUT = { "QWERTYUIOP", //$NON-NLS-1$
-			"ASDFGHJKL\u0008", //$NON-NLS-1$
+			"ASDFGHJKL" + ControlCharacters.BACK_SPACE, //$NON-NLS-1$
 			"ZXCVBNM" }; //$NON-NLS-1$
 	private static final String[] NUMERIC_LAYOUT = { "1234567890", //$NON-NLS-1$
 			"-/:;()$&@\"", //$NON-NLS-1$

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2013-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.scrollabletext.widget;
@@ -41,12 +41,13 @@ public class Scroll extends Container {
 	 *            <code>true</code> to scroll horizontally, <code>false</code> to scroll vertically.
 	 */
 	public Scroll(boolean horizontal) {
+		super(true);
 		this.horizontal = horizontal;
 		this.scrollbar = new Scrollbar(0);
 		this.scrollbar.setHorizontal(horizontal);
 		this.assistant = new ScrollAssistant();
 
-		addChild(this.scrollbar);
+		super.addChild(this.scrollbar);
 	}
 
 	/**
@@ -173,11 +174,6 @@ public class Scroll extends Container {
 
 		int childCoordinate = -this.scrollbar.getValue();
 		updateViewport(childCoordinate);
-	}
-
-	@Override
-	public void onShown() {
-		setEnabled(true);
 	}
 
 	@Override

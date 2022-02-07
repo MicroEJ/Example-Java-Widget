@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2015-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.split.widget;
@@ -240,15 +240,19 @@ public class Split extends Container {
 		float ratio = getRatio(getStyle());
 
 		// compute size of both widgets
-		int firstWidth = contentWidth;
-		int firstHeight = contentHeight;
-		int lastWidth = contentWidth;
-		int lastHeight = contentHeight;
+		int firstWidth;
+		int firstHeight;
+		int lastWidth;
+		int lastHeight;
 		if (this.orientation == LayoutOrientation.HORIZONTAL) {
 			firstWidth = (int) (contentWidth * ratio);
+			firstHeight = contentHeight;
 			lastWidth = contentWidth - firstWidth;
+			lastHeight = contentHeight;
 		} else {
+			firstWidth = contentWidth;
 			firstHeight = (int) (contentHeight * ratio);
+			lastWidth = contentWidth;
 			lastHeight = contentHeight - firstHeight;
 		}
 

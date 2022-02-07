@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.carousel;
@@ -9,6 +9,7 @@ import com.microej.demo.widget.carousel.widget.CarouselEntry;
 import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Page;
 
+import ej.bon.Immutables;
 import ej.microui.display.Colors;
 import ej.microui.display.Image;
 import ej.mwt.Widget;
@@ -35,11 +36,8 @@ public class CarouselPage implements Page {
 	private static final int CAROUSEL_PADDING_BOTTOM = 5;
 	private static final int CAROUSEL_BORDER_BOTTOM_SIZE = 1;
 
-	@SuppressWarnings("nls")
-	private static final String[] IMAGES = { "cowboy.png", "frenchie.png", "santa.png", "space.png", "superjeo.png" };
-
-	@SuppressWarnings("nls")
-	private static final String[] NAMES = { "Cowboy", "Frenchie", "Santa", "Space", "Super Jeo" };
+	private static final String[] IMAGES = (String[]) Immutables.get("AvatarsImages"); //$NON-NLS-1$
+	private static final String[] NAMES = (String[]) Immutables.get("AvatarsNames"); //$NON-NLS-1$
 
 	private static final String IMAGE_PATH = "/images/carousel/"; //$NON-NLS-1$
 	private static final int NUM_ENTRIES = 10;
@@ -109,7 +107,6 @@ public class CarouselPage implements Page {
 			}
 		}
 		Carousel carousel = new Carousel(carouselEntries, INITIAL_ENTRY, entryWidth, entryHeight);
-		carousel.setEnabled(true);
 		carousel.addClassSelector(CLASS_CAROUSEL);
 
 		list.addChild(carousel);

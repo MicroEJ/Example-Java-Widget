@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common;
@@ -31,6 +31,10 @@ public class DemoColors {
 	 * Color for empty space between main title bar and page content.
 	 */
 	public static final int EMPTY_SPACE = Colors.BLACK;
+	/**
+	 * Background color for highlighted keys on the keyboard.
+	 */
+	public static final int KEYBOARD_HIGHLIGHT_BACKGROUND = 0xd9d5d3;
 
 	/**
 	 * MicroEJ Coral color.
@@ -46,6 +50,7 @@ public class DemoColors {
 	public static final int POMEGRANATE = 0xcf4520;
 
 	private DemoColors() {
+		// Prevent instantiation.
 	}
 
 }

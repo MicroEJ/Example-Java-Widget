@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.radiobutton.widget;
@@ -39,13 +39,9 @@ public class RadioButton extends Widget {
 	 *            the group to which the radio button should belong.
 	 */
 	public RadioButton(String text, RadioButtonGroup group) {
+		super(true);
 		this.text = text;
 		this.group = group;
-	}
-
-	@Override
-	public void onShown() {
-		setEnabled(true);
 	}
 
 	@Override

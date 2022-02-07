@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.main;
@@ -35,7 +35,7 @@ import ej.widget.container.LayoutOrientation;
  */
 public class MainPage implements Page {
 
-	private static final int LIST_ITEM = 70898;
+	private static final int LIST_ITEM = 896560;
 
 	private static final int GRAY = 0xe5e9eb;
 

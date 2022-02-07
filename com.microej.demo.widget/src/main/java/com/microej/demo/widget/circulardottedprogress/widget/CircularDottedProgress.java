@@ -1,9 +1,10 @@
 /*
- * Copyright 2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.circulardottedprogress.widget;
 
+import ej.drawing.ShapePainter;
 import ej.microui.display.Colors;
 import ej.microui.display.GraphicsContext;
 import ej.microui.display.Painter;
@@ -31,6 +32,9 @@ public class CircularDottedProgress extends Widget {
 
 	private static final int DEFAULT_DIAMETER = 100;
 	private static final int DEFAULT_DOT_SIZE = 5;
+
+	private static final int FADING = 1;
+
 	/**
 	 * Angle in degrees between two dots.
 	 */
@@ -69,7 +73,7 @@ public class CircularDottedProgress extends Widget {
 	@Override
 	protected void computeContentOptimalSize(Size size) {
 		Style style = getStyle();
-		int diameter = style.getExtraInt(PROGRESS_DIAMETER, DEFAULT_DIAMETER);
+		int diameter = style.getExtraInt(PROGRESS_DIAMETER, DEFAULT_DIAMETER) + FADING * 2;
 		size.setSize(diameter, diameter);
 
 	}
@@ -86,7 +90,7 @@ public class CircularDottedProgress extends Widget {
 
 		// background
 		g.setColor(style.getExtraInt(BACKGROUND_COLOR, Colors.BLACK));
-		Painter.fillCircle(g, 0, 0, diameter);
+		ShapePainter.drawThickFadedPoint(g, contentWidth / 2, contentHeight / 2, diameter, FADING);
 		// progress
 		g.setColor(style.getColor());
 		displayDots(g, progressRadius, dotSize, centerX, centerY);

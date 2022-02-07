@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.sliderwithprogress.widget;
@@ -64,16 +64,12 @@ public class SliderWithProgress extends Widget {
 	 *            the initial value of the slider.
 	 */
 	public SliderWithProgress(int min, int max, int initialValue) {
+		super(true);
 		checkBounds(min, max, initialValue);
 
 		this.minimum = min;
 		this.maximum = max;
 		this.value = initialValue;
-	}
-
-	@Override
-	public void onShown() {
-		setEnabled(true);
 	}
 
 	private int getSize(Style style) {

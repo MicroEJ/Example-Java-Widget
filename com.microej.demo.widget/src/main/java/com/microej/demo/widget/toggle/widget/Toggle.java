@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.toggle.widget;
@@ -61,6 +61,7 @@ public class Toggle extends Widget implements Animation {
 	 *            the text to display.
 	 */
 	public Toggle(String text) {
+		super(true);
 		this.text = text;
 		// this.checked = false; VM_DONE
 		// this.animEndTime = 0; VM_DONE
@@ -87,11 +88,6 @@ public class Toggle extends Widget implements Animation {
 		if (cursorOffImage != null) {
 			cursorOffImage.close();
 		}
-	}
-
-	@Override
-	public void onShown() {
-		setEnabled(true);
 	}
 
 	@Override

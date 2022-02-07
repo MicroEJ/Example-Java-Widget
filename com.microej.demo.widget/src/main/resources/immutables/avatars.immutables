@@ -1,0 +1,20 @@
+<!--
+	Copyright 2021-2022 MicroEJ Corp. All rights reserved.
+	Use of this source code is governed by a BSD-style license that can be found with this software.
+-->
+<immutables>
+	<array id="AvatarsImages" length="5" type="java.lang.String[]">
+		<elem value="cowboy.png"></elem>
+		<elem value="frenchie.png"></elem>
+		<elem value="santa.png"></elem>
+		<elem value="space.png"></elem>
+		<elem value="superjeo.png"></elem>
+	</array>
+	<array id="AvatarsNames" length="5" type="java.lang.String[]">
+		<elem value="Cowboy"></elem>
+		<elem value="Frenchie"></elem>
+		<elem value="Santa"></elem>
+		<elem value="Space"></elem>
+		<elem value="Super Jeo"></elem>
+	</array>
+</immutables>

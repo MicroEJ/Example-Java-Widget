@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2009-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.scrollablelist.widget;
@@ -205,6 +205,8 @@ public class Scrollbar extends Widget {
 	}
 
 	/**
+	 * Gets whether the scrollbar is horizontal or vertical.
+	 *
 	 * @return <code>true</code> if the scrollbar is horizontal, <code>false</code> otherwise.
 	 */
 	public boolean isHorizontal() {

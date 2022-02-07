@@ -1,9 +1,10 @@
 /*
- * Copyright 2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.linechart.widget;
 
+import com.microej.demo.widget.common.CirclePainter;
 import com.microej.demo.widget.common.DottedLinePainter;
 
 import ej.annotation.Nullable;
@@ -13,7 +14,6 @@ import ej.drawing.ShapePainter;
 import ej.drawing.ShapePainter.Cap;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
-import ej.microui.display.Painter;
 import ej.microui.event.Event;
 import ej.microui.event.generator.Buttons;
 import ej.microui.event.generator.Pointer;
@@ -99,6 +99,7 @@ public class LineChart extends Widget implements MotionAnimationListener {
 	 *            if a circle should be drawn at the point.
 	 */
 	public LineChart(boolean drawCircle) {
+		super(true);
 		this.drawCircle = drawCircle;
 		this.unit = ""; //$NON-NLS-1$
 		this.scaleCount = DEFAULT_SCALE_COUNT;
@@ -250,8 +251,6 @@ public class LineChart extends Widget implements MotionAnimationListener {
 
 	@Override
 	public void onShown() {
-		setEnabled(true); // Needs to be set to receive Events
-
 		Motion motion = new Motion(QuadEaseInOutFunction.INSTANCE, ANIMATION_MIN, ANIMATION_MAX, ANIMATION_DURATION);
 		MotionAnimation motionAnimation = new MotionAnimation(getDesktop().getAnimator(), motion, LineChart.this);
 		motionAnimation.start();
@@ -415,8 +414,14 @@ public class LineChart extends Widget implements MotionAnimationListener {
 
 				int centerX = currentX - pointRadius;
 				int centerY = currentY - pointRadius;
-				g.setColor(chartPoint.isSelected() ? pointSelectedColor : pointColor);
-				Painter.fillCircle(g, centerX, centerY, pointRadius * 2);
+
+				int color;
+				if (chartPoint.isSelected()) {
+					color = pointSelectedColor;
+				} else {
+					color = pointColor;
+				}
+				CirclePainter.drawFilledCircle(g, color, color, centerX, centerY, pointRadius * 2, 2);
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.selectablelist.widget;
@@ -56,6 +56,7 @@ public class AnimatedChoice extends Widget implements Animation {
 	 *            text of the AnimatedChoice.
 	 */
 	public AnimatedChoice(String text) {
+		super(true);
 		this.text = text;
 		this.selected = false;
 		this.animationEndTime = 0;
@@ -78,12 +79,6 @@ public class AnimatedChoice extends Widget implements Animation {
 	 */
 	public void setText(String text) {
 		this.text = text;
-	}
-
-	@Override
-	protected void onAttached() {
-		super.onAttached();
-		setEnabled(true);
 	}
 
 	@Override

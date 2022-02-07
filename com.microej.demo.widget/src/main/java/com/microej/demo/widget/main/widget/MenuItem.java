@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2015-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.main.widget;
@@ -25,7 +25,7 @@ public class MenuItem extends Label {
 	 *            the text to display.
 	 */
 	public MenuItem(String text) {
-		super(text);
+		super(text, true);
 
 		this.onClickListener = null;
 	}
@@ -38,11 +38,6 @@ public class MenuItem extends Label {
 	 */
 	public void setOnClickListener(@Nullable OnClickListener listener) {
 		this.onClickListener = listener;
-	}
-
-	@Override
-	public void onShown() {
-		setEnabled(true);
 	}
 
 	@Override

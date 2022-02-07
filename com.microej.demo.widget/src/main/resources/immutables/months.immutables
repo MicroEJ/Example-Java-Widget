@@ -1,0 +1,20 @@
+<!--
+	Copyright 2021-2022 MicroEJ Corp. All rights reserved.
+	Use of this source code is governed by a BSD-style license that can be found with this software.
+-->
+<immutables>
+	<array id="Months" length="12" type="java.lang.String[]">
+		<elem value="January"></elem>
+		<elem value="February"></elem>
+		<elem value="March"></elem>
+		<elem value="April"></elem>
+		<elem value="May"></elem>
+		<elem value="June"></elem>
+		<elem value="July"></elem>
+		<elem value="August"></elem>
+		<elem value="September"></elem>
+		<elem value="October"></elem>
+		<elem value="November"></elem>
+		<elem value="December"></elem>
+	</array>
+</immutables>

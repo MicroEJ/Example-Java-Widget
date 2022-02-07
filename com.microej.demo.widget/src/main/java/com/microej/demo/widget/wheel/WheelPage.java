@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.wheel;
@@ -12,6 +12,7 @@ import com.microej.demo.widget.wheel.widget.IntegerChoice;
 import com.microej.demo.widget.wheel.widget.StringChoice;
 import com.microej.demo.widget.wheel.widget.Wheel;
 
+import ej.bon.Immutables;
 import ej.mwt.Widget;
 import ej.mwt.style.EditableStyle;
 import ej.mwt.style.background.RectangularBackground;
@@ -26,9 +27,7 @@ import ej.widget.container.List;
  */
 public class WheelPage implements Page {
 
-	@SuppressWarnings("nls")
-	private static final String[] MONTHS = { "January", "February", "March", "April", "May", "June", "July", "August",
-			"September", "October", "November", "December" };
+	private static final String[] MONTHS = (String[]) Immutables.get("Months"); //$NON-NLS-1$
 
 	private static final int WHEEL_SIDES = 2;
 	private static final int DATE_PICKER = 1000;

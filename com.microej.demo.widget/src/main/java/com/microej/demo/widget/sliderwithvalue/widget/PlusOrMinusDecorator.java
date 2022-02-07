@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.sliderwithvalue.widget;
@@ -45,15 +45,11 @@ public class PlusOrMinusDecorator extends Widget {
 	 *            where to send the change value event
 	 */
 	public PlusOrMinusDecorator(int circleDiameter, boolean isMinus, int color, SliderWithValue slider) {
+		super(true);
 		this.isMinus = isMinus;
 		this.circleDiameter = circleDiameter;
 		this.color = color;
 		this.slider = slider;
-	}
-
-	@Override
-	public void onShown() {
-		setEnabled(true);
 	}
 
 	@Override

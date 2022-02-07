@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2016-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.keyboard.widget;
@@ -39,9 +39,9 @@ public class Key extends Label {
 	 * Constructor.
 	 *
 	 * @param keyboardEventGenerator
-	 *            the keyboard event generator
+	 *            the keyboard event generator.
 	 * @param timer
-	 *            the timer used to repeat events when the user keeps pressing the key
+	 *            the timer used to repeat events when the user keeps pressing the key.
 	 */
 	public Key(KeyboardEventGenerator keyboardEventGenerator, Timer timer) {
 		this.keyboard = keyboardEventGenerator;
@@ -52,10 +52,10 @@ public class Key extends Label {
 	}
 
 	/**
-	 * Sets the key as a standard character input key
+	 * Sets the key as a standard character input key.
 	 *
 	 * @param character
-	 *            the character printed by the key
+	 *            the character printed by the key.
 	 */
 	public void setStandard(final char character) {
 		setEnabled(true);
@@ -72,12 +72,12 @@ public class Key extends Label {
 	}
 
 	/**
-	 * Sets the key as a standard character input key
+	 * Sets the key as a standard character input key.
 	 *
 	 * @param character
-	 *            the character printed by the key
+	 *            the character printed by the key.
 	 * @param classSelector
-	 *            the class selector to set
+	 *            the class selector to set.
 	 */
 	public void setStandard(final char character, int classSelector) {
 		setStandard(character);
@@ -85,12 +85,12 @@ public class Key extends Label {
 	}
 
 	/**
-	 * Sets the key as a special key
+	 * Sets the key as a special key.
 	 *
 	 * @param text
-	 *            the text to draw on the key
+	 *            the text to draw on the key.
 	 * @param listener
-	 *            the action to execute when the key is pressed
+	 *            the action to execute when the key is pressed.
 	 */
 	public void setSpecial(String text, OnClickListener listener) {
 		setEnabled(true);
@@ -101,14 +101,14 @@ public class Key extends Label {
 	}
 
 	/**
-	 * Sets the key as a special key
+	 * Sets the key as a special key.
 	 *
 	 * @param text
-	 *            the text to draw on the key
+	 *            the text to draw on the key.
 	 * @param listener
-	 *            the action to execute when the key is pressed
+	 *            the action to execute when the key is pressed.
 	 * @param classSelector
-	 *            the class selector to set
+	 *            the class selector to set.
 	 */
 	public void setSpecial(String text, OnClickListener listener, int classSelector) {
 		setSpecial(text, listener);
@@ -117,7 +117,7 @@ public class Key extends Label {
 	}
 
 	/**
-	 * Sets the key as a blank key
+	 * Sets the key as a blank key.
 	 */
 	public void setBlank() {
 		setEnabled(false);
@@ -137,33 +137,26 @@ public class Key extends Label {
 		switch (Event.getType(event)) {
 		case Pointer.EVENT_TYPE:
 			int action = Buttons.getAction(event);
-			switch (action) {
-			case Buttons.PRESSED:
+			if (action == Buttons.PRESSED) {
 				setPressed(true);
 				OnClickListener clickListener = this.onClickListener;
 				if (clickListener != null) {
 					clickListener.onClick();
 				}
 				startRepeatTask();
-				break;
-			case Buttons.RELEASED:
-				if (this.pressed) {
-					// Update button state & style before external handling.
-					setPressed(false);
-					stopRepeatTask();
-					return true;
-				}
-				// Don't exit when the button is dragged, because the user can drag inside the button.
-				// case Pointer.DRAGGED:
+			} else if (action == Buttons.RELEASED && this.pressed) {
+				// Update button state & style before external handling.
+				setPressed(false);
+				stopRepeatTask();
+				return true;
 			}
+			// Don't exit when the button is dragged, because the user can drag inside the button.
 			break;
 		case DesktopEventGenerator.EVENT_TYPE:
 			action = DesktopEventGenerator.getAction(event);
-			if (action == PointerEventDispatcher.EXITED) {
-				if (this.pressed) {
-					setPressed(false);
-					stopRepeatTask();
-				}
+			if (action == PointerEventDispatcher.EXITED && this.pressed) {
+				setPressed(false);
+				stopRepeatTask();
 			}
 			break;
 		default:

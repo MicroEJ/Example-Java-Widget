@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.button;
@@ -77,12 +77,14 @@ public class ButtonPage implements Page {
 		style = stylesheet.getSelectorStyle(roundedButton);
 		style.setBorder(
 				new RoundedBorder(DemoColors.ALTERNATE_BACKGROUND, ROUNDED_CORNER_RADIUS, ROUNDED_BORDER_THICKNESS));
-		style.setBackground(new RoundedBackground(DemoColors.ALTERNATE_BACKGROUND, ROUNDED_CORNER_RADIUS));
+		style.setBackground(new RoundedBackground(DemoColors.ALTERNATE_BACKGROUND, ROUNDED_CORNER_RADIUS,
+				ROUNDED_BORDER_THICKNESS));
 
 		// active rounded button
 		style = stylesheet.getSelectorStyle(new AndCombinator(roundedButton, activeSelector));
 		style.setBorder(new RoundedBorder(DemoColors.POMEGRANATE, ROUNDED_CORNER_RADIUS, ROUNDED_BORDER_THICKNESS));
-		style.setBackground(new RoundedBackground(DemoColors.POMEGRANATE, ROUNDED_CORNER_RADIUS));
+		style.setBackground(
+				new RoundedBackground(DemoColors.POMEGRANATE, ROUNDED_CORNER_RADIUS, ROUNDED_BORDER_THICKNESS));
 
 		// image button
 		style = stylesheet.getSelectorStyle(imageButton);

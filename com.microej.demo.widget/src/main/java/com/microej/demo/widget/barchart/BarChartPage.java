@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.barchart;
@@ -9,6 +9,7 @@ import com.microej.demo.widget.barchart.widget.ChartPoint;
 import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Page;
 
+import ej.bon.Immutables;
 import ej.mwt.Widget;
 import ej.mwt.style.EditableStyle;
 import ej.mwt.style.outline.UniformOutline;
@@ -28,9 +29,7 @@ public class BarChartPage implements Page {
 
 	private static final float MAX_VALUE = 100f;
 
-	@SuppressWarnings("nls")
-	private static final String[] MONTHS = { "January", "February", "March", "April", "May", "June", "July", "August",
-			"September", "October", "November", "December" };
+	private static final String[] MONTHS = (String[]) Immutables.get("Months"); //$NON-NLS-1$
 
 	@Override
 	public String getName() {

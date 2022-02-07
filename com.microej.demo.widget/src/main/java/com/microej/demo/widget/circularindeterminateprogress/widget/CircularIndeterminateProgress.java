@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.circularindeterminateprogress.widget;
@@ -9,7 +9,6 @@ import ej.bon.Util;
 import ej.drawing.ShapePainter;
 import ej.microui.display.Colors;
 import ej.microui.display.GraphicsContext;
-import ej.microui.display.Painter;
 import ej.motion.Motion;
 import ej.motion.linear.LinearFunction;
 import ej.motion.quart.QuartEaseOutFunction;
@@ -32,6 +31,8 @@ public class CircularIndeterminateProgress extends Widget {
 
 	private static final int DEFAULT_DIAMETER = 100;
 	private static final int DEFAULT_THICK = 5;
+
+	private static final int FADING = 1;
 
 	/**
 	 * Background color ID.
@@ -70,7 +71,7 @@ public class CircularIndeterminateProgress extends Widget {
 	@Override
 	protected void computeContentOptimalSize(Size size) {
 		Style style = getStyle();
-		int diameter = style.getExtraInt(PROGRESS_DIAMETER, DEFAULT_DIAMETER);
+		int diameter = style.getExtraInt(PROGRESS_DIAMETER, DEFAULT_DIAMETER) + FADING * 2;
 		size.setSize(diameter, diameter);
 	}
 
@@ -83,7 +84,7 @@ public class CircularIndeterminateProgress extends Widget {
 
 		// background
 		g.setColor(style.getExtraInt(BACKGROUND_COLOR, Colors.BLACK));
-		Painter.fillCircle(g, 0, 0, diameter);
+		ShapePainter.drawThickFadedPoint(g, contentWidth / 2, contentHeight / 2, diameter, FADING);
 		// Fills the complete part, from 90° anti-clockwise.
 		int startAngle = this.startAngle;
 		int arcAngle = this.arcAngle;

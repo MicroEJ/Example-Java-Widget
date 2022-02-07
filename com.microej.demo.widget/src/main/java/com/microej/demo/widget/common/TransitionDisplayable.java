@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common;
@@ -78,7 +78,7 @@ import ej.widget.util.motion.MotionAnimationListener;
 		int currentPosition = this.currentPosition;
 
 		if (this.forward) {
-			renderNewDesktop(gc, currentPosition - PageHelper.TITLE_BAR_WIDTH, currentPosition,
+			renderNewDesktop(gc, currentPosition - PageHelper.getTitleBarWidth(), currentPosition,
 					displayWidth - currentPosition);
 		} else {
 			int lastPosition = this.lastPosition;
@@ -109,9 +109,9 @@ import ej.widget.util.motion.MotionAnimationListener;
 	private static Motion createMotion(boolean forward) {
 		int width = Display.getDisplay().getWidth();
 		if (forward) {
-			return new Motion(QuadEaseOutFunction.INSTANCE, width, PageHelper.TITLE_BAR_WIDTH, DURATION);
+			return new Motion(QuadEaseOutFunction.INSTANCE, width, PageHelper.getTitleBarWidth(), DURATION);
 		} else {
-			return new Motion(QuadEaseOutFunction.INSTANCE, PageHelper.TITLE_BAR_WIDTH, width, DURATION);
+			return new Motion(QuadEaseOutFunction.INSTANCE, PageHelper.getTitleBarWidth(), width, DURATION);
 		}
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.keyboard;
@@ -31,8 +31,6 @@ import ej.widget.container.SimpleDock;
 	private static final String FIRST_NAME = "First name"; //$NON-NLS-1$
 	/** Last name place holder. */
 	private static final String LAST_NAME = "Last name"; //$NON-NLS-1$
-	/** Result empty string. */
-	private static final String RESULT_EMPTY = ""; //$NON-NLS-1$
 	/** Result prefix. */
 	private static final String RESULT_PREFIX = "Hello\n"; //$NON-NLS-1$
 	/** Special button caption for next text field. */
@@ -55,23 +53,27 @@ import ej.widget.container.SimpleDock;
 	/** Page content. */
 	private final SimpleDock content;
 
-	/* package */ KeyboardPageContent() {
+	private final int initialSpecialKeySelector;
+	private final int specialKeySelector;
+
+	/* package */ KeyboardPageContent(int formSelector, int resultLabelSelector, int spaceKeySelector,
+			int shiftKeyInactiveSelector, int shiftKeyActiveSelector, int switchMappingKeySelector,
+			int initialSpecialKeySelector, int specialKeySelector) {
 		Timer timer = ServiceFactory.getService(Timer.class, Timer.class);
 
 		SimpleDock dock = new SimpleDock(LayoutOrientation.VERTICAL);
-		this.keyboard = new Keyboard(timer);
+		this.keyboard = new Keyboard(timer, spaceKeySelector, shiftKeyInactiveSelector, shiftKeyActiveSelector,
+				switchMappingKeySelector);
 		this.firstName = createTextField(FIRST_NAME, timer);
 		this.lastName = createTextField(LAST_NAME, timer);
-		this.resultLabel = new LineWrappingLabel(RESULT_EMPTY);
-		this.resultLabel.addClassSelector(KeyboardPage.RESULT_LABEL);
-
-		dock.addClassSelector(KeyboardPage.CONTENT);
+		this.resultLabel = new LineWrappingLabel(EMPTY_STRING);
+		this.resultLabel.addClassSelector(resultLabelSelector);
 
 		// list
 		List list = new List(LayoutOrientation.VERTICAL);
 		list.addChild(this.firstName);
 		list.addChild(this.lastName);
-		list.addClassSelector(KeyboardPage.FORM);
+		list.addClassSelector(formSelector);
 
 		Grid textGrid = new Grid(LayoutOrientation.HORIZONTAL, 2);
 		textGrid.addChild(list);
@@ -81,6 +83,9 @@ import ej.widget.container.SimpleDock;
 		dock.setCenterChild(this.keyboard);
 
 		this.content = dock;
+
+		this.initialSpecialKeySelector = initialSpecialKeySelector;
+		this.specialKeySelector = specialKeySelector;
 	}
 
 	private TextField createTextField(String placeHolder, Timer timer) {
@@ -94,7 +99,6 @@ import ej.widget.container.SimpleDock;
 			}
 		};
 		textField.setMaxTextLength(MAX_TEXT_LENGTH);
-		textField.setEnabled(true);
 		return textField;
 	}
 
@@ -102,7 +106,7 @@ import ej.widget.container.SimpleDock;
 		keyboardText.setActive(true);
 		if (keyboardText == this.firstName) {
 			this.lastName.setActive(false);
-			this.keyboard.setSpecialKey(SPECIAL_NEXT, Keyboard.INITIAL_SPECIAL_KEY_SELECTOR, new OnClickListener() {
+			this.keyboard.setSpecialKey(SPECIAL_NEXT, this.initialSpecialKeySelector, new OnClickListener() {
 				@Override
 				public void onClick() {
 					activateKeyboardField(KeyboardPageContent.this.lastName);
@@ -110,7 +114,7 @@ import ej.widget.container.SimpleDock;
 			});
 		} else {
 			this.firstName.setActive(false);
-			this.keyboard.setSpecialKey(SPECIAL_SUBMIT, Keyboard.SPECIAL_KEY_SELECTOR, new OnClickListener() {
+			this.keyboard.setSpecialKey(SPECIAL_SUBMIT, this.specialKeySelector, new OnClickListener() {
 				@Override
 				public void onClick() {
 					submit();
@@ -137,7 +141,7 @@ import ej.widget.container.SimpleDock;
 			resultLabel.setText(RESULT_PREFIX + firstNameText + " " + lastNameText); //$NON-NLS-1$
 			resultLabel.requestRender();
 		} else {
-			resultLabel.setText(RESULT_EMPTY);
+			resultLabel.setText(EMPTY_STRING);
 			resultLabel.requestRender();
 			if (firstNameText.length() == 0) {
 				activateKeyboardField(firstName);

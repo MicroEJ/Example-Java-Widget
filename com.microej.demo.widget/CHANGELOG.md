@@ -5,7 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 7.3.0 - 2021-08-03
+## [7.4.0] - 2022-01-21
+
+### Added
+
+- Add a start method to launch the application.
+- Add a method to allow page insertion before application starts.
+- Add SnapScroll container and page.
+- Add SecretScroll container and page.
+- Add BufferedScroll widget and page.
+
+### Changed
+
+- Update MWT dependency to 3.3.0.
+- Update enabled widgets to use new Widget constructor.
+
+### Fixed
+
+- Clean-up keyboard code.
+- Fix colors / pictos used on keyboard.
+- Add anti-aliasing to circle progress widgets.
+- Fix cropped circle progress widgets.
+- Fix carousel spacing to avoid overlapping.
+- Add anti-aliasing to line chart pages.
+
+## [7.3.0] - 2021-08-03
 
 ### Added
 
@@ -39,25 +63,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use desktop animator.
 - Fix title bar on big displays.
 
-## 7.0.5 - 2020-12-10
+## [7.0.5] - 2020-12-10
 
 ### Fixed
 
 - Clean-up dependencies.
 
-## 7.0.4 - 2020-12-04
+## [7.0.4] - 2020-12-04
 
 ### Fixed
 
 - Update dependencies to workaround SDK issues (null analysis & MMM).
 
-## 7.0.3 - 2020-11-26
+## [7.0.3] - 2020-11-26
 
 ### Changed
 
 - Update README.md.
 
-## 7.0.2 - 2020-11-12
+## [7.0.2] - 2020-11-12
 
 ### Added
 
@@ -67,7 +91,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fix animation delay when switching page.
 
-## 7.0.1 - 2020-11-03
+## [7.0.1] - 2020-11-03
 
 ### Added
 
@@ -80,13 +104,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update minimum and maximum length of scrollbars.
 - Update blurry characters in font.
 
-## 7.0.0 - 2020-09-21
+## [7.0.0] - 2020-09-21
 
 ### Changed
 
 - Revamp all demo on MicroUI 3 and MWT 3.
 
-## 6.2.0 - 2019-10-29
+## [6.2.0] - 2019-10-29
 
 ### Changed
 
@@ -97,13 +121,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add standalone.types.list and standalone.properties.list to specify required types for standalone run
 
-## 6.1.1 - 2018-10-22
+## [6.1.1] - 2018-10-22
 
 ### Fixed
 
 - Fix API versions.
 
-## 6.1.0 - 2017-12-27
+## [6.1.0] - 2017-12-27
 
 ### Added
 
@@ -121,7 +145,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Review pages structure.
 - Fix buttons' corners.
 
-## 6.0.0 - 2017-01-30
+## [6.0.0] - 2017-01-30
 
 ### Added
 
@@ -132,13 +156,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add wheel page
 - Sandbox the application.
 
-## 5.0.1 - 2016-07-01
+## [5.0.1] - 2016-07-01
 
 ### Fixed
 
 - Fix Widget version.
 
-## 5.0.0 - 2016-06-28
+## [5.0.0] - 2016-06-28
 
 ### Added
 
@@ -146,5 +170,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 _Markdown_ 
-_Copyright 2016-2021 MicroEJ Corp. All rights reserved._
+_Copyright 2016-2022 MicroEJ Corp. All rights reserved._
 _Use of this source code is governed by a BSD-style license that can be found with this software._

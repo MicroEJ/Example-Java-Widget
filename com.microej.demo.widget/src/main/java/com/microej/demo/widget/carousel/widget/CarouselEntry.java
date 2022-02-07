@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2017-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.carousel.widget;
@@ -99,26 +99,19 @@ public class CarouselEntry {
 	 *            the content height of the carousel
 	 * @param font
 	 *            the font to render with.
-	 * @param inDND
-	 *            whether an entry is being dragged
 	 * @param stopped
 	 *            whether the carousel is currently stopped
-	 * @param clicked
-	 *            whether the entry is getting clicked
-	 * @param selected
-	 *            whether the entry is currently selected
 	 * @param sizeRatio
 	 *            the size ratio
 	 * @param offsetX
 	 *            the offset on the X-axis
 	 * @param offsetY
 	 *            the offset on the Y-axis
-	 * @param isDND
+	 * @param isDnd
 	 *            whether the entry is being dragged
 	 */
-	public void render(GraphicsContext g, int contentWidth, int contentHeight, Font font, boolean inDND,
-			boolean stopped, boolean clicked, boolean selected, float sizeRatio, int offsetX, int offsetY,
-			boolean isDND) {
+	public void render(GraphicsContext g, int contentWidth, int contentHeight, Font font, boolean stopped,
+			float sizeRatio, int offsetX, int offsetY, boolean isDnd) {
 		// draw background
 		int imageWidth = Math.round(this.image.getWidth() * sizeRatio);
 		int imageHeight = Math.round(this.image.getHeight() * sizeRatio);
@@ -127,7 +120,7 @@ public class CarouselEntry {
 		drawScaled(g, this.image, imageX, imageY, IMAGE_ALPHA, sizeRatio, stopped);
 
 		// draw string
-		if (sizeRatio >= DRAW_STRING_RATIO && !isDND) {
+		if (sizeRatio >= DRAW_STRING_RATIO && !isDnd) {
 			int marginX = MAX_ENTRY_MARGIN - (this.image.getWidth() - imageWidth) / 2;
 			int stringX = imageX + marginX;
 			int stringY = imageY + imageHeight + IMAGE_TEXT_MARGIN;

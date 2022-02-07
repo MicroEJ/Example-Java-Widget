@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.checkbox.widget;
@@ -37,13 +37,9 @@ public class Checkbox extends Widget {
 	 *            the text to display.
 	 */
 	public Checkbox(String text) {
+		super(true);
 		this.text = text;
 		this.checked = false;
-	}
-
-	@Override
-	public void onShown() {
-		setEnabled(true);
 	}
 
 	@Override

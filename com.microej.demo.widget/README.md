@@ -38,8 +38,11 @@ Here are the pages:
 - `Grid`: demonstrates the `Grid` container from the widget library.
 - `Dock`: demonstrates the `Dock` container from the widget library.
 - `Split`: demonstrates a `Split` container.
-- `Scrollable List`: demonstrates a `Scrollable List` container.
+- `Scrollable List`: demonstrates a `ScrollableList` container.
 - `Scrollable Text`: demonstrates displaying a long, scrollable text.
+- `Snap Scroll`: demonstrates a scroll that snaps on its children.
+- `Secret Scroll`: demonstrates a container with an hidden child that can be shown by scrolling.
+- `Buffered Scroll`: demonstrates a scroll that uses the display buffer to scroll faster.
 - `Selectable List`: demonstrates a list of items that are selectable with an animation.
 - `Line Chart`: demonstrates a `LineChart` widget.
 - `Bar Chart`: demonstrates a `BarChart` widget.
@@ -74,5 +77,5 @@ N/A
 None.
 
 ---  
-_Copyright 2020-2021 MicroEJ Corp. All rights reserved._  
+_Copyright 2020-2022 MicroEJ Corp. All rights reserved._  
 _Use of this source code is governed by a BSD-style license that can be found with this software._  

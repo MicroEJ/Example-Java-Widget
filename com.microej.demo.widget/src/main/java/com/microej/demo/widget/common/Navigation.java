@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common;
@@ -27,15 +27,23 @@ public class Navigation {
 	private static Desktop mainDesktop;
 
 	private Navigation() {
+		// Prevent instantiation.
 	}
 
 	/**
-	 * Shows the main page.
+	 * Starts the demo.
 	 *
 	 * @param args
 	 *            not used.
 	 */
 	public static void main(String[] args) {
+		start();
+	}
+
+	/**
+	 * Starts the demo.
+	 */
+	public static void start() {
 		MicroUI.start();
 		Desktop desktop = createDesktop(new MainPage());
 		mainDesktop = desktop;

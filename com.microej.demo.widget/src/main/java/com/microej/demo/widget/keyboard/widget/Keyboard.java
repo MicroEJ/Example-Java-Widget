@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2016-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.keyboard.widget;
@@ -69,46 +69,6 @@ public class Keyboard extends Container {
 		}
 	}
 
-	/**
-	 * The space class selector.
-	 */
-	public static final int SPACE_KEY_SELECTOR = 15;
-	/**
-	 * The backspace class selector.
-	 */
-	public static final int BACKSPACE_KEY_SELECTOR = 16;
-	/**
-	 * The shift key inactive class selector.
-	 */
-	public static final int SHIFT_KEY_INACTIVE_SELECTOR = 17;
-	/**
-	 * The shift key active class selector.
-	 */
-	public static final int SHIFT_KEY_ACTIVE_SELECTOR = 18;
-	/**
-	 * The switch mapping class selector.
-	 */
-	public static final int SWITCH_MAPPING_KEY_SELECTOR = 19;
-	/**
-	 * Initial special key class selector.
-	 */
-	public static final int INITIAL_SPECIAL_KEY_SELECTOR = 20;
-	/**
-	 * The special key class selector.
-	 */
-	public static final int SPECIAL_KEY_SELECTOR = 21;
-	/**
-	 * Key label background color.
-	 */
-	public static final int KEY_BACKGROUND = 22;
-	/**
-	 * Delete key default style selector.
-	 */
-	public static final int IMAGE_KEY_SELECTOR = 22;
-	/**
-	 * Delete key active style selector.
-	 */
-	public static final int IMAGE_KEY_HIGHLIGHT = 23;
 	/** Keyboard row size. */
 	private static final int ROW_SIZE = 10;
 	/** Keyboard rows. */
@@ -122,6 +82,19 @@ public class Keyboard extends Container {
 	/** Fourth keyboard row. */
 	private static final int FOURTH_ROW = 3;
 
+	private static final int BLANK_KEY_COLUMN = 8;
+
+	private static final int LEFT_KEY_COLUMN = 1;
+	private static final int SPACE_KEY_COLUMN = 2;
+	private static final int RIGHT_KEY_COLUMN = 3;
+	private static final int SPECIAL_KEY_COLUMN = 4;
+
+	/*
+	 * Number of cells that should be used for the space key. When adjusting this, the same number of cells afterward
+	 * should be set to 0 in createKeys().
+	 */
+	private static final int SPACE_KEY_CELL_WRAPPING_SIZE = 5;
+
 	private final Timer timer;
 	/**
 	 * Keyboard rows.
@@ -132,14 +105,32 @@ public class Keyboard extends Container {
 	/** Keyboard events generator. */
 	private final KeyboardEventGenerator keyboardEvents;
 
+	private final int spaceKeySelector;
+	private final int shiftKeyInactiveSelector;
+	private final int shiftKeyActiveSelector;
+	private final int switchMappingKeySelector;
+
 	/**
 	 * Creates a virtual keyboard.
 	 *
 	 * @param timer
 	 *            the timer used to repeat events when the user keeps pressing a key
+	 * @param spaceKeySelector
+	 *            the selector id to set for the space key.
+	 * @param shiftKeyInactiveSelector
+	 *            the selector id to set for the shift key when inactive.
+	 * @param shiftKeyActiveSelector
+	 *            the selector id to set for the shift key when active.
+	 * @param switchMappingKeySelector
+	 *            the selector id to set for the switch mapping key.
 	 */
-	public Keyboard(Timer timer) {
+	public Keyboard(Timer timer, int spaceKeySelector, int shiftKeyInactiveSelector, int shiftKeyActiveSelector,
+			int switchMappingKeySelector) {
 		this.timer = timer;
+		this.spaceKeySelector = spaceKeySelector;
+		this.shiftKeyInactiveSelector = shiftKeyInactiveSelector;
+		this.shiftKeyActiveSelector = shiftKeyActiveSelector;
+		this.switchMappingKeySelector = switchMappingKeySelector;
 		this.keyboardEvents = new KeyboardEventGenerator();
 		this.rows = new Row[ROWS_COUNT];
 		// create rows
@@ -175,7 +166,7 @@ public class Keyboard extends Container {
 	 *
 	 */
 	public void setSpecialKey(String text, int keySelector, OnClickListener listener) {
-		getKey(FOURTH_ROW, 4).setSpecial(text, listener, keySelector);
+		getKey(FOURTH_ROW, SPECIAL_KEY_COLUMN).setSpecial(text, listener, keySelector);
 	}
 
 	/**
@@ -193,7 +184,7 @@ public class Keyboard extends Container {
 		createFullRow(THIRD_ROW, ROW_SIZE - 1, new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 2 });
 
 		// fill fourth row
-		createFullRow(FOURTH_ROW, ROW_SIZE - 1, new int[] { 1, 1, 5, 0, 0, 0, 0, 1, 2 });
+		createFullRow(FOURTH_ROW, ROW_SIZE - 1, new int[] { 1, 1, SPACE_KEY_CELL_WRAPPING_SIZE, 0, 0, 0, 0, 1, 2 });
 	}
 
 	/**
@@ -299,15 +290,16 @@ public class Keyboard extends Container {
 
 		// third row
 		final String thirdRowChars = layout.getThirdRow();
-		for (int i = 0; i < ROW_SIZE - 3; i++) {
+		for (int i = 0; i < thirdRowChars.length(); i++) {
+			// i + 1 because the key in the first column is the shift key.
 			setStandardKey(THIRD_ROW, i + 1, thirdRowChars.charAt(i));
 		}
-		setBlankKey(THIRD_ROW, 8);
+		setBlankKey(THIRD_ROW, BLANK_KEY_COLUMN);
 
 		// fourth row
-		setStandardKey(FOURTH_ROW, 1, ControlCharacters.VK_LEFT);
-		setSpaceKey(FOURTH_ROW, 2);
-		setStandardKey(FOURTH_ROW, 3, ControlCharacters.VK_RIGHT);
+		setStandardKey(FOURTH_ROW, LEFT_KEY_COLUMN, ControlCharacters.VK_LEFT);
+		setSpaceKey(FOURTH_ROW, SPACE_KEY_COLUMN);
+		setStandardKey(FOURTH_ROW, RIGHT_KEY_COLUMN, ControlCharacters.VK_RIGHT);
 		requestLayOut();
 	}
 
@@ -335,7 +327,7 @@ public class Keyboard extends Container {
 	 *            attached character key
 	 */
 	private void setStandardKey(int row, int col, char character) {
-		if (character == '\00') {
+		if (character == ControlCharacters.NULL) {
 			getKey(row, col).setBlank();
 		} else {
 			getKey(row, col).setStandard(character);
@@ -363,7 +355,7 @@ public class Keyboard extends Container {
 	 *            column
 	 */
 	private void setSpaceKey(int row, int col) {
-		getKey(row, col).setStandard(ControlCharacters.SPACE, SPACE_KEY_SELECTOR);
+		getKey(row, col).setStandard(ControlCharacters.SPACE, this.spaceKeySelector);
 	}
 
 	/**
@@ -389,7 +381,7 @@ public class Keyboard extends Container {
 		};
 
 		String text = String.valueOf(ControlCharacters.SHIFT_IN);
-		int classSelector = (active ? SHIFT_KEY_ACTIVE_SELECTOR : SHIFT_KEY_INACTIVE_SELECTOR);
+		int classSelector = (active ? this.shiftKeyActiveSelector : this.shiftKeyInactiveSelector);
 
 		getKey(row, col).setSpecial(text, listener, classSelector);
 	}
@@ -437,7 +429,7 @@ public class Keyboard extends Container {
 		}
 
 		String text = mapping.getString();
-		getKey(row, col).setSpecial(text, listener, SWITCH_MAPPING_KEY_SELECTOR);
+		getKey(row, col).setSpecial(text, listener, this.switchMappingKeySelector);
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2015-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.keyboard.widget;
@@ -44,8 +44,6 @@ public class TextField extends Widget implements EventHandler, Animation {
 	public static final int SELECTION_BACKGROUND = 0;
 	/** The extra field ID for the selection text. */
 	public static final int SELECTION_COLOR = 1;
-	/** The extra field ID for the clear button font. */
-	public static final int CLEAR_BUTTON_FONT = 2;
 	/** Empty string. */
 	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 	/** Cursor blink period in milliseconds. */
@@ -141,6 +139,7 @@ public class TextField extends Widget implements EventHandler, Animation {
 	 *            the timer used to blink the caret
 	 */
 	public TextField(String text, String placeHolder, int fieldLength, Timer timer) {
+		super(true);
 		this.timer = timer;
 		this.buffer = new StringBuilder(text);
 		this.placeHolder = placeHolder;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common;
@@ -18,6 +18,7 @@ public class Fonts {
 	private static final String SOURCE_22_400 = "/fonts/SourceSansPro_22px-400.ejf"; //$NON-NLS-1$
 
 	private Fonts() {
+		// Prevent instantiation.
 	}
 
 	/**

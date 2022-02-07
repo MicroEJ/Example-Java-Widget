@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.barchart.widget;
@@ -76,6 +76,7 @@ public class BarChart extends Widget implements MotionAnimationListener {
 	 * Creates a BarChart Widget.
 	 */
 	public BarChart() {
+		super(true);
 		this.unit = ""; //$NON-NLS-1$
 		this.scaleCount = DEFAULT_SCALE_COUNT;
 		this.selectedChartPointIndex = -1;
@@ -226,8 +227,6 @@ public class BarChart extends Widget implements MotionAnimationListener {
 
 	@Override
 	public void onShown() {
-		setEnabled(true); // Needs to be set to receive Events
-
 		Motion motion = new Motion(QuadEaseInOutFunction.INSTANCE, ANIMATION_MIN, ANIMATION_MAX, ANIMATION_DURATION);
 		MotionAnimation motionAnimation = new MotionAnimation(getDesktop().getAnimator(), motion, BarChart.this);
 		motionAnimation.start();

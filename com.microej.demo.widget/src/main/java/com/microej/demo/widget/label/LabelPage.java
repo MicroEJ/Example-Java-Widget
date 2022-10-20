@@ -16,7 +16,7 @@ import ej.mwt.stylesheet.selector.ClassSelector;
 import ej.widget.basic.Label;
 
 /**
- * Page showing labels.
+ * Page showing a label.
  */
 public class LabelPage implements Page {
 

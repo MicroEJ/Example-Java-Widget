@@ -17,7 +17,7 @@ import ej.mwt.stylesheet.cascading.CascadingStylesheet;
 import ej.mwt.stylesheet.selector.ClassSelector;
 
 /**
- * This is the base for the Pages demonstrating the Chart Widgets.
+ * Page showing a bar chart.
  */
 public class BarChartPage implements Page {
 

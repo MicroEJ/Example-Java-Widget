@@ -30,7 +30,7 @@ import ej.mwt.util.Alignment;
 import ej.widget.basic.Label;
 
 /**
- * This page illustrates a keyboard.
+ * Page showing a keyboard and its associated text field.
  */
 public class KeyboardPage implements Page {
 

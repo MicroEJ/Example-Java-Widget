@@ -54,7 +54,7 @@ public class SliderWithProgress extends Widget {
 	private int value;
 
 	/**
-	 * Creates a horizontal slider with a default bounded range model.
+	 * Creates a horizontal slider.
 	 *
 	 * @param min
 	 *            the minimum value of the slider.

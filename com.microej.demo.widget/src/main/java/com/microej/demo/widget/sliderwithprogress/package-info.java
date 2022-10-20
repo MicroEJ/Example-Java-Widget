@@ -4,7 +4,7 @@
  */
 
 /**
- * Contains the Slider with progress page.
+ * Contains the slider with progress page.
  */
 @ej.annotation.NonNullByDefault
 package com.microej.demo.widget.sliderwithprogress;

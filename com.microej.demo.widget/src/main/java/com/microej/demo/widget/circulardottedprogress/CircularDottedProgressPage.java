@@ -7,6 +7,7 @@ package com.microej.demo.widget.circulardottedprogress;
 import com.microej.demo.widget.circulardottedprogress.widget.CircularDottedProgress;
 import com.microej.demo.widget.common.Page;
 
+import ej.bon.Util;
 import ej.microui.display.Colors;
 import ej.motion.Motion;
 import ej.motion.circ.CircEaseInOutFunction;
@@ -21,7 +22,7 @@ import ej.widget.container.LayoutOrientation;
 import ej.widget.container.SimpleDock;
 
 /**
- * Circular Dotted Progress page.
+ * Page showing a circular dotted progress.
  */
 public class CircularDottedProgressPage implements Page {
 
@@ -76,7 +77,7 @@ public class CircularDottedProgressPage implements Page {
 
 		@Override
 		protected void onShown() {
-			this.startTime = System.currentTimeMillis();
+			this.startTime = Util.platformTimeMillis();
 			getDesktop().getAnimator().startAnimation(this);
 		}
 
@@ -86,8 +87,8 @@ public class CircularDottedProgressPage implements Page {
 		}
 
 		@Override
-		public boolean tick(long currentTimeMillis) {
-			long elapsedTime = currentTimeMillis - this.startTime;
+		public boolean tick(long platformTimeMillis) {
+			long elapsedTime = platformTimeMillis - this.startTime;
 			float angle = this.progressMotion.getValue(elapsedTime);
 			setProgress(angle);
 

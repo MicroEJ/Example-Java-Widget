@@ -17,7 +17,7 @@ import ej.widget.container.LayoutOrientation;
 import ej.widget.container.SimpleDock;
 
 /**
- * Contains the widgets used by the slider with progress page.
+ * Page showing a slider with progress.
  */
 public class SliderWithProgressPage implements Page {
 
@@ -31,7 +31,7 @@ public class SliderWithProgressPage implements Page {
 
 	@Override
 	public String getName() {
-		return "Slider with progress"; //$NON-NLS-1$
+		return "Slider with Progress"; //$NON-NLS-1$
 	}
 
 	@Override

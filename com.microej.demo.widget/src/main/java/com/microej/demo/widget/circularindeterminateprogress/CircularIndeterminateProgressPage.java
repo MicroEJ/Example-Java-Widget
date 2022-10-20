@@ -18,7 +18,7 @@ import ej.widget.container.LayoutOrientation;
 import ej.widget.container.SimpleDock;
 
 /**
- * Circular Indeterminate Progress page.
+ * Page showing a circular indeterminate progress.
  */
 public class CircularIndeterminateProgressPage implements Page {
 
@@ -33,7 +33,6 @@ public class CircularIndeterminateProgressPage implements Page {
 
 	@Override
 	public void populateStylesheet(CascadingStylesheet stylesheet) {
-
 		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(CircularIndeterminateProgress.class));
 		style.setColor(BAR_COLOR);
 		style.setExtraInt(CircularIndeterminateProgress.BACKGROUND_COLOR, Colors.BLACK);
@@ -41,7 +40,6 @@ public class CircularIndeterminateProgressPage implements Page {
 		style.setExtraInt(CircularIndeterminateProgress.PROGRESS_THICK, CIRCULAR_THICK);
 		style.setDimension(OptimalDimension.OPTIMAL_DIMENSION_XY);
 		style.setHorizontalAlignment(Alignment.HCENTER);
-
 	}
 
 	@Override

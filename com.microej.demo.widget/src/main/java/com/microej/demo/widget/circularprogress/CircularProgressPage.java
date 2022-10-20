@@ -8,6 +8,7 @@ import com.microej.demo.widget.circularindeterminateprogress.widget.CircularInde
 import com.microej.demo.widget.circularprogress.widget.CircularProgress;
 import com.microej.demo.widget.common.Page;
 
+import ej.bon.Util;
 import ej.microui.display.Colors;
 import ej.mwt.Widget;
 import ej.mwt.animation.Animation;
@@ -20,7 +21,7 @@ import ej.widget.container.LayoutOrientation;
 import ej.widget.container.SimpleDock;
 
 /**
- * Circular Progress page.
+ * Page showing a circular progress.
  */
 public class CircularProgressPage implements Page {
 
@@ -66,7 +67,7 @@ public class CircularProgressPage implements Page {
 
 		@Override
 		protected void onShown() {
-			this.startTime = System.currentTimeMillis();
+			this.startTime = Util.platformTimeMillis();
 			getDesktop().getAnimator().startAnimation(this);
 		}
 
@@ -76,8 +77,8 @@ public class CircularProgressPage implements Page {
 		}
 
 		@Override
-		public boolean tick(long currentTimeMillis) {
-			long elapsedTime = currentTimeMillis - this.startTime;
+		public boolean tick(long platformTimeMillis) {
+			long elapsedTime = platformTimeMillis - this.startTime;
 			setProgress(1.0f * elapsedTime / ANIMATION_DURATION);
 			requestRender();
 			return (elapsedTime < ANIMATION_DURATION);

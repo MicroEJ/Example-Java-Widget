@@ -4,7 +4,7 @@
  */
 
 /**
- * Contains the Slider with value page.
+ * Contains the slider with value page.
  */
 @ej.annotation.NonNullByDefault
 package com.microej.demo.widget.sliderwithvalue;

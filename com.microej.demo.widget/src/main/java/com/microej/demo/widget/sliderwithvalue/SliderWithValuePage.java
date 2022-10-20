@@ -20,7 +20,7 @@ import ej.widget.container.LayoutOrientation;
 import ej.widget.container.SimpleDock;
 
 /**
- * Contains the widgets used by the slider with value page.
+ * Page showing a slider with value.
  */
 public class SliderWithValuePage implements Page {
 
@@ -34,7 +34,7 @@ public class SliderWithValuePage implements Page {
 
 	@Override
 	public String getName() {
-		return "Slider with value"; //$NON-NLS-1$
+		return "Slider with Value"; //$NON-NLS-1$
 	}
 
 	@Override

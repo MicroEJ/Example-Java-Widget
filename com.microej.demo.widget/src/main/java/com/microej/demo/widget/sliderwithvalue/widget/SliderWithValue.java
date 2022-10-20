@@ -66,7 +66,7 @@ public class SliderWithValue extends Widget implements EventHandler {
 	private boolean pressed;
 
 	/**
-	 * Creates a horizontal slider with a default bounded range model.
+	 * Creates a horizontal slider.
 	 *
 	 * @param min
 	 *            the minimum value of the slider.

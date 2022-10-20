@@ -13,7 +13,10 @@ import com.microej.demo.widget.checkbox.CheckboxPage;
 import com.microej.demo.widget.circulardottedprogress.CircularDottedProgressPage;
 import com.microej.demo.widget.circularindeterminateprogress.CircularIndeterminateProgressPage;
 import com.microej.demo.widget.circularprogress.CircularProgressPage;
+import com.microej.demo.widget.circularslider.CircularSliderPage;
 import com.microej.demo.widget.dock.DockPage;
+import com.microej.demo.widget.doubleslider.DoubleTemperatureSliderPage;
+import com.microej.demo.widget.fixedgrid.FixedGridPage;
 import com.microej.demo.widget.grid.GridPage;
 import com.microej.demo.widget.imagewidget.ImageWidgetPage;
 import com.microej.demo.widget.indeterminateprogressbar.IndeterminateProgressBarPage;
@@ -47,6 +50,8 @@ public class Pages {
 			new ImageWidgetPage(), //
 			new SliderWithValuePage(), //
 			new SliderWithProgressPage(), //
+			new CircularSliderPage(), //
+			new DoubleTemperatureSliderPage(), //
 			new ButtonPage(), //
 			new CheckboxPage(), //
 			new RadioButtonPage(), //
@@ -61,6 +66,7 @@ public class Pages {
 			new CarouselPage(), //
 			new ListPage(), //
 			new GridPage(), //
+			new FixedGridPage(), //
 			new DockPage(), //
 			new SplitPage(), //
 			new ScrollableListPage(), //

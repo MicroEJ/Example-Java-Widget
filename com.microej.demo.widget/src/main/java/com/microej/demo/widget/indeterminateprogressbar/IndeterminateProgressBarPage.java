@@ -19,7 +19,7 @@ import ej.mwt.stylesheet.cascading.CascadingStylesheet;
 import ej.mwt.stylesheet.selector.ClassSelector;
 
 /**
- * Page showing indeterminate progress bars.
+ * Page showing an indeterminate progress bar.
  */
 public class IndeterminateProgressBarPage implements Page {
 

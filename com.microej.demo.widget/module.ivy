@@ -3,7 +3,7 @@
 	Use of this source code is governed by a BSD-style license that can be found with this software.
 -->
 <ivy-module version="2.0" xmlns:ea="http://www.easyant.org" xmlns:ej="https://developer.microej.com" ej:version="2.0.0">
-	<info organisation="com.microej.demo" module="widget" status="integration" revision="7.4.0">
+	<info organisation="com.microej.demo" module="widget" status="integration" revision="7.5.1">
 		<ea:build organisation="com.is2t.easyant.buildtypes" module="build-firmware-singleapp" revision="1.+"/>
 		<ea:property name="application.main.class" value="com.microej.demo.widget.common.Navigation"/>
 		<ea:property name="virtual.device.sim.only" value="set"/>
@@ -29,8 +29,8 @@
 		<dependency org="ej.api" name="microui" rev="3.0.3"/>
 		<dependency org="ej.api" name="drawing" rev="1.0.2"/>
 
-		<dependency org="ej.library.ui" name="mwt" rev="3.3.0"/>
-		<dependency org="ej.library.ui" name="widget" rev="4.1.0"/>
+		<dependency org="ej.library.ui" name="mwt" rev="3.3.1"/>
+		<dependency org="ej.library.ui" name="widget" rev="4.2.0"/>
 		<dependency org="ej.library.ui" name="motion" rev="4.0.0"/>
 		<dependency org="ej.library.runtime" name="service" rev="1.1.1"/>
 	</dependencies>

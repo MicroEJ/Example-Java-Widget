@@ -23,7 +23,7 @@ import ej.mwt.stylesheet.selector.TypeSelector;
 import ej.widget.container.List;
 
 /**
- * Page showing Wheel widgets.
+ * Page showing a wheel.
  */
 public class WheelPage implements Page {
 

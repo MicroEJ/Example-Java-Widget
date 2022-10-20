@@ -8,6 +8,7 @@ import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Page;
 import com.microej.demo.widget.progressbar.widget.ProgressBar;
 
+import ej.bon.Util;
 import ej.microui.display.Colors;
 import ej.mwt.Widget;
 import ej.mwt.animation.Animation;
@@ -20,7 +21,7 @@ import ej.mwt.stylesheet.cascading.CascadingStylesheet;
 import ej.mwt.stylesheet.selector.ClassSelector;
 
 /**
- * Page showing progress bars.
+ * Page showing a progress bar.
  */
 public class ProgressBarPage implements Page {
 
@@ -60,7 +61,7 @@ public class ProgressBarPage implements Page {
 
 		@Override
 		protected void onShown() {
-			this.startTime = System.currentTimeMillis();
+			this.startTime = Util.platformTimeMillis();
 			getDesktop().getAnimator().startAnimation(this);
 		}
 
@@ -70,8 +71,8 @@ public class ProgressBarPage implements Page {
 		}
 
 		@Override
-		public boolean tick(long currentTimeMillis) {
-			long elapsedTime = currentTimeMillis - this.startTime;
+		public boolean tick(long platformTimeMillis) {
+			long elapsedTime = platformTimeMillis - this.startTime;
 			setProgress(1.0f * elapsedTime / ANIMATION_DURATION);
 			requestRender();
 			return (elapsedTime < ANIMATION_DURATION);

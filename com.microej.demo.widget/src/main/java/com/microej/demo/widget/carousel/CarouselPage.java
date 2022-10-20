@@ -25,7 +25,7 @@ import ej.widget.container.LayoutOrientation;
 import ej.widget.container.List;
 
 /**
- * This page illustrates a Carousel.
+ * Page showing a carousel.
  */
 public class CarouselPage implements Page {
 

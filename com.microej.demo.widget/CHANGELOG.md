@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.5.1] - 2022-10-20
+
+### Fixed
+
+- Fix Widget library version in README.md.
+
+## [7.5.0] - 2022-10-18
+
+### Added
+
+- Add CircularSlider widget and page.
+- Add DoubleTemperatureSlider widget and page.
+- Add FixedGrid page.
+
+### Fixed
+
+- Use Util.platformTimeMillis() instead of System.currentTimeMillis() for time elapsing computing.
+
 ## [7.4.0] - 2022-01-21
 
 ### Added

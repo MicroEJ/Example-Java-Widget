@@ -4,7 +4,7 @@
  */
 
 /**
- * Contains the Circular dotted progress page.
+ * Contains the widgets used by the double slider page.
  */
 @ej.annotation.NonNullByDefault
-package com.microej.demo.widget.circulardottedprogress;
+package com.microej.demo.widget.doubleslider.widget;

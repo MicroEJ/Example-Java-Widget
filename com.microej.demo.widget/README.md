@@ -1,6 +1,6 @@
 # Overview
 
-This demo illustrates the widgets and containers available in the widget library: [ej.library.ui#widget-3.1.0](https://repository.microej.com/modules/ej/library/ui/widget/3.1.0/).
+This demo illustrates the widgets and containers available in the widget library: [ej.library.ui#widget-4.2.0](https://repository.microej.com/modules/ej/library/ui/widget/4.2.0/).
 
 At startup, it shows a list of items.
 Clicking on an item opens a new page showing a widget or a set of widgets.
@@ -20,8 +20,10 @@ Here are the pages:
 - `Label`: demonstrates the simple `Label` widget from the widget library.
 - `AutoscrollLabel`: demonstrates a label which autoscroll when the label text is longer than label length.
 - `Image Widget` : demonstrates how to display an image using `ImageWidget` from the widget library.
-- `Slider with value` : demonstrate a Slider with displayed value.
-- `Slider with progress` : demonstrate a Slider with progress.
+- `Slider with value` : demonstrates a slider with displayed value.
+- `Slider with progress` : demonstrates a slider with progress.
+- `Circular Slider` : demonstrates a circular slider.
+- `Double Temperature Slider` : demonstrates a double slider with a dynamic gradient.
 - `Button`: demonstrates different styles of the simple `Button` widget from the widget library.
 - `Checkbox`: demonstrates a `Checkbox` widget.
 - `Radio Button`: demonstrates a `RadioButton` widget.
@@ -36,6 +38,7 @@ Here are the pages:
 - `Carousel`: demonstrates a `Carousel` widget.
 - `List`: demonstrates the `List` container from the widget library.
 - `Grid`: demonstrates the `Grid` container from the widget library.
+- `Fixed Grid`: demonstrates the `FixedGrid` container from the widget library.
 - `Dock`: demonstrates the `Dock` container from the widget library.
 - `Split`: demonstrates a `Split` container.
 - `Scrollable List`: demonstrates a `ScrollableList` container.

@@ -4,7 +4,7 @@
  */
 
 /**
- * Contains the Circular dotted progress page.
+ * Contains the circular slider page.
  */
 @ej.annotation.NonNullByDefault
-package com.microej.demo.widget.circulardottedprogress;
+package com.microej.demo.widget.circularslider;

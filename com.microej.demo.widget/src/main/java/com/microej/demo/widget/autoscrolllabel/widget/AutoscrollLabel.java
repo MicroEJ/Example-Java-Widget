@@ -4,6 +4,7 @@
  */
 package com.microej.demo.widget.autoscrolllabel.widget;
 
+import ej.bon.Util;
 import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.mwt.animation.Animation;
@@ -25,7 +26,7 @@ public class AutoscrollLabel extends Label implements Animation {
 
 	private int textWidth;
 	private long startTime;
-	private int elapsedTime;
+	private long elapsedTime;
 
 	/**
 	 * Creates an autoscroll label.
@@ -68,7 +69,7 @@ public class AutoscrollLabel extends Label implements Animation {
 		this.textWidth = getStyle().getFont().stringWidth(this.getText());
 
 		if (this.textWidth > getContentBounds().getWidth()) {
-			this.startTime = System.currentTimeMillis() + START_WAIT_PERIOD;
+			this.startTime = Util.platformTimeMillis() + START_WAIT_PERIOD;
 
 			getDesktop().getAnimator().startAnimation(this);
 		}
@@ -80,8 +81,8 @@ public class AutoscrollLabel extends Label implements Animation {
 	}
 
 	@Override
-	public boolean tick(long currentTimeMillis) {
-		this.elapsedTime = (int) (System.currentTimeMillis() - this.startTime);
+	public boolean tick(long platformTimeMillis) {
+		this.elapsedTime = platformTimeMillis - this.startTime;
 		requestRender();
 		return true;
 	}

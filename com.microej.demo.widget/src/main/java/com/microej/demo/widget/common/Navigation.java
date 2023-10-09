@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common;
@@ -7,6 +7,7 @@ package com.microej.demo.widget.common;
 import com.microej.demo.widget.main.MainPage;
 
 import ej.annotation.Nullable;
+import ej.bon.Timer;
 import ej.microui.MicroUI;
 import ej.microui.display.Display;
 import ej.mwt.Desktop;
@@ -45,6 +46,17 @@ public class Navigation {
 	 */
 	public static void start() {
 		MicroUI.start();
+
+		// Create the global timer
+		final Timer timer = new Timer(false);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				timer.run();
+				MicroUI.callSerially(this);
+			}
+		}, "Timer").start(); //$NON-NLS-1$
+
 		Desktop desktop = createDesktop(new MainPage());
 		mainDesktop = desktop;
 		Display.getDisplay().requestShow(desktop);
@@ -103,8 +115,8 @@ public class Navigation {
 
 	private static Stylesheet createStylesheet(Page page) {
 		CascadingStylesheet stylesheet = new CascadingStylesheet();
-		page.populateStylesheet(stylesheet);
 		PageHelper.addCommonStyle(stylesheet);
+		page.populateStylesheet(stylesheet);
 		return new CachedStylesheet(stylesheet);
 	}
 

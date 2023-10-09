@@ -20,6 +20,7 @@ Here are the pages:
 - `Label`: demonstrates the simple `Label` widget from the widget library.
 - `AutoscrollLabel`: demonstrates a label which autoscroll when the label text is longer than label length.
 - `Image Widget` : demonstrates how to display an image using `ImageWidget` from the widget library.
+- `Animated image`: demonstrates an `AnimatedImage` widget.
 - `Slider with value` : demonstrates a slider with displayed value.
 - `Slider with progress` : demonstrates a slider with progress.
 - `Circular Slider` : demonstrates a circular slider.
@@ -34,7 +35,10 @@ Here are the pages:
 - `Circular Indeterminate Progress`: demonstrates a `CircularIndeterminateProgress` widget.
 - `Circular Dotted Progress`: demonstrates a `CircularDottedProgress` widget.
 - `Circular Progress`: demonstrates a `CircularProgress` widget.
+- `Circular Progress With Gradient`: demonstrates a `CircularProgressWithGradient` widget.
 - `Wheel` : demonstrates a `Wheel` widget.
+- `WheelWithHighlight` : demonstrates a `WheelWithHighlight` widget, where the selected item is highlighted with a larger font.
+- `ScrollingTextOnCircle` : demonstrates a `ScrollingTextOnCircle` widget, which draws a scrolling text on a circle.
 - `Carousel`: demonstrates a `Carousel` widget.
 - `List`: demonstrates the `List` container from the widget library.
 - `Grid`: demonstrates the `Grid` container from the widget library.
@@ -49,7 +53,6 @@ Here are the pages:
 - `Selectable List`: demonstrates a list of items that are selectable with an animation.
 - `Line Chart`: demonstrates a `LineChart` widget.
 - `Bar Chart`: demonstrates a `BarChart` widget.
-
 
 # Usage
 
@@ -80,5 +83,5 @@ N/A
 None.
 
 ---  
-_Copyright 2020-2022 MicroEJ Corp. All rights reserved._  
+_Copyright 2020-2023 MicroEJ Corp. All rights reserved._  
 _Use of this source code is governed by a BSD-style license that can be found with this software._  

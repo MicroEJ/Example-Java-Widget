@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2015-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.progressbar.widget;
@@ -11,7 +11,7 @@ import ej.mwt.Widget;
 import ej.mwt.style.DefaultStyle;
 import ej.mwt.style.Style;
 import ej.mwt.util.Size;
-import ej.widget.util.render.StringPainter;
+import ej.widget.render.StringPainter;
 
 /**
  * A progress bar is a widget which displays an animated bar indicating that the user should wait for an estimated

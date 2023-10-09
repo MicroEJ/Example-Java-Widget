@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.scrollabletext.widget;
@@ -10,8 +10,8 @@ import ej.microui.display.GraphicsContext;
 import ej.mwt.Widget;
 import ej.mwt.style.Style;
 import ej.mwt.util.Size;
-import ej.widget.util.render.StringPainter;
-import ej.widget.util.render.TextHelper;
+import ej.widget.render.StringPainter;
+import ej.widget.render.TextHelper;
 
 /**
  * A label is a widget that displays a text.

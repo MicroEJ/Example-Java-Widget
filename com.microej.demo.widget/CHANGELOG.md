@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.6.0] - 2023-10-09
+
+### Added
+
+- Add AnimatedImage widget and page.
+- Add CircularProgressWithGradient widget and page.
+- Add WheelWithHighlight widget and page.
+- Add ScrollingTextOnCircle widget and page.
+- Add StringOnCirclePainter class for drawing text on a circle.
+
+### Fixed
+
+- Fix scroll max scrollTo position.
+
+### Changed
+
+- Update image for SecretScroll page.
+- Update MWT dependency to 3.5.0.
+- Update Widget dependency to 5.0.0.
+- Update DoubleTemperatureSlider.
+- Update RadioButton.
+- Update CircularDottedProgress.
+- Update CircularIndeterminateProgress.
+- Update CircularProgress.
+- Update Wheel.
+- Simplify SliderWithProgress.
+- Simplify SliderWithValue.
+- Put more smooth rounded corners on the right panel.
+- Update the images heap configuration (needed by ScrollingTextOnCircle).
+- Merge the different scroll implementations.
+
 ## [7.5.1] - 2022-10-20
 
 ### Fixed
@@ -188,5 +219,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 _Markdown_ 
-_Copyright 2016-2022 MicroEJ Corp. All rights reserved._
+_Copyright 2016-2023 MicroEJ Corp. All rights reserved._
 _Use of this source code is governed by a BSD-style license that can be found with this software._

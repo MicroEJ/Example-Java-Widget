@@ -1,0 +1,41 @@
+<!--
+	Copyright 2019-2023 MicroEJ Corp. All rights reserved.
+	Use of this source code is governed by a BSD-style license that can be found with this software.
+-->
+
+<immutables>
+	<array id="hrAnimationPaths" type="java.lang.String[]">
+		<elem value="/images/heartrate/heart-120_008.png"/>
+		<elem value="/images/heartrate/heart-120_016.png"/>
+		<elem value="/images/heartrate/heart-120_026.png"/>
+		<elem value="/images/heartrate/heart-120_032.png"/>
+		<elem value="/images/heartrate/heart-120_040.png"/>
+		<elem value="/images/heartrate/heart-120_048.png"/>
+		<elem value="/images/heartrate/heart-120_056.png"/>
+		<elem value="/images/heartrate/heart-120_064.png"/>
+		<elem value="/images/heartrate/heart-120_072.png"/>
+		<elem value="/images/heartrate/heart-120_080.png"/>
+		<elem value="/images/heartrate/heart-120_088.png"/>
+		<elem value="/images/heartrate/heart-120_096.png"/>
+		<elem value="/images/heartrate/heart-120_104.png"/>
+		<elem value="/images/heartrate/heart-120_112.png"/>
+		<elem value="/images/heartrate/heart-120_120.png"/>
+		<elem value="/images/heartrate/heart-120_128.png"/>
+		<elem value="/images/heartrate/heart-120_136.png"/>
+		<elem value="/images/heartrate/heart-120_144.png"/>
+		<elem value="/images/heartrate/heart-120_152.png"/>
+		<elem value="/images/heartrate/heart-120_160.png"/>
+		<elem value="/images/heartrate/heart-120_168.png"/>
+		<elem value="/images/heartrate/heart-120_176.png"/>
+		<elem value="/images/heartrate/heart-120_184.png"/>
+		<elem value="/images/heartrate/heart-120_192.png"/>
+		<elem value="/images/heartrate/heart-120_200.png"/>
+		<elem value="/images/heartrate/heart-120_208.png"/>
+		<elem value="/images/heartrate/heart-120_216.png"/>
+		<elem value="/images/heartrate/heart-120_224.png"/>
+		<elem value="/images/heartrate/heart-120_232.png"/>
+		<elem value="/images/heartrate/heart-120_238.png"/>
+	</array>
+</immutables>
+
+

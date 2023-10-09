@@ -11,3 +11,4 @@
 /launchers/*.properties
 /bin-test/
 /.scannerwork
+/.cache

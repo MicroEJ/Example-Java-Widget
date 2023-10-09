@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.radiobutton;
@@ -41,6 +41,7 @@ public class RadioButtonPage implements Page {
 		style = stylesheet.getSelectorStyle(new ClassSelector(RADIO_BUTTON));
 		style.setFont(Fonts.getSourceSansPro16px700());
 		style.setHorizontalAlignment(Alignment.LEFT);
+		style.setVerticalAlignment(Alignment.VCENTER);
 		style.setMargin(new UniformOutline(2));
 		style.setExtraInt(RadioButton.CHECKED_COLOR_FIELD, DemoColors.CORAL);
 	}

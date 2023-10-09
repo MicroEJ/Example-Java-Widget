@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.autoscrolllabel.widget;
@@ -11,7 +11,7 @@ import ej.mwt.animation.Animation;
 import ej.mwt.style.Style;
 import ej.mwt.util.Alignment;
 import ej.widget.basic.Label;
-import ej.widget.util.render.StringPainter;
+import ej.widget.render.StringPainter;
 
 /**
  * An autoscroll label is a widget which displays a text, if the text is too long to be shown on the label, it will

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.circulardottedprogress.widget;
@@ -7,7 +7,6 @@ package com.microej.demo.widget.circulardottedprogress.widget;
 import ej.drawing.ShapePainter;
 import ej.microui.display.Colors;
 import ej.microui.display.GraphicsContext;
-import ej.microui.display.Painter;
 import ej.mwt.Widget;
 import ej.mwt.style.Style;
 import ej.mwt.util.Size;
@@ -33,12 +32,12 @@ public class CircularDottedProgress extends Widget {
 	private static final int DEFAULT_DIAMETER = 100;
 	private static final int DEFAULT_DOT_SIZE = 5;
 
-	private static final int FADING = 1;
+	private static final int FADE = 1;
 
 	/**
 	 * Angle in degrees between two dots.
 	 */
-	private static final float DOT_INTERVAL = 30.0f;
+	private static final float DOT_INTERVAL = 20.0f;
 	private static final float ANGLE_FULL_CIRCLE = 360.0f;
 	private static final float ANGLE_TRANSLATE_RIGHT = 270.0f;
 	private final float startAngle;
@@ -60,20 +59,19 @@ public class CircularDottedProgress extends Widget {
 	}
 
 	/**
-	 * Set progress from 0 to 360 degrees.
+	 * Sets progress from 0 to 360 degrees.
 	 *
 	 * @param progress
 	 *            bar progress
 	 */
 	public void setProgress(float progress) {
 		this.currentAngle = progress;
-		requestRender();
 	}
 
 	@Override
 	protected void computeContentOptimalSize(Size size) {
 		Style style = getStyle();
-		int diameter = style.getExtraInt(PROGRESS_DIAMETER, DEFAULT_DIAMETER) + FADING * 2;
+		int diameter = style.getExtraInt(PROGRESS_DIAMETER, DEFAULT_DIAMETER) + FADE * 2;
 		size.setSize(diameter, diameter);
 
 	}
@@ -85,19 +83,19 @@ public class CircularDottedProgress extends Widget {
 		int dotSize = style.getExtraInt(DOT_SIZE, DEFAULT_DOT_SIZE);
 
 		float progressRadius = (diameter - (dotSize << 2)) >> 1;
-		int centerX = (diameter >> 1) - (dotSize >> 1);
-		int centerY = centerX;
+		int centerX = contentWidth / 2;
+		int centerY = contentHeight / 2;
 
 		// background
 		g.setColor(style.getExtraInt(BACKGROUND_COLOR, Colors.BLACK));
-		ShapePainter.drawThickFadedPoint(g, contentWidth / 2, contentHeight / 2, diameter, FADING);
+		ShapePainter.drawThickFadedPoint(g, centerX, centerY, diameter, FADE);
 		// progress
 		g.setColor(style.getColor());
 		displayDots(g, progressRadius, dotSize, centerX, centerY);
 	}
 
 	/**
-	 * Display progress dots around widget center.
+	 * Displays progress dots around widget center.
 	 *
 	 * @param g
 	 *            Graphics context
@@ -123,7 +121,7 @@ public class CircularDottedProgress extends Widget {
 				double radiansAngle = Math.toRadians(dotAngle);
 				int dotX = centerX + (int) Math.round((progressRadius * Math.sin(radiansAngle)));
 				int dotY = centerY + (int) Math.round(progressRadius * Math.cos(radiansAngle));
-				Painter.fillCircle(g, dotX, dotY, dotSize);
+				ShapePainter.drawThickFadedPoint(g, dotX, dotY, dotSize, 1);
 
 				if (this.clockwise) {
 					dotAngle -= DOT_INTERVAL;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2015-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.wheel.widget;
@@ -21,10 +21,10 @@ import ej.mwt.animation.Animator;
 import ej.mwt.style.Style;
 import ej.mwt.util.Alignment;
 import ej.mwt.util.Size;
-import ej.widget.util.color.GradientHelper;
-import ej.widget.util.motion.MotionAnimation;
-import ej.widget.util.motion.MotionAnimationListener;
-import ej.widget.util.render.StringPainter;
+import ej.widget.color.GradientHelper;
+import ej.widget.motion.MotionAnimation;
+import ej.widget.motion.MotionAnimationListener;
+import ej.widget.render.StringPainter;
 
 /**
  * Represents a wheel from which the user can choose among a set of choices.
@@ -48,7 +48,7 @@ public class Wheel extends Widget {
 	 * When the distance from value to center is more than 35% we are adding a supplementary transparency on the blended
 	 * color.
 	 */
-	private static final Motion motion = new Motion(QuadEaseInFunction.INSTANCE, 0, 100, 1000);
+	private static final Motion MOTION = new Motion(QuadEaseInFunction.INSTANCE, 0, 100, 1000);
 
 	private final int numSideValues;
 	private final Choice model;
@@ -106,7 +106,7 @@ public class Wheel extends Widget {
 
 			g.setColor(computeFontColor(y, contentHeight, color, backgroundColor));
 			String valueText = this.model.getPrevious(currentVisibleIndex, previousValueCount);
-			drawString(g, font, valueText, x, y, Alignment.HCENTER, Alignment.VCENTER, fontRatio);
+			drawString(g, font, valueText, x, y, fontRatio);
 		}
 
 		int nextValueCount = 0;
@@ -118,7 +118,7 @@ public class Wheel extends Widget {
 
 			g.setColor(computeFontColor(y, contentHeight, color, backgroundColor));
 			String valueText = this.model.getNext(currentVisibleIndex, nextValueCount);
-			drawString(g, font, valueText, x, y, Alignment.HCENTER, Alignment.VCENTER, fontRatio);
+			drawString(g, font, valueText, x, y, fontRatio);
 		}
 
 		// Draws the horizontal lines.
@@ -133,10 +133,9 @@ public class Wheel extends Widget {
 		Painter.drawHorizontalLine(g, 0, y, contentWidth);
 	}
 
-	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY,
-			int horizontalAlignment, int verticalAlignment, float fontRatio) {
-		int x = Alignment.computeLeftX((int) (font.stringWidth(string) * fontRatio), anchorX, horizontalAlignment);
-		int y = Alignment.computeTopY((int) (font.getHeight() * fontRatio), anchorY, verticalAlignment);
+	private void drawString(GraphicsContext g, Font font, String string, int anchorX, int anchorY, float fontRatio) {
+		int x = Alignment.computeLeftX((int) (font.stringWidth(string) * fontRatio), anchorX, Alignment.HCENTER);
+		int y = Alignment.computeTopY((int) (font.getHeight() * fontRatio), anchorY, Alignment.VCENTER);
 		TransformPainter.drawScaledStringBilinear(g, string, font, x, y, fontRatio, fontRatio);
 	}
 
@@ -160,7 +159,7 @@ public class Wheel extends Widget {
 		float colorBlending = distance / (float) height;
 		if (colorBlending > TRANSPARENCY_TEXT_CENTER_DISTANCE) {
 			float transparencyPosition = (colorBlending - TRANSPARENCY_TEXT_CENTER_DISTANCE) * MILLISECOND_MULTIPLIER;
-			float transparencyValue = motion.getValue((long) transparencyPosition) / TRANSPARENCY_VALUE_DIVIDER;
+			float transparencyValue = MOTION.getValue((long) transparencyPosition) / TRANSPARENCY_VALUE_DIVIDER;
 			colorBlending = TRANSPARENCY_TEXT_CENTER_DISTANCE + transparencyValue;
 		}
 
@@ -188,9 +187,9 @@ public class Wheel extends Widget {
 	}
 
 	private void stopAnimation() {
-		MotionAnimation motionAnimation = this.motionAnimation;
-		if (motionAnimation != null) {
-			motionAnimation.stop();
+		MotionAnimation animation = this.motionAnimation;
+		if (animation != null) {
+			animation.stop();
 			this.motionAnimation = null;
 		}
 	}
@@ -209,6 +208,8 @@ public class Wheel extends Widget {
 				return onPointerReleased(pointerY);
 			case Pointer.DRAGGED:
 				return onPointerDragged(pointerY);
+			default:
+				break;
 			}
 		}
 		return super.handleEvent(event);

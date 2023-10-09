@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2017-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.carousel.widget;
@@ -12,7 +12,7 @@ import ej.microui.display.Image;
 import ej.microui.display.Painter;
 import ej.mwt.util.Alignment;
 import ej.widget.basic.OnClickListener;
-import ej.widget.util.render.StringPainter;
+import ej.widget.render.StringPainter;
 
 /**
  * Represents one of the entries of a carousel.
@@ -116,7 +116,8 @@ public class CarouselEntry {
 		int imageWidth = Math.round(this.image.getWidth() * sizeRatio);
 		int imageHeight = Math.round(this.image.getHeight() * sizeRatio);
 		int imageX = Alignment.computeLeftX(imageWidth, offsetX, contentWidth, Alignment.HCENTER);
-		int imageY = Alignment.computeTopY(imageHeight + ENTRY_TEXT_HEIGHT_ADDITION, offsetY, contentHeight, Alignment.VCENTER);
+		int imageY = Alignment.computeTopY(imageHeight + ENTRY_TEXT_HEIGHT_ADDITION, offsetY, contentHeight,
+				Alignment.VCENTER);
 		drawScaled(g, this.image, imageX, imageY, IMAGE_ALPHA, sizeRatio, stopped);
 
 		// draw string

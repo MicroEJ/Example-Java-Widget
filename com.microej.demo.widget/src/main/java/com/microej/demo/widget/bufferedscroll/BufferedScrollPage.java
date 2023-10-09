@@ -1,14 +1,15 @@
 /*
- * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.bufferedscroll;
 
 import com.microej.demo.widget.bufferedscroll.widget.BufferedScroll;
-import com.microej.demo.widget.bufferedscroll.widget.Scrollbar;
 import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Page;
+import com.microej.demo.widget.common.scroll.Scrollbar;
 
+import ej.drawing.ShapePainter.Cap;
 import ej.mwt.Widget;
 import ej.mwt.style.EditableStyle;
 import ej.mwt.style.background.NoBackground;
@@ -74,6 +75,7 @@ public class BufferedScrollPage implements Page {
 	@Override
 	public Widget getContentWidget() {
 		BufferedScroll scroll = new BufferedScroll(LayoutOrientation.VERTICAL, true);
+		scroll.setScrollBarCaps(Cap.ROUNDED);
 		scroll.addClassSelector(SCROLL);
 		List list = new List(LayoutOrientation.VERTICAL);
 		scroll.setChild(list);

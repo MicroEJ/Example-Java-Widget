@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.scrollabletext;
@@ -10,11 +10,12 @@ import java.io.InputStream;
 import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Fonts;
 import com.microej.demo.widget.common.Page;
+import com.microej.demo.widget.common.scroll.Scroll;
+import com.microej.demo.widget.common.scroll.ScrollableList;
+import com.microej.demo.widget.common.scroll.Scrollbar;
 import com.microej.demo.widget.scrollabletext.widget.LineWrappingLabel;
-import com.microej.demo.widget.scrollabletext.widget.Scroll;
-import com.microej.demo.widget.scrollabletext.widget.ScrollableList;
-import com.microej.demo.widget.scrollabletext.widget.Scrollbar;
 
+import ej.drawing.ShapePainter.Cap;
 import ej.mwt.Widget;
 import ej.mwt.style.EditableStyle;
 import ej.mwt.style.background.NoBackground;
@@ -90,8 +91,10 @@ public class ScrollableTextPage implements Page {
 	@Override
 	public Widget getContentWidget() {
 		Scroll scroll = new Scroll(LayoutOrientation.VERTICAL);
+		scroll.setScrollBarCaps(Cap.ROUNDED);
+		scroll.setScrollbarOverlap(true);
 		scroll.addClassSelector(CLASS_SCROLL);
-		ScrollableList list = new ScrollableList(LayoutOrientation.VERTICAL);
+		ScrollableList list = new ScrollableList(LayoutOrientation.VERTICAL, false);
 
 		addTitle("Lorem Ipsum", list); //$NON-NLS-1$
 		addTextFromFile("/resources/lipsum-1.txt", list); //$NON-NLS-1$

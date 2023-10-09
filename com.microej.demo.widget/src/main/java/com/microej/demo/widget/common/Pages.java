@@ -1,10 +1,12 @@
 /*
- * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common;
 
+import com.microej.demo.widget.animatedimage.AnimatedImagePage;
 import com.microej.demo.widget.autoscrolllabel.AutoscrollLabelPage;
+import com.microej.demo.widget.autoscrolllabeloncircle.AutoscrollLabelOnCirclePage;
 import com.microej.demo.widget.barchart.BarChartPage;
 import com.microej.demo.widget.bufferedscroll.BufferedScrollPage;
 import com.microej.demo.widget.button.ButtonPage;
@@ -13,6 +15,7 @@ import com.microej.demo.widget.checkbox.CheckboxPage;
 import com.microej.demo.widget.circulardottedprogress.CircularDottedProgressPage;
 import com.microej.demo.widget.circularindeterminateprogress.CircularIndeterminateProgressPage;
 import com.microej.demo.widget.circularprogress.CircularProgressPage;
+import com.microej.demo.widget.circularprogresswithgradient.CircularProgressWithGradientPage;
 import com.microej.demo.widget.circularslider.CircularSliderPage;
 import com.microej.demo.widget.dock.DockPage;
 import com.microej.demo.widget.doubleslider.DoubleTemperatureSliderPage;
@@ -36,6 +39,7 @@ import com.microej.demo.widget.snapscroll.SnapScrollPage;
 import com.microej.demo.widget.split.SplitPage;
 import com.microej.demo.widget.toggle.TogglePage;
 import com.microej.demo.widget.wheel.WheelPage;
+import com.microej.demo.widget.wheelwithhighlight.WheelWithHighlightPage;
 
 import ej.basictool.ArrayTools;
 
@@ -48,6 +52,7 @@ public class Pages {
 			new LabelPage(), //
 			new AutoscrollLabelPage(), //
 			new ImageWidgetPage(), //
+			new AnimatedImagePage(), //
 			new SliderWithValuePage(), //
 			new SliderWithProgressPage(), //
 			new CircularSliderPage(), //
@@ -62,7 +67,10 @@ public class Pages {
 			new CircularIndeterminateProgressPage(), //
 			new CircularDottedProgressPage(), //
 			new CircularProgressPage(), //
+			new CircularProgressWithGradientPage(), //
 			new WheelPage(), //
+			new WheelWithHighlightPage(), //
+			new AutoscrollLabelOnCirclePage(), //
 			new CarouselPage(), //
 			new ListPage(), //
 			new GridPage(), //

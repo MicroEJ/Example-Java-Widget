@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.radiobutton.widget;
@@ -24,7 +24,6 @@ public class RadioButton extends Widget {
 	/** The extra field ID for the color of the radio button when it is checked. */
 	public static final int CHECKED_COLOR_FIELD = 0;
 
-	private static final int INNER_CIRCLE_OFFSET = 5;
 	private static final int BOX_SIZE_OFFSET = 4;
 
 	private final String text;
@@ -61,11 +60,7 @@ public class RadioButton extends Widget {
 		// fill box
 		if (this.group.isChecked(this)) {
 			g.setColor(getCheckedColor(style));
-			int innerCircleSize = boxSize - INNER_CIRCLE_OFFSET * 2;
-			ShapePainter.drawThickFadedCircle(g, boxX + INNER_CIRCLE_OFFSET, boxY + INNER_CIRCLE_OFFSET,
-					innerCircleSize, 0, 1);
-			Painter.fillCircle(g, boxX + INNER_CIRCLE_OFFSET, boxY + INNER_CIRCLE_OFFSET, innerCircleSize);
-			Painter.fillCircle(g, boxX + INNER_CIRCLE_OFFSET + 1, boxY + INNER_CIRCLE_OFFSET + 1, innerCircleSize);
+			ShapePainter.drawThickFadedPoint(g, boxX + boxSize / 2, boxY + boxSize / 2, boxSize / 2, 1);
 		}
 
 		// draw text

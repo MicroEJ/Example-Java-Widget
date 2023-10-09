@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.sliderwithvalue.widget;
@@ -20,7 +20,7 @@ import ej.mwt.style.Style;
 import ej.mwt.util.Alignment;
 import ej.mwt.util.Rectangle;
 import ej.mwt.util.Size;
-import ej.widget.util.render.StringPainter;
+import ej.widget.render.StringPainter;
 
 /**
  * Slider with a round knob showing the current value and a simple line.
@@ -89,32 +89,22 @@ public class SliderWithValue extends Widget implements EventHandler {
 		Style style = getStyle();
 
 		int sliderSize = getSize(style);
-		int margin = (sliderSize >> 1);
+		int halfSliderSize = (sliderSize >> 1);
 
 		// The size of the bar considers the size of the cursor (room left on both sides).
-		int cursorY;
-		int barStartX;
-		int barStartY;
-		int barEndX;
-		int barEndY;
-		int sliderWidth;
 		int diameter = getDiameter(style);
 		int verticalAlignment = style.getVerticalAlignment();
 		int yTop = Alignment.computeTopY(sliderSize, 0, contentHeight, verticalAlignment);
-		int centerY = yTop + margin;
-		barStartX = margin;
-		barEndX = contentWidth;
-		barStartY = centerY;
-		barEndY = centerY;
+		int barY = yTop + halfSliderSize;
+		int barStartX = halfSliderSize;
 		int barWidth = contentWidth - sliderSize;
-		sliderWidth = barWidth - diameter;
-		cursorY = centerY;
+		int sliderWidth = barWidth - diameter;
 
-		// Draw the bar (for begin and end symbols see the SliderPage class).
-		drawBar(g, style, barStartY, barEndX, barEndY);
+		// Draw the bar (for begin and end symbols see the SliderWithValuePage class).
+		drawBar(g, style, contentWidth, barY);
 
 		// Draw the cursor.
-		drawCursor(g, style, barStartX, sliderWidth, cursorY);
+		drawCursor(g, style, barStartX, sliderWidth, barY);
 	}
 
 	@Override
@@ -131,21 +121,15 @@ public class SliderWithValue extends Widget implements EventHandler {
 	 *            Graphics Context
 	 * @param style
 	 *            style
-	 * @param barStartY
+	 * @param width
+	 *            width
+	 * @param barY
 	 *            start Y
-	 * @param barEndX
-	 *            end X
-	 * @param barEndY
-	 *            end Y
 	 */
-	private void drawBar(GraphicsContext gc, Style style, int barStartY, int barEndX, int barEndY) {
+	private void drawBar(GraphicsContext gc, Style style, int width, int barY) {
 		gc.setColor(style.getExtraInt(BAR_COLOR_ID, DEFAULT_BAR_COLOR));
 		gc.setBackgroundColor(Colors.BLACK);
-		int diameter = getDiameter(style);
-		int halfDiameter = diameter >> 1;
-		int endSpace = diameter + halfDiameter;
-		int right = barEndX + (endSpace << 1) + halfDiameter;
-		ShapePainter.drawThickLine(gc, 0, barStartY, right, barEndY, THICKNESS);
+		ShapePainter.drawThickLine(gc, 0, barY, width, barY, THICKNESS);
 	}
 
 	/**
@@ -275,7 +259,7 @@ public class SliderWithValue extends Widget implements EventHandler {
 	}
 
 	private int getDiameter(Style style) {
-		return (int) (getSize(style) * DIAMETER_MULTIPLIER);
+		return ((int) (getSize(style) * DIAMETER_MULTIPLIER));
 	}
 
 	private int getCursorBackgroundColor(Style style) {

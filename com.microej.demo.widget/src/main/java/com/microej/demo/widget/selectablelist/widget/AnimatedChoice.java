@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.selectablelist.widget;
@@ -23,8 +23,8 @@ import ej.mwt.style.Style;
 import ej.mwt.util.OutlineHelper;
 import ej.mwt.util.Rectangle;
 import ej.mwt.util.Size;
-import ej.widget.util.color.GradientHelper;
-import ej.widget.util.render.StringPainter;
+import ej.widget.color.GradientHelper;
+import ej.widget.render.StringPainter;
 
 /**
  * Label that is selectable with an animation when selected or deselected.

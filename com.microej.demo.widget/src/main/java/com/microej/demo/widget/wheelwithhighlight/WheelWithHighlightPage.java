@@ -1,0 +1,85 @@
+/*
+ * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be found with this software.
+ */
+package com.microej.demo.widget.wheelwithhighlight;
+
+import com.microej.demo.widget.common.DemoColors;
+import com.microej.demo.widget.common.Fonts;
+import com.microej.demo.widget.common.Page;
+import com.microej.demo.widget.wheel.widget.Choice;
+import com.microej.demo.widget.wheel.widget.IntegerChoice;
+import com.microej.demo.widget.wheel.widget.StringChoice;
+import com.microej.demo.widget.wheelwithhighlight.widget.WheelWithHighlight;
+
+import ej.bon.Immutables;
+import ej.mwt.Widget;
+import ej.mwt.style.EditableStyle;
+import ej.mwt.style.background.RectangularBackground;
+import ej.mwt.style.outline.UniformOutline;
+import ej.mwt.stylesheet.cascading.CascadingStylesheet;
+import ej.mwt.stylesheet.selector.ClassSelector;
+import ej.mwt.stylesheet.selector.TypeSelector;
+import ej.widget.container.List;
+
+/**
+ * Page showing a wheel that highlights the selected item with a larger font.
+ */
+public class WheelWithHighlightPage implements Page {
+
+	private static final String[] MONTHS = (String[]) Immutables.get("Months"); //$NON-NLS-1$
+
+	private static final int WHEEL_SIDES = 2;
+	private static final int DATE_PICKER = 1000;
+
+	private static final int DATE_PICKER_MARGIN = 16;
+
+	private static final int DEFAULT_YEAR = 2017;
+	private static final int DEFAULT_MONTH = 11;
+	private static final int DEFAULT_DAY = 25;
+
+	private static final int MIN_DAY = 1;
+	private static final int MAX_DAY = 31;
+	private static final int MIN_YEAR = 2000;
+	private static final int MAX_YEAR = 2025;
+
+	@Override
+	public String getName() {
+		return "Wheel With Highlight"; //$NON-NLS-1$
+	}
+
+	@Override
+	public void populateStylesheet(CascadingStylesheet stylesheet) {
+		EditableStyle wheelStyle = stylesheet.getSelectorStyle(new TypeSelector(WheelWithHighlight.class));
+		wheelStyle.setColor(DemoColors.DEFAULT_FOREGROUND);
+		wheelStyle.setBackground(new RectangularBackground(DemoColors.DEFAULT_BACKGROUND));
+		wheelStyle.setExtraInt(WheelWithHighlight.LINE_COLOR_FIELD, DemoColors.CORAL);
+		wheelStyle.setFont(Fonts.getSourceSansPro12px400());
+		wheelStyle.setExtraObject(WheelWithHighlight.HIGHLIGHTED_FONT_FIELD, Fonts.getSourceSansPro22px400());
+
+		EditableStyle datePickerStyle = stylesheet.getSelectorStyle(new ClassSelector(DATE_PICKER));
+		datePickerStyle.setMargin(new UniformOutline(DATE_PICKER_MARGIN));
+
+	}
+
+	@Override
+	public Widget getContentWidget() {
+
+		List wheelsList = new List(true);
+		wheelsList.addClassSelector(DATE_PICKER);
+
+		Choice monthChoice = new StringChoice(MONTHS, DEFAULT_MONTH);
+		WheelWithHighlight monthWheel = new WheelWithHighlight(WHEEL_SIDES, monthChoice);
+		wheelsList.addChild(monthWheel);
+
+		Choice dayChoice = new IntegerChoice(MIN_DAY, MAX_DAY, DEFAULT_DAY);
+		WheelWithHighlight dayWheel = new WheelWithHighlight(WHEEL_SIDES, dayChoice);
+		wheelsList.addChild(dayWheel);
+
+		Choice yearChoice = new IntegerChoice(MIN_YEAR, MAX_YEAR, DEFAULT_YEAR);
+		WheelWithHighlight yearWheel = new WheelWithHighlight(WHEEL_SIDES, yearChoice);
+		wheelsList.addChild(yearWheel);
+		return wheelsList;
+	}
+
+}

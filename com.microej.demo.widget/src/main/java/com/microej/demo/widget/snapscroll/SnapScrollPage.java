@@ -1,12 +1,13 @@
 /*
- * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.snapscroll;
 
 import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Page;
-import com.microej.demo.widget.snapscroll.widget.SnapScroll;
+import com.microej.demo.widget.common.scroll.Scroll;
+import com.microej.demo.widget.common.scroll.ScrollableList;
 
 import ej.bon.Immutables;
 import ej.mwt.Widget;
@@ -21,6 +22,7 @@ import ej.mwt.stylesheet.selector.combinator.AndCombinator;
 import ej.mwt.util.Alignment;
 import ej.widget.basic.ImageWidget;
 import ej.widget.basic.Label;
+import ej.widget.container.LayoutOrientation;
 
 /**
  * Page showing a snap scroll.
@@ -45,7 +47,7 @@ public class SnapScrollPage implements Page {
 
 	@Override
 	public void populateStylesheet(CascadingStylesheet stylesheet) {
-		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(SnapScroll.class));
+		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(Scroll.class));
 		style.setMargin(new FlexibleOutline(0, SCROLL_MARGIN_SIDES, 0, SCROLL_MARGIN_SIDES));
 
 		style = stylesheet.getSelectorStyle(new ClassSelector(ITEM));
@@ -61,17 +63,21 @@ public class SnapScrollPage implements Page {
 
 	@Override
 	public Widget getContentWidget() {
-		SnapScroll snapScroll = new SnapScroll();
+		ScrollableList snapList = new ScrollableList(LayoutOrientation.VERTICAL, true);
 		for (int i = 0; i < IMAGES.length; i++) {
 			String name = NAMES[i];
 			assert name != null;
 			Label label = new Label(name);
 			label.addClassSelector(ITEM);
-			snapScroll.addChild(label);
+			snapList.addChild(label);
 			ImageWidget image = new ImageWidget(IMAGE_PATH + IMAGES[i]);
 			image.addClassSelector(ITEM);
-			snapScroll.addChild(image);
+			snapList.addChild(image);
 		}
-		return snapScroll;
+		Scroll scroll = new Scroll(LayoutOrientation.VERTICAL);
+		scroll.showScrollbar(false);
+		scroll.setChild(snapList);
+		return scroll;
 	}
+
 }

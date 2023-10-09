@@ -1,15 +1,16 @@
 /*
- * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.scrollablelist;
 
 import com.microej.demo.widget.common.DemoColors;
 import com.microej.demo.widget.common.Page;
-import com.microej.demo.widget.scrollablelist.widget.Scroll;
-import com.microej.demo.widget.scrollablelist.widget.ScrollableList;
-import com.microej.demo.widget.scrollablelist.widget.Scrollbar;
+import com.microej.demo.widget.common.scroll.Scroll;
+import com.microej.demo.widget.common.scroll.ScrollableList;
+import com.microej.demo.widget.common.scroll.Scrollbar;
 
+import ej.drawing.ShapePainter.Cap;
 import ej.mwt.Widget;
 import ej.mwt.style.EditableStyle;
 import ej.mwt.style.background.NoBackground;
@@ -75,8 +76,10 @@ public class ScrollableListPage implements Page {
 	@Override
 	public Widget getContentWidget() {
 		Scroll scroll = new Scroll(LayoutOrientation.VERTICAL);
+		scroll.setScrollBarCaps(Cap.ROUNDED);
+		scroll.setScrollbarOverlap(true);
 		scroll.addClassSelector(SCROLL);
-		ScrollableList list = new ScrollableList(LayoutOrientation.VERTICAL);
+		ScrollableList list = new ScrollableList(LayoutOrientation.VERTICAL, false);
 		scroll.setChild(list);
 		for (int i = 0; i < NUM_ITEMS; i++) {
 			Label label = new Label("Item " + i); //$NON-NLS-1$

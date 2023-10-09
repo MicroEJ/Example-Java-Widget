@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.linechart.widget;
@@ -24,9 +24,9 @@ import ej.mwt.style.Style;
 import ej.mwt.util.Alignment;
 import ej.mwt.util.Rectangle;
 import ej.mwt.util.Size;
-import ej.widget.util.motion.MotionAnimation;
-import ej.widget.util.motion.MotionAnimationListener;
-import ej.widget.util.render.StringPainter;
+import ej.widget.motion.MotionAnimation;
+import ej.widget.motion.MotionAnimationListener;
+import ej.widget.render.StringPainter;
 
 /**
  * Represents a line chart with several ordered points.

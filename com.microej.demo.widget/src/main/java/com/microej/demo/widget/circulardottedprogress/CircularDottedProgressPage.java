@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.circulardottedprogress;
@@ -10,7 +10,7 @@ import com.microej.demo.widget.common.Page;
 import ej.bon.Util;
 import ej.microui.display.Colors;
 import ej.motion.Motion;
-import ej.motion.circ.CircEaseInOutFunction;
+import ej.motion.linear.LinearFunction;
 import ej.mwt.Widget;
 import ej.mwt.animation.Animation;
 import ej.mwt.style.EditableStyle;
@@ -72,7 +72,7 @@ public class CircularDottedProgressPage implements Page {
 
 		AnimatedCircularDottedProgress(float startAngle, boolean clockwise) {
 			super(startAngle, clockwise);
-			this.progressMotion = new Motion(CircEaseInOutFunction.INSTANCE, 0, PROGRESS_MAX, ANIMATION_DURATION);
+			this.progressMotion = new Motion(LinearFunction.INSTANCE, 0, PROGRESS_MAX, ANIMATION_DURATION);
 		}
 
 		@Override

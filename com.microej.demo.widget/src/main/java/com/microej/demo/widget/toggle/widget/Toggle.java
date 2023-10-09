@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.toggle.widget;
@@ -21,7 +21,7 @@ import ej.mwt.animation.Animator;
 import ej.mwt.style.Style;
 import ej.mwt.util.Alignment;
 import ej.mwt.util.Size;
-import ej.widget.util.color.GradientHelper;
+import ej.widget.color.GradientHelper;
 
 /**
  * A toggle is a widget which displays a text and a switch that can be checked or unchecked.

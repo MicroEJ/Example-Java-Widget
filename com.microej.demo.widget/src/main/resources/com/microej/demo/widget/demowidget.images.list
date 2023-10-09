@@ -1,4 +1,4 @@
-# Copyright 2020-2022 MicroEJ Corp. All rights reserved.
+# Copyright 2020-2023 MicroEJ Corp. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be found with this software.
 
 /images/button-pressed.png:RGB565
@@ -18,3 +18,37 @@
 /images/carousel/santa.png:ARGB4444
 /images/carousel/space.png:ARGB4444
 /images/carousel/superjeo.png:ARGB4444
+/images/gradient-ring.png:ARGB8888
+/images/bar-cursor.png:ARGB4444
+
+# Heart Rate
+/images/heartrate/heart-120_008.png:ARGB4444
+/images/heartrate/heart-120_016.png:ARGB4444
+/images/heartrate/heart-120_026.png:ARGB4444
+/images/heartrate/heart-120_032.png:ARGB4444
+/images/heartrate/heart-120_040.png:ARGB4444
+/images/heartrate/heart-120_048.png:ARGB4444
+/images/heartrate/heart-120_056.png:ARGB4444
+/images/heartrate/heart-120_064.png:ARGB4444
+/images/heartrate/heart-120_072.png:ARGB4444
+/images/heartrate/heart-120_080.png:ARGB4444
+/images/heartrate/heart-120_088.png:ARGB4444
+/images/heartrate/heart-120_096.png:ARGB4444
+/images/heartrate/heart-120_104.png:ARGB4444
+/images/heartrate/heart-120_112.png:ARGB4444
+/images/heartrate/heart-120_120.png:ARGB4444
+/images/heartrate/heart-120_128.png:ARGB4444
+/images/heartrate/heart-120_136.png:ARGB4444
+/images/heartrate/heart-120_144.png:ARGB4444
+/images/heartrate/heart-120_152.png:ARGB4444
+/images/heartrate/heart-120_160.png:ARGB4444
+/images/heartrate/heart-120_168.png:ARGB4444
+/images/heartrate/heart-120_176.png:ARGB4444
+/images/heartrate/heart-120_184.png:ARGB4444
+/images/heartrate/heart-120_192.png:ARGB4444
+/images/heartrate/heart-120_200.png:ARGB4444
+/images/heartrate/heart-120_208.png:ARGB4444
+/images/heartrate/heart-120_216.png:ARGB4444
+/images/heartrate/heart-120_224.png:ARGB4444
+/images/heartrate/heart-120_232.png:ARGB4444
+/images/heartrate/heart-120_238.png:ARGB4444

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.sliderwithprogress.widget;
@@ -94,30 +94,21 @@ public class SliderWithProgress extends Widget {
 		int margin = (sliderSize >> 1);
 
 		// The size of the bar considers the size of the cursor (room left on both sides).
-		int cursorX;
-		int cursorY;
-		int barStartX;
-		int barStartY;
-		int barEndX;
-		int barEndY;
 		int verticalAlignment = style.getVerticalAlignment();
 		int yTop = Alignment.computeTopY(sliderSize, 0, contentHeight, verticalAlignment);
-		int centerY = yTop + margin;
-		barStartX = margin;
-		barEndX = contentWidth - (sliderSize >> 1);
-		barStartY = centerY;
-		barEndY = centerY;
+		int barY = yTop + margin;
+		int barStartX = margin;
+		int barEndX = contentWidth - (sliderSize >> 1);
 		int barWidth = contentWidth - sliderSize;
 		int sliderWidth = barWidth - getDiameter(style);
 		int completeBarWidth = (int) (getPercentComplete() * barWidth);
-		cursorX = barStartX + completeBarWidth;
-		cursorY = centerY;
+		int cursorX = barStartX + completeBarWidth;
 
 		// Draws the bar.
-		drawBar(g, style, barStartX, barStartY, barEndX, barEndY, cursorX);
+		drawBar(g, style, barStartX, barEndX, barY, cursorX);
 
 		// Draws the cursor.
-		drawCursor(g, style, margin, barStartX, cursorY, sliderWidth);
+		drawCursor(g, style, margin, barStartX, barY, sliderWidth);
 	}
 
 	@Override
@@ -168,30 +159,26 @@ public class SliderWithProgress extends Widget {
 	 *            style
 	 * @param barStartX
 	 *            bar start X position
-	 * @param barStartY
-	 *            bar start Y position
 	 * @param barEndX
 	 *            bar end X position
-	 * @param barEndY
-	 *            bar end Y position
+	 * @param barY
+	 *            bar start Y position
 	 * @param cursorX
 	 *            cursor X length
 	 */
-	private void drawBar(GraphicsContext g, Style style, int barStartX, int barStartY, int barEndX, int barEndY,
-			int cursorX) {
+	private void drawBar(GraphicsContext g, Style style, int barStartX, int barEndX, int barY, int cursorX) {
 		g.setColor(Colors.BLACK);
-		ShapePainter.drawThickFadedLine(g, barStartX, barStartY, barEndX, barEndY, BAR_THICKNESS, 1, Cap.ROUNDED,
-				Cap.ROUNDED);
+		ShapePainter.drawThickFadedLine(g, barStartX, barY, barEndX, barY, BAR_THICKNESS, 1, Cap.ROUNDED, Cap.ROUNDED);
 		if (cursorX > barStartX) {
 			g.setColor(style.getExtraInt(BAR_COLOR_ID, Colors.RED));
-			ShapePainter.drawThickLine(g, barStartX, barStartY, cursorX, barEndY, THICKNESS);
+			ShapePainter.drawThickLine(g, barStartX, barY, cursorX, barY, THICKNESS);
 		}
 	}
 
 	private void drawCursor(GraphicsContext gc, Style style, int margin, int barStartX, int cursorY, int sliderWidth) {
 		int halfCursorRadius = getDiameter(style) >> 2;
 		int top = cursorY - halfCursorRadius - margin + (BAR_THICKNESS >> 1);
-		int left = (int) (getPercentComplete() * sliderWidth) + barStartX;
+		int left = (int) (getPercentComplete() * sliderWidth) + barStartX + 1;
 		CirclePainter.drawFilledCircle(gc, style.getExtraInt(BAR_COLOR_ID, Colors.RED),
 				style.getExtraInt(FILL_COLOR_ID, Colors.GRAY), left, top, getDiameter(style), THICKNESS);
 	}

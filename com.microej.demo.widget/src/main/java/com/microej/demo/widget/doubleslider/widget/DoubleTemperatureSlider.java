@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.doubleslider.widget;
@@ -20,7 +20,7 @@ import ej.mwt.style.Style;
 import ej.mwt.util.Alignment;
 import ej.mwt.util.Rectangle;
 import ej.mwt.util.Size;
-import ej.widget.util.color.GradientHelper;
+import ej.widget.color.GradientHelper;
 
 /**
  * Vertical slider with two knobs to select heat and cool temperatures.
@@ -124,38 +124,15 @@ public class DoubleTemperatureSlider extends Widget implements EventHandler {
 		g.removeBackgroundColor();
 
 		// Draw knobs.
-		g.setColor(sliderColor);
 		int coolSliderTopY = coolSliderY - halfSliderHeight;
 		int sliderRectangleX = sliderX + sliderHeight / 2;
 		int sliderRectangleWidth = sliderWidth - sliderHeight;
 		int sliderRightCircleX = sliderX + sliderWidth - sliderHeight;
-		Painter.fillCircleArc(g, sliderX, coolSliderTopY, sliderHeight, QUARTER_CIRCLE, HALF_CIRCLE);
-		Painter.fillRectangle(g, sliderRectangleX, coolSliderTopY, sliderRectangleWidth, sliderHeight);
-		Painter.fillCircleArc(g, sliderRightCircleX, coolSliderTopY, sliderHeight, THREE_QUARTER_CIRCLE, HALF_CIRCLE);
+		drawIndicator(g, sliderWidth, sliderHeight, sliderX, coolSliderTopY, sliderRectangleX, sliderRectangleWidth,
+				sliderRightCircleX, sliderColor, COLD_COLOR);
 		int minSliderTopY = heatSliderY - halfSliderHeight;
-		Painter.fillCircleArc(g, sliderX, minSliderTopY, sliderHeight, QUARTER_CIRCLE, HALF_CIRCLE);
-		Painter.fillRectangle(g, sliderRectangleX, minSliderTopY, sliderRectangleWidth, sliderHeight);
-		Painter.fillCircleArc(g, sliderRightCircleX, minSliderTopY, sliderHeight, THREE_QUARTER_CIRCLE, HALF_CIRCLE);
-		g.setColor(COLD_COLOR);
-		ShapePainter.drawThickFadedCircleArc(g, sliderX, coolSliderTopY, sliderHeight, QUARTER_CIRCLE, HALF_CIRCLE,
-				THICKNESS, FADE, Cap.NONE, Cap.NONE);
-		ShapePainter.drawThickFadedLine(g, sliderRectangleX + 1, coolSliderTopY,
-				sliderRectangleX + sliderWidth - sliderHeight, coolSliderTopY, THICKNESS, FADE, Cap.NONE, Cap.NONE);
-		ShapePainter.drawThickFadedLine(g, sliderRectangleX + 1, coolSliderTopY + sliderHeight,
-				sliderRectangleX + sliderWidth - sliderHeight, coolSliderTopY + sliderHeight, THICKNESS, FADE, Cap.NONE,
-				Cap.NONE);
-		ShapePainter.drawThickFadedCircleArc(g, sliderRightCircleX, coolSliderTopY, sliderHeight, THREE_QUARTER_CIRCLE,
-				HALF_CIRCLE, THICKNESS, FADE, Cap.NONE, Cap.NONE);
-		g.setColor(HEAT_COLOR);
-		ShapePainter.drawThickFadedCircleArc(g, sliderX, minSliderTopY, sliderHeight, QUARTER_CIRCLE, HALF_CIRCLE,
-				THICKNESS, FADE, Cap.NONE, Cap.NONE);
-		ShapePainter.drawThickFadedLine(g, sliderRectangleX + 1, minSliderTopY,
-				sliderRectangleX + sliderWidth - sliderHeight, minSliderTopY, THICKNESS, FADE, Cap.NONE, Cap.NONE);
-		ShapePainter.drawThickFadedLine(g, sliderRectangleX + 1, minSliderTopY + sliderHeight,
-				sliderRectangleX + sliderWidth - sliderHeight, minSliderTopY + sliderHeight, THICKNESS, FADE, Cap.NONE,
-				Cap.NONE);
-		ShapePainter.drawThickFadedCircleArc(g, sliderRightCircleX, minSliderTopY, sliderHeight, THREE_QUARTER_CIRCLE,
-				HALF_CIRCLE, THICKNESS, FADE, Cap.NONE, Cap.NONE);
+		drawIndicator(g, sliderWidth, sliderHeight, sliderX, minSliderTopY, sliderRectangleX, sliderRectangleWidth,
+				sliderRightCircleX, sliderColor, HEAT_COLOR);
 
 		if (hasBackgroundColor) {
 			g.setBackgroundColor(backgroundColor);
@@ -168,6 +145,25 @@ public class DoubleTemperatureSlider extends Widget implements EventHandler {
 		int temperatureShiftY = baselineY - font.getBaselinePosition();
 		Painter.drawString(g, getValue(this.coolValue), font, temperatureX, coolSliderY + temperatureShiftY);
 		Painter.drawString(g, getValue(this.heatValue), font, temperatureX, heatSliderY + temperatureShiftY);
+	}
+
+	private void drawIndicator(GraphicsContext g, int sliderWidth, int sliderHeight, int sliderX, int sliderY,
+			int sliderRectangleX, int sliderRectangleWidth, int sliderRightCircleX, int sliderColor, int borderColor) {
+		g.setColor(sliderColor);
+		Painter.fillCircleArc(g, sliderX + 1, sliderY + 1, sliderHeight - 1, QUARTER_CIRCLE, HALF_CIRCLE);
+		Painter.fillRectangle(g, sliderRectangleX, sliderY + 1, sliderRectangleWidth, sliderHeight - 1);
+		Painter.fillCircleArc(g, sliderRightCircleX, sliderY + 1, sliderHeight - 1, THREE_QUARTER_CIRCLE, HALF_CIRCLE);
+
+		g.setColor(borderColor);
+		ShapePainter.drawThickFadedCircleArc(g, sliderX, sliderY, sliderHeight + 1, QUARTER_CIRCLE, HALF_CIRCLE,
+				THICKNESS, FADE, Cap.NONE, Cap.NONE);
+		int sliderRectangleRightX = sliderRectangleX + sliderWidth - sliderHeight;
+		ShapePainter.drawThickFadedLine(g, sliderRectangleX + 1, sliderY, sliderRectangleRightX, sliderY, THICKNESS,
+				FADE, Cap.NONE, Cap.NONE);
+		ShapePainter.drawThickFadedLine(g, sliderRectangleX + 1, sliderY + sliderHeight, sliderRectangleRightX,
+				sliderY + sliderHeight, THICKNESS, FADE, Cap.NONE, Cap.NONE);
+		ShapePainter.drawThickFadedCircleArc(g, sliderRightCircleX, sliderY, sliderHeight + 1, THREE_QUARTER_CIRCLE,
+				HALF_CIRCLE, THICKNESS, FADE, Cap.NONE, Cap.NONE);
 	}
 
 	private static void fillRectangle(GraphicsContext g, int x, int yTop, int width, int yBottom, int color) {

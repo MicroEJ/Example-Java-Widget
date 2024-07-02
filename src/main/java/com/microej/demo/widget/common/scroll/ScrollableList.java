@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2014-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common.scroll;
@@ -157,25 +157,26 @@ public class ScrollableList extends List implements Scrollable {
 	private void removeNoLongerVisibleItems(int x, int y, int width, int height) {
 		Widget[] children = getChildren();
 		int size = children.length;
-		if (size > 0) {
-			int firstVisibleChildIndex = this.firstVisibleChildIndex;
-			int lastVisible = size;
-			boolean horizontal = (getOrientation() == LayoutOrientation.HORIZONTAL);
-			for (int i = firstVisibleChildIndex; i < lastVisible; i++) {
-				Widget child = children[i];
-				if (!child.isShown()) {
-					break;
+		if (size <= 0) {
+			return;
+		}
+		int firstVisibleChildIndex = this.firstVisibleChildIndex;
+		int lastVisible = size;
+		boolean horizontal = (getOrientation() == LayoutOrientation.HORIZONTAL);
+		for (int i = firstVisibleChildIndex; i < lastVisible; i++) {
+			Widget child = children[i];
+			if (!child.isShown()) {
+				break;
+			}
+			if (horizontal) {
+				int childX = child.getX();
+				if (childX + x > width || childX + child.getWidth() < -x) {
+					setHiddenChild(child);
 				}
-				if (horizontal) {
-					int childX = child.getX();
-					if (childX + x > width || childX + child.getWidth() < -x) {
-						setHiddenChild(child);
-					}
-				} else {
-					int childY = child.getY();
-					if (childY + y > height || childY + child.getHeight() < -y) {
-						setHiddenChild(child);
-					}
+			} else {
+				int childY = child.getY();
+				if (childY + y > height || childY + child.getHeight() < -y) {
+					setHiddenChild(child);
 				}
 			}
 		}

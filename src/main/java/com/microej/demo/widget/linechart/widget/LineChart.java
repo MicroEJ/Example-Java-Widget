@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.linechart.widget;
@@ -7,7 +7,6 @@ package com.microej.demo.widget.linechart.widget;
 import com.microej.demo.widget.common.CirclePainter;
 import com.microej.demo.widget.common.DottedLinePainter;
 
-import ej.annotation.Nullable;
 import ej.basictool.ArrayTools;
 import ej.bon.XMath;
 import ej.drawing.ShapePainter;
@@ -211,14 +210,10 @@ public class LineChart extends Widget implements MotionAnimationListener {
 	 *            the index of the point to select or -1 to deselect all.
 	 */
 	public void selectPoint(int pointIndex) {
-		@Nullable
 		ChartPoint[] points = this.points;
 		// check the index
-		if (pointIndex > -1) {
-			int pointIndexInt = pointIndex;
-			if (pointIndexInt < 0 || pointIndexInt >= points.length) {
-				throw new IndexOutOfBoundsException();
-			}
+		if (pointIndex >= points.length) {
+			throw new IndexOutOfBoundsException();
 		}
 		int lastIndex = this.selectedChartPointIndex;
 
@@ -373,25 +368,18 @@ public class LineChart extends Widget implements MotionAnimationListener {
 			StringPainter.drawStringAtPoint(g, chartPoint.getName(), font, currentX, contentHeight, Alignment.HCENTER,
 					Alignment.BOTTOM);
 
-			if (value < 0.0f) { // invalid point. don't draw this.
-				previousX = -1;
-				previousY = -1;
-			} else {
-				int finalLength = (int) ((yBottom - chartBounds.getY()) * value / topValue);
-				int apparitionLength = (int) (finalLength * getAnimationRatio());
-				int yTop = yBottom - apparitionLength;
-				int currentY = yTop;
+			int finalLength = (int) ((yBottom - chartBounds.getY()) * value / topValue);
+			int apparitionLength = (int) (finalLength * getAnimationRatio());
+			int currentY = yBottom - apparitionLength;
 
-				if (previousY != -1) {
-					g.setColor(lineColor);
-					ShapePainter.drawThickFadedLine(g, previousX, previousY, currentX, currentY, LINE_THICKNESS,
-							LINE_FADE, Cap.NONE, Cap.NONE);
-				}
-
-				previousX = currentX;
-				previousY = currentY;
+			if (previousY != -1) {
+				g.setColor(lineColor);
+				ShapePainter.drawThickFadedLine(g, previousX, previousY, currentX, currentY, LINE_THICKNESS, LINE_FADE,
+						Cap.NONE, Cap.NONE);
 			}
 
+			previousX = currentX;
+			previousY = currentY;
 		}
 
 		// Circles are drawn after all lines have been drawn, since the line would otherwise overlap with the circle on
@@ -403,14 +391,9 @@ public class LineChart extends Widget implements MotionAnimationListener {
 				int currentX = (int) xPos;
 				xPos += xStep;
 
-				if (value < 0.0f) {
-					continue;
-				}
-
 				int finalLength = (int) ((yBottom - chartBounds.getY()) * value / topValue);
 				int apparitionLength = (int) (finalLength * getAnimationRatio());
-				int yTop = yBottom - apparitionLength;
-				int currentY = yTop;
+				int currentY = yBottom - apparitionLength;
 
 				int centerX = currentX - pointRadius;
 				int centerY = currentY - pointRadius;

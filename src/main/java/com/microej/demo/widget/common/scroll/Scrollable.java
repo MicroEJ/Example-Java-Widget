@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2014-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common.scroll;
@@ -50,6 +50,6 @@ public interface Scrollable {
 	 *             if this {@code Scrollable} does not have any special index position.
 	 * @see Scroll#scrollToIndex(int, boolean)
 	 */
-	public int[] getItemSizes() throws UnsupportedOperationException;
+	int[] getItemSizes() throws UnsupportedOperationException;
 
 }

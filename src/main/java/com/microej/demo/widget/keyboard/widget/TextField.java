@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2015-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.keyboard.widget;
@@ -76,7 +76,7 @@ public class TextField extends Widget implements EventHandler, Animation {
 	/** Caret end position. */
 	private int caretEnd;
 	/** Text field is active or not. */
-	private boolean active;
+	private boolean isActive;
 	/** Caret blinking task. */
 	private @Nullable TimerTask blinkTask;
 	/** Caret visibility. */
@@ -360,7 +360,7 @@ public class TextField extends Widget implements EventHandler, Animation {
 			}
 
 			// blinking
-			if (this.active) {
+			if (this.isActive) {
 				this.showCaret = true;
 				if (start == end) {
 					startBlink();
@@ -523,8 +523,8 @@ public class TextField extends Widget implements EventHandler, Animation {
 	 * @since 2.3.0
 	 */
 	public void setActive(boolean active) {
-		if (active != this.active) {
-			this.active = active;
+		if (active != this.isActive) {
+			this.isActive = active;
 			if (active) {
 				if (this.caretStart == this.caretEnd) {
 					startBlink();
@@ -570,7 +570,7 @@ public class TextField extends Widget implements EventHandler, Animation {
 
 	@Override
 	public boolean isInState(int state) {
-		return (state == ACTIVE && this.active) || (state == EMPTY && isEmpty()) || super.isInState(state);
+		return (state == ACTIVE && this.isActive) || (state == EMPTY && isEmpty()) || super.isInState(state);
 	}
 
 	@Override
@@ -604,6 +604,8 @@ public class TextField extends Widget implements EventHandler, Animation {
 			default:
 				break;
 			}
+			break;
+		default:
 			break;
 		}
 		return super.handleEvent(event);

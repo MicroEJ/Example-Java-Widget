@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.autoscrolllabel.widget;
@@ -49,11 +49,11 @@ public class AutoscrollLabel extends Label implements Animation {
 
 		int textX = 0;
 		if (this.elapsedTime > 0) {
-			textX -= (this.elapsedTime / MOVE_RATIO);
+			textX -= (int) (this.elapsedTime / MOVE_RATIO);
 		}
 		if (textX < -this.textWidth - SPACING) {
 			// Loop: move text at the end of the content bounds.
-			this.startTime += (this.textWidth + SPACING) * MOVE_RATIO + START_WAIT_PERIOD;
+			this.startTime += (long) (this.textWidth + SPACING) * MOVE_RATIO + START_WAIT_PERIOD;
 		}
 
 		if (textX + this.textWidth < contentWidth + SPACING) {

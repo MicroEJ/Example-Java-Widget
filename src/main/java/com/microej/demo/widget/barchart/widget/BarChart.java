@@ -1,12 +1,11 @@
 /*
- * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.barchart.widget;
 
 import com.microej.demo.widget.common.DottedLinePainter;
 
-import ej.annotation.Nullable;
 import ej.basictool.ArrayTools;
 import ej.bon.XMath;
 import ej.drawing.ShapePainter;
@@ -187,7 +186,6 @@ public class BarChart extends Widget implements MotionAnimationListener {
 	 *            the index of the point to select or -1 to deselect all.
 	 */
 	public void selectPoint(int pointIndex) {
-		@Nullable
 		ChartPoint[] points = this.points;
 		// check the index
 		if (pointIndex > -1) {

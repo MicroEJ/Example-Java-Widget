@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2009-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common.scroll;
@@ -135,49 +135,28 @@ public class Scrollbar extends Widget {
 			height--;
 		}
 
-		int barX;
-		int barY;
-		int barLength;
 		if (this.horizontal) {
 			int verticalAlignment = style.getVerticalAlignment();
-			barY = Alignment.computeTopY(barSize, 0, height, verticalAlignment);
+			int barLength = getBarLength(width, barSize);
+			int barX = getBarPosition(width, barLength, barSize);
+			int barY = Alignment.computeTopY(barSize, 0, height, verticalAlignment);
 			if (caps != null) {
 				barY += (barSize >> 1);
+				ShapePainter.drawThickFadedLine(g, barX, barY, barX + barLength, barY, barSize - 1, 1, caps, caps);
+			} else {
+				Painter.fillRectangle(g, barX, barY, barLength, barSize);
 			}
-			barLength = getBarLength(width, barSize);
-			barX = getBarPosition(width, barLength, barSize);
 		} else {
 			int horizontalAlignment = style.getHorizontalAlignment();
-			barX = Alignment.computeLeftX(barSize, 0, width, horizontalAlignment);
+			int barLength = getBarLength(height, barSize);
+			int barY = getBarPosition(height, barLength, barSize);
+			int barX = Alignment.computeLeftX(barSize, 0, width, horizontalAlignment);
 			if (caps != null) {
 				barX += (barSize >> 1);
-			}
-			barLength = getBarLength(height, barSize);
-			barY = getBarPosition(height, barLength, barSize);
-		}
-
-		if (caps != null) {
-			int barX2;
-			int barY2;
-			if (this.horizontal) {
-				barX2 = barX + barLength;
-				barY2 = barY;
+				ShapePainter.drawThickFadedLine(g, barX, barY, barX, barY + barLength, barSize - 1, 1, caps, caps);
 			} else {
-				barX2 = barX;
-				barY2 = barY + barLength;
+				Painter.fillRectangle(g, barX, barY, barSize, barLength);
 			}
-			ShapePainter.drawThickFadedLine(g, barX, barY, barX2, barY2, barSize - 1, 1, caps, caps);
-		} else {
-			int barWidth;
-			int barHeight;
-			if (this.horizontal) {
-				barWidth = barLength;
-				barHeight = barSize;
-			} else {
-				barWidth = barSize;
-				barHeight = barLength;
-			}
-			Painter.fillRectangle(g, barX, barY, barWidth, barHeight);
 		}
 	}
 
@@ -308,7 +287,7 @@ public class Scrollbar extends Widget {
 	 * @param caps
 	 *            the caps style.
 	 */
-	public void setCaps(Cap caps) {
+	public void setCaps(@Nullable Cap caps) {
 		this.caps = caps;
 	}
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2023-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common;
@@ -15,7 +15,11 @@ import ej.mwt.util.Alignment;
 import ej.mwt.util.Size;
 
 /**
- * A menu item is a widget that displays a text and reacts to click events.
+ * A renderable label is a widget that displays a text.
+ * <p>
+ * Its layout and rendering is slightly faster than the {@link ej.widget.basic.Label} since it uses
+ * {@link RenderableString} that caches information about the characters in the string and the font. The downside is
+ * that it consumes some heap memory.
  */
 public class RenderableLabel extends Widget {
 

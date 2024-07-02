@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.linechart;
@@ -61,14 +61,13 @@ public class LineChartPage implements Page {
 	private void fillChart(LineChart chart) {
 		for (String month : MONTHS) {
 			String name = month.substring(0, 1);
-			String fullName = month;
-			float value = genRandomValue();
-			ChartPoint point = new ChartPoint(name, fullName, value);
+			float value = genRandomPositiveValue();
+			ChartPoint point = new ChartPoint(name, month, value);
 			chart.addPoint(point);
 		}
 	}
 
-	private float genRandomValue() {
+	private float genRandomPositiveValue() {
 		return (float) (Math.random() * MAX_VALUE);
 	}
 

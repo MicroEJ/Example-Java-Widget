@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2017-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.carousel.widget;
@@ -50,6 +50,7 @@ public class Carousel extends Widget {
 	private final int entryHeight;
 
 	private final Animation repaintAnimation;
+	private boolean pressed;
 	private boolean stopped;
 
 	private long lastDragTime;
@@ -117,7 +118,7 @@ public class Carousel extends Widget {
 			@Override
 			public boolean tick(long currentTimeMillis) {
 				repaintTick();
-				return true;
+				return Carousel.this.pressed || !Carousel.this.stopped;
 			}
 		};
 		this.stopped = false;
@@ -161,13 +162,6 @@ public class Carousel extends Widget {
 		return getEntryAtDrag(totalDrag);
 	}
 
-	@Override
-	protected void onShown() {
-		super.onShown();
-		// start the repaint task
-		getDesktop().getAnimator().startAnimation(this.repaintAnimation);
-	}
-
 	private void repaintTick() {
 		Size size = new Size(getWidth(), getHeight());
 		OutlineHelper.applyOutlines(size, getStyle());
@@ -204,11 +198,6 @@ public class Carousel extends Widget {
 	}
 
 	@Override
-	protected void onHidden() {
-		getDesktop().getAnimator().stopAnimation(this.repaintAnimation);
-	}
-
-	@Override
 	public void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
 		int halfWidth = contentWidth / 2;
@@ -237,12 +226,12 @@ public class Carousel extends Widget {
 		// draw entries
 		g.setColor(style.getColor());
 		for (int e = 0; e < topEntry; e++) {
-			drawEntry(g, contentWidth, contentHeight, font, e, false, totalDrag);
+			drawEntry(g, contentWidth, contentHeight, font, e, totalDrag);
 		}
 		for (int e = this.entries.length - 1; e > topEntry; e--) {
-			drawEntry(g, contentWidth, contentHeight, font, e, false, totalDrag);
+			drawEntry(g, contentWidth, contentHeight, font, e, totalDrag);
 		}
-		drawEntry(g, contentWidth, contentHeight, font, topEntry, true, totalDrag);
+		drawEntry(g, contentWidth, contentHeight, font, topEntry, totalDrag);
 
 		// draw DND entry
 		if (this.dnd) {
@@ -256,7 +245,7 @@ public class Carousel extends Widget {
 	}
 
 	private void drawEntry(GraphicsContext g, int contentWidth, int contentHeight, Font font, int entryIndex,
-			boolean selected, int totalDrag) {
+			int totalDrag) {
 		// calculate position and size
 		int offsetX = entryIndex * this.entryWidth + totalDrag;
 		if (this.dnd && this.dndAnimDir != 0 && entryIndex == this.dndIndex - this.dndAnimDir) {
@@ -276,12 +265,6 @@ public class Carousel extends Widget {
 			// draw entry
 			CarouselEntry entry = this.entries[entryIndex];
 			if (entry != null) {
-				boolean clicked = (this.noDrag && !this.dnd && selected);
-				if (clicked) {
-					int halfWidth = getWidth() / 2;
-					clicked &= (this.lastPressX > halfWidth - this.entryWidth / 2
-							&& this.lastPressX < halfWidth + this.entryWidth / 2);
-				}
 				entry.render(g, contentWidth, contentHeight, font, this.stopped, sizeRatio, offsetX, 0, false);
 			}
 		}
@@ -332,6 +315,9 @@ public class Carousel extends Widget {
 		this.stopped = false;
 
 		if (action == Buttons.PRESSED) {
+			this.pressed = true;
+			getDesktop().getAnimator().startAnimation(this.repaintAnimation);
+
 			// stop goto animation
 			stopGotoAnim();
 
@@ -347,6 +333,7 @@ public class Carousel extends Widget {
 			this.noDrag = false;
 		} else if (action == Buttons.RELEASED) {
 			handleRelease(pointerX);
+			this.pressed = false;
 		}
 	}
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.scrollabletext.widget;
@@ -9,6 +9,7 @@ import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
 import ej.mwt.Widget;
 import ej.mwt.style.Style;
+import ej.mwt.util.Alignment;
 import ej.mwt.util.Size;
 import ej.widget.render.StringPainter;
 import ej.widget.render.TextHelper;
@@ -93,13 +94,16 @@ public class LineWrappingLabel extends Widget {
 
 		String[] textSplit = this.textSplit;
 		if (textSplit != null) {
-			int currentY = 0;
+			int horizontalAlignment = style.getHorizontalAlignment();
+			int verticalAlignment = style.getVerticalAlignment();
+
+			int totalHeight = textSplit.length * lineHeight;
+			int currentY = Alignment.computeTopY(totalHeight, 0, contentHeight, verticalAlignment);
 			for (String text : textSplit) {
 				assert (text != null);
 				StringPainter.drawStringInArea(g, text, font, 0, currentY, contentWidth, lineHeight,
-						style.getHorizontalAlignment(), style.getVerticalAlignment());
+						horizontalAlignment, verticalAlignment);
 				currentY += lineHeight;
-
 			}
 		}
 	}
@@ -113,6 +117,7 @@ public class LineWrappingLabel extends Widget {
 	private String[] getSplitText() {
 		Style style = getStyle();
 		Font font = style.getFont();
-		return TextHelper.wrap(getText(), font, getWidth());
+		return TextHelper.wrap(getText(), font, getContentBounds().getWidth());
 	}
+
 }

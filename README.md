@@ -3,9 +3,10 @@
 
 # Overview
 
-This repository contains a demo illustrating the widgets and containers available in the widget library.
+This repository contains an application with some widget implementations as well as usage examples for these widgets and
+for the widgets of the Widget library.
 
-![Demo overview](demo.gif)
+![Application overview](application.gif)
 
 At startup, it shows a list of items.
 Clicking on an item opens a new page showing a widget or a set of widgets.

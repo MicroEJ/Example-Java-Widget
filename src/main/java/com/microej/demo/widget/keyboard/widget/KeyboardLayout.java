@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2017-2024 MicroEJ Corp. All rights reserved.
  *Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.keyboard.widget;
@@ -34,10 +34,10 @@ public class KeyboardLayout {
 			"ZXCVBNM" }; //$NON-NLS-1$
 	private static final String[] NUMERIC_LAYOUT = { "1234567890", //$NON-NLS-1$
 			"-/:;()$&@\"", //$NON-NLS-1$
-			".,?!\'§¤" }; //$NON-NLS-1$
+			".,?!'§¤" }; //$NON-NLS-1$
 	private static final String[] SYMBOL_LAYOUT = { "[]{}#%^*+=", //$NON-NLS-1$
-			"_\\|~<>€£¥\u25cf", //$NON-NLS-1$
-			".,?!\'§¤" }; //$NON-NLS-1$
+			"_\\|~<>€£¥●", //$NON-NLS-1$
+			".,?!'§¤" }; //$NON-NLS-1$
 	private int currentLayout;
 
 	/**
@@ -108,7 +108,6 @@ public class KeyboardLayout {
 			break;
 		}
 
-		assert result != null;
 		return result;
 	}
 }

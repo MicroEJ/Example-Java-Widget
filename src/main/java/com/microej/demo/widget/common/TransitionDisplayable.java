@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common;
@@ -53,8 +53,9 @@ import ej.widget.motion.MotionAnimationListener;
 	protected void onHidden() {
 		super.onHidden();
 
-		if (this.animation != null) {
-			this.animation.stop();
+		MotionAnimation animation = this.animation;
+		if (animation != null) {
+			animation.stop();
 			this.animation = null;
 		}
 	}

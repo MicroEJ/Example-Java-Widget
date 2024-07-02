@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.autoscrolllabel;
@@ -26,7 +26,6 @@ public class AutoscrollLabelPage implements Page {
 	private static final int AUTOSCROLL_LABEL = 601;
 
 	private static final int MARGIN = 10;
-	private static final int HEIGHT = 30;
 
 	@Override
 	public String getName() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.main;
@@ -76,8 +76,8 @@ public class MainPage implements Page {
 
 	@Override
 	public Widget getContentWidget() {
-		ScrollableList list = new ScrollableList(LayoutOrientation.VERTICAL, false);
-		int numPages = Pages.getNumPages();
+		final ScrollableList list = new ScrollableList(LayoutOrientation.VERTICAL, false);
+		final int numPages = Pages.getNumPages();
 		for (int i = 0; i < numPages; i++) {
 			final Page page = Pages.getPage(i);
 			MenuItem goToPage = new MenuItem(page.getName());
@@ -91,9 +91,10 @@ public class MainPage implements Page {
 			});
 		}
 
-		Scroll scroll = new Scroll(LayoutOrientation.VERTICAL);
+		final Scroll scroll = new Scroll(LayoutOrientation.VERTICAL);
 		scroll.setScrollbarBeforeContent(true);
 		scroll.setChild(list);
+
 		return scroll;
 	}
 

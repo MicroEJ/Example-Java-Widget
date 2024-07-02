@@ -1,8 +1,7 @@
 /*
- * Copyright 2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2023-2024 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
-
 package com.microej.demo.widget.test;
 
 import static org.junit.Assert.assertNotNull;
@@ -59,8 +58,7 @@ public class AlphabetScrollTest {
 		style.setDimension(new FixedDimension(NON_EMPTY, NON_EMPTY));
 		desktop.setStylesheet(stylesheet);
 		final Scroll[] scrolls = new Scroll[2];
-		final AlphabetScroll scroll = new AlphabetScroll(LayoutOrientation.VERTICAL, createDummyIndexer(),
-				new Widget[0]) {
+		final AlphabetScroll scroll = new AlphabetScroll(LayoutOrientation.VERTICAL, createDummyIndexer()) {
 			@Override
 			protected Scroll createMainScroll(boolean orientation, Widget mainList) {
 				Scroll mainScroll = super.createMainScroll(orientation, mainList);

@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.1.0] - 2024-07-01
+
+### Added
+
+- Add methods to move the `Scroll` content to the beginning or the end.
+
+### Fixed
+
+- Run the carousel animation only when the pointer is pressed.
+- Use the content bounds instead of the full bounds to split the string in `LineWrappingLabel`.
+- Align all the lines of the `LineWrappingLabel` using the vertical alignment.
+
+### Changed
+
+- Do not serialize (with `callSerially()`) the movements of the scroll anymore, but advise to call `scrollTo()` methods
+  in the UI thread.
+
 ## [8.0.0] - 2024-03-05
 
 ### Added

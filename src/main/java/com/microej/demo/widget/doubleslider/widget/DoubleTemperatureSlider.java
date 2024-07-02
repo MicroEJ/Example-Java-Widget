@@ -210,7 +210,7 @@ public class DoubleTemperatureSlider extends Widget implements EventHandler {
 	private static String getValue(float value) {
 		int intPart = (int) value;
 		int decimal = (int) ((value - intPart) * TEN);
-		return new StringBuilder().append(intPart).append('.').append(decimal).append('°').append('C').toString();
+		return String.valueOf(intPart) + '.' + decimal + '°' + 'C';
 	}
 
 	@Override
@@ -243,11 +243,15 @@ public class DoubleTemperatureSlider extends Widget implements EventHandler {
 					onPointerDragged(pointerY);
 					return true;
 				}
+				break;
 			case Buttons.RELEASED:
 				if (this.pressedCool || this.pressedHeat) {
 					onPointerReleased();
 					return true;
 				}
+				break;
+			default:
+				// Nothing to do.
 			}
 		}
 		return super.handleEvent(event);

@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.microej.example.ui"
-version = "8.0.0"
+version = "8.1.0"
 
 microej {
 	applicationMainClass = "com.microej.demo.widget.common.Navigation"
@@ -20,7 +20,7 @@ dependencies {
 	implementation("ej.api:edc:1.3.5")
 	implementation("ej.api:microui:3.1.0")
 	implementation("ej.api:drawing:1.0.2")
-	implementation("ej.library.ui:widget:5.1.0")
+	implementation("ej.library.ui:widget:5.2.0")
 	implementation("ej.library.runtime:basictool:1.5.0")
 	implementation("ej.library.runtime:service:1.1.1")
 	implementation("ej.library.eclasspath:collections:1.4.0")

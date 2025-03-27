@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2025 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.sliderwithvalue;
@@ -15,7 +15,9 @@ import ej.mwt.style.EditableStyle;
 import ej.mwt.style.dimension.OptimalDimension;
 import ej.mwt.stylesheet.cascading.CascadingStylesheet;
 import ej.mwt.stylesheet.selector.ClassSelector;
+import ej.mwt.stylesheet.selector.StateSelector;
 import ej.mwt.stylesheet.selector.TypeSelector;
+import ej.mwt.stylesheet.selector.combinator.AndCombinator;
 import ej.mwt.util.Alignment;
 import ej.widget.container.LayoutOrientation;
 import ej.widget.container.SimpleDock;
@@ -47,8 +49,11 @@ public class SliderWithValuePage implements Page {
 		style.setExtraInt(SliderWithValue.BAR_COLOR_ID, 0x97A7AF);
 		style.setExtraInt(SliderWithValue.CURSOR_EDGE_ID, 0xEE502E);
 		style.setExtraInt(SliderWithValue.CURSOR_BACKGROUND_ID, Colors.BLACK);
-		style.setExtraInt(SliderWithValue.CURSOR_PRESSED_BACKGROUND_ID, 0xAB3A22);
 		style.setVerticalAlignment(Alignment.VCENTER);
+
+		style = stylesheet.getSelectorStyle(
+				new AndCombinator(new TypeSelector(SliderWithValue.class), new StateSelector(StateSelector.ACTIVE)));
+		style.setExtraInt(SliderWithValue.CURSOR_BACKGROUND_ID, 0xAB3A22);
 
 		// left limit
 		style = stylesheet.getSelectorStyle(new ClassSelector(LEFT_LIMIT));

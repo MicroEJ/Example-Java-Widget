@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2025 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.button;
@@ -57,7 +57,7 @@ public class ButtonPage implements Page {
 		Selector rectButton = new ClassSelector(RECT_BUTTON);
 		Selector roundedButton = new ClassSelector(ROUNDED_BUTTON);
 		Selector imageButton = new ClassSelector(IMAGE_BUTTON);
-		Selector activeSelector = new StateSelector(Button.ACTIVE);
+		Selector activeSelector = new StateSelector(StateSelector.ACTIVE);
 
 		// all buttons
 		EditableStyle style = stylesheet.getSelectorStyle(new TypeSelector(Button.class));

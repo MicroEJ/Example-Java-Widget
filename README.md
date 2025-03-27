@@ -87,11 +87,20 @@ Refer to the [Select a VEE Port](https://docs.microej.com/en/latest/SDK6UserGuid
 
 Configuration options can be found in: `configuration/common.properties`.
 
-- Make sure the configuration option `ej.microui.memory.imagesheap.size` is set to `24000` and `ej.microui.memory.imagesheap.size` is set to `42000`.
+The example is configured to run on a Mono-Sandbox VEE Port:
+
+- The Java heap (`core.memory.javaheap.size`) should be increased on a Multi-Sandbox VEE Port.
+- In the same way, the number of threads (`core.memory.thread.max.size`, `core.memory.threads.pool.size`, `core.memory.threads.size`) should be increased.
+
+The example is optimized for a WQVA (480x272) display with 16 bpp pixel format:
+
+- The required [image heap](https://docs.microej.com/en/latest/ApplicationDeveloperGuide/UI/MicroUI/images.html#images-heap) should be adjusted according to the VEE Port used to run the sample.
+- The scrollable pages may not scroll if their content is not large enough for the display size.
 
 ## Run on simulator
 
 In IntelliJ IDEA or Android Studio:
+
 - Open the Gradle tool window by clicking on the elephant icon on the right side,
 - Expand the `Tasks` list,
 - From the `Tasks` list, expand the `microej` list,
@@ -106,6 +115,7 @@ Make sure to properly setup the VEE Port environment before going further.
 Refer to the VEE Port README for more information.
 
 In IntelliJ IDEA or Android Studio:
+
 - Open the Gradle tool window by clicking on the elephant on the right side,
 - Expand the `Tasks` list,
 - From the `Tasks` list, expand the `microej` list,

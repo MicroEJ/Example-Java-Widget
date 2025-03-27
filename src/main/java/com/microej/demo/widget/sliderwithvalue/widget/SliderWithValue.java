@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2024 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2025 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.sliderwithvalue.widget;
@@ -17,6 +17,7 @@ import ej.microui.event.generator.Buttons;
 import ej.microui.event.generator.Pointer;
 import ej.mwt.Widget;
 import ej.mwt.style.Style;
+import ej.mwt.stylesheet.selector.StateSelector;
 import ej.mwt.util.Alignment;
 import ej.mwt.util.Rectangle;
 import ej.mwt.util.Size;
@@ -35,10 +36,6 @@ public class SliderWithValue extends Widget implements EventHandler {
 	 * Cursor filling color id.
 	 */
 	public static final int CURSOR_BACKGROUND_ID = 2;
-	/**
-	 * Cursor filling when pressed color id.
-	 */
-	public static final int CURSOR_PRESSED_BACKGROUND_ID = 3;
 	/**
 	 * Bar color id.
 	 */
@@ -87,17 +84,15 @@ public class SliderWithValue extends Widget implements EventHandler {
 	protected void renderContent(GraphicsContext g, int contentWidth, int contentHeight) {
 		Style style = getStyle();
 
-		int sliderSize = getSize(style);
+		int sliderSize = getDiameter(style);
 		int halfSliderSize = (sliderSize >> 1);
 
-		// The size of the bar considers the size of the cursor (room left on both sides).
-		int diameter = getDiameter(style);
 		int verticalAlignment = style.getVerticalAlignment();
 		int yTop = Alignment.computeTopY(sliderSize, 0, contentHeight, verticalAlignment);
 		int barY = yTop + halfSliderSize;
 		int barStartX = halfSliderSize;
 		int barWidth = contentWidth - sliderSize;
-		int sliderWidth = barWidth - diameter;
+		int sliderWidth = barWidth - sliderSize;
 
 		// Draw the bar (for begin and end symbols see the SliderWithValuePage class).
 		drawBar(g, style, contentWidth, barY);
@@ -196,12 +191,19 @@ public class SliderWithValue extends Widget implements EventHandler {
 
 	private void onPointerReleased() {
 		this.pressed = false;
+		updateStyle();
 		requestRender();
 	}
 
 	private void onPointerPressed() {
 		this.pressed = true;
+		updateStyle();
 		requestRender();
+	}
+
+	@Override
+	public boolean isInState(final int state) {
+		return (state == StateSelector.ACTIVE && this.pressed) || super.isInState(state);
 	}
 
 	void updateValue(int increment) {
@@ -265,10 +267,6 @@ public class SliderWithValue extends Widget implements EventHandler {
 	}
 
 	private int getCursorBackgroundColor(Style style) {
-		if (this.pressed) {
-			return style.getExtraInt(CURSOR_PRESSED_BACKGROUND_ID, DEFAULT_CURSOR_EDGE);
-		} else {
-			return style.getExtraInt(CURSOR_BACKGROUND_ID, Colors.BLACK);
-		}
+		return style.getExtraInt(CURSOR_BACKGROUND_ID, Colors.BLACK);
 	}
 }

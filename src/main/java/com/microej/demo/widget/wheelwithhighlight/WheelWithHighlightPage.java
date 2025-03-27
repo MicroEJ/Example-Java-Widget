@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2021-2025 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.wheelwithhighlight;
@@ -34,14 +34,14 @@ public class WheelWithHighlightPage implements Page {
 
 	private static final int DATE_PICKER_MARGIN = 16;
 
-	private static final int DEFAULT_YEAR = 2017;
-	private static final int DEFAULT_MONTH = 11;
-	private static final int DEFAULT_DAY = 25;
+	private static final int DEFAULT_YEAR = 2025;
+	private static final int DEFAULT_MONTH = 12;
+	private static final int DEFAULT_DAY = 13;
 
 	private static final int MIN_DAY = 1;
 	private static final int MAX_DAY = 31;
-	private static final int MIN_YEAR = 2000;
-	private static final int MAX_YEAR = 2025;
+	private static final int MIN_YEAR = 2010;
+	private static final int MAX_YEAR = 2035;
 
 	@Override
 	public String getName() {

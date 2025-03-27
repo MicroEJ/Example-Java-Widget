@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2023 MicroEJ Corp. All rights reserved.
+ * Copyright 2020-2025 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.common;
@@ -95,7 +95,7 @@ public class PageHelper {
 		style.setPadding(new UniformOutline(TITLE_BUTTON_PADDING));
 		style.setBorder(new FlexibleRectangularBorder(DemoColors.POMEGRANATE, 0, 0, 2, 0));
 
-		style = stylesheet.getSelectorStyle(new AndCombinator(titleButton, new StateSelector(ImageButton.ACTIVE)));
+		style = stylesheet.getSelectorStyle(new AndCombinator(titleButton, new StateSelector(StateSelector.ACTIVE)));
 		style.setBackground(new RectangularBackground(0xcf4520));
 
 		style = stylesheet.getSelectorStyle(new ClassSelector(BANNER_CLASSSELECTOR));

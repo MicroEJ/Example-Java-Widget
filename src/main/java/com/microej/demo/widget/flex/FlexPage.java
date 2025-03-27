@@ -1,7 +1,7 @@
 /*
  * Java
  *
- * Copyright 2023-2024 MicroEJ Corp. All rights reserved.
+ * Copyright 2023-2025 MicroEJ Corp. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 package com.microej.demo.widget.flex;
@@ -253,7 +253,7 @@ public class FlexPage implements Page {
 
 		// widget count button ON ACTIVE
 		style = stylesheet.getSelectorStyle(
-				new AndCombinator(new ClassSelector(WIDGET_COUNT_BUTTON), new StateSelector(Button.ACTIVE)));
+				new AndCombinator(new ClassSelector(WIDGET_COUNT_BUTTON), new StateSelector(StateSelector.ACTIVE)));
 		style.setBackground(orangeRectangularBackground);
 
 		// flex option button ON SELECTED

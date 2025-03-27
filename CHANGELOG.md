@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.1.1] - 2025-03-27
+
+### Changed
+
+- Update Gradle plug-in to `1.1.0`.
+- Update widgets to use StateSelector constants
+
+### Fixed
+
+- Update README about the tested configuration (display and memory).
+- Fixed SliderWithValue not fully displaying whilst in a dock
+
 ## [8.1.0] - 2024-07-01
 
 ### Added
@@ -253,5 +265,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 _Markdown_  
-_Copyright 2016-2024 MicroEJ Corp. All rights reserved._  
+_Copyright 2016-2025 MicroEJ Corp. All rights reserved._  
 _Use of this source code is governed by a BSD-style license that can be found with this software._  

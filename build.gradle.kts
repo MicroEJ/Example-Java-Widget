@@ -6,27 +6,27 @@
  */
 
 plugins {
-	id("com.microej.gradle.application") version "1.1.0"
+	id("com.microej.gradle.application") version libs.versions.microej.sdk
 }
 
 group = "com.microej.example.ui"
-version = "8.1.1"
+version = "8.1.2"
 
 microej {
 	applicationEntryPoint = "com.microej.demo.widget.common.Navigation"
 }
 
 dependencies {
-	implementation("ej.api:edc:1.3.5")
-	implementation("ej.api:microui:3.1.0")
-	implementation("ej.api:drawing:1.0.2")
-	implementation("ej.library.ui:widget:5.3.1")
-	implementation("ej.library.runtime:basictool:1.5.0")
-	implementation("ej.library.runtime:service:1.1.1")
-	implementation("ej.library.eclasspath:collections:1.4.0")
-	implementation("ej.library.eclasspath:stringtokenizer:1.2.0")
+	implementation(libs.api.edc)
+	implementation(libs.api.microui)
+	implementation(libs.api.drawing)
+	implementation(libs.library.widget)
+	implementation(libs.library.basictool)
+	implementation(libs.library.service)
+	implementation(libs.library.collections)
+	implementation(libs.library.stringtokenizer)
 
-	microejVee("com.microej.veeport.st.stm32f7508-dk:M5QNX_eval:2.2.0")
+	microejVee(libs.vee.port.st.stm32f7508)
 }
 
 tasks.withType<Javadoc> {
@@ -40,12 +40,12 @@ testing {
 
 			dependencies {
 				implementation(project())
-				implementation("ej.api:edc:1.3.5")
-				implementation("ej.api:microui:3.1.0")
-				implementation("ej.api:drawing:1.0.2")
-				implementation("ej.library.test:junit:1.7.1")
-				implementation("ej.library.runtime:basictool:1.5.0")
-				implementation("org.junit.platform:junit-platform-launcher:1.8.2")
+				implementation(libs.api.edc)
+				implementation(libs.api.microui)
+				implementation(libs.api.drawing)
+				implementation(libs.library.basictool)
+				implementation(libs.junit)
+				implementation(libs.junit.platform)
 			}
 		}
 	}
